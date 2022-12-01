@@ -13,10 +13,14 @@ class CalorieCounting {
     }
 
     fun createElves(items: List<Int>): List<Elf> {
-        val elves = mutableListOf(Elf())
+        var currentElf = Elf()
+        val elves = mutableListOf(currentElf)
         for (item in items) {
             if (item == 0) {
-                elves.add(Elf())
+                currentElf = Elf()
+                elves.add(currentElf)
+            } else {
+                currentElf.add(item)
             }
         }
         return elves.toList()

@@ -17,7 +17,7 @@ class Day01CalorieCountingTest {
     }
 
     @Test
-    internal fun createElves() {
+    fun createElves() {
         // arrange
         val path = Path("src", "test", "resources", "Day01_TestData.txt")
         val items = CalorieCounting().loadData(path)
@@ -30,7 +30,7 @@ class Day01CalorieCountingTest {
     }
 
     @Test
-    internal fun addFoodToElf() {
+    fun addFoodToElf() {
         // arrange
         val elf = Elf()
 
@@ -39,6 +39,24 @@ class Day01CalorieCountingTest {
 
         // assert
         assertThat(elf.backpack).hasSize(1)
+    }
+
+    @Test
+    fun createElvesWithFood() {
+        // arrange
+        val path = Path("src", "test", "resources", "Day01_TestData.txt")
+        val items = CalorieCounting().loadData(path)
+
+        // act
+        val elves = CalorieCounting().createElves(items)
+
+        // assert
+        assertThat(elves[0].backpack).hasSize(3)
+        assertThat(elves[1].backpack).hasSize(1)
+        assertThat(elves[2].backpack).hasSize(2)
+        assertThat(elves[3].backpack).hasSize(3)
+        assertThat(elves[4].backpack).hasSize(1)
 
     }
+
 }
