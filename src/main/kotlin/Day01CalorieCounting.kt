@@ -28,6 +28,8 @@ class CalorieCounting {
     }
 
     fun maxCalories(elves: List<Elf>): Int = elves.maxOf { it.sumUpCalories() }
+
+    fun top3Calories(elves: List<Elf>): Int = elves.sortedBy { it.sumUpCalories() }.takeLast(3).sumOf { it.sumUpCalories() }
 }
 
 class Elf {
@@ -39,6 +41,8 @@ class Elf {
 
     fun sumUpCalories(): Int = backpack.sum()
 
+    override fun toString(): String = sumUpCalories().toString()
+
 }
 
 fun main() {
@@ -46,9 +50,17 @@ fun main() {
     val path = Path("src", "main", "resources", "Day01_Part1_InputData.txt")
     val items = CalorieCounting().loadData(path)
     val elves = CalorieCounting().createElves(items)
+    part1(elves)
+    part2(elves)
+}
 
-    // act
+private fun part1(elves: List<Elf>) {
+
     val maxCalories = CalorieCounting().maxCalories(elves)
-    println("maxCalories = $maxCalories")
+    println("part 1 maxCalories = $maxCalories")
+}
 
+private fun part2(elves: List<Elf>) {
+    val top3Calories = CalorieCounting().top3Calories(elves)
+    println("part 2 top3Calories = $top3Calories")
 }

@@ -61,6 +61,21 @@ class Day01CalorieCountingTest {
     }
 
     @Test
+    fun top3Calories() {
+        // arrange
+        val path = Path("src", "test", "resources", "Day01_TestData.txt")
+        val items = CalorieCounting().loadData(path)
+        val elves = CalorieCounting().createElves(items)
+
+        // act
+        val top3Calories = CalorieCounting().top3Calories(elves)
+
+        // assert
+        assertThat(top3Calories).isEqualTo(45000)
+
+    }
+
+    @Test
     fun addFoodToElf() {
         // arrange
         val elf = Elf()
