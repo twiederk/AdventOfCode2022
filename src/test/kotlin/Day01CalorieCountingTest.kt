@@ -46,6 +46,19 @@ class Day01CalorieCountingTest {
         assertThat(elves[4].backpack).hasSize(1)
     }
 
+    @Test
+    fun maxCalories() {
+        // arrange
+        val path = Path("src", "test", "resources", "Day01_TestData.txt")
+        val items = CalorieCounting().loadData(path)
+        val elves = CalorieCounting().createElves(items)
+
+        // act
+        val maxCalories = CalorieCounting().maxCalories(elves)
+
+        // assert
+        assertThat(maxCalories).isEqualTo(24000)
+    }
 
     @Test
     fun addFoodToElf() {

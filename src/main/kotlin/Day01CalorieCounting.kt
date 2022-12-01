@@ -25,6 +25,10 @@ class CalorieCounting {
         }
         return elves.toList()
     }
+
+    fun maxCalories(elves: List<Elf>): Int {
+        return elves.maxOf { it.sumUpCalories() }
+    }
 }
 
 class Elf {
