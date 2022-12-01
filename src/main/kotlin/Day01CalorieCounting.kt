@@ -1,4 +1,5 @@
 import java.nio.file.Path
+import kotlin.io.path.Path
 import kotlin.io.path.readLines
 
 class CalorieCounting {
@@ -41,5 +42,13 @@ class Elf {
 }
 
 fun main() {
+
+    val path = Path("src", "main", "resources", "Day01_Part1_InputData.txt")
+    val items = CalorieCounting().loadData(path)
+    val elves = CalorieCounting().createElves(items)
+
+    // act
+    val maxCalories = CalorieCounting().maxCalories(elves)
+    println("maxCalories = $maxCalories")
 
 }
