@@ -34,6 +34,10 @@ class Elf {
         backpack.add(food)
     }
 
+    fun sumUpCalories(): Int {
+        return backpack.sum()
+    }
+
 }
 
 
