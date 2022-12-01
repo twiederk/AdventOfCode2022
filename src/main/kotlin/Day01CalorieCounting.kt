@@ -11,16 +11,28 @@ class CalorieCounting {
         if (data.isBlank()) return 0
         return data.toInt()
     }
+
+    fun createElves(items: List<Int>): List<Elf> {
+        val elves = mutableListOf(Elf())
+        for (item in items) {
+            if (item == 0) {
+                elves.add(Elf())
+            }
+        }
+        return elves.toList()
+    }
+}
+
+class Elf {
+    val backpack = mutableListOf<Int>()
+
+    fun add(food: Int) {
+        backpack.add(food)
+    }
+
 }
 
 
 fun main() {
-    fun part1(input: List<String>): Int {
-        return input.size
-    }
-
-    fun part2(input: List<String>): Int {
-        return input.size
-    }
 
 }
