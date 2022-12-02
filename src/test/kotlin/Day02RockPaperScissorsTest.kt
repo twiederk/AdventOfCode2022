@@ -184,7 +184,7 @@ class Day02RockPaperScissorsTest {
     fun decryptPart2_RockDraw_Rock() {
 
         // act
-        val handShape = RockPaperScissors().matchingHandShape(ROCK, DRAW)
+        val handShape = RockPaperScissors().matchingHandShape(ROCK, 'Y')
 
         // assert
         assertThat(handShape).isEqualTo(ROCK)
@@ -194,7 +194,7 @@ class Day02RockPaperScissorsTest {
     fun decryptPart2_PaperLost_Rock() {
 
         // act
-        val handShape = RockPaperScissors().matchingHandShape(PAPER, LOST)
+        val handShape = RockPaperScissors().matchingHandShape(PAPER, 'X')
 
         // assert
         assertThat(handShape).isEqualTo(ROCK)
@@ -204,7 +204,7 @@ class Day02RockPaperScissorsTest {
     fun decryptPart2_ScissorWon_Scissor() {
 
         // act
-        val handShape = RockPaperScissors().matchingHandShape(SCISSOR, WON)
+        val handShape = RockPaperScissors().matchingHandShape(SCISSOR, 'Z')
 
         // assert
         assertThat(handShape).isEqualTo(ROCK)

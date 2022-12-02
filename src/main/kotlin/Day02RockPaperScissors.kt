@@ -103,22 +103,25 @@ class RockPaperScissors {
         return path.readLines()
     }
 
-    fun matchingHandShape(handShape: HandShape, result: Result): HandShape {
+    fun matchingHandShape(handShape: HandShape, result: Char): HandShape {
         when (handShape) {
             ROCK -> return when (result) {
-                LOST -> SCISSOR
-                DRAW -> ROCK
-                WON -> PAPER
+                'X' -> SCISSOR
+                'Y' -> ROCK
+                'Z' -> PAPER
+                else -> throw java.lang.IllegalArgumentException("Unknown result: [$result]")
             }
             PAPER -> return when (result) {
-                LOST -> ROCK
-                DRAW -> PAPER
-                WON -> SCISSOR
+                'X' -> ROCK
+                'Y' -> PAPER
+                'Z' -> SCISSOR
+                else -> throw java.lang.IllegalArgumentException("Unknown result: [$result]")
             }
             SCISSOR -> return when (result) {
-                LOST -> PAPER
-                DRAW -> SCISSOR
-                WON -> ROCK
+                'X' -> PAPER
+                'Y' -> SCISSOR
+                'Z' -> ROCK
+                else -> throw java.lang.IllegalArgumentException("Unknown result: [$result]")
             }
         }
     }
