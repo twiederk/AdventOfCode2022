@@ -103,6 +103,26 @@ class RockPaperScissors {
         return path.readLines()
     }
 
+    fun matchingHandShape(handShape: HandShape, result: Result): HandShape {
+        when (handShape) {
+            ROCK -> return when (result) {
+                LOST -> SCISSOR
+                DRAW -> ROCK
+                WON -> PAPER
+            }
+            PAPER -> return when (result) {
+                LOST -> ROCK
+                DRAW -> PAPER
+                WON -> SCISSOR
+            }
+            SCISSOR -> return when (result) {
+                LOST -> PAPER
+                DRAW -> SCISSOR
+                WON -> ROCK
+            }
+        }
+    }
+
 }
 
 enum class Result {

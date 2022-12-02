@@ -1,3 +1,5 @@
+import HandShape.*
+import Result.*
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import kotlin.io.path.Path
@@ -8,7 +10,7 @@ class Day02RockPaperScissorsTest {
     fun calculateScore_WonPaper_8() {
 
         // act
-        val score = RockPaperScissors().calculateScore(Result.WON, HandShape.PAPER)
+        val score = RockPaperScissors().calculateScore(WON, PAPER)
 
         // assert
         assertThat(score).isEqualTo(8)
@@ -18,7 +20,7 @@ class Day02RockPaperScissorsTest {
     fun calculateScore_LostRock_1() {
 
         // act
-        val score = RockPaperScissors().calculateScore(Result.LOST, HandShape.ROCK)
+        val score = RockPaperScissors().calculateScore(LOST, ROCK)
 
         // assert
         assertThat(score).isEqualTo(1)
@@ -28,7 +30,7 @@ class Day02RockPaperScissorsTest {
     fun calculateScore_DrawScissors_6() {
 
         // act
-        val score = RockPaperScissors().calculateScore(Result.DRAW, HandShape.SCISSOR)
+        val score = RockPaperScissors().calculateScore(DRAW, SCISSOR)
 
         // assert
         assertThat(score).isEqualTo(6)
@@ -39,10 +41,10 @@ class Day02RockPaperScissorsTest {
         // arrange
 
         // act
-        val result = RockPaperScissors().calculateResult(HandShape.ROCK, HandShape.SCISSOR)
+        val result = RockPaperScissors().calculateResult(ROCK, SCISSOR)
 
         // assert
-        assertThat(result).isEqualTo(Result.LOST)
+        assertThat(result).isEqualTo(LOST)
     }
 
     @Test
@@ -50,10 +52,10 @@ class Day02RockPaperScissorsTest {
         // arrange
 
         // act
-        val result = RockPaperScissors().calculateResult(HandShape.SCISSOR, HandShape.PAPER)
+        val result = RockPaperScissors().calculateResult(SCISSOR, PAPER)
 
         // assert
-        assertThat(result).isEqualTo(Result.LOST)
+        assertThat(result).isEqualTo(LOST)
     }
 
     @Test
@@ -61,10 +63,10 @@ class Day02RockPaperScissorsTest {
         // arrange
 
         // act
-        val result = RockPaperScissors().calculateResult(HandShape.PAPER, HandShape.ROCK)
+        val result = RockPaperScissors().calculateResult(PAPER, ROCK)
 
         // assert
-        assertThat(result).isEqualTo(Result.LOST)
+        assertThat(result).isEqualTo(LOST)
     }
 
     @Test
@@ -72,10 +74,10 @@ class Day02RockPaperScissorsTest {
         // arrange
 
         // act
-        val result = RockPaperScissors().calculateResult(HandShape.SCISSOR, HandShape.ROCK)
+        val result = RockPaperScissors().calculateResult(SCISSOR, ROCK)
 
         // assert
-        assertThat(result).isEqualTo(Result.WON)
+        assertThat(result).isEqualTo(WON)
     }
 
     @Test
@@ -83,10 +85,10 @@ class Day02RockPaperScissorsTest {
         // arrange
 
         // act
-        val result = RockPaperScissors().calculateResult(HandShape.PAPER, HandShape.SCISSOR)
+        val result = RockPaperScissors().calculateResult(PAPER, SCISSOR)
 
         // assert
-        assertThat(result).isEqualTo(Result.WON)
+        assertThat(result).isEqualTo(WON)
     }
 
     @Test
@@ -94,10 +96,10 @@ class Day02RockPaperScissorsTest {
         // arrange
 
         // act
-        val result = RockPaperScissors().calculateResult(HandShape.ROCK, HandShape.PAPER)
+        val result = RockPaperScissors().calculateResult(ROCK, PAPER)
 
         // assert
-        assertThat(result).isEqualTo(Result.WON)
+        assertThat(result).isEqualTo(WON)
     }
 
     @Test
@@ -105,10 +107,10 @@ class Day02RockPaperScissorsTest {
         // arrange
 
         // act
-        val result = RockPaperScissors().calculateResult(HandShape.ROCK, HandShape.ROCK)
+        val result = RockPaperScissors().calculateResult(ROCK, ROCK)
 
         // assert
-        assertThat(result).isEqualTo(Result.DRAW)
+        assertThat(result).isEqualTo(DRAW)
     }
 
     @Test
@@ -116,10 +118,10 @@ class Day02RockPaperScissorsTest {
         // arrange
 
         // act
-        val result = RockPaperScissors().calculateResult(HandShape.PAPER, HandShape.PAPER)
+        val result = RockPaperScissors().calculateResult(PAPER, PAPER)
 
         // assert
-        assertThat(result).isEqualTo(Result.DRAW)
+        assertThat(result).isEqualTo(DRAW)
     }
 
     @Test
@@ -127,10 +129,10 @@ class Day02RockPaperScissorsTest {
         // arrange
 
         // act
-        val result = RockPaperScissors().calculateResult(HandShape.SCISSOR, HandShape.SCISSOR)
+        val result = RockPaperScissors().calculateResult(SCISSOR, SCISSOR)
 
         // assert
-        assertThat(result).isEqualTo(Result.DRAW)
+        assertThat(result).isEqualTo(DRAW)
     }
 
     @Test
@@ -144,9 +146,9 @@ class Day02RockPaperScissorsTest {
 
         // assert
         assertThat(gameInput).contains(
-            Pair(HandShape.ROCK, HandShape.PAPER),
-            Pair(HandShape.PAPER, HandShape.ROCK),
-            Pair(HandShape.SCISSOR, HandShape.SCISSOR)
+            Pair(ROCK, PAPER),
+            Pair(PAPER, ROCK),
+            Pair(SCISSOR, SCISSOR)
         )
 
     }
@@ -177,4 +179,36 @@ class Day02RockPaperScissorsTest {
         assertThat(encryptedData[1]).isEqualTo("B X")
         assertThat(encryptedData[2]).isEqualTo("C Z")
     }
+
+    @Test
+    fun decryptPart2_RockDraw_Rock() {
+
+        // act
+        val handShape = RockPaperScissors().matchingHandShape(ROCK, DRAW)
+
+        // assert
+        assertThat(handShape).isEqualTo(ROCK)
+    }
+
+    @Test
+    fun decryptPart2_PaperLost_Rock() {
+
+        // act
+        val handShape = RockPaperScissors().matchingHandShape(PAPER, LOST)
+
+        // assert
+        assertThat(handShape).isEqualTo(ROCK)
+    }
+
+    @Test
+    fun decryptPart2_ScissorWon_Scissor() {
+
+        // act
+        val handShape = RockPaperScissors().matchingHandShape(SCISSOR, WON)
+
+        // assert
+        assertThat(handShape).isEqualTo(ROCK)
+    }
+
+
 }
