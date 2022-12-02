@@ -1,5 +1,7 @@
 import HandShape.*
 import Result.*
+import java.nio.file.Path
+import kotlin.io.path.readLines
 
 //A for Rock
 //B for Paper
@@ -92,6 +94,10 @@ class RockPaperScissors {
         return totalScore
     }
 
+    fun loadData(path: Path): List<String> {
+        return path.readLines()
+    }
+
 }
 
 enum class Result {
@@ -101,3 +107,4 @@ enum class Result {
 enum class HandShape {
     ROCK, PAPER, SCISSOR
 }
+

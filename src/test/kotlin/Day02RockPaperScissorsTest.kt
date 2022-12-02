@@ -1,5 +1,6 @@
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
+import kotlin.io.path.Path
 
 class Day02RockPaperScissorsTest {
 
@@ -160,5 +161,18 @@ class Day02RockPaperScissorsTest {
         // assert
         assertThat(score).isEqualTo(15)
 
+    }
+
+    @Test
+    fun loadData_exampleData_loadedAsString() {
+
+        // act
+        val encryptedData = RockPaperScissors().loadData(Path("src","test", "resources", "Day02_TestData.txt"))
+
+        // assert
+        assertThat(encryptedData).hasSize(3)
+        assertThat(encryptedData[0]).isEqualTo("A Y")
+        assertThat(encryptedData[1]).isEqualTo("B X")
+        assertThat(encryptedData[2]).isEqualTo("C Z")
     }
 }
