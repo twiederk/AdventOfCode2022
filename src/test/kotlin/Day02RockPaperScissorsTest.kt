@@ -142,7 +142,7 @@ class Day02RockPaperScissorsTest {
         val rockPaperScissors = RockPaperScissors()
 
         // act
-        val gameInput = rockPaperScissors.decryptInput(encryptedInput) { rockPaperScissors.decryptMe(it) }
+        val gameInput = rockPaperScissors.decryptInput(encryptedInput) { _, char -> rockPaperScissors.decryptMe(char) }
 
         // assert
         assertThat(gameInput).contains(
@@ -160,10 +160,24 @@ class Day02RockPaperScissorsTest {
         val rockPaperScissors = RockPaperScissors()
 
         // act
-        val score = RockPaperScissors().play(strategyGuide) { rockPaperScissors.decryptMe(it) }
+        val score = RockPaperScissors().play(strategyGuide) { _, char -> rockPaperScissors.decryptMe(char) }
 
         // assert
         assertThat(score).isEqualTo(15)
+
+    }
+
+    @Test
+    fun play_part2_scoreIs12() {
+        // arrange
+        val strategyGuide = listOf("A Y", "B X", "C Z")
+        val rockPaperScissors = RockPaperScissors()
+
+        // act
+        val score = RockPaperScissors().play(strategyGuide) { handShape, char ->  rockPaperScissors.matchingHandShape(handShape, char) }
+
+        // assert
+        assertThat(score).isEqualTo(12)
 
     }
 

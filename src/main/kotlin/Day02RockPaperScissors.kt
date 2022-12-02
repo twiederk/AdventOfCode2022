@@ -64,11 +64,11 @@ class RockPaperScissors {
         }
     }
 
-    fun decryptInput(encryptedInput: List<String>, decrypt: (Char) -> HandShape): List<Pair<HandShape, HandShape>> {
+    fun decryptInput(encryptedInput: List<String>, decrypt: (HandShape, Char) -> HandShape): List<Pair<HandShape, HandShape>> {
         val decryptedInput = mutableListOf<Pair<HandShape, HandShape>>()
         for (input in encryptedInput) {
             val opponentHand = decryptOpponent(input[0])
-            val myHand = decrypt(input[2])
+            val myHand = decrypt(opponentHand, input[2])
             decryptedInput.add(Pair(opponentHand, myHand))
         }
         return decryptedInput
@@ -88,7 +88,7 @@ class RockPaperScissors {
         else -> throw IllegalArgumentException("Unknown input: [$c]")
     }
 
-    fun play(strategyGuide: List<String>, decrypt: (Char) -> HandShape): Int {
+    fun play(strategyGuide: List<String>, decrypt: (HandShape, Char) -> HandShape): Int {
         var totalScore = 0
         val rounds = decryptInput(strategyGuide, decrypt)
         for (round in rounds) {
@@ -142,7 +142,7 @@ fun main() {
     val path = Path("src", "main", "resources", "Day02_Part1_InputData.txt")
     val rockPaperScissors = RockPaperScissors()
     val strategyGuide = rockPaperScissors.loadData(path)
-    val totalScore = rockPaperScissors.play(strategyGuide) { rockPaperScissors.decryptMe(it) }
+    val totalScore = rockPaperScissors.play(strategyGuide) { _, char -> rockPaperScissors.decryptMe(char) }
     println("totalScore = $totalScore")
 
 
