@@ -19,9 +19,13 @@ import kotlin.io.path.readLines
 //A Y =>
 //B X
 //C Z
-//
+
 //1 for Rock, 2 for Paper, and 3 for Scissors
 //0 if you lost, 3 if the round was a draw, and 6 if you won
+
+//X =>  lose
+//Y =>  draw
+//Z =>  win
 
 class RockPaperScissors {
 
@@ -60,11 +64,11 @@ class RockPaperScissors {
         }
     }
 
-    fun decryptInput(encryptedInput: List<String>): List<Pair<HandShape, HandShape>> {
+    fun decryptInput(encryptedInput: List<String>, decrypt: (Char) -> HandShape): List<Pair<HandShape, HandShape>> {
         val decryptedInput = mutableListOf<Pair<HandShape, HandShape>>()
         for (input in encryptedInput) {
             val opponentHand = decryptOpponent(input[0])
-            val myHand = decryptMe(input[2])
+            val myHand = decrypt(input[2])
             decryptedInput.add(Pair(opponentHand, myHand))
         }
         return decryptedInput
@@ -77,16 +81,16 @@ class RockPaperScissors {
         else -> throw IllegalArgumentException("Unknown input: [$c]")
     }
 
-    private fun decryptMe(c: Char): HandShape = when (c) {
+    fun decryptMe(c: Char): HandShape = when (c) {
         'X' -> ROCK
         'Y' -> PAPER
         'Z' -> SCISSOR
         else -> throw IllegalArgumentException("Unknown input: [$c]")
     }
 
-    fun play(strategyGuide: List<String>): Int {
+    fun play(strategyGuide: List<String>, decrypt: (Char) -> HandShape): Int {
         var totalScore = 0
-        val rounds = decryptInput(strategyGuide)
+        val rounds = decryptInput(strategyGuide, decrypt)
         for (round in rounds) {
             val result = calculateResult(round.first, round.second)
             val score = calculateScore(result, round.second)
@@ -115,7 +119,7 @@ fun main() {
     val path = Path("src", "main", "resources", "Day02_Part1_InputData.txt")
     val rockPaperScissors = RockPaperScissors()
     val strategyGuide = rockPaperScissors.loadData(path)
-    val totalScore = rockPaperScissors.play(strategyGuide)
+    val totalScore = rockPaperScissors.play(strategyGuide) { rockPaperScissors.decryptMe(it) }
     println("totalScore = $totalScore")
 
 

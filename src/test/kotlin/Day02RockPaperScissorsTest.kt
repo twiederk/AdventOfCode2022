@@ -137,9 +137,10 @@ class Day02RockPaperScissorsTest {
     fun decryptInput_sampleInput_decryptedData() {
         // arrange
         val encryptedInput = listOf("A Y", "B X", "C Z")
+        val rockPaperScissors = RockPaperScissors()
 
         // act
-        val gameInput = RockPaperScissors().decryptInput(encryptedInput)
+        val gameInput = rockPaperScissors.decryptInput(encryptedInput) { rockPaperScissors.decryptMe(it) }
 
         // assert
         assertThat(gameInput).contains(
@@ -154,9 +155,10 @@ class Day02RockPaperScissorsTest {
     fun play_exampleInput_scoreIs15() {
         // arrange
         val strategyGuide = listOf("A Y", "B X", "C Z")
+        val rockPaperScissors = RockPaperScissors()
 
         // act
-        val score = RockPaperScissors().play(strategyGuide)
+        val score = RockPaperScissors().play(strategyGuide) { rockPaperScissors.decryptMe(it) }
 
         // assert
         assertThat(score).isEqualTo(15)
@@ -167,7 +169,7 @@ class Day02RockPaperScissorsTest {
     fun loadData_exampleData_loadedAsString() {
 
         // act
-        val encryptedData = RockPaperScissors().loadData(Path("src","test", "resources", "Day02_TestData.txt"))
+        val encryptedData = RockPaperScissors().loadData(Path("src", "test", "resources", "Day02_TestData.txt"))
 
         // assert
         assertThat(encryptedData).hasSize(3)
