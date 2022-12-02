@@ -1,6 +1,7 @@
 import HandShape.*
 import Result.*
 import java.nio.file.Path
+import kotlin.io.path.Path
 import kotlin.io.path.readLines
 
 //A for Rock
@@ -108,3 +109,14 @@ enum class HandShape {
     ROCK, PAPER, SCISSOR
 }
 
+
+fun main() {
+
+    val path = Path("src", "main", "resources", "Day02_Part1_InputData.txt")
+    val rockPaperScissors = RockPaperScissors()
+    val strategyGuide = rockPaperScissors.loadData(path)
+    val totalScore = rockPaperScissors.play(strategyGuide)
+    println("totalScore = $totalScore")
+
+
+}
