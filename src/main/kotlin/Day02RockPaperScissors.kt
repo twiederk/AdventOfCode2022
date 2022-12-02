@@ -37,6 +37,26 @@ class RockPaperScissors {
         return score
     }
 
+    fun calculateResult(opponentHand: HandShape, myHand: HandShape): Result {
+        return when (opponentHand) {
+            ROCK -> when (myHand) {
+                ROCK -> return DRAW
+                PAPER -> return WON
+                SCISSOR -> return LOST
+            }
+            PAPER -> when (myHand) {
+                ROCK -> return LOST
+                PAPER -> return DRAW
+                SCISSOR -> return WON
+            }
+            SCISSOR -> when (myHand) {
+                ROCK -> return WON
+                PAPER -> return LOST
+                SCISSOR -> return DRAW
+            }
+        }
+    }
+
 }
 
 enum class Result {
