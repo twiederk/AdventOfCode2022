@@ -142,8 +142,10 @@ fun main() {
     val path = Path("src", "main", "resources", "Day02_Part1_InputData.txt")
     val rockPaperScissors = RockPaperScissors()
     val strategyGuide = rockPaperScissors.loadData(path)
-    val totalScore = rockPaperScissors.play(strategyGuide) { _, char -> rockPaperScissors.decryptMe(char) }
-    println("totalScore = $totalScore")
+    val totalScorePart1 = rockPaperScissors.play(strategyGuide) { _, char -> rockPaperScissors.decryptMe(char) }
+    println("totalScorePart1 = $totalScorePart1")
 
+    val totalScorePart2 = rockPaperScissors.play(strategyGuide) { handShape, char -> rockPaperScissors.matchingHandShape(handShape, char) }
+    println("totalScorePart2 = $totalScorePart2")
 
 }
