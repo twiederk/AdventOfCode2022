@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test
 class Day02RockPaperScissorsTest {
 
     @Test
-    fun calculateScore_WonPaper_Result8() {
+    fun calculateScore_WonPaper_8() {
 
         // act
         val score = RockPaperScissors().calculateScore(Result.WON, HandShape.PAPER)
@@ -67,7 +67,7 @@ class Day02RockPaperScissorsTest {
     }
 
     @Test
-    fun calculateResult_ScissorRock_WON() {
+    fun calculateResult_ScissorRock_Won() {
         // arrange
 
         // act
@@ -132,4 +132,33 @@ class Day02RockPaperScissorsTest {
         assertThat(result).isEqualTo(Result.DRAW)
     }
 
+    @Test
+    fun decryptInput_sampleInput_decryptedData() {
+        // arrange
+        val encryptedInput = listOf("A Y", "B X", "C Z")
+
+        // act
+        val gameInput = RockPaperScissors().decryptInput(encryptedInput)
+
+        // assert
+        assertThat(gameInput).contains(
+            Pair(HandShape.ROCK, HandShape.PAPER),
+            Pair(HandShape.PAPER, HandShape.ROCK),
+            Pair(HandShape.SCISSOR, HandShape.SCISSOR)
+        )
+
+    }
+
+    @Test
+    fun play_exampleInput_scoreIs15() {
+        // arrange
+        val strategyGuide = listOf("A Y", "B X", "C Z")
+
+        // act
+        val score = RockPaperScissors().play(strategyGuide)
+
+        // assert
+        assertThat(score).isEqualTo(15)
+
+    }
 }

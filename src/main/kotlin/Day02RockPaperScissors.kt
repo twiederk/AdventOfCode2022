@@ -57,6 +57,41 @@ class RockPaperScissors {
         }
     }
 
+    fun decryptInput(encryptedInput: List<String>): List<Pair<HandShape, HandShape>> {
+        val decryptedInput = mutableListOf<Pair<HandShape, HandShape>>()
+        for (input in encryptedInput) {
+            val opponentHand = decryptOpponent(input[0])
+            val myHand = decryptMe(input[2])
+            decryptedInput.add(Pair(opponentHand, myHand))
+        }
+        return decryptedInput
+    }
+
+    private fun decryptOpponent(c: Char): HandShape = when (c) {
+        'A' -> ROCK
+        'B' -> PAPER
+        'C' -> SCISSOR
+        else -> throw IllegalArgumentException("Unknown input: [$c]")
+    }
+
+    private fun decryptMe(c: Char): HandShape = when (c) {
+        'X' -> ROCK
+        'Y' -> PAPER
+        'Z' -> SCISSOR
+        else -> throw IllegalArgumentException("Unknown input: [$c]")
+    }
+
+    fun play(strategyGuide: List<String>): Int {
+        var totalScore = 0
+        val rounds = decryptInput(strategyGuide)
+        for (round in rounds) {
+            val result = calculateResult(round.first, round.second)
+            val score = calculateScore(result, round.second)
+            totalScore += score
+        }
+        return totalScore
+    }
+
 }
 
 enum class Result {
