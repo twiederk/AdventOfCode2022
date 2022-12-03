@@ -5,7 +5,24 @@ class RucksackReorganization {
     }
 
     fun findItem(allItems: String): Char {
-        return 'a'
+        val firstCompartment = getFirstCompartment(allItems)
+        val secondCompartment = getSecondCompartment(allItems)
+        for (item in firstCompartment) {
+            if (item in secondCompartment) {
+                return item
+            }
+        }
+        throw IllegalStateException("Can't find item")
+    }
+
+    fun getFirstCompartment(allItems: String): String {
+        val totalOfItems = allItems.length
+        return allItems.substring(0, totalOfItems / 2)
+    }
+
+    fun getSecondCompartment(allItems: String): String {
+        val totalOfItems = allItems.length
+        return allItems.substring(totalOfItems / 2)
     }
 
     private val priorityMap : Map<Char,Int> =

@@ -51,7 +51,7 @@ class RucksackReorganizationTest {
     }
 
     @Test
-    internal fun findItem() {
+    fun findItem() {
         // arrange
 
         // act
@@ -59,6 +59,28 @@ class RucksackReorganizationTest {
 
         // assert
         assertThat(item).isEqualTo('p')
+    }
+
+    @Test
+    fun getFirstCompartment() {
+        // arrange
+
+        // act
+        val firstCompartment = RucksackReorganization().getFirstCompartment("vJrwpWtwJgWrhcsFMMfFFhFp")
+
+        // assert
+        assertThat(firstCompartment).isEqualTo("vJrwpWtwJgWr")
+    }
+
+    @Test
+    fun getSecondCompartment() {
+        // arrange
+
+        // act
+        val secondCompartment = RucksackReorganization().getSecondCompartment("vJrwpWtwJgWrhcsFMMfFFhFp")
+
+        // assert
+        assertThat(secondCompartment).isEqualTo("hcsFMMfFFhFp")
     }
 
 }
