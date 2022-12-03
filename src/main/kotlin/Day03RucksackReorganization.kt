@@ -1,3 +1,6 @@
+import java.nio.file.Path
+import kotlin.io.path.readLines
+
 class RucksackReorganization {
 
     fun calculatePriority(c: Char): Int {
@@ -23,6 +26,10 @@ class RucksackReorganization {
     fun getSecondCompartment(allItems: String): String {
         val totalOfItems = allItems.length
         return allItems.substring(totalOfItems / 2)
+    }
+
+    fun loadData(path: Path): List<String> {
+        return path.readLines()
     }
 
     private val priorityMap : Map<Char,Int> =

@@ -1,5 +1,6 @@
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
+import kotlin.io.path.Path
 
 //Lowercase item types a through z have priorities 1 through 26.
 //Uppercase item types A through Z have priorities 27 through 52.
@@ -81,6 +82,17 @@ class RucksackReorganizationTest {
 
         // assert
         assertThat(secondCompartment).isEqualTo("hcsFMMfFFhFp")
+    }
+
+    @Test
+    fun loadData() {
+        // arrange
+
+        // act
+        val data = RucksackReorganization().loadData(Path("src", "test", "resources", "Day03_TestData.txt"))
+
+        // assert
+        assertThat(data).hasSize(6)
     }
 
 }
