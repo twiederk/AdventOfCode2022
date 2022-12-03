@@ -1,4 +1,5 @@
 import java.nio.file.Path
+import kotlin.io.path.Path
 import kotlin.io.path.readLines
 
 class RucksackReorganization {
@@ -95,5 +96,13 @@ class RucksackReorganization {
             'X' to 50,
             'Y' to 51,
             'Z' to 52)
+
+}
+
+fun main() {
+
+    val rucksack = RucksackReorganization().loadRucksack(Path("src", "main", "resources", "Day03_Part1_InputData.txt"))
+    val sumOfPriorities = RucksackReorganization().reorganize(rucksack)
+    println("sumOfPriorities = $sumOfPriorities")
 
 }
