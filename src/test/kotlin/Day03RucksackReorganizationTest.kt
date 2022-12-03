@@ -137,4 +137,16 @@ class RucksackReorganizationTest {
         assertThat(items).isEqualTo("rsFMf")
     }
 
+    @Test
+    internal fun reorganizeGroups() {
+        // arrange
+        val rucksack = RucksackReorganization().loadRucksack(Path("src", "test", "resources", "Day03_TestData.txt"))
+
+        // act
+        val sumOfBadges = RucksackReorganization().organizeBadges(rucksack)
+
+        // assert
+        assertThat(sumOfBadges).isEqualTo(70)
+
+    }
 }

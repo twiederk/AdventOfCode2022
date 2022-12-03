@@ -61,6 +61,16 @@ class RucksackReorganization {
         return badges.toCharArray().distinct().joinToString(separator = "")
     }
 
+    fun organizeBadges(rucksack: List<String>): Int {
+        val groups = rucksack.chunked(3)
+        var sumOfBadges = 0
+        for (group in groups) {
+            val badge = findBadge(group)
+            sumOfBadges += calculatePriority(badge)
+        }
+        return sumOfBadges
+    }
+
     private val priorityMap : Map<Char,Int> =
         mapOf(
             'a' to 1,
