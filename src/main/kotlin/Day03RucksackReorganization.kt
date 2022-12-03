@@ -134,4 +134,7 @@ fun main() {
     val sumOfPriorities = RucksackReorganization().reorganize(rucksack)
     println("sumOfPriorities = $sumOfPriorities")
 
+    val sumOfBadges = RucksackReorganization().organizeBadges(rucksack)
+    println("sumOfBadges = $sumOfBadges")
+
 }
