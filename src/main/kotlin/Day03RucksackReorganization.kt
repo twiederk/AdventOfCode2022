@@ -42,6 +42,25 @@ class RucksackReorganization {
         return sumOfPriorities
     }
 
+    fun findBadge(group: List<String>): Char {
+        val rucksack1 = group[0]
+        val rucksack2 = group[1]
+        val rucksack3 = group[2]
+        val badges1 = itemsInBothRucksacks(rucksack1, rucksack2)
+        val badges2 = itemsInBothRucksacks(badges1, rucksack3)
+        return badges2[0]
+    }
+
+    fun itemsInBothRucksacks(rucksack1: String, rucksack2: String): String {
+        var badges = ""
+        for (item in rucksack1) {
+            if (item in rucksack2) {
+                badges += item
+            }
+        }
+        return badges.toCharArray().distinct().joinToString(separator = "")
+    }
+
     private val priorityMap : Map<Char,Int> =
         mapOf(
             'a' to 1,

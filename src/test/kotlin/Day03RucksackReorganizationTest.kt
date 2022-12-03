@@ -96,7 +96,7 @@ class RucksackReorganizationTest {
     }
 
     @Test
-    internal fun reorganize() {
+    fun reorganize() {
         // arrange
         val rucksack = RucksackReorganization().loadRucksack(Path("src", "test", "resources", "Day03_TestData.txt"))
 
@@ -107,4 +107,34 @@ class RucksackReorganizationTest {
         assertThat(sumOfPriorities).isEqualTo(157)
 
     }
+
+    @Test
+    fun findBadge() {
+        // arrange
+        val group = listOf(
+            "vJrwpWtwJgWrhcsFMMfFFhFp",
+            "jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL",
+            "PmmdzqPrVvPwwTWBwg"
+        )
+
+        // act
+        val badge = RucksackReorganization().findBadge(group)
+
+        // assert
+        assertThat(badge).isEqualTo('r')
+    }
+
+    @Test
+    internal fun itemsInBothRucksacks() {
+        // arrange
+        val rucksack1 = "vJrwpWtwJgWrhcsFMMfFFhFp"
+        val rucksack2 = "jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL"
+
+        // act
+        val items = RucksackReorganization().itemsInBothRucksacks(rucksack1, rucksack2)
+
+        // assert
+        assertThat(items).isEqualTo("rsFMf")
+    }
+
 }
