@@ -4,6 +4,10 @@ class RucksackReorganization {
         return priorityMap.getValue(c)
     }
 
+    fun findItem(allItems: String): Char {
+        return 'a'
+    }
+
     private val priorityMap : Map<Char,Int> =
         mapOf(
             'a' to 1,

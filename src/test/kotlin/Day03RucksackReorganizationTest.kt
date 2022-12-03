@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test
 class RucksackReorganizationTest {
 
     @Test
-    internal fun calculatePriority_a_1() {
+    fun calculatePriority_a_1() {
         // arrange
 
         // act
@@ -18,7 +18,7 @@ class RucksackReorganizationTest {
     }
 
     @Test
-    internal fun calculatePriority_z_26() {
+    fun calculatePriority_z_26() {
         // arrange
 
         // act
@@ -29,7 +29,7 @@ class RucksackReorganizationTest {
     }
 
     @Test
-    internal fun calculatePriority_A_27() {
+    fun calculatePriority_A_27() {
         // arrange
 
         // act
@@ -40,7 +40,7 @@ class RucksackReorganizationTest {
     }
 
     @Test
-    internal fun calculatePriority_Z_52() {
+    fun calculatePriority_Z_52() {
         // arrange
 
         // act
@@ -48,6 +48,17 @@ class RucksackReorganizationTest {
 
         // assert
         assertThat(priority).isEqualTo(52)
+    }
+
+    @Test
+    internal fun findItem() {
+        // arrange
+
+        // act
+        val item = RucksackReorganization().findItem("vJrwpWtwJgWrhcsFMMfFFhFp")
+
+        // assert
+        assertThat(item).isEqualTo('p')
     }
 
 }
