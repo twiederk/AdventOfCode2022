@@ -28,8 +28,17 @@ class RucksackReorganization {
         return allItems.substring(totalOfItems / 2)
     }
 
-    fun loadData(path: Path): List<String> {
+    fun loadRucksack(path: Path): List<String> {
         return path.readLines()
+    }
+
+    fun reorganize(allRucksacks: List<String>): Int {
+        var sumOfPriorities = 0
+        for (rucksack in allRucksacks) {
+            val item = findItem(rucksack)
+            sumOfPriorities += calculatePriority(item)
+        }
+        return sumOfPriorities
     }
 
     private val priorityMap : Map<Char,Int> =

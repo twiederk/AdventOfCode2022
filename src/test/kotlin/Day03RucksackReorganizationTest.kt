@@ -89,10 +89,22 @@ class RucksackReorganizationTest {
         // arrange
 
         // act
-        val data = RucksackReorganization().loadData(Path("src", "test", "resources", "Day03_TestData.txt"))
+        val rucksack = RucksackReorganization().loadRucksack(Path("src", "test", "resources", "Day03_TestData.txt"))
 
         // assert
-        assertThat(data).hasSize(6)
+        assertThat(rucksack).hasSize(6)
     }
 
+    @Test
+    internal fun reorganize() {
+        // arrange
+        val rucksack = RucksackReorganization().loadRucksack(Path("src", "test", "resources", "Day03_TestData.txt"))
+
+        // act
+        val sumOfPriorities = RucksackReorganization().reorganize(rucksack)
+
+        // assert
+        assertThat(sumOfPriorities).isEqualTo(157)
+
+    }
 }
