@@ -67,4 +67,7 @@ fun main() {
     val countSectionAssignments = CampCleanup().countSectionAssignments(sectionAssignments)
     println("countSectionAssignments = $countSectionAssignments")
 
+    val countOverlapSectionAssignments = CampCleanup().countOverlapSections(sectionAssignments)
+    println("countOverlapSectionAssignments = $countOverlapSectionAssignments")
+
 }
