@@ -17,4 +17,12 @@ class CampCleanup {
 
     fun loadData(path: Path): List<String> = path.readLines()
 
+    fun createSectionAssignments(rawData: List<String>): List<Pair<IntRange, IntRange>> {
+        val sectionAssignments = mutableListOf<Pair<IntRange,IntRange>>()
+        for (data in rawData) {
+            sectionAssignments.add(createRanges(data))
+        }
+        return sectionAssignments
+    }
+
 }

@@ -17,7 +17,6 @@ class CampCleanupTest {
 
     @Test
     internal fun createRanges() {
-        // arrange
 
         // act
         val ranges = CampCleanup().createRanges("2-4,6-8")
@@ -29,8 +28,6 @@ class CampCleanupTest {
 
     @Test
     internal fun loadData() {
-        // arrange
-
 
         // act
         val sectionAssignments = CampCleanup().loadData(Path("src", "test", "resources", "Day04_TestData.txt"))
@@ -39,4 +36,39 @@ class CampCleanupTest {
         assertThat(sectionAssignments).hasSize(6)
     }
 
+    @Test
+    internal fun createSectionAssignments() {
+        // arrange
+        val rawData = CampCleanup().loadData(Path("src", "test", "resources", "Day04_TestData.txt"))
+
+        // act
+        val sectionAssignments = CampCleanup().createSectionAssignments(rawData)
+
+        // assert
+        assertThat(sectionAssignments).hasSize(6)
+
+//        2-4,6-8
+//        2-3,4-5
+//        5-7,7-9
+//        2-8,3-7
+//        6-6,4-6
+//        2-6,4-8
+        assertThat(sectionAssignments[0].first).isEqualTo(2..4)
+        assertThat(sectionAssignments[0].second).isEqualTo(6..8)
+
+        assertThat(sectionAssignments[1].first).isEqualTo(2..3)
+        assertThat(sectionAssignments[1].second).isEqualTo(4..5)
+
+        assertThat(sectionAssignments[2].first).isEqualTo(5..7)
+        assertThat(sectionAssignments[2].second).isEqualTo(7..9)
+
+        assertThat(sectionAssignments[3].first).isEqualTo(2..8)
+        assertThat(sectionAssignments[3].second).isEqualTo(3..7)
+
+        assertThat(sectionAssignments[4].first).isEqualTo(6..6)
+        assertThat(sectionAssignments[4].second).isEqualTo(4..6)
+
+        assertThat(sectionAssignments[5].first).isEqualTo(2..6)
+        assertThat(sectionAssignments[5].second).isEqualTo(4..8)
+    }
 }
