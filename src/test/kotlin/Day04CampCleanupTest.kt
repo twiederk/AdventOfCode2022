@@ -71,4 +71,49 @@ class CampCleanupTest {
         assertThat(sectionAssignments[5].first).isEqualTo(2..6)
         assertThat(sectionAssignments[5].second).isEqualTo(4..8)
     }
+
+    @Test
+    internal fun containsRange_24And68_false() {
+        // arrange
+
+        // act
+        val containsRange = CampCleanup().containsRange(2..4, 6..8)
+
+        // assert
+        assertThat(containsRange).isFalse
+    }
+
+    @Test
+    internal fun containsRange_28And37_true() {
+        // arrange
+
+        // act
+        val containsRange = CampCleanup().containsRange(2..8, 3..7)
+
+        // assert
+        assertThat(containsRange).isTrue
+    }
+
+    @Test
+    internal fun containsRange_66And46_true() {
+        // arrange
+
+        // act
+        val containsRange = CampCleanup().containsRange(6..6, 4..6)
+
+        // assert
+        assertThat(containsRange).isTrue
+    }
+
+    @Test
+    internal fun containsRange_26And48_false() {
+        // arrange
+
+        // act
+        val containsRange = CampCleanup().containsRange(2..6, 4..8)
+
+        // assert
+        assertThat(containsRange).isFalse
+    }
+
 }

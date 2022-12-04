@@ -8,7 +8,7 @@ class CampCleanup {
         return IntRange(borders[0].toInt(), borders[1].toInt())
     }
 
-    fun createRanges(data: String): Pair<IntRange,IntRange> {
+    fun createRanges(data: String): Pair<IntRange, IntRange> {
         val ranges = data.split(",")
         val firstRange = createRange(ranges[0])
         val secondRange = createRange(ranges[1])
@@ -18,11 +18,18 @@ class CampCleanup {
     fun loadData(path: Path): List<String> = path.readLines()
 
     fun createSectionAssignments(rawData: List<String>): List<Pair<IntRange, IntRange>> {
-        val sectionAssignments = mutableListOf<Pair<IntRange,IntRange>>()
+        val sectionAssignments = mutableListOf<Pair<IntRange, IntRange>>()
         for (data in rawData) {
             sectionAssignments.add(createRanges(data))
         }
         return sectionAssignments
+    }
+
+    fun containsRange(firstRange: IntRange, secondRange: IntRange): Boolean {
+        if ((firstRange.first >= secondRange.first && firstRange.last <= secondRange.last)
+            || secondRange.first >= firstRange.first && secondRange.last <= firstRange.last
+        ) return true
+        return false
     }
 
 }
