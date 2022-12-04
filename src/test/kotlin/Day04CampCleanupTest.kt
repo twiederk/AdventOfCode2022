@@ -1,5 +1,6 @@
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
+import kotlin.io.path.Path
 
 class CampCleanupTest {
 
@@ -24,6 +25,18 @@ class CampCleanupTest {
         // assert
         assertThat(ranges.first).isEqualTo(2..4)
         assertThat(ranges.second).isEqualTo(6..8)
+    }
+
+    @Test
+    internal fun loadData() {
+        // arrange
+
+
+        // act
+        val sectionAssignments = CampCleanup().loadData(Path("src", "test", "resources", "Day04_TestData.txt"))
+
+        // assert
+        assertThat(sectionAssignments).hasSize(6)
     }
 
 }

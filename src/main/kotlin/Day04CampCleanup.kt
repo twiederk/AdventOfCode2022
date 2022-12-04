@@ -1,3 +1,6 @@
+import java.nio.file.Path
+import kotlin.io.path.readLines
+
 class CampCleanup {
 
     fun createRange(data: String): IntRange {
@@ -11,5 +14,7 @@ class CampCleanup {
         val secondRange = createRange(ranges[1])
         return Pair(firstRange, secondRange)
     }
+
+    fun loadData(path: Path): List<String> = path.readLines()
 
 }
