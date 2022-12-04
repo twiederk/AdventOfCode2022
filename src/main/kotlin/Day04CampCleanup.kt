@@ -43,6 +43,22 @@ class CampCleanup {
         return countSectionAssignments
     }
 
+    fun countOverlapSections(sectionAssignments: List<Pair<IntRange, IntRange>>): Int {
+        var countSectionAssignments = 0
+        for (sectionAssignment in sectionAssignments) {
+            if (CampCleanup().overlapRange(sectionAssignment.first, sectionAssignment.second)) {
+                countSectionAssignments++
+            }
+        }
+        return countSectionAssignments
+    }
+
+    fun overlapRange(firstRange: IntRange, secondRange: IntRange): Boolean {
+        if (firstRange.first in secondRange || firstRange.last in secondRange) return true
+        if (secondRange.first in firstRange || secondRange.last in firstRange) return true
+        return false
+    }
+
 }
 
 fun main() {

@@ -129,4 +129,30 @@ class CampCleanupTest {
         assertThat(countSectionAssignments).isEqualTo(2)
 
     }
+
+    @Test
+
+    internal fun countOverlapRange() {
+        // arrange
+        val rawData = CampCleanup().loadData(Path("src", "test", "resources", "Day04_TestData.txt"))
+        val sectionAssignments = CampCleanup().createSectionAssignments(rawData)
+
+        // act
+        val countOverlap = CampCleanup().countOverlapSections(sectionAssignments)
+
+        // assert
+        assertThat(countOverlap).isEqualTo(4)
+    }
+
+    @Test
+    internal fun overlapRange_57And79_true() {
+        // arrange
+
+        // act
+        val overlap = CampCleanup().overlapRange(5..7, 7..9)
+
+        // assert
+        assertThat(overlap).isTrue
+
+    }
 }
