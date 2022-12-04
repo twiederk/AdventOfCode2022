@@ -1,4 +1,5 @@
 import java.nio.file.Path
+import kotlin.io.path.Path
 import kotlin.io.path.readLines
 
 class CampCleanup {
@@ -41,5 +42,13 @@ class CampCleanup {
         }
         return countSectionAssignments
     }
+
+}
+
+fun main() {
+    val rawData = CampCleanup().loadData(Path("src", "main", "resources", "Day04_Part1_InputData.txt"))
+    val sectionAssignments = CampCleanup().createSectionAssignments(rawData)
+    val countSectionAssignments = CampCleanup().countSectionAssignments(sectionAssignments)
+    println("countSectionAssignments = $countSectionAssignments")
 
 }
