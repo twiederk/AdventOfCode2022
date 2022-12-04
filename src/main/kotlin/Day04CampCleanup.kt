@@ -32,4 +32,14 @@ class CampCleanup {
         return false
     }
 
+    fun countSectionAssignments(sectionAssignments: List<Pair<IntRange, IntRange>>): Int {
+        var countSectionAssignments = 0
+        for (sectionAssignment in sectionAssignments) {
+            if (CampCleanup().containsRange(sectionAssignment.first, sectionAssignment.second)) {
+                countSectionAssignments++
+            }
+        }
+        return countSectionAssignments
+    }
+
 }

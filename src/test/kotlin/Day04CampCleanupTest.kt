@@ -116,4 +116,17 @@ class CampCleanupTest {
         assertThat(containsRange).isFalse
     }
 
+    @Test
+    internal fun countSectionAssignments() {
+        // arrange
+        val rawData = CampCleanup().loadData(Path("src", "test", "resources", "Day04_TestData.txt"))
+        val sectionAssignments = CampCleanup().createSectionAssignments(rawData)
+
+        // act
+        val countSectionAssignments = CampCleanup().countSectionAssignments(sectionAssignments)
+
+        // assert
+        assertThat(countSectionAssignments).isEqualTo(2)
+
+    }
 }
