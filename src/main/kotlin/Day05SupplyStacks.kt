@@ -38,6 +38,12 @@ class SupplyStacks(
         }
     }
 
+    fun executeCommands(commands: List<Command>) {
+        for (command in commands) {
+            executeCommand(command)
+        }
+    }
+
 }
 
 data class Command(
