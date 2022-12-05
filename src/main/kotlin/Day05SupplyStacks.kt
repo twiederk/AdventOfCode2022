@@ -27,6 +27,17 @@ class SupplyStacks(
         return topCrates
     }
 
+//        [D]
+//    [N] [C]
+//    [Z] [M] [P]
+//     1   2   3
+    fun executeCommand(command: Command) {
+        for (i in 1..command.count) {
+            val crate = storage[command.source - 1].pop()
+            storage[command.destination - 1].push(crate)
+        }
+    }
+
 }
 
 data class Command(

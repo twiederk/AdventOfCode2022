@@ -1,8 +1,30 @@
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import java.util.*
 
 class SupplyStacksTest {
+
+    lateinit var storage: List<Stack<Char>>
+
+    @BeforeEach
+    fun beforeEach() {
+        // arrange
+        val stack1 = Stack<Char>()
+        stack1.push('Z')
+        stack1.push('N')
+
+        val stack2 = Stack<Char>()
+        stack2.push('M')
+        stack2.push('C')
+        stack2.push('D')
+
+        val stack3 = Stack<Char>()
+        stack3.push('P')
+
+        storage = listOf(stack1, stack2, stack3)
+
+    }
 
     @Test
     internal fun parseCommand_move1from2to1() {
@@ -47,26 +69,8 @@ class SupplyStacksTest {
         assertThat(commands).hasSize(4)
     }
 
-    //        [D]
-//    [N] [C]
-//    [Z] [M] [P]
-//     1   2   3
     @Test
     internal fun initSupplyStacks() {
-        // arrange
-        val stack1 = Stack<Char>()
-        stack1.push('Z')
-        stack1.push('N')
-
-        val stack2 = Stack<Char>()
-        stack2.push('M')
-        stack2.push('C')
-        stack2.push('D')
-
-        val stack3 = Stack<Char>()
-        stack3.push('P')
-
-        val storage = listOf(stack1, stack2, stack3)
 
         // act
         val supplyStacks = SupplyStacks(storage)
@@ -76,14 +80,16 @@ class SupplyStacksTest {
 
     }
 
-    //    @Test
-//    internal fun executeCommand() {
-//        // arrange
-//
-//        // act
-//        SupplyStacks().executeCommand(Command(1, 2, 1))
-//
-//        // assert
-//
-//    }
+    @Test
+    internal fun executeCommand() {
+        // arrange
+        val supplyStacks = SupplyStacks(storage)
+
+        // act
+        supplyStacks.executeCommand(Command(1, 2, 1))
+
+        // assert
+        assertThat(supplyStacks.topCrates()).isEqualTo("DCP")
+
+    }
 }
