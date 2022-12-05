@@ -2,6 +2,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import java.util.*
+import kotlin.io.path.Path
 
 class SupplyStacksTest {
 
@@ -109,6 +110,17 @@ class SupplyStacksTest {
 
         // assert
         assertThat(supplyStacks.topCrates()).isEqualTo("CMZ")
+    }
+
+    @Test
+    internal fun loadData() {
+        // arrange
+
+        // act
+        val rawCommands = SupplyStacks().loadData(Path("src", "test", "resources", "Day05_TestData.txt"), 5)
+
+        // assert
+        assertThat(rawCommands).hasSize(4)
     }
 
 }

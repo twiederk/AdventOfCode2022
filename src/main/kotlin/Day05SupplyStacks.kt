@@ -1,4 +1,6 @@
+import java.nio.file.Path
 import java.util.*
+import kotlin.io.path.readLines
 
 class SupplyStacks(
     private val storage: List<Stack<Char>> = listOf()
@@ -27,10 +29,6 @@ class SupplyStacks(
         return topCrates
     }
 
-//        [D]
-//    [N] [C]
-//    [Z] [M] [P]
-//     1   2   3
     fun executeCommand(command: Command) {
         for (i in 1..command.count) {
             val crate = storage[command.source - 1].pop()
@@ -42,6 +40,10 @@ class SupplyStacks(
         for (command in commands) {
             executeCommand(command)
         }
+    }
+
+    fun loadData(path: Path, linesToDrop: Int): List<String> {
+        return path.readLines().drop(linesToDrop)
     }
 
 }
