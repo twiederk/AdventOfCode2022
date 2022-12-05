@@ -29,4 +29,21 @@ class SupplyStacksTest {
         assertThat(command.destination).isEqualTo(3)
     }
 
+    @Test
+    internal fun parseCommands() {
+        // arrange
+        val rawCommands = listOf(
+            "move 1 from 2 to 1",
+            "move 3 from 1 to 3",
+            "move 2 from 2 to 1",
+            "move 1 from 1 to 2",
+        )
+
+        // act
+        val commands = SupplyStacks().parseCommands(rawCommands)
+
+        // assert
+        assertThat(commands).hasSize(4)
+    }
+
 }
