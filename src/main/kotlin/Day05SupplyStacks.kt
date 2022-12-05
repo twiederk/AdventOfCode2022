@@ -1,4 +1,8 @@
-class SupplyStacks {
+import java.util.*
+
+class SupplyStacks(
+    private val storage: List<Stack<Char>> = listOf()
+) {
 
     //    move 1 from 2 to 1
     fun parseCommand(rawCommand: String): Command {
@@ -13,6 +17,14 @@ class SupplyStacks {
             commands.add(command)
         }
         return commands
+    }
+
+    fun topCrates(): String {
+        var topCrates = ""
+        for (stack in storage) {
+            topCrates += stack.peek()
+        }
+        return topCrates
     }
 
 }
