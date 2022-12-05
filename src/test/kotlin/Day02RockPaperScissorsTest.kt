@@ -4,7 +4,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import kotlin.io.path.Path
 
-class Day02RockPaperScissorsTest {
+class RockPaperScissorsTest {
 
     @Test
     fun calculateScore_WonPaper_8() {

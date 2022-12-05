@@ -2,7 +2,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import kotlin.io.path.Path
 
-class Day01CalorieCountingTest {
+class CalorieCountingTest {
 
     @Test
     fun loadData() {
