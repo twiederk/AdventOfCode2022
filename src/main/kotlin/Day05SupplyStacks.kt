@@ -64,6 +64,12 @@ class SupplyStacks(
         }
     }
 
+    fun executeCommands9001(commands: List<Command>) {
+        for(command in commands) {
+            executeCommand9001(command)
+        }
+    }
+
 }
 
 data class Command(

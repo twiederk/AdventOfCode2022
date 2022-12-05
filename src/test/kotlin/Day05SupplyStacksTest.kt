@@ -148,4 +148,23 @@ class SupplyStacksTest {
         assertThat(supplyStacks.topCrates()).isEqualTo(" CD")
     }
 
+    @Test
+    internal fun executeCommands9001() {
+        // arrange
+        val rawCommands = listOf(
+            "move 1 from 2 to 1",
+            "move 3 from 1 to 3",
+            "move 2 from 2 to 1",
+            "move 1 from 1 to 2",
+        )
+        val supplyStacks = SupplyStacks(storage)
+        val commands = supplyStacks.parseCommands(rawCommands)
+
+        // act
+        supplyStacks.executeCommands9001(commands)
+
+        // assert
+        assertThat(supplyStacks.topCrates()).isEqualTo("MCD")
+    }
+
 }
