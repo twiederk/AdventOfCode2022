@@ -80,6 +80,22 @@ data class Command(
 
 
 fun main() {
+    val storage = createStorage()
+    val supplyStacks = SupplyStacks(storage)
+
+    check(supplyStacks.topCrates() == "BPFQDDQVJ") { "Storage is wrong" }
+
+    val rawCommands = supplyStacks.loadData(Path("src", "main", "resources", "Day05_Part1_InputData.txt"), 10)
+    val commands = supplyStacks.parseCommands(rawCommands)
+    supplyStacks.executeCommands(commands)
+    println("CrateMover 9000.topCrates() = ${supplyStacks.topCrates()}")
+
+    val supplyStacks9001 = SupplyStacks(createStorage())
+    supplyStacks9001.executeCommands9001(commands)
+    println("CrateMover 9001.topCrates() = ${supplyStacks9001.topCrates()}")
+}
+
+private fun createStorage(): List<Stack<Char>> {
     val stack1 = Stack<Char>()
     stack1.push('G')
     stack1.push('D')
@@ -156,13 +172,5 @@ fun main() {
 
 
     val storage = listOf(stack1, stack2, stack3, stack4, stack5, stack6, stack7, stack8, stack9)
-    val supplyStacks = SupplyStacks(storage)
-
-    check(supplyStacks.topCrates() == "BPFQDDQVJ") { "Storage is wrong" }
-
-    val rawCommands = supplyStacks.loadData(Path("src", "main", "resources", "Day05_Part1_InputData.txt"), 10)
-    val commands = supplyStacks.parseCommands(rawCommands)
-    supplyStacks.executeCommands(commands)
-    println("supplyStacks.topCrates() = ${supplyStacks.topCrates()}")
-
+    return storage
 }
