@@ -123,4 +123,29 @@ class SupplyStacksTest {
         assertThat(rawCommands).hasSize(4)
     }
 
+    @Test
+    internal fun executeCommand9001() {
+        // arrange
+        val stack1 = Stack<Char>()
+        stack1.push('Z')
+        stack1.push('N')
+        stack1.push('D')
+
+        val stack2 = Stack<Char>()
+        stack2.push('M')
+        stack2.push('C')
+
+        val stack3 = Stack<Char>()
+        stack3.push('P')
+
+        val storage = listOf(stack1, stack2, stack3)
+        val supplyStacks = SupplyStacks(storage)
+
+        // act
+        supplyStacks.executeCommand9001(Command(3, 1, 3))
+
+        // assert
+        assertThat(supplyStacks.topCrates()).isEqualTo(" CD")
+    }
+
 }

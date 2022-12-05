@@ -25,7 +25,11 @@ class SupplyStacks(
     fun topCrates(): String {
         var topCrates = ""
         for (stack in storage) {
-            topCrates += stack.peek()
+            if (stack.isEmpty()) {
+                topCrates += " "
+            } else {
+                topCrates += stack.peek()
+            }
         }
         return topCrates
     }
@@ -45,6 +49,19 @@ class SupplyStacks(
 
     fun loadData(path: Path, linesToDrop: Int): List<String> {
         return path.readLines().drop(linesToDrop)
+    }
+
+    fun executeCommand9001(command: Command) {
+        val tempStack = Stack<Char>()
+        for (i in 1..command.count) {
+            val crate = storage[command.source - 1].pop()
+            tempStack.push(crate)
+        }
+
+        for (i in 1..command.count) {
+            val crate = tempStack.pop()
+            storage[command.destination - 1].push(crate)
+        }
     }
 
 }
