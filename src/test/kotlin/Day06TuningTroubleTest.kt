@@ -51,4 +51,43 @@ class TuningTroubleTest {
         assertThat(startOfPacketMarker).isTrue
     }
 
+    @Test
+    fun findStartOfPacketMarker_example1_position7() {
+        // arrange
+        val dataStream = "mjqjpqmgbljsphdztnvjfqwrcgsmlb"
+        val windows = TuningTrouble().createWindows(dataStream)
+
+        // act
+        val position = TuningTrouble().findStartOfPacketMarker(windows)
+
+        // assert
+        assertThat(position).isEqualTo(7)
+    }
+
+    @Test
+    fun findStartOfPacketMarker_example2_position5() {
+        // arrange
+        val dataStream = "bvwbjplbgvbhsrlpgdmjqwftvncz"
+        val windows = TuningTrouble().createWindows(dataStream)
+
+        // act
+        val position = TuningTrouble().findStartOfPacketMarker(windows)
+
+        // assert
+        assertThat(position).isEqualTo(5)
+    }
+
+    @Test
+    fun findStartOfPacketMarker_example3_position6() {
+        // arrange
+        val dataStream = "nppdvjthqldpwncqszvftbrmjlhg"
+        val windows = TuningTrouble().createWindows(dataStream)
+
+        // act
+        val position = TuningTrouble().findStartOfPacketMarker(windows)
+
+        // assert
+        assertThat(position).isEqualTo(6)
+    }
+
 }

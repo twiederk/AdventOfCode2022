@@ -1,3 +1,4 @@
+import java.lang.IllegalStateException
 import java.nio.file.Path
 import kotlin.io.path.readLines
 
@@ -14,6 +15,15 @@ class TuningTrouble {
         count += dataPackage.count { it == dataPackage[2] }
         count += dataPackage.count { it == dataPackage[3] }
         return count == 4
+    }
+
+    fun findStartOfPacketMarker(windows: List<String>): Int {
+        var position = 0
+        for (window in windows) {
+            position++
+            if (isStartOfPacketMarker(window)) return position + 3
+        }
+        throw IllegalStateException("Can't find start of packet marker")
     }
 
 }
