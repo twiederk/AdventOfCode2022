@@ -1,10 +1,10 @@
-import java.lang.IllegalStateException
 import java.nio.file.Path
+import kotlin.io.path.Path
 import kotlin.io.path.readLines
 
 class TuningTrouble {
 
-    fun loadData(path: Path) : String = path.readLines()[0]
+    fun loadData(path: Path): String = path.readLines()[0]
 
     fun createWindows(dataStream: String): List<String> = dataStream.windowed(size = 4, step = 1)
 
@@ -26,4 +26,12 @@ class TuningTrouble {
         throw IllegalStateException("Can't find start of packet marker")
     }
 
+}
+
+fun main() {
+    val tuningTrouble = TuningTrouble()
+    val dataStream = tuningTrouble.loadData(Path("src", "main", "resources", "Day06_Part1_InputData.txt"))
+    val windows = tuningTrouble.createWindows(dataStream)
+    val position = tuningTrouble.findStartOfPacketMarker(windows)
+    println("position = $position")
 }
