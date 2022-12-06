@@ -34,7 +34,7 @@ class TuningTroubleTest {
         // arrange
 
         // act
-        val startOfPacketMarker = TuningTrouble().isStartOfPacketMarker("mjqj")
+        val startOfPacketMarker = TuningTrouble().isStartOfPacketMarker("mjqj", 4)
 
         // assert
         assertThat(startOfPacketMarker).isFalse
@@ -45,7 +45,7 @@ class TuningTroubleTest {
         // arrange
 
         // act
-        val startOfPacketMarker = TuningTrouble().isStartOfPacketMarker("mjqx")
+        val startOfPacketMarker = TuningTrouble().isStartOfPacketMarker("mjqx", 4)
 
         // assert
         assertThat(startOfPacketMarker).isTrue
@@ -58,7 +58,7 @@ class TuningTroubleTest {
         val windows = TuningTrouble().createWindows(dataStream)
 
         // act
-        val position = TuningTrouble().findStartOfPacketMarker(windows)
+        val position = TuningTrouble().findStartOfPacketMarker(windows, 4)
 
         // assert
         assertThat(position).isEqualTo(7)
@@ -71,7 +71,7 @@ class TuningTroubleTest {
         val windows = TuningTrouble().createWindows(dataStream)
 
         // act
-        val position = TuningTrouble().findStartOfPacketMarker(windows)
+        val position = TuningTrouble().findStartOfPacketMarker(windows, 4)
 
         // assert
         assertThat(position).isEqualTo(5)
@@ -84,10 +84,12 @@ class TuningTroubleTest {
         val windows = TuningTrouble().createWindows(dataStream)
 
         // act
-        val position = TuningTrouble().findStartOfPacketMarker(windows)
+        val position = TuningTrouble().findStartOfPacketMarker(windows, 4)
 
         // assert
         assertThat(position).isEqualTo(6)
     }
+
+
 
 }
