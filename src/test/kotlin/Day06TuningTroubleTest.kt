@@ -15,4 +15,18 @@ class TuningTroubleTest {
         assertThat(dataStream).isEqualTo("mjqjpqmgbljsphdztnvjfqwrcgsmlb")
     }
 
+    @Test
+    fun createWindows() {
+        // arrange
+        val dataStream = "mjqjpqmgbljsphdztnvjfqwrcgsmlb"
+
+        // act
+        val windows = dataStream.windowed(size = 4, step = 1)
+
+        // assert
+        assertThat(windows).hasSize(27)
+        assertThat(windows[0]).isEqualTo("mjqj")
+        assertThat(windows[1]).isEqualTo("jqjp")
+    }
+
 }
