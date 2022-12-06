@@ -6,7 +6,7 @@ class TuningTrouble {
 
     fun loadData(path: Path): String = path.readLines()[0]
 
-    fun createWindows(dataStream: String): List<String> = dataStream.windowed(size = 4, step = 1)
+    fun createWindows(dataStream: String, numberOfDigit: Int): List<String> = dataStream.windowed(size = numberOfDigit, step = 1)
 
     fun isStartOfPacketMarker(dataPackage: String, numberOfDigits: Int): Boolean {
         var count = 0
@@ -30,7 +30,7 @@ class TuningTrouble {
 fun main() {
     val tuningTrouble = TuningTrouble()
     val dataStream = tuningTrouble.loadData(Path("src", "main", "resources", "Day06_Part1_InputData.txt"))
-    val windows = tuningTrouble.createWindows(dataStream)
+    val windows = tuningTrouble.createWindows(dataStream, 4)
     val position = tuningTrouble.findStartOfPacketMarker(windows, 4)
     println("position = $position")
 }
