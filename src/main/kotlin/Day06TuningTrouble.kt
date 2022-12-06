@@ -33,4 +33,9 @@ fun main() {
     val windows = tuningTrouble.createWindows(dataStream, 4)
     val position = tuningTrouble.findStartOfPacketMarker(windows, 4)
     println("position = $position")
+
+    val windows2 = tuningTrouble.createWindows(dataStream, 14)
+    val position2 = tuningTrouble.findStartOfPacketMarker(windows2, 14)
+    println("position2 = $position2")
+
 }
