@@ -158,6 +158,6 @@ class NoSpaceLeftOnDeviceTest {
 
         // assert
         assertThat(addFileCommand.size).isEqualTo(1234)
-
     }
+
 }
