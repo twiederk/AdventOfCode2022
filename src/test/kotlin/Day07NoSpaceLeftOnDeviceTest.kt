@@ -90,8 +90,7 @@ class NoSpaceLeftOnDeviceTest {
         noSpaceLeftOnDevice.addFileToOpenDirs(8033020)
         noSpaceLeftOnDevice.addFileToOpenDirs(5626152)
         noSpaceLeftOnDevice.addFileToOpenDirs(7214296)
-        noSpaceLeftOnDevice.closeDir()
-        noSpaceLeftOnDevice.closeDir()
+        noSpaceLeftOnDevice.closeAllDirs()
 
         // act
         val totalSize = noSpaceLeftOnDevice.getDirsAtMost(100_000)
