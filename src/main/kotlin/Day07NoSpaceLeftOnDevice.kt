@@ -37,4 +37,37 @@ class NoSpaceLeftOnDevice {
         return closeDirs.filter { it.sum() <= max }.sumOf { it.sum() }
     }
 
+    fun execute(terminalOutput: List<String>, atMost: Int): Int {
+        for (output in terminalOutput) {
+            when (val osCommand = parseCommand(output)) {
+                is OsCommand.OpenDirCommand -> openDir()
+                is OsCommand.CloseDirCommand -> closeDir()
+                is OsCommand.AddFileCommand -> addFileToOpenDirs(osCommand.size)
+                is OsCommand.NothingCommand -> continue
+            }
+        }
+        closeAllDirs()
+        return getDirsAtMost(atMost)
+    }
+
+    fun parseCommand(output: String): OsCommand {
+        if (output == "$ cd ..") return OsCommand.CloseDirCommand
+        if (output.startsWith("$ cd ")) return OsCommand.OpenDirCommand
+        if (output[0].isDigit()) return createAddFileCommand(output.split(" ")[0].toInt())
+        return OsCommand.NothingCommand
+    }
+
+    fun createAddFileCommand(size: Int): OsCommand.AddFileCommand {
+        return OsCommand.AddFileCommand(size)
+    }
+
+
 }
+
+sealed class OsCommand() {
+    object NothingCommand : OsCommand()
+    object OpenDirCommand : OsCommand()
+    object CloseDirCommand : OsCommand()
+    class AddFileCommand(val size: Int) : OsCommand()
+}
+

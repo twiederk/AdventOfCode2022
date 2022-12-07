@@ -99,4 +99,65 @@ class NoSpaceLeftOnDeviceTest {
         assertThat(totalSize).isEqualTo(95437)
     }
 
+    @Test
+    fun execute() {
+        // arrange
+        val noSpaceLeftOnDevice = NoSpaceLeftOnDevice()
+        val terminalOutput = noSpaceLeftOnDevice.loadData(Path("src", "test", "resources", "Day07_TestData.txt"))
+
+        // act
+        val totalSize = noSpaceLeftOnDevice.execute(terminalOutput, 100_000)
+
+        // assert
+        assertThat(totalSize).isEqualTo(95437)
+    }
+
+    @Test
+    fun parseCommand_openDir() {
+        // arrange
+        val noSpaceLeftOnDevice = NoSpaceLeftOnDevice()
+
+        // act
+        val command = noSpaceLeftOnDevice.parseCommand("$ cd /")
+
+        // assert
+        assertThat(command).isInstanceOf(OsCommand.OpenDirCommand::class.java)
+    }
+
+    @Test
+    fun parseCommand_closeDir() {
+        // arrange
+        val noSpaceLeftOnDevice = NoSpaceLeftOnDevice()
+
+        // act
+        val command = noSpaceLeftOnDevice.parseCommand("$ cd ..")
+
+        // assert
+        assertThat(command).isInstanceOf(OsCommand.CloseDirCommand::class.java)
+    }
+
+    @Test
+    fun parseCommand_addFile() {
+        // arrange
+        val noSpaceLeftOnDevice = NoSpaceLeftOnDevice()
+
+        // act
+        val command = noSpaceLeftOnDevice.parseCommand("14848514 b.txt")
+
+        // assert
+        assertThat(command).isInstanceOf(OsCommand.AddFileCommand::class.java)
+    }
+
+    @Test
+    fun createAddFileCommand() {
+        // arrange
+        val noSpaceLeftOnDevice = NoSpaceLeftOnDevice()
+
+        // act
+        val addFileCommand = noSpaceLeftOnDevice.createAddFileCommand(1234)
+
+        // assert
+        assertThat(addFileCommand.size).isEqualTo(1234)
+
+    }
 }
