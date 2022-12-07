@@ -4,13 +4,13 @@ import kotlin.io.path.readLines
 class NoSpaceLeftOnDevice {
 
     val openDirs = mutableListOf<MutableList<Int>>()
-    val closedDirs = mutableListOf<MutableList<Int>>()
+    val closeDirs = mutableListOf<MutableList<Int>>()
 
     fun loadData(path: Path): List<String> {
         return path.readLines()
     }
 
-    fun createDir(): MutableList<Int> {
+    fun openDir(): MutableList<Int> {
         val dir = mutableListOf<Int>()
         openDirs.add(dir)
         return dir
@@ -24,7 +24,13 @@ class NoSpaceLeftOnDevice {
 
     fun closeDir() {
         val dir = openDirs.removeLast()
-        closedDirs.add(dir)
+        closeDirs.add(dir)
+    }
+
+    fun closeAllDirs() {
+        while (openDirs.isNotEmpty()) {
+            closeDir()
+        }
     }
 
 }
