@@ -75,7 +75,7 @@ class NoSpaceLeftOnDevice {
 
 }
 
-sealed class OsCommand() {
+sealed class OsCommand {
     object NothingCommand : OsCommand()
     object OpenDirCommand : OsCommand()
     object CloseDirCommand : OsCommand()
@@ -87,4 +87,8 @@ fun main() {
     val terminalOutput = noSpaceLeftOnDevice.loadData(Path("src", "main", "resources", "Day07_Part1_InputData.txt"))
     val totalSize = noSpaceLeftOnDevice.execute(terminalOutput, 100_000)
     println("totalSize = $totalSize")
+
+    val requiredSpace = noSpaceLeftOnDevice.calculateRequiredSpace()
+    val directoryToDelete = noSpaceLeftOnDevice.smallestDirToDelete(requiredSpace)
+    println("directoryToDelete = $directoryToDelete")
 }
