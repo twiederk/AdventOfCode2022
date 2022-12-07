@@ -33,4 +33,8 @@ class NoSpaceLeftOnDevice {
         }
     }
 
+    fun getDirsAtMost(max: Int): Int {
+        return closeDirs.filter { it.sum() <= max }.sumOf { it.sum() }
+    }
+
 }

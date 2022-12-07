@@ -93,13 +93,11 @@ class NoSpaceLeftOnDeviceTest {
         noSpaceLeftOnDevice.closeDir()
         noSpaceLeftOnDevice.closeDir()
 
+        // act
+        val totalSize = noSpaceLeftOnDevice.getDirsAtMost(100_000)
+
         // assert
-
-        println(noSpaceLeftOnDevice.closeDirs)
-
-        for (dir in noSpaceLeftOnDevice.closeDirs) {
-            println(dir.sum())
-        }
-
+        assertThat(totalSize).isEqualTo(95437)
     }
+
 }
