@@ -160,4 +160,32 @@ class NoSpaceLeftOnDeviceTest {
         assertThat(addFileCommand.size).isEqualTo(1234)
     }
 
+    @Test
+    fun calculateRequiredSpace() {
+        // arrange
+        val noSpaceLeftOnDevice = NoSpaceLeftOnDevice()
+        val terminalOutput = noSpaceLeftOnDevice.loadData(Path("src", "test", "resources", "Day07_TestData.txt"))
+        noSpaceLeftOnDevice.execute(terminalOutput, 100_000)
+
+        // act
+        val requiredSpace = noSpaceLeftOnDevice.calculateRequiredSpace()
+
+        // assert
+        assertThat(requiredSpace).isEqualTo(8_381_165)
+    }
+
+    @Test
+    fun smallestDirToDelete() {
+        // arrange
+        val noSpaceLeftOnDevice = NoSpaceLeftOnDevice()
+        val terminalOutput = noSpaceLeftOnDevice.loadData(Path("src", "test", "resources", "Day07_TestData.txt"))
+        noSpaceLeftOnDevice.execute(terminalOutput, 100_000)
+
+        // act
+        val smallestDirToDelete = noSpaceLeftOnDevice.smallestDirToDelete(8_381_165)
+
+        // assert
+        assertThat(smallestDirToDelete).isEqualTo(24933642)
+
+    }
 }

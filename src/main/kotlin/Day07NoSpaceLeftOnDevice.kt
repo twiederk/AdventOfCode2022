@@ -62,6 +62,16 @@ class NoSpaceLeftOnDevice {
         return OsCommand.AddFileCommand(size)
     }
 
+    fun calculateRequiredSpace(): Int {
+        val usedSpace = closeDirs.maxOf { it.sum() }
+        val unusedSpace = 70_000_000 - usedSpace
+        return 30_000_000 - unusedSpace
+    }
+
+    fun smallestDirToDelete(minSpace: Int): Int {
+        return closeDirs.filter { it.sum() >= minSpace }.minOf { it.sum() }
+    }
+
 
 }
 
