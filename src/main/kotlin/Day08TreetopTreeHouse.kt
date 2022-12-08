@@ -100,6 +100,13 @@ class TreetopTreeHouse(private val grid: List<List<Int>> = listOf()) {
         return viewingDistance - 1
     }
 
+    fun calculatingScenicScore(row: Int, column: Int): Int {
+        val d1 = viewingDistanceLeft(row, column)
+        val d2 = viewingDistanceRight(row, column)
+        val d3 = viewingDistanceUp(row, column)
+        val d4 = viewingDistanceDown(row, column)
+        return d1 * d2 * d3 * d4
+    }
 
 
 }

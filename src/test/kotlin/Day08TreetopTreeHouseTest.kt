@@ -231,4 +231,30 @@ class TreetopTreeHouseTest {
         assertThat(viewingDistance).isEqualTo(2)
     }
 
+    @Test
+    fun calculateScenicScore_12_4() {
+        // arrange
+        val rawData = TreetopTreeHouse().loadData(Path("src", "test", "resources", "Day08_TestData.txt"))
+        val grid = TreetopTreeHouse().convertToInts(rawData)
+
+        // act
+        val scenicScore = TreetopTreeHouse(grid).calculatingScenicScore(1,2)
+
+        // assert
+        assertThat(scenicScore).isEqualTo(4)
+    }
+
+    @Test
+    fun calculateScenicScore_32_8() {
+        // arrange
+        val rawData = TreetopTreeHouse().loadData(Path("src", "test", "resources", "Day08_TestData.txt"))
+        val grid = TreetopTreeHouse().convertToInts(rawData)
+
+        // act
+        val scenicScore = TreetopTreeHouse(grid).calculatingScenicScore(3,2)
+
+        // assert
+        assertThat(scenicScore).isEqualTo(8)
+    }
+
 }
