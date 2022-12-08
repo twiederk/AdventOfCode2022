@@ -25,4 +25,27 @@ class TreetopTreeHouse(private val grid: List<List<Int>> = listOf()) {
         return true
     }
 
+    fun isVisibleFromTop(row: Int, column: Int): Boolean {
+        val height = grid[row][column]
+        for (r in 0 until row) {
+            if (grid[r][column] >= height) return false
+        }
+        return true
+    }
+
+    fun isVisibleFromBottom(row: Int, column: Int): Boolean {
+        val height = grid[row][column]
+        for (r in row+1 until grid.size) {
+            if (grid[r][column] >= height) return false
+        }
+        return true
+    }
+
+    fun isVisible(row: Int, column: Int): Boolean {
+        return isVisibleFromLeft(row, column)
+                || isVisibleFromRight(row, column)
+                || isVisibleFromTop(row, column)
+                || isVisibleFromBottom(row, column)
+    }
+
 }

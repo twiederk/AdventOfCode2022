@@ -62,7 +62,6 @@ class TreetopTreeHouseTest {
         assertThat(visible).isTrue
     }
 
-
     @Test
     fun isVisibleFromRight_11_false() {
         // arrange
@@ -74,6 +73,45 @@ class TreetopTreeHouseTest {
 
         // assert
         assertThat(visible).isFalse
+    }
+
+    @Test
+    fun isVisibleFromTop_11_true() {
+        // arrange
+        val rawData = TreetopTreeHouse().loadData(Path("src", "test", "resources", "Day08_TestData.txt"))
+        val grid = TreetopTreeHouse().convertToInts(rawData)
+
+        // act
+        val visible = TreetopTreeHouse(grid).isVisibleFromTop(1, 1)
+
+        // assert
+        assertThat(visible).isTrue
+    }
+
+    @Test
+    fun isVisibleFromBottom_11_true() {
+        // arrange
+        val rawData = TreetopTreeHouse().loadData(Path("src", "test", "resources", "Day08_TestData.txt"))
+        val grid = TreetopTreeHouse().convertToInts(rawData)
+
+        // act
+        val visible = TreetopTreeHouse(grid).isVisibleFromBottom(1, 1)
+
+        // assert
+        assertThat(visible).isFalse
+    }
+
+    @Test
+    fun isVisible() {
+        // arrange
+        val rawData = TreetopTreeHouse().loadData(Path("src", "test", "resources", "Day08_TestData.txt"))
+        val grid = TreetopTreeHouse().convertToInts(rawData)
+
+        // act
+        val visible = TreetopTreeHouse(grid).isVisible(1, 1)
+
+        // assert
+        assertThat(visible).isTrue
     }
 
 
