@@ -102,7 +102,7 @@ class TreetopTreeHouseTest {
     }
 
     @Test
-    fun isVisible() {
+    fun isVisible_11_true() {
         // arrange
         val rawData = TreetopTreeHouse().loadData(Path("src", "test", "resources", "Day08_TestData.txt"))
         val grid = TreetopTreeHouse().convertToInts(rawData)
@@ -113,6 +113,59 @@ class TreetopTreeHouseTest {
         // assert
         assertThat(visible).isTrue
     }
+
+    @Test
+    fun isVisible_22_false() {
+        // arrange
+        val rawData = TreetopTreeHouse().loadData(Path("src", "test", "resources", "Day08_TestData.txt"))
+        val grid = TreetopTreeHouse().convertToInts(rawData)
+
+        // act
+        val visible = TreetopTreeHouse(grid).isVisible(2, 2)
+
+        // assert
+        assertThat(visible).isFalse
+    }
+
+    @Test
+    fun isVisible_13_false() {
+        // arrange
+        val rawData = TreetopTreeHouse().loadData(Path("src", "test", "resources", "Day08_TestData.txt"))
+        val grid = TreetopTreeHouse().convertToInts(rawData)
+
+        // act
+        val visible = TreetopTreeHouse(grid).isVisible(1, 3)
+
+        // assert
+        assertThat(visible).isFalse
+    }
+
+    @Test
+    fun isVisible_23_true() {
+        // arrange
+        val rawData = TreetopTreeHouse().loadData(Path("src", "test", "resources", "Day08_TestData.txt"))
+        val grid = TreetopTreeHouse().convertToInts(rawData)
+
+        // act
+        val visible = TreetopTreeHouse(grid).isVisible(2, 3)
+
+        // assert
+        assertThat(visible).isTrue
+    }
+
+    @Test
+    fun isVisible_33_true() {
+        // arrange
+        val rawData = TreetopTreeHouse().loadData(Path("src", "test", "resources", "Day08_TestData.txt"))
+        val grid = TreetopTreeHouse().convertToInts(rawData)
+
+        // act
+        val visible = TreetopTreeHouse(grid).isVisible(3, 3)
+
+        // assert
+        assertThat(visible).isFalse
+    }
+
 
 
 }
