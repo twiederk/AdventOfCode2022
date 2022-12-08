@@ -257,4 +257,17 @@ class TreetopTreeHouseTest {
         assertThat(scenicScore).isEqualTo(8)
     }
 
+    @Test
+    fun maxScenicScore() {
+        // arrange
+        val rawData = TreetopTreeHouse().loadData(Path("src", "test", "resources", "Day08_TestData.txt"))
+        val grid = TreetopTreeHouse().convertToInts(rawData)
+
+        // act
+        val maxScenicScore = TreetopTreeHouse(grid).maxScenicScore()
+
+        // assert
+        assertThat(maxScenicScore).isEqualTo(8)
+
+    }
 }

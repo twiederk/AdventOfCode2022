@@ -108,6 +108,19 @@ class TreetopTreeHouse(private val grid: List<List<Int>> = listOf()) {
         return d1 * d2 * d3 * d4
     }
 
+    fun maxScenicScore(): Int {
+        var maxScenicScore = 0
+        for (row in grid.indices) {
+            for (col in 0 until grid[0].size) {
+                val scenicScore = calculatingScenicScore(row, col)
+                if (scenicScore > maxScenicScore) {
+                    maxScenicScore = scenicScore
+                }
+            }
+        }
+        return maxScenicScore
+    }
+
 
 }
 
