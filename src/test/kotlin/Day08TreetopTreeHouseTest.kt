@@ -177,6 +177,58 @@ class TreetopTreeHouseTest {
 
         // assert
         assertThat(count).isEqualTo(21)
-
     }
+
+    @Test
+    fun viewingDistanceUp_12_1() {
+        // arrange
+        val rawData = TreetopTreeHouse().loadData(Path("src", "test", "resources", "Day08_TestData.txt"))
+        val grid = TreetopTreeHouse().convertToInts(rawData)
+
+        // act
+        val viewingDistance = TreetopTreeHouse(grid).viewingDistanceUp(1,2)
+
+        // assert
+        assertThat(viewingDistance).isEqualTo(1)
+    }
+
+    @Test
+    fun viewingDistanceDown_12_2() {
+        // arrange
+        val rawData = TreetopTreeHouse().loadData(Path("src", "test", "resources", "Day08_TestData.txt"))
+        val grid = TreetopTreeHouse().convertToInts(rawData)
+
+        // act
+        val viewingDistance = TreetopTreeHouse(grid).viewingDistanceDown(1,2)
+
+        // assert
+        assertThat(viewingDistance).isEqualTo(2)
+    }
+
+    @Test
+    fun viewingDistanceLeft_12_1() {
+        // arrange
+        val rawData = TreetopTreeHouse().loadData(Path("src", "test", "resources", "Day08_TestData.txt"))
+        val grid = TreetopTreeHouse().convertToInts(rawData)
+
+        // act
+        val viewingDistance = TreetopTreeHouse(grid).viewingDistanceLeft(1,2)
+
+        // assert
+        assertThat(viewingDistance).isEqualTo(1)
+    }
+
+    @Test
+    fun viewingDistanceRight_12_2() {
+        // arrange
+        val rawData = TreetopTreeHouse().loadData(Path("src", "test", "resources", "Day08_TestData.txt"))
+        val grid = TreetopTreeHouse().convertToInts(rawData)
+
+        // act
+        val viewingDistance = TreetopTreeHouse(grid).viewingDistanceRight(1,2)
+
+        // assert
+        assertThat(viewingDistance).isEqualTo(2)
+    }
+
 }

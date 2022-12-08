@@ -36,7 +36,7 @@ class TreetopTreeHouse(private val grid: List<List<Int>> = listOf()) {
 
     fun isVisibleFromBottom(row: Int, column: Int): Boolean {
         val height = grid[row][column]
-        for (r in row+1 until grid.size) {
+        for (r in row + 1 until grid.size) {
             if (grid[r][column] >= height) return false
         }
         return true
@@ -58,6 +58,49 @@ class TreetopTreeHouse(private val grid: List<List<Int>> = listOf()) {
         }
         return countVisibleTrees
     }
+
+    fun viewingDistanceUp(row: Int, column: Int): Int {
+        val height = grid[row][column]
+        var viewingDistance = 1
+        for (r in row - 1 downTo 0) {
+            if (grid[r][column] >= height) return viewingDistance
+            viewingDistance++
+        }
+        return viewingDistance - 1
+    }
+
+
+    fun viewingDistanceDown(row: Int, column: Int): Int {
+        val height = grid[row][column]
+        var viewingDistance = 1
+        for (r in row + 1 until grid.size) {
+            if (grid[r][column] >= height) return viewingDistance
+            viewingDistance++
+        }
+        return viewingDistance - 1
+    }
+
+    fun viewingDistanceLeft(row: Int, column: Int): Int {
+        val height = grid[row][column]
+        var viewingDistance = 1
+        for (c in column - 1 downTo 0) {
+            if (grid[row][c] >= height) return viewingDistance
+            viewingDistance++
+        }
+        return viewingDistance - 1
+    }
+
+    fun viewingDistanceRight(row: Int, column: Int): Int {
+        val height = grid[row][column]
+        var viewingDistance = 1
+        for (c in column + 1 until grid[0].size) {
+            if (grid[row][c] >= height) return viewingDistance
+            viewingDistance++
+        }
+        return viewingDistance - 1
+    }
+
+
 
 }
 
