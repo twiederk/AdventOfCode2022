@@ -129,7 +129,10 @@ fun main() {
     val grid = TreetopTreeHouse().convertToInts(rawData)
 
     // act
-    val count = TreetopTreeHouse(grid).countVisibleTrees()
-    println("count = $count")
+    val visibleTrees = TreetopTreeHouse(grid).countVisibleTrees()
+    println("count = $visibleTrees")
+
+    val maxScenicScore = TreetopTreeHouse(grid).maxScenicScore()
+    println("maxScenicScore = $maxScenicScore")
 
 }
