@@ -48,4 +48,14 @@ class TreetopTreeHouse(private val grid: List<List<Int>> = listOf()) {
                 || isVisibleFromBottom(row, column)
     }
 
+    fun countVisibleTrees(): Int {
+        var countVisibleTrees = 0
+        for (row in grid.indices) {
+            for (col in 0 until grid[0].size) {
+                if (isVisible(row, col)) countVisibleTrees++
+            }
+        }
+        return countVisibleTrees
+    }
+
 }

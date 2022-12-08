@@ -166,6 +166,17 @@ class TreetopTreeHouseTest {
         assertThat(visible).isFalse
     }
 
+    @Test
+    fun countVisibleTrees() {
+        // arrange
+        val rawData = TreetopTreeHouse().loadData(Path("src", "test", "resources", "Day08_TestData.txt"))
+        val grid = TreetopTreeHouse().convertToInts(rawData)
 
+        // act
+        val count = TreetopTreeHouse(grid).countVisibleTrees()
 
+        // assert
+        assertThat(count).isEqualTo(21)
+
+    }
 }
