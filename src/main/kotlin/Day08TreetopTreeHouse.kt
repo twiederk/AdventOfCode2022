@@ -1,4 +1,5 @@
 import java.nio.file.Path
+import kotlin.io.path.Path
 import kotlin.io.path.readLines
 
 class TreetopTreeHouse(private val grid: List<List<Int>> = listOf()) {
@@ -57,5 +58,15 @@ class TreetopTreeHouse(private val grid: List<List<Int>> = listOf()) {
         }
         return countVisibleTrees
     }
+
+}
+
+fun main() {
+    val rawData = TreetopTreeHouse().loadData(Path("src", "main", "resources", "Day08_Part1_InputData.txt"))
+    val grid = TreetopTreeHouse().convertToInts(rawData)
+
+    // act
+    val count = TreetopTreeHouse(grid).countVisibleTrees()
+    println("count = $count")
 
 }
