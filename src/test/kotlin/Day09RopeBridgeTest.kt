@@ -31,6 +31,7 @@ class RopeBridgeTest {
 
         // assert
         assertThat(ropeCommand.direction).isEqualTo("R")
+        assertThat(ropeCommand.moves).isEqualTo(19)
     }
 
 }

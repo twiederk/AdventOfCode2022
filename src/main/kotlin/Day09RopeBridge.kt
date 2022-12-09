@@ -7,14 +7,15 @@ class RopeBridge {
 
     fun parseRopeCommand(rawCommand: String): RopeCommand {
 
-        val (direction) = rawCommand.split(" ")
-        return RopeCommand(direction)
+        val (direction, moves) = rawCommand.split(" ")
+        return RopeCommand(direction, moves.toInt())
     }
 
 
 }
 
 class RopeCommand(
-    val direction: String
+    val direction: String,
+    val moves: Int
 )
 
