@@ -52,7 +52,7 @@ class RopeBridge {
                     moveTail(i)
                 }
             }
-            fieldsVisitByTail.add(worm[8].copy())
+            fieldsVisitByTail.add(worm[9].copy())
         }
     }
 

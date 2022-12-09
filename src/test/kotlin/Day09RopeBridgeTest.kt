@@ -479,6 +479,65 @@ class RopeBridgeTest {
         assertThat(ropeBridge.worm[9]).isEqualTo(Pair(5, 5))
     }
 
+    @Test
+    fun moveWorm_R5_U8_L8_D3_R17_D10() {
+        // arrange
+        val ropeBridge = RopeBridge()
+        val ropeCommands = listOf(
+            RopeCommand("R", 5),
+            RopeCommand("U", 8),
+            RopeCommand("L", 8),
+            RopeCommand("D", 3),
+            RopeCommand("R", 17),
+            RopeCommand("D", 10),
+        )
+
+        // act
+        ropeBridge.executeRopeCommands(ropeCommands)
+
+        // assert
+        assertThat(ropeBridge.worm[0]).isEqualTo(Pair(14, -5))
+        assertThat(ropeBridge.worm[1]).isEqualTo(Pair(14, -4))
+        assertThat(ropeBridge.worm[2]).isEqualTo(Pair(14, -3))
+        assertThat(ropeBridge.worm[3]).isEqualTo(Pair(14, -2))
+        assertThat(ropeBridge.worm[4]).isEqualTo(Pair(14, -1))
+        assertThat(ropeBridge.worm[5]).isEqualTo(Pair(14, 0))
+        assertThat(ropeBridge.worm[6]).isEqualTo(Pair(13, 0))
+        assertThat(ropeBridge.worm[7]).isEqualTo(Pair(12, 0))
+        assertThat(ropeBridge.worm[8]).isEqualTo(Pair(11, 0))
+        assertThat(ropeBridge.worm[9]).isEqualTo(Pair(10, 0))
+    }
+
+    @Test
+    fun moveWorm_R5_U8_L8_D3_R17_D10_L25() {
+        // arrange
+        val ropeBridge = RopeBridge()
+        val ropeCommands = listOf(
+            RopeCommand("R", 5),
+            RopeCommand("U", 8),
+            RopeCommand("L", 8),
+            RopeCommand("D", 3),
+            RopeCommand("R", 17),
+            RopeCommand("D", 10),
+            RopeCommand("L", 25),
+        )
+
+        // act
+        ropeBridge.executeRopeCommands(ropeCommands)
+
+        // assert
+        assertThat(ropeBridge.worm[0]).isEqualTo(Pair(-11, -5))
+        assertThat(ropeBridge.worm[1]).isEqualTo(Pair(-10, -5))
+        assertThat(ropeBridge.worm[2]).isEqualTo(Pair(-9, -5))
+        assertThat(ropeBridge.worm[3]).isEqualTo(Pair(-8, -5))
+        assertThat(ropeBridge.worm[4]).isEqualTo(Pair(-7, -5))
+        assertThat(ropeBridge.worm[5]).isEqualTo(Pair(-6, -5))
+        assertThat(ropeBridge.worm[6]).isEqualTo(Pair(-5, -5))
+        assertThat(ropeBridge.worm[7]).isEqualTo(Pair(-4, -5))
+        assertThat(ropeBridge.worm[8]).isEqualTo(Pair(-3, -5))
+        assertThat(ropeBridge.worm[9]).isEqualTo(Pair(-2, -5))
+    }
+
 /*
     And you go up, and you have handled 1 and 2 but not 3 yet:
 
