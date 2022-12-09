@@ -103,8 +103,8 @@ class RopeBridgeTest {
         ropeBridge.executeRopeCommand(RopeCommand("R", 5))
 
         // assert
-        assertThat(ropeBridge.head.first).isEqualTo(5)
-        assertThat(ropeBridge.head.second).isEqualTo(0)
+        assertThat(ropeBridge.head).isEqualTo(Pair(5, 0))
+        assertThat(ropeBridge.tail).isEqualTo(Pair(4, 0))
     }
 
     @Test

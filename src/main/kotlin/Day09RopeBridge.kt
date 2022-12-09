@@ -35,6 +35,9 @@ class RopeBridge {
     fun executeRopeCommand(ropeCommand: RopeCommand) {
         for (move in 1..ropeCommand.moves) {
             moveHead(ropeCommand.direction)
+            if (!isAdjacent()) {
+                moveTail()
+            }
         }
     }
 
