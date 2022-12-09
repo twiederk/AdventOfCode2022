@@ -78,7 +78,7 @@ class RopeBridgeTest {
 
         // assert
         assertThat(ropeBridge.head.first).isEqualTo(0)
-        assertThat(ropeBridge.head.second).isEqualTo(-1)
+        assertThat(ropeBridge.head.second).isEqualTo(1)
     }
 
     @Test
@@ -91,20 +91,7 @@ class RopeBridgeTest {
 
         // assert
         assertThat(ropeBridge.head.first).isEqualTo(0)
-        assertThat(ropeBridge.head.second).isEqualTo(1)
-    }
-
-    @Test
-    fun executeRopeCommand() {
-        // arrange
-        val ropeBridge = RopeBridge()
-
-        // act
-        ropeBridge.executeRopeCommand(RopeCommand("R", 5))
-
-        // assert
-        assertThat(ropeBridge.head).isEqualTo(Pair(5, 0))
-        assertThat(ropeBridge.tail).isEqualTo(Pair(4, 0))
+        assertThat(ropeBridge.head.second).isEqualTo(-1)
     }
 
     @Test
@@ -221,6 +208,34 @@ class RopeBridgeTest {
 
         // assert
         assertThat(ropeBridge.tail).isEqualTo(Pair(0, 1))
+    }
+
+    @Test
+    fun executeRopeCommand_moveFiveToRight() {
+        // arrange
+        val ropeBridge = RopeBridge()
+
+        // act
+        ropeBridge.executeRopeCommand(RopeCommand("R", 5))
+
+        // assert
+        assertThat(ropeBridge.head).isEqualTo(Pair(5, 0))
+        assertThat(ropeBridge.tail).isEqualTo(Pair(4, 0))
+    }
+
+    @Test
+    fun executeRopeCommand_moveWholeTestData() {
+        // arrange
+        val ropeBridge = RopeBridge()
+        val rawData = ropeBridge.loadData(Path("src", "test", "resources", "Day09_TestData.txt"))
+        val ropeCommands = ropeBridge.parseRopeCommands(rawData)
+
+        // act
+        ropeBridge.executeRopeCommands(ropeCommands)
+
+        // assert
+        assertThat(ropeBridge.head).isEqualTo(Pair(2, 2))
+        assertThat(ropeBridge.tail).isEqualTo(Pair(1, 2))
     }
 
 

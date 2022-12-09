@@ -27,8 +27,8 @@ class RopeBridge {
         when (direction) {
             "R" -> head = head.copy(first = head.first + 1)
             "L" -> head = head.copy(first = head.first - 1)
-            "U" -> head = head.copy(second = head.second - 1)
-            "D" -> head = head.copy(second = head.second + 1)
+            "U" -> head = head.copy(second = head.second + 1)
+            "D" -> head = head.copy(second = head.second - 1)
         }
     }
 
@@ -55,6 +55,12 @@ class RopeBridge {
             tail = tail.copy(second = tail.second - 1)
         } else if (tail.second + 2 == head.second) {
             tail = tail.copy(second = tail.second + 1)
+        }
+    }
+
+    fun executeRopeCommands(ropeCommands: List<RopeCommand>) {
+        for (ropeCommand in ropeCommands) {
+            executeRopeCommand(ropeCommand)
         }
     }
 }
