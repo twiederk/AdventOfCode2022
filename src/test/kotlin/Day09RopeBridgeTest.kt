@@ -172,7 +172,7 @@ class RopeBridgeTest {
     }
 
     @Test
-    fun moveTail_headIsTwoUp() {
+    fun moveTail_headIsTwoDown() {
         // arrange
         val ropeBridge = RopeBridge()
         ropeBridge.head = Pair(0, -2)
@@ -185,7 +185,7 @@ class RopeBridgeTest {
     }
 
     @Test
-    fun moveTail_headIsTwoDown() {
+    fun moveTail_headIsTwoUp() {
         // arrange
         val ropeBridge = RopeBridge()
         ropeBridge.head = Pair(0, 2)
@@ -198,7 +198,7 @@ class RopeBridgeTest {
     }
 
     @Test
-    fun moveTail_headIsOneRightTwoDown() {
+    fun moveTail_headIsOneRightTwoUp() {
         // arrange
         val ropeBridge = RopeBridge()
         ropeBridge.head = Pair(1, 2)
@@ -207,20 +207,38 @@ class RopeBridgeTest {
         ropeBridge.moveTail()
 
         // assert
-        assertThat(ropeBridge.tail).isEqualTo(Pair(0, 1))
+        assertThat(ropeBridge.tail).isEqualTo(Pair(1, 1))
     }
 
     @Test
-    fun executeRopeCommand_moveFiveToRight() {
+    fun executeRopeCommands_firstCommand() {
         // arrange
         val ropeBridge = RopeBridge()
+        val ropeCommands = listOf(RopeCommand("R", 4))
 
         // act
-        ropeBridge.executeRopeCommand(RopeCommand("R", 5))
+        ropeBridge.executeRopeCommands(ropeCommands)
 
         // assert
-        assertThat(ropeBridge.head).isEqualTo(Pair(5, 0))
-        assertThat(ropeBridge.tail).isEqualTo(Pair(4, 0))
+        assertThat(ropeBridge.head).isEqualTo(Pair(4, 0))
+        assertThat(ropeBridge.tail).isEqualTo(Pair(3, 0))
+    }
+
+    @Test
+    fun executeRopeCommands_secondCommand() {
+        // arrange
+        val ropeBridge = RopeBridge()
+        val ropeCommands = listOf(
+            RopeCommand("R", 4),
+            RopeCommand("U", 4),
+        )
+
+        // act
+        ropeBridge.executeRopeCommands(ropeCommands)
+
+        // assert
+        assertThat(ropeBridge.head).isEqualTo(Pair(4, 4))
+        assertThat(ropeBridge.tail).isEqualTo(Pair(4, 3))
     }
 
     @Test
@@ -238,5 +256,34 @@ class RopeBridgeTest {
         assertThat(ropeBridge.tail).isEqualTo(Pair(1, 2))
     }
 
+    @Test
+    fun moveTail_diagonal1() {
+        // arrange
+        val ropeBridge = RopeBridge()
+        ropeBridge.head = Pair(2, 3)
+        ropeBridge.tail = Pair(1, 1)
+
+        // act
+        ropeBridge.moveTail()
+
+        // assert
+        assertThat(ropeBridge.tail).isEqualTo(Pair(2, 2))
+
+    }
+
+    @Test
+    fun moveTail_diagonal2() {
+        // arrange
+        val ropeBridge = RopeBridge()
+        ropeBridge.head = Pair(3, 2)
+        ropeBridge.tail = Pair(2, 2)
+
+        // act
+        ropeBridge.moveTail()
+
+        // assert
+        assertThat(ropeBridge.tail).isEqualTo(Pair(2, 2))
+
+    }
 
 }

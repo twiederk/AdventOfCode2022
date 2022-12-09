@@ -48,13 +48,39 @@ class RopeBridge {
 
     fun moveTail() {
         if (tail.first + 2 == head.first) {
-            tail = tail.copy(first = tail.first + 1)
-        } else if (tail.first - 2 == head.first) {
-            tail = tail.copy(first = tail.first - 1)
-        } else if (tail.second - 2 == head.second) {
-            tail = tail.copy(second = tail.second - 1)
-        } else if (tail.second + 2 == head.second) {
-            tail = tail.copy(second = tail.second + 1)
+            tail = if (tail.second == head.second) {
+                tail.copy(first = tail.first + 1)
+            } else {
+                tail.copy(first = tail.first + 1, second = head.second)
+            }
+            return
+        }
+
+        if (tail.first - 2 == head.first) {
+            tail = if (tail.second == head.second) {
+                tail.copy(first = tail.first - 1)
+            } else {
+                tail.copy(first = tail.first - 1, second = head.second)
+            }
+            return
+        }
+
+        if (tail.second - 2 == head.second) {
+            tail = if (tail.first == head.first) {
+                tail.copy(second = tail.second - 1)
+            } else {
+                tail.copy(second = tail.second - 1, first = head.first)
+            }
+            return
+        }
+
+        if (tail.second + 2 == head.second) {
+            tail = if (tail.first == head.first) {
+                tail.copy(second = tail.second + 1)
+            } else {
+                tail.copy(second = tail.second + 1, first = head.first)
+            }
+            return
         }
     }
 
