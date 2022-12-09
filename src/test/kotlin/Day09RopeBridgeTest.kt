@@ -335,7 +335,19 @@ class RopeBridgeTest {
         assertThat(ropeBridge.worm[6]).isEqualTo(Pair(1, 1))
         assertThat(ropeBridge.worm[7]).isEqualTo(Pair(0, 0))
         assertThat(ropeBridge.worm[8]).isEqualTo(Pair(0, 0))
+    }
 
+    @Test
+    fun moveWorm_largerExample() {
+        // arrange
+        val ropeBridge = RopeBridge()
+        val rawData = ropeBridge.loadData(Path("src", "test", "resources", "Day09_Part2_TestData.txt"))
+        val ropeCommands = ropeBridge.parseRopeCommands(rawData)
 
+        // act
+        ropeBridge.executeRopeCommands(ropeCommands)
+
+        // assert
+        assertThat(ropeBridge.countVisitByTail()).isEqualTo(36)
     }
 }

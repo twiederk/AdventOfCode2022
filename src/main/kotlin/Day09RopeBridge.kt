@@ -4,7 +4,18 @@ import kotlin.io.path.readLines
 
 class RopeBridge {
 
-    var worm = mutableListOf(Pair(0, 0), Pair(0, 0), Pair(0, 0), Pair(0, 0), Pair(0, 0), Pair(0, 0), Pair(0, 0), Pair(0, 0), Pair(0, 0))
+    var worm = mutableListOf(
+        Pair(0, 0),
+        Pair(0, 0),
+        Pair(0, 0),
+        Pair(0, 0),
+        Pair(0, 0),
+        Pair(0, 0),
+        Pair(0, 0),
+        Pair(0, 0),
+        Pair(0, 0),
+        Pair(0, 0)
+    )
 
     val fieldsVisitByTail = mutableSetOf<Pair<Int, Int>>()
 
