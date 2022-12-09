@@ -43,7 +43,19 @@ class RopeBridge {
                 && tail.second in head.second - 1..head.second + 1
     }
 
+    fun moveTail() {
+        if (tail.first + 2 == head.first) {
+            tail = tail.copy(first = tail.first + 1)
+        } else if (tail.first - 2 == head.first) {
+            tail = tail.copy(first = tail.first - 1)
+        } else if (tail.second - 2 == head.second) {
+            tail = tail.copy(second = tail.second - 1)
+        } else if (tail.second + 2 == head.second) {
+            tail = tail.copy(second = tail.second + 1)
+        }
+    }
 }
+
 
 class RopeCommand(
     val direction: String,

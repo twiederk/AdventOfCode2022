@@ -7,7 +7,7 @@ class RopeBridgeTest {
     // + loadData
     // + parse RopeCommand
     // + move head
-    // check adjacent
+    // + check adjacent
     // if not adjacent move tail
     // store position the tail visited at least once
 
@@ -157,5 +157,71 @@ class RopeBridgeTest {
         // assert
         assertThat(adjacent).isFalse
     }
+
+    @Test
+    fun moveTail_headIsTwoToRight() {
+        // arrange
+        val ropeBridge = RopeBridge()
+        ropeBridge.head = Pair(2, 0)
+
+        // act
+        ropeBridge.moveTail()
+
+        // assert
+        assertThat(ropeBridge.tail).isEqualTo(Pair(1, 0))
+    }
+
+    @Test
+    fun moveTail_headIsTwoToLeft() {
+        // arrange
+        val ropeBridge = RopeBridge()
+        ropeBridge.head = Pair(-2, 0)
+
+        // act
+        ropeBridge.moveTail()
+
+        // assert
+        assertThat(ropeBridge.tail).isEqualTo(Pair(-1, 0))
+    }
+
+    @Test
+    fun moveTail_headIsTwoUp() {
+        // arrange
+        val ropeBridge = RopeBridge()
+        ropeBridge.head = Pair(0, -2)
+
+        // act
+        ropeBridge.moveTail()
+
+        // assert
+        assertThat(ropeBridge.tail).isEqualTo(Pair(0, -1))
+    }
+
+    @Test
+    fun moveTail_headIsTwoDown() {
+        // arrange
+        val ropeBridge = RopeBridge()
+        ropeBridge.head = Pair(0, 2)
+
+        // act
+        ropeBridge.moveTail()
+
+        // assert
+        assertThat(ropeBridge.tail).isEqualTo(Pair(0, 1))
+    }
+
+    @Test
+    fun moveTail_headIsOneRightTwoDown() {
+        // arrange
+        val ropeBridge = RopeBridge()
+        ropeBridge.head = Pair(1, 2)
+
+        // act
+        ropeBridge.moveTail()
+
+        // assert
+        assertThat(ropeBridge.tail).isEqualTo(Pair(0, 1))
+    }
+
 
 }
