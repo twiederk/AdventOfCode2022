@@ -4,8 +4,8 @@ import kotlin.io.path.Path
 
 class RopeBridgeTest {
 
-    // loadData
-    // parse RopeCommand
+    // + loadData
+    // + parse RopeCommand
     // move head
     // check adjacent
     // if not adjacent move tail
@@ -40,6 +40,58 @@ class RopeBridgeTest {
 
         // assert
         assertThat(ropeCommands).hasSize(8)
+    }
+
+    @Test
+    fun moveHead_right() {
+        // arrange
+        val ropeBridge = RopeBridge()
+
+        // act
+        ropeBridge.moveHead("R")
+
+        // assert
+        assertThat(ropeBridge.head.first).isEqualTo(1)
+        assertThat(ropeBridge.head.second).isEqualTo(0)
+    }
+
+    @Test
+    fun moveHead_left() {
+        // arrange
+        val ropeBridge = RopeBridge()
+
+        // act
+        ropeBridge.moveHead("L")
+
+        // assert
+        assertThat(ropeBridge.head.first).isEqualTo(-1)
+        assertThat(ropeBridge.head.second).isEqualTo(0)
+    }
+
+    @Test
+    fun moveHead_up() {
+        // arrange
+        val ropeBridge = RopeBridge()
+
+        // act
+        ropeBridge.moveHead("U")
+
+        // assert
+        assertThat(ropeBridge.head.first).isEqualTo(0)
+        assertThat(ropeBridge.head.second).isEqualTo(-1)
+    }
+
+    @Test
+    fun moveHead_down() {
+        // arrange
+        val ropeBridge = RopeBridge()
+
+        // act
+        ropeBridge.moveHead("D")
+
+        // assert
+        assertThat(ropeBridge.head.first).isEqualTo(0)
+        assertThat(ropeBridge.head.second).isEqualTo(1)
     }
 
 }

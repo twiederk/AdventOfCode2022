@@ -3,6 +3,9 @@ import kotlin.io.path.readLines
 
 class RopeBridge {
 
+
+    var head = Pair(0, 0)
+
     fun loadData(path: Path): List<String> = path.readLines()
 
     fun parseRopeCommand(rawCommand: String): RopeCommand {
@@ -19,6 +22,14 @@ class RopeBridge {
         return ropeCommands
     }
 
+    fun moveHead(direction: String) {
+        when (direction) {
+            "R" -> head = head.copy(first = head.first + 1)
+            "L" -> head = head.copy(first = head.first - 1)
+            "U" -> head = head.copy(second = head.second - 1)
+            "D" -> head = head.copy(second = head.second + 1)
+        }
+    }
 
 }
 
