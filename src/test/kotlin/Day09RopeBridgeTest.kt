@@ -13,8 +13,6 @@ class RopeBridgeTest {
 
     @Test
     fun loadData() {
-        // arrange
-
         // act
         val rawData = RopeBridge().loadData(Path("src", "test", "resources", "Day09_TestData.txt"))
 
@@ -24,14 +22,24 @@ class RopeBridgeTest {
 
     @Test
     fun parseRopeCommand() {
-        // arrange
-
         // act
         val ropeCommand = RopeBridge().parseRopeCommand("R 19")
 
         // assert
         assertThat(ropeCommand.direction).isEqualTo("R")
         assertThat(ropeCommand.moves).isEqualTo(19)
+    }
+
+    @Test
+    fun parseRopeCommands() {
+        // arrange
+        val rawData = RopeBridge().loadData(Path("src", "test", "resources", "Day09_TestData.txt"))
+
+        // act
+        val ropeCommands = RopeBridge().parseRopeCommands(rawData)
+
+        // assert
+        assertThat(ropeCommands).hasSize(8)
     }
 
 }

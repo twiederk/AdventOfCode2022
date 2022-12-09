@@ -11,6 +11,14 @@ class RopeBridge {
         return RopeCommand(direction, moves.toInt())
     }
 
+    fun parseRopeCommands(rawData: List<String>): List<RopeCommand> {
+        val ropeCommands = mutableListOf<RopeCommand>()
+        for (data in rawData) {
+            ropeCommands.add(parseRopeCommand(data))
+        }
+        return ropeCommands
+    }
+
 
 }
 
