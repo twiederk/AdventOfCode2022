@@ -351,4 +351,65 @@ class RopeBridgeTest {
         // assert
         assertThat(ropeBridge.countVisitByTail()).isEqualTo(36)
     }
+
+    @Test
+    fun moveWorm_R5() {
+        // arrange
+        val ropeBridge = RopeBridge()
+
+        // act
+        ropeBridge.executeRopeCommands(listOf(RopeCommand("R", 5)))
+
+        // assert
+        assertThat(ropeBridge.worm[0]).isEqualTo(Pair(5, 0))
+        assertThat(ropeBridge.worm[1]).isEqualTo(Pair(4, 0))
+        assertThat(ropeBridge.worm[2]).isEqualTo(Pair(3, 0))
+        assertThat(ropeBridge.worm[3]).isEqualTo(Pair(2, 0))
+        assertThat(ropeBridge.worm[4]).isEqualTo(Pair(1, 0))
+        assertThat(ropeBridge.worm[5]).isEqualTo(Pair(0, 0))
+        assertThat(ropeBridge.worm[6]).isEqualTo(Pair(0, 0))
+        assertThat(ropeBridge.worm[7]).isEqualTo(Pair(0, 0))
+        assertThat(ropeBridge.worm[8]).isEqualTo(Pair(0, 0))
+        assertThat(ropeBridge.worm[9]).isEqualTo(Pair(0, 0))
+    }
+
+    @Test
+    fun moveWorm_R5_U8() {
+        // arrange
+        val ropeBridge = RopeBridge()
+        val ropeCommands = listOf(
+            RopeCommand("R", 5),
+            RopeCommand("U", 8)
+        )
+
+        // act
+        ropeBridge.executeRopeCommands(ropeCommands)
+
+        // assert
+        assertThat(ropeBridge.worm[0]).isEqualTo(Pair(5, 8))
+        assertThat(ropeBridge.worm[1]).isEqualTo(Pair(5, 7))
+        assertThat(ropeBridge.worm[2]).isEqualTo(Pair(5, 6))
+        assertThat(ropeBridge.worm[3]).isEqualTo(Pair(5, 5))
+        assertThat(ropeBridge.worm[4]).isEqualTo(Pair(5, 4))
+        assertThat(ropeBridge.worm[5]).isEqualTo(Pair(4, 4))
+        assertThat(ropeBridge.worm[6]).isEqualTo(Pair(3, 3))
+        assertThat(ropeBridge.worm[7]).isEqualTo(Pair(2, 2))
+        assertThat(ropeBridge.worm[8]).isEqualTo(Pair(1, 1))
+        assertThat(ropeBridge.worm[9]).isEqualTo(Pair(0, 0))
+    }
+
+    @Test
+    fun moveTail_error1() {
+        // arrange
+        val ropeBridge = RopeBridge()
+        ropeBridge.worm[5] = Pair(4, 4)
+        ropeBridge.worm[6] = Pair(3, 2)
+
+        // act
+        ropeBridge.moveTail(6)
+
+        // assert
+        assertThat(ropeBridge.worm[6]).isEqualTo(Pair(3, 3))
+    }
+
 }

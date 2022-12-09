@@ -62,6 +62,7 @@ class RopeBridge {
     }
 
     fun moveTail(i: Int) {
+        // left
         if (worm[i].first + 2 == worm[i - 1].first) {
             worm[i] = if (worm[i].second == worm[i - 1].second) {
                 worm[i].copy(first = worm[i].first + 1)
@@ -71,6 +72,7 @@ class RopeBridge {
             return
         }
 
+        // right
         if (worm[i].first - 2 == worm[i - 1].first) {
             worm[i] = if (worm[i].second == worm[i - 1].second) {
                 worm[i].copy(first = worm[i].first - 1)
@@ -80,6 +82,7 @@ class RopeBridge {
             return
         }
 
+        // down
         if (worm[i].second - 2 == worm[i - 1].second) {
             worm[i] = if (worm[i].first == worm[i - 1].first) {
                 worm[i].copy(second = worm[i].second - 1)
@@ -89,6 +92,7 @@ class RopeBridge {
             return
         }
 
+        // up
         if (worm[i].second + 2 == worm[i - 1].second) {
             worm[i] = if (worm[i].first == worm[i - 1].first) {
                 worm[i].copy(second = worm[i].second + 1)
