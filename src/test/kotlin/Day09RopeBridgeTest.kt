@@ -286,4 +286,18 @@ class RopeBridgeTest {
 
     }
 
+    @Test
+    fun countVisitByTail() {
+        // arrange
+        val ropeBridge = RopeBridge()
+        val rawData = ropeBridge.loadData(Path("src", "test", "resources", "Day09_TestData.txt"))
+        val ropeCommands = ropeBridge.parseRopeCommands(rawData)
+
+        // act
+        ropeBridge.executeRopeCommands(ropeCommands)
+
+        // assert
+        assertThat(ropeBridge.countVisitByTail()).isEqualTo(13)
+    }
+
 }

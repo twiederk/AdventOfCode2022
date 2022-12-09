@@ -1,4 +1,5 @@
 import java.nio.file.Path
+import kotlin.io.path.Path
 import kotlin.io.path.readLines
 
 class RopeBridge {
@@ -6,6 +7,7 @@ class RopeBridge {
 
     var head = Pair(0, 0)
     var tail = Pair(0, 0)
+    val fieldsVisitByTail = mutableSetOf<Pair<Int, Int>>()
 
     fun loadData(path: Path): List<String> = path.readLines()
 
@@ -38,6 +40,7 @@ class RopeBridge {
             if (!isAdjacent()) {
                 moveTail()
             }
+            fieldsVisitByTail.add(tail.copy())
         }
     }
 
@@ -89,6 +92,10 @@ class RopeBridge {
             executeRopeCommand(ropeCommand)
         }
     }
+
+    fun countVisitByTail(): Int {
+        return fieldsVisitByTail.size
+    }
 }
 
 
@@ -97,3 +104,12 @@ class RopeCommand(
     val moves: Int
 )
 
+fun main() {
+    val ropeBridge = RopeBridge()
+    val rawData = ropeBridge.loadData(Path("src", "main", "resources", "Day09_Part1_InputData.txt"))
+    val ropeCommands = ropeBridge.parseRopeCommands(rawData)
+
+    ropeBridge.executeRopeCommands(ropeCommands)
+    println("countVisitByTail = ${ropeBridge.countVisitByTail()}")
+
+}
