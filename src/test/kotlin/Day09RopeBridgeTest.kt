@@ -1,5 +1,4 @@
-import org.assertj.core.api.Assertions
-import org.assertj.core.api.Assertions.*
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import kotlin.io.path.Path
 
@@ -21,6 +20,17 @@ class RopeBridgeTest {
 
         // assert
         assertThat(rawData).hasSize(8)
+    }
+
+    @Test
+    fun parseRopeCommand() {
+        // arrange
+
+        // act
+        val ropeCommand = RopeBridge().parseRopeCommand("R 19")
+
+        // assert
+        assertThat(ropeCommand.direction).isEqualTo("R")
     }
 
 }
