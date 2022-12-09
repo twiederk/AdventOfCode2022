@@ -94,4 +94,16 @@ class RopeBridgeTest {
         assertThat(ropeBridge.head.second).isEqualTo(1)
     }
 
+    @Test
+    fun executeRopeCommand() {
+        // arrange
+        val ropeBridge = RopeBridge()
+
+        // act
+        ropeBridge.executeRopeCommand(RopeCommand("R", 5))
+
+        // assert
+        assertThat(ropeBridge.head.first).isEqualTo(5)
+        assertThat(ropeBridge.head.second).isEqualTo(0)
+    }
 }

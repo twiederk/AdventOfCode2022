@@ -31,6 +31,10 @@ class RopeBridge {
         }
     }
 
+    fun executeRopeCommand(ropeCommand: RopeCommand) {
+        TODO("Not yet implemented")
+    }
+
 }
 
 class RopeCommand(
