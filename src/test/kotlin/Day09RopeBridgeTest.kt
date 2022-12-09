@@ -257,6 +257,21 @@ class RopeBridgeTest {
     }
 
     @Test
+    fun executeRopeCommand_moveWholeRealData() {
+        // arrange
+        val ropeBridge = RopeBridge()
+        val rawData = ropeBridge.loadData(Path("src", "main", "resources", "Day09_Part1_InputData.txt"))
+        val ropeCommands = ropeBridge.parseRopeCommands(rawData)
+
+        // act
+        ropeBridge.executeRopeCommands(ropeCommands)
+
+        // assert
+        assertThat(ropeBridge.head).isEqualTo(Pair(-173, 503))
+        assertThat(ropeBridge.tail).isEqualTo(Pair(-173, 502))
+    }
+
+    @Test
     fun moveTail_diagonal1() {
         // arrange
         val ropeBridge = RopeBridge()
