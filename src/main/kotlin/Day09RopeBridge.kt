@@ -4,7 +4,7 @@ import kotlin.io.path.readLines
 
 class RopeBridge {
 
-    var worm = mutableListOf(Pair(0, 0), Pair(0, 0))
+    var worm = mutableListOf(Pair(0, 0), Pair(0, 0), Pair(0, 0), Pair(0, 0), Pair(0, 0), Pair(0, 0), Pair(0, 0), Pair(0, 0), Pair(0, 0))
 
     val fieldsVisitByTail = mutableSetOf<Pair<Int, Int>>()
 
@@ -36,51 +36,53 @@ class RopeBridge {
     fun executeRopeCommand(ropeCommand: RopeCommand) {
         for (move in 1..ropeCommand.moves) {
             moveHead(ropeCommand.direction)
-            if (!isAdjacent()) {
-                moveTail()
+            for (i in 1 until worm.size) {
+                if (!isAdjacent(i)) {
+                    moveTail(i)
+                }
             }
-            fieldsVisitByTail.add(worm[1].copy())
+            fieldsVisitByTail.add(worm[8].copy())
         }
     }
 
-    fun isAdjacent(): Boolean {
-        return worm[1].first in worm[0].first - 1..worm[0].first + 1
-                && worm[1].second in worm[0].second - 1..worm[0].second + 1
+    fun isAdjacent(i: Int): Boolean {
+        return worm[i].first in worm[i - 1].first - 1..worm[i - 1].first + 1
+                && worm[i].second in worm[i - 1].second - 1..worm[i - 1].second + 1
     }
 
-    fun moveTail() {
-        if (worm[1].first + 2 == worm[0].first) {
-            worm[1] = if (worm[1].second == worm[0].second) {
-                worm[1].copy(first = worm[1].first + 1)
+    fun moveTail(i: Int) {
+        if (worm[i].first + 2 == worm[i - 1].first) {
+            worm[i] = if (worm[i].second == worm[i - 1].second) {
+                worm[i].copy(first = worm[i].first + 1)
             } else {
-                worm[1].copy(first = worm[1].first + 1, second = worm[0].second)
+                worm[i].copy(first = worm[i].first + 1, second = worm[i - 1].second)
             }
             return
         }
 
-        if (worm[1].first - 2 == worm[0].first) {
-            worm[1] = if (worm[1].second == worm[0].second) {
-                worm[1].copy(first = worm[1].first - 1)
+        if (worm[i].first - 2 == worm[i - 1].first) {
+            worm[i] = if (worm[i].second == worm[i - 1].second) {
+                worm[i].copy(first = worm[i].first - 1)
             } else {
-                worm[1].copy(first = worm[1].first - 1, second = worm[0].second)
+                worm[i].copy(first = worm[i].first - 1, second = worm[i - 1].second)
             }
             return
         }
 
-        if (worm[1].second - 2 == worm[0].second) {
-            worm[1] = if (worm[1].first == worm[0].first) {
-                worm[1].copy(second = worm[1].second - 1)
+        if (worm[i].second - 2 == worm[i - 1].second) {
+            worm[i] = if (worm[i].first == worm[i - 1].first) {
+                worm[i].copy(second = worm[i].second - 1)
             } else {
-                worm[1].copy(second = worm[1].second - 1, first = worm[0].first)
+                worm[i].copy(second = worm[i].second - 1, first = worm[i - 1].first)
             }
             return
         }
 
-        if (worm[1].second + 2 == worm[0].second) {
-            worm[1] = if (worm[1].first == worm[0].first) {
-                worm[1].copy(second = worm[1].second + 1)
+        if (worm[i].second + 2 == worm[i - 1].second) {
+            worm[i] = if (worm[i].first == worm[i - 1].first) {
+                worm[i].copy(second = worm[i].second + 1)
             } else {
-                worm[1].copy(second = worm[1].second + 1, first = worm[0].first)
+                worm[i].copy(second = worm[i].second + 1, first = worm[i - 1].first)
             }
             return
         }

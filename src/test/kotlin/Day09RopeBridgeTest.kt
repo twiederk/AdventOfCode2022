@@ -100,7 +100,7 @@ class RopeBridgeTest {
         val ropeBridge = RopeBridge()
 
         // act
-        val adjacent = ropeBridge.isAdjacent()
+        val adjacent = ropeBridge.isAdjacent(1)
 
         // assert
         assertThat(adjacent).isTrue
@@ -113,7 +113,7 @@ class RopeBridgeTest {
         ropeBridge.worm[0] = Pair(1, 0)
 
         // act
-        val adjacent = ropeBridge.isAdjacent()
+        val adjacent = ropeBridge.isAdjacent(1)
 
         // assert
         assertThat(adjacent).isTrue
@@ -126,7 +126,7 @@ class RopeBridgeTest {
         ropeBridge.worm[0] = Pair(1, 1)
 
         // act
-        val adjacent = ropeBridge.isAdjacent()
+        val adjacent = ropeBridge.isAdjacent(1)
 
         // assert
         assertThat(adjacent).isTrue
@@ -139,7 +139,7 @@ class RopeBridgeTest {
         ropeBridge.worm[0] = Pair(2, 0)
 
         // act
-        val adjacent = ropeBridge.isAdjacent()
+        val adjacent = ropeBridge.isAdjacent(1)
 
         // assert
         assertThat(adjacent).isFalse
@@ -152,7 +152,7 @@ class RopeBridgeTest {
         ropeBridge.worm[0] = Pair(2, 0)
 
         // act
-        ropeBridge.moveTail()
+        ropeBridge.moveTail(1)
 
         // assert
         assertThat(ropeBridge.worm[1]).isEqualTo(Pair(1, 0))
@@ -165,7 +165,7 @@ class RopeBridgeTest {
         ropeBridge.worm[0] = Pair(-2, 0)
 
         // act
-        ropeBridge.moveTail()
+        ropeBridge.moveTail(1)
 
         // assert
         assertThat(ropeBridge.worm[1]).isEqualTo(Pair(-1, 0))
@@ -178,7 +178,7 @@ class RopeBridgeTest {
         ropeBridge.worm[0] = Pair(0, -2)
 
         // act
-        ropeBridge.moveTail()
+        ropeBridge.moveTail(1)
 
         // assert
         assertThat(ropeBridge.worm[1]).isEqualTo(Pair(0, -1))
@@ -191,7 +191,7 @@ class RopeBridgeTest {
         ropeBridge.worm[0] = Pair(0, 2)
 
         // act
-        ropeBridge.moveTail()
+        ropeBridge.moveTail(1)
 
         // assert
         assertThat(ropeBridge.worm[1]).isEqualTo(Pair(0, 1))
@@ -204,7 +204,7 @@ class RopeBridgeTest {
         ropeBridge.worm[0] = Pair(1, 2)
 
         // act
-        ropeBridge.moveTail()
+        ropeBridge.moveTail(1)
 
         // assert
         assertThat(ropeBridge.worm[1]).isEqualTo(Pair(1, 1))
@@ -279,7 +279,7 @@ class RopeBridgeTest {
         ropeBridge.worm[1] = Pair(1, 1)
 
         // act
-        ropeBridge.moveTail()
+        ropeBridge.moveTail(1)
 
         // assert
         assertThat(ropeBridge.worm[1]).isEqualTo(Pair(2, 2))
@@ -294,7 +294,7 @@ class RopeBridgeTest {
         ropeBridge.worm[1] = Pair(2, 2)
 
         // act
-        ropeBridge.moveTail()
+        ropeBridge.moveTail(1)
 
         // assert
         assertThat(ropeBridge.worm[1]).isEqualTo(Pair(2, 2))
@@ -312,7 +312,30 @@ class RopeBridgeTest {
         ropeBridge.executeRopeCommands(ropeCommands)
 
         // assert
-        assertThat(ropeBridge.countVisitByTail()).isEqualTo(13)
+        assertThat(ropeBridge.countVisitByTail()).isEqualTo(1)
     }
 
+    @Test
+    fun moveWorm_R4() {
+        // arrange
+        val ropeBridge = RopeBridge()
+        val rawData = ropeBridge.loadData(Path("src", "test", "resources", "Day09_TestData.txt"))
+        val ropeCommands = ropeBridge.parseRopeCommands(rawData)
+
+        // act
+        ropeBridge.executeRopeCommands(ropeCommands)
+
+        // assert
+        assertThat(ropeBridge.worm[0]).isEqualTo(Pair(2, 2))
+        assertThat(ropeBridge.worm[1]).isEqualTo(Pair(1, 2))
+        assertThat(ropeBridge.worm[2]).isEqualTo(Pair(2, 2))
+        assertThat(ropeBridge.worm[3]).isEqualTo(Pair(3, 2))
+        assertThat(ropeBridge.worm[4]).isEqualTo(Pair(2, 2))
+        assertThat(ropeBridge.worm[5]).isEqualTo(Pair(1, 2))
+        assertThat(ropeBridge.worm[6]).isEqualTo(Pair(1, 1))
+        assertThat(ropeBridge.worm[7]).isEqualTo(Pair(0, 0))
+        assertThat(ropeBridge.worm[8]).isEqualTo(Pair(0, 0))
+
+
+    }
 }
