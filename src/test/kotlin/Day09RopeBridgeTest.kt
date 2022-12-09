@@ -6,7 +6,7 @@ class RopeBridgeTest {
 
     // + loadData
     // + parse RopeCommand
-    // move head
+    // + move head
     // check adjacent
     // if not adjacent move tail
     // store position the tail visited at least once

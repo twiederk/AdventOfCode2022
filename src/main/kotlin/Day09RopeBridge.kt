@@ -32,7 +32,9 @@ class RopeBridge {
     }
 
     fun executeRopeCommand(ropeCommand: RopeCommand) {
-        TODO("Not yet implemented")
+        for (move in 1..ropeCommand.moves) {
+            moveHead(ropeCommand.direction)
+        }
     }
 
 }
