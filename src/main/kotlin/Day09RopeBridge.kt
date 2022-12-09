@@ -5,6 +5,7 @@ class RopeBridge {
 
 
     var head = Pair(0, 0)
+    var tail = Pair(0, 0)
 
     fun loadData(path: Path): List<String> = path.readLines()
 
@@ -35,6 +36,11 @@ class RopeBridge {
         for (move in 1..ropeCommand.moves) {
             moveHead(ropeCommand.direction)
         }
+    }
+
+    fun isAdjacent(): Boolean {
+        return tail.first in head.first - 1..head.first + 1
+                && tail.second in head.second - 1..head.second + 1
     }
 
 }

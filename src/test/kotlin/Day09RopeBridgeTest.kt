@@ -106,4 +106,56 @@ class RopeBridgeTest {
         assertThat(ropeBridge.head.first).isEqualTo(5)
         assertThat(ropeBridge.head.second).isEqualTo(0)
     }
+
+    @Test
+    fun isAdjacent_coverEachOther_true() {
+        // arrange
+        val ropeBridge = RopeBridge()
+
+        // act
+        val adjacent = ropeBridge.isAdjacent()
+
+        // assert
+        assertThat(adjacent).isTrue
+    }
+
+    @Test
+    fun isAdjacent_oneToTheRight_true() {
+        // arrange
+        val ropeBridge = RopeBridge()
+        ropeBridge.head = Pair(1, 0)
+
+        // act
+        val adjacent = ropeBridge.isAdjacent()
+
+        // assert
+        assertThat(adjacent).isTrue
+    }
+
+    @Test
+    fun isAdjacent_oneToTheRightAndDown_true() {
+        // arrange
+        val ropeBridge = RopeBridge()
+        ropeBridge.head = Pair(1, 1)
+
+        // act
+        val adjacent = ropeBridge.isAdjacent()
+
+        // assert
+        assertThat(adjacent).isTrue
+    }
+
+    @Test
+    fun isAdjacent_twoToTheRight_false() {
+        // arrange
+        val ropeBridge = RopeBridge()
+        ropeBridge.head = Pair(2, 0)
+
+        // act
+        val adjacent = ropeBridge.isAdjacent()
+
+        // assert
+        assertThat(adjacent).isFalse
+    }
+
 }
