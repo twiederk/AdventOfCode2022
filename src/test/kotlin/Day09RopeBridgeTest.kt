@@ -398,18 +398,41 @@ class RopeBridgeTest {
         assertThat(ropeBridge.worm[9]).isEqualTo(Pair(0, 0))
     }
 
+/*
+    And you go up, and you have handled 1 and 2 but not 3 yet:
+
+    ...1
+    ...2
+    ....
+    .3..
+    You now have 2 over and 2 up, which is not a thing you can encounter in part 1, and from what I saw the example maybe had this occur, but not to an extent where if you did it "wrong" that it impacted the answer you got.
+
+    Wrong (and easy mistake to make)
+
+    ...1
+    ...2
+    ...3
+    ....
+    Right (and required proper logic written)
+
+    ...1
+    ...2
+    ..3.
+    ....
+*/
+
     @Test
     fun moveTail_error1() {
         // arrange
         val ropeBridge = RopeBridge()
-        ropeBridge.worm[5] = Pair(4, 4)
-        ropeBridge.worm[6] = Pair(3, 2)
+        ropeBridge.worm[2] = Pair(3, 2)
+        ropeBridge.worm[3] = Pair(1, 0)
 
         // act
-        ropeBridge.moveTail(6)
+        ropeBridge.moveTail(3)
 
         // assert
-        assertThat(ropeBridge.worm[6]).isEqualTo(Pair(3, 3))
+        assertThat(ropeBridge.worm[3]).isEqualTo(Pair(2, 1))
     }
 
 }
