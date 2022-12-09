@@ -155,7 +155,7 @@ class RopeBridgeTest {
         ropeBridge.moveTail()
 
         // assert
-        assertThat(ropeBridge.tail).isEqualTo(Pair(1, 0))
+        assertThat(ropeBridge.worm[1]).isEqualTo(Pair(1, 0))
     }
 
     @Test
@@ -168,7 +168,7 @@ class RopeBridgeTest {
         ropeBridge.moveTail()
 
         // assert
-        assertThat(ropeBridge.tail).isEqualTo(Pair(-1, 0))
+        assertThat(ropeBridge.worm[1]).isEqualTo(Pair(-1, 0))
     }
 
     @Test
@@ -181,7 +181,7 @@ class RopeBridgeTest {
         ropeBridge.moveTail()
 
         // assert
-        assertThat(ropeBridge.tail).isEqualTo(Pair(0, -1))
+        assertThat(ropeBridge.worm[1]).isEqualTo(Pair(0, -1))
     }
 
     @Test
@@ -194,7 +194,7 @@ class RopeBridgeTest {
         ropeBridge.moveTail()
 
         // assert
-        assertThat(ropeBridge.tail).isEqualTo(Pair(0, 1))
+        assertThat(ropeBridge.worm[1]).isEqualTo(Pair(0, 1))
     }
 
     @Test
@@ -207,7 +207,7 @@ class RopeBridgeTest {
         ropeBridge.moveTail()
 
         // assert
-        assertThat(ropeBridge.tail).isEqualTo(Pair(1, 1))
+        assertThat(ropeBridge.worm[1]).isEqualTo(Pair(1, 1))
     }
 
     @Test
@@ -221,7 +221,7 @@ class RopeBridgeTest {
 
         // assert
         assertThat(ropeBridge.worm[0]).isEqualTo(Pair(4, 0))
-        assertThat(ropeBridge.tail).isEqualTo(Pair(3, 0))
+        assertThat(ropeBridge.worm[1]).isEqualTo(Pair(3, 0))
     }
 
     @Test
@@ -238,7 +238,7 @@ class RopeBridgeTest {
 
         // assert
         assertThat(ropeBridge.worm[0]).isEqualTo(Pair(4, 4))
-        assertThat(ropeBridge.tail).isEqualTo(Pair(4, 3))
+        assertThat(ropeBridge.worm[1]).isEqualTo(Pair(4, 3))
     }
 
     @Test
@@ -253,7 +253,7 @@ class RopeBridgeTest {
 
         // assert
         assertThat(ropeBridge.worm[0]).isEqualTo(Pair(2, 2))
-        assertThat(ropeBridge.tail).isEqualTo(Pair(1, 2))
+        assertThat(ropeBridge.worm[1]).isEqualTo(Pair(1, 2))
     }
 
     @Test
@@ -268,7 +268,7 @@ class RopeBridgeTest {
 
         // assert
         assertThat(ropeBridge.worm[0]).isEqualTo(Pair(-173, 503))
-        assertThat(ropeBridge.tail).isEqualTo(Pair(-173, 502))
+        assertThat(ropeBridge.worm[1]).isEqualTo(Pair(-173, 502))
     }
 
     @Test
@@ -276,13 +276,13 @@ class RopeBridgeTest {
         // arrange
         val ropeBridge = RopeBridge()
         ropeBridge.worm[0] = Pair(2, 3)
-        ropeBridge.tail = Pair(1, 1)
+        ropeBridge.worm[1] = Pair(1, 1)
 
         // act
         ropeBridge.moveTail()
 
         // assert
-        assertThat(ropeBridge.tail).isEqualTo(Pair(2, 2))
+        assertThat(ropeBridge.worm[1]).isEqualTo(Pair(2, 2))
 
     }
 
@@ -291,13 +291,13 @@ class RopeBridgeTest {
         // arrange
         val ropeBridge = RopeBridge()
         ropeBridge.worm[0] = Pair(3, 2)
-        ropeBridge.tail = Pair(2, 2)
+        ropeBridge.worm[1] = Pair(2, 2)
 
         // act
         ropeBridge.moveTail()
 
         // assert
-        assertThat(ropeBridge.tail).isEqualTo(Pair(2, 2))
+        assertThat(ropeBridge.worm[1]).isEqualTo(Pair(2, 2))
 
     }
 
