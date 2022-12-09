@@ -316,7 +316,7 @@ class RopeBridgeTest {
     }
 
     @Test
-    fun moveWorm_R4() {
+    fun moveWorm_wholeTestData() {
         // arrange
         val ropeBridge = RopeBridge()
         val rawData = ropeBridge.loadData(Path("src", "test", "resources", "Day09_TestData.txt"))
@@ -331,10 +331,11 @@ class RopeBridgeTest {
         assertThat(ropeBridge.worm[2]).isEqualTo(Pair(2, 2))
         assertThat(ropeBridge.worm[3]).isEqualTo(Pair(3, 2))
         assertThat(ropeBridge.worm[4]).isEqualTo(Pair(2, 2))
-        assertThat(ropeBridge.worm[5]).isEqualTo(Pair(1, 2))
-        assertThat(ropeBridge.worm[6]).isEqualTo(Pair(1, 1))
+        assertThat(ropeBridge.worm[5]).isEqualTo(Pair(1, 1))
+        assertThat(ropeBridge.worm[6]).isEqualTo(Pair(0, 0))
         assertThat(ropeBridge.worm[7]).isEqualTo(Pair(0, 0))
         assertThat(ropeBridge.worm[8]).isEqualTo(Pair(0, 0))
+        assertThat(ropeBridge.worm[9]).isEqualTo(Pair(0, 0))
     }
 
     @Test
