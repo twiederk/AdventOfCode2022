@@ -49,7 +49,7 @@ class CathodeRayTubeTest {
     }
 
     @Test
-    fun cycle_smallProgramm() {
+    fun cycles_smallProgramm() {
         // arrange
         val instructions = listOf(
             "noop",
@@ -65,4 +65,34 @@ class CathodeRayTubeTest {
         assertThat(cathodeRayTube.X).isEqualTo(-1)
     }
 
+    @Test
+    fun cycles_testProgramm() {
+        // arrange
+        val instructions = cathodeRayTube.loadData(Path("src", "test", "resources", "Day10_TestData.txt"))
+
+        // act
+        val cycles = cathodeRayTube.cycles(instructions)
+
+        // assert
+        assertThat(cycles[19]).isEqualTo(21)
+        assertThat(cycles[59]).isEqualTo(19)
+        assertThat(cycles[99]).isEqualTo(18)
+        assertThat(cycles[139]).isEqualTo(21)
+        assertThat(cycles[179]).isEqualTo(16)
+        assertThat(cycles[219]).isEqualTo(18)
+    }
+
+    @Test
+    fun totalSignalStrength() {
+        // arrange
+        val instructions = cathodeRayTube.loadData(Path("src", "test", "resources", "Day10_TestData.txt"))
+        val cycles = cathodeRayTube.cycles(instructions)
+
+        // act
+        val totalSignalStrength = cathodeRayTube.totalSignalStrength(cycles)
+
+        // assert
+        assertThat(totalSignalStrength).isEqualTo(13140)
+
+    }
 }

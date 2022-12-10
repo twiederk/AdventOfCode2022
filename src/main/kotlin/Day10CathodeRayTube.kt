@@ -25,4 +25,13 @@ class CathodeRayTube {
         return cycles
     }
 
+    fun totalSignalStrength(cycles: List<Int>): Int {
+        val importantCycles = listOf(20, 60, 100, 140, 180, 220)
+        var totalSignalStrength = 0
+        for (cycle in importantCycles) {
+            totalSignalStrength += (cycles[cycle - 1] * cycle)
+        }
+        return totalSignalStrength
+    }
+
 }
