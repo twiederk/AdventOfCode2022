@@ -28,4 +28,8 @@ class Monkey(
         return items.removeFirst()
     }
 
+    fun catchItem(item: Int) {
+        items.add(item)
+    }
+
 }

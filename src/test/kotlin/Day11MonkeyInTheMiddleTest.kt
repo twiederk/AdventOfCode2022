@@ -48,7 +48,6 @@ class MonkeyInTheMiddleTest {
 
     @Test
     fun inspect() {
-
         // act
         val item = monkey0.inspect()
 
@@ -56,6 +55,16 @@ class MonkeyInTheMiddleTest {
         assertThat(item).isEqualTo(79)
         assertThat(monkey0.items).containsExactly(98)
         assertThat(monkey0.inspectCount).isEqualTo(1)
+    }
+
+    @Test
+    fun catchItem() {
+
+        // act
+        monkey0.catchItem(100)
+
+        // assert
+        assertThat(monkey0.items).containsExactly(79, 98, 100)
     }
 
 }
