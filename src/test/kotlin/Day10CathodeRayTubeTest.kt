@@ -93,6 +93,63 @@ class CathodeRayTubeTest {
 
         // assert
         assertThat(totalSignalStrength).isEqualTo(13140)
+    }
+
+    @Test
+    fun renderCycle_1() {
+        // arrange
+        val instructions = cathodeRayTube.loadData(Path("src", "test", "resources", "Day10_TestData.txt"))
+        val cycles = cathodeRayTube.cycles(instructions)
+
+        // act
+        val pixel = cathodeRayTube.renderCycle(1, cycles[0])
+
+        // assert
+        assertThat(pixel).isEqualTo('#')
+    }
+
+    @Test
+    fun renderCycle_2() {
+        // arrange
+        val instructions = cathodeRayTube.loadData(Path("src", "test", "resources", "Day10_TestData.txt"))
+        val cycles = cathodeRayTube.cycles(instructions)
+
+        // act
+        val pixel = cathodeRayTube.renderCycle(2, cycles[1])
+
+        // assert
+        assertThat(pixel).isEqualTo('#')
+    }
+
+    @Test
+    fun renderCycle_3() {
+        // arrange
+        val instructions = cathodeRayTube.loadData(Path("src", "test", "resources", "Day10_TestData.txt"))
+        val cycles = cathodeRayTube.cycles(instructions)
+
+        // act
+        val pixel = cathodeRayTube.renderCycle(3, cycles[2])
+
+        // assert
+        assertThat(pixel).isEqualTo('.')
+    }
+
+    @Test
+    fun renderCycles() {
+        // arrange
+        val instructions = cathodeRayTube.loadData(Path("src", "test", "resources", "Day10_TestData.txt"))
+        val cycles = cathodeRayTube.cycles(instructions)
+
+        // act
+        val display = cathodeRayTube.renderCycles(cycles)
+
+        // assert
+        assertThat(display).isEqualTo("""##..##..##..##..##..##..##..##..##..##..
+            |###...###...###...###...###...###...###.
+            |####....####....####....####....####....
+            |#####.....#####.....#####.....#####.....
+            |######......######......######......####
+            |#######.......#######.......#######.....""".trimMargin())
 
     }
 }

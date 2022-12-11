@@ -35,6 +35,23 @@ class CathodeRayTube {
         return totalSignalStrength
     }
 
+    fun renderCycle(cycle: Int, spritePosition: Int): Char {
+        if (cycle in spritePosition - 1..spritePosition + 1) {
+            return '#'
+        }
+        return '.'
+    }
+
+    fun renderCycles(cycles: List<Int>): String {
+        var display = ""
+        for (i in cycles.indices) {
+            val rayPosition = i % 40
+            if (rayPosition == 0 && i > 0) display += '\n'
+            display += renderCycle(rayPosition, cycles[i])
+        }
+        return display
+    }
+
 }
 
 fun main() {
