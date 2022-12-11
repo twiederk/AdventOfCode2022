@@ -123,8 +123,15 @@ class MonkeyInTheMiddleTest {
 
         // assert
         assertThat((monkey0.items)).containsExactly(10, 12, 14, 26, 34)
+        assertThat((monkey0.inspectCount)).isEqualTo(101)
+
         assertThat((monkey1.items)).containsExactly(245, 93, 53, 199, 115)
+        assertThat((monkey1.inspectCount)).isEqualTo(95)
+
         assertThat((monkey2.items)).isEmpty()
+        assertThat((monkey2.inspectCount)).isEqualTo(7)
+
         assertThat((monkey3.items)).isEmpty()
+        assertThat((monkey3.inspectCount)).isEqualTo(105)
     }
 }
