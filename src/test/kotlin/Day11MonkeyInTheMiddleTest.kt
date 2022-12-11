@@ -5,23 +5,10 @@ class MonkeyInTheMiddleTest {
 
     val monkey0 = Monkey(
         items = mutableListOf(79, 98),
-        operation = { it * 19 }
+        operation = { it * 19 },
+        divisor = 23,
+        throwTo = Pair(2, 3)
     )
-
-    @Test
-    fun initMonkey() {
-        // arrange
-
-        // act
-        val monkey = Monkey(
-            items = mutableListOf(79, 98),
-            operation = { it * 19 }
-        )
-
-
-        // assert
-        assertThat(monkey.items).containsExactly(79, 98)
-    }
 
     @Test
     fun newWorryLevel() {
@@ -48,6 +35,27 @@ class MonkeyInTheMiddleTest {
 
         // assert
         assertThat(normalizedWorryLevel).isEqualTo(620)
+    }
+
+    @Test
+    fun throwTo() {
+        // act
+        val throwToMonkey = monkey0.throwToMonkey(500)
+
+        // assert
+        assertThat(throwToMonkey).isEqualTo(3)
+    }
+
+    @Test
+    fun inspect() {
+
+        // act
+        val item = monkey0.inspect()
+
+        // assert
+        assertThat(item).isEqualTo(79)
+        assertThat(monkey0.items).containsExactly(98)
+        assertThat(monkey0.inspectCount).isEqualTo(1)
     }
 
 }
