@@ -62,4 +62,7 @@ fun main() {
 
     println("totalSignalStrength = $totalSignalStrength")
 
+    val display = cathodeRayTube.renderCycles(cycles)
+    println(display)
+
 }
