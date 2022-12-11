@@ -13,16 +13,22 @@ class MonkeyInTheMiddle(val monkeys: List<Monkey>) {
         }
     }
 
-    fun playRounds(rounds: Int) {
-        for (r in 1 .. rounds) playRound()
+    fun playRounds(rounds: Int): Int {
+        for (r in 1..rounds) playRound()
+        return monkeyBusiness()
+    }
+
+    private fun monkeyBusiness(): Int {
+        val sortedInspectCount = monkeys.map { it.inspectCount }.sorted().reversed()
+        return sortedInspectCount[0] * sortedInspectCount[1]
     }
 }
 
 class Monkey(
-    val items : MutableList<Int>,
-    private val operation : (Int) -> Int,
-    private val divisor : Int,
-    private val throwTo: Pair<Int,Int>
+    val items: MutableList<Int>,
+    private val operation: (Int) -> Int,
+    private val divisor: Int,
+    private val throwTo: Pair<Int, Int>
 ) {
     var inspectCount = 0
 
@@ -30,7 +36,7 @@ class Monkey(
 
     fun normalizedWorryLevel(item: Int): Int {
         val newWorryLevel = newWorryLevel(item)
-        val normalizedWorryLevel =floor(newWorryLevel.toDouble() / 3.0f).toInt()
+        val normalizedWorryLevel = floor(newWorryLevel.toDouble() / 3.0f).toInt()
         return normalizedWorryLevel
 
     }
@@ -48,7 +54,6 @@ class Monkey(
     fun catchItem(item: Int) {
         items.add(item)
     }
-
 
 
 }

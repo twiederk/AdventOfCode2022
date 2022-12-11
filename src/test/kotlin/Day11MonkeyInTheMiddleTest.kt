@@ -119,9 +119,11 @@ class MonkeyInTheMiddleTest {
         val monkeys = listOf(monkey0, monkey1, monkey2, monkey3)
 
         // act
-        MonkeyInTheMiddle(monkeys).playRounds(20)
+        val monkeyBusiness = MonkeyInTheMiddle(monkeys).playRounds(20)
 
         // assert
+        assertThat(monkeyBusiness).isEqualTo(10605)
+
         assertThat((monkey0.items)).containsExactly(10, 12, 14, 26, 34)
         assertThat((monkey0.inspectCount)).isEqualTo(101)
 
