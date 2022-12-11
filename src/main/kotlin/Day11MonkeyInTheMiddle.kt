@@ -4,13 +4,10 @@ class MonkeyInTheMiddle(val monkeys: List<Monkey>) {
 
     fun playRound() {
         for (monkey in monkeys) {
-            println("####################################################")
             while (monkey.items.isNotEmpty()) {
                 val item = monkey.inspect()
-                println("inspects an item with a worry level of $item")
                 val worryLevel = monkey.normalizedWorryLevel(item)
                 val throwTo = monkey.throwToMonkey(worryLevel)
-                println("  Item with worry level $worryLevel is thrown to monkey $throwTo")
                 monkeys[throwTo].catchItem(worryLevel)
             }
         }
@@ -29,9 +26,7 @@ class Monkey(
 
     fun normalizedWorryLevel(item: Int): Int {
         val newWorryLevel = newWorryLevel(item)
-        println("  Worry level is multiplied $newWorryLevel.")
         val normalizedWorryLevel =floor(newWorryLevel.toDouble() / 3.0f).toInt()
-        println("  Worry level is divided by 3 to $normalizedWorryLevel")
         return normalizedWorryLevel
 
     }

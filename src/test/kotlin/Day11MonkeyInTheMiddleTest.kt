@@ -97,10 +97,6 @@ class MonkeyInTheMiddleTest {
         MonkeyInTheMiddle(monkeys).playRound()
 
         // assert
-        println(monkey0.items)
-        println(monkey1.items)
-        println(monkey2.items)
-        println(monkey3.items)
         assertThat((monkey0.items)).containsExactly(20, 23, 27, 26)
         assertThat((monkey1.items)).containsExactly(2080, 25, 167, 207, 401, 1046)
         assertThat((monkey2.items)).isEmpty()
@@ -109,7 +105,6 @@ class MonkeyInTheMiddleTest {
 
     @Test
     fun monkey2_throwTo_error() {
-        // arrange
 
         // act
         val throwTo = monkey2.throwToMonkey(2080)
