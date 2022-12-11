@@ -19,8 +19,7 @@ class MonkeyInTheMiddle(private val monkeys: List<Monkey>) {
     }
 
     private fun monkeyBusiness(): Long {
-        val sortedInspectCount = monkeys.map { it.inspectCount }.sorted().reversed()
-        println(sortedInspectCount)
+        val sortedInspectCount = monkeys.map { it.inspectCount }.sortedDescending().take(2)
         return sortedInspectCount[0] * sortedInspectCount[1]
     }
 }
