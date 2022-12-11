@@ -60,7 +60,7 @@ class Monkey(
 fun main() {
 
     val monkey0 = Monkey(
-        items = mutableListOf(57, 18),
+        items = mutableListOf(57, 58),
         operation = { it * 19 },
         divisor = 7,
         throwTo = Pair(2, 3)
