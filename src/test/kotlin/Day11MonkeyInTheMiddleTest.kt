@@ -136,4 +136,18 @@ class MonkeyInTheMiddleTest {
         assertThat((monkey3.items)).isEmpty()
         assertThat((monkey3.inspectCount)).isEqualTo(105)
     }
+
+    @Test
+    fun playRounds_part2() {
+        // arrange
+        val monkeys = listOf(monkey0, monkey1, monkey2, monkey3)
+
+        // act
+        val monkeyBusiness = MonkeyInTheMiddle(monkeys).playRounds(10_000)
+
+        // assert
+        assertThat(monkeyBusiness).isEqualTo(2_713_310_158)
+
+    }
+
 }

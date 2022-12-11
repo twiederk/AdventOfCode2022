@@ -36,7 +36,10 @@ class Monkey(
 
     fun normalizedWorryLevel(item: Long): Long {
         val newWorryLevel = newWorryLevel(item)
-        return floor(newWorryLevel.toDouble() / 3.0f).toLong()
+//        https://www.calculatorsoup.com/calculators/math/lcm.php
+//        return floor(newWorryLevel.toDouble() / 3.0).toLong()
+        return floor(newWorryLevel.toDouble() % 9_699_690).toLong()
+//        return floor(newWorryLevel.toDouble() % 96_577).toLong()
 
     }
 
@@ -116,7 +119,7 @@ fun main() {
     )
 
     val monkeys = listOf(monkey0, monkey1, monkey2, monkey3, monkey4, monkey5, monkey6, monkey7)
-    val monkeyBusiness = MonkeyInTheMiddle(monkeys).playRounds(20)
+    val monkeyBusiness = MonkeyInTheMiddle(monkeys).playRounds(10_000)
 
     println("monkeyBusiness = $monkeyBusiness")
 }
