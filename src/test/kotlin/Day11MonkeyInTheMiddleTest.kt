@@ -113,4 +113,18 @@ class MonkeyInTheMiddleTest {
         assertThat(throwTo).isEqualTo(1)
     }
 
+    @Test
+    fun playRounds() {
+        // arrange
+        val monkeys = listOf(monkey0, monkey1, monkey2, monkey3)
+
+        // act
+        MonkeyInTheMiddle(monkeys).playRounds(20)
+
+        // assert
+        assertThat((monkey0.items)).containsExactly(10, 12, 14, 26, 34)
+        assertThat((monkey1.items)).containsExactly(245, 93, 53, 199, 115)
+        assertThat((monkey2.items)).isEmpty()
+        assertThat((monkey3.items)).isEmpty()
+    }
 }

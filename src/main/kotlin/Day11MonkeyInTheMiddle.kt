@@ -12,6 +12,10 @@ class MonkeyInTheMiddle(val monkeys: List<Monkey>) {
             }
         }
     }
+
+    fun playRounds(rounds: Int) {
+        for (r in 1 .. rounds) playRound()
+    }
 }
 
 class Monkey(
