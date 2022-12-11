@@ -1,6 +1,20 @@
 import kotlin.math.floor
 
-class MonkeyInTheMiddle {
+class MonkeyInTheMiddle(val monkeys: List<Monkey>) {
+
+    fun playRound() {
+        for (monkey in monkeys) {
+            println("####################################################")
+            while (monkey.items.isNotEmpty()) {
+                val item = monkey.inspect()
+                println("inspects an item with a worry level of $item")
+                val worryLevel = monkey.normalizedWorryLevel(item)
+                val throwTo = monkey.throwToMonkey(worryLevel)
+                println("  Item with worry level $worryLevel is thrown to monkey $throwTo")
+                monkeys[throwTo].catchItem(worryLevel)
+            }
+        }
+    }
 }
 
 class Monkey(
@@ -15,11 +29,15 @@ class Monkey(
 
     fun normalizedWorryLevel(item: Int): Int {
         val newWorryLevel = newWorryLevel(item)
-        return floor(newWorryLevel.toDouble() / 3.0f).toInt()
+        println("  Worry level is multiplied $newWorryLevel.")
+        val normalizedWorryLevel =floor(newWorryLevel.toDouble() / 3.0f).toInt()
+        println("  Worry level is divided by 3 to $normalizedWorryLevel")
+        return normalizedWorryLevel
+
     }
 
-    fun throwToMonkey(item: Int): Int {
-        if (item / divisor == 0) return throwTo.first
+    fun throwToMonkey(worryLevel: Int): Int {
+        if (worryLevel % divisor == 0) return throwTo.first
         return throwTo.second
     }
 
@@ -31,5 +49,7 @@ class Monkey(
     fun catchItem(item: Int) {
         items.add(item)
     }
+
+
 
 }

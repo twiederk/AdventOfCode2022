@@ -3,11 +3,32 @@ import org.junit.jupiter.api.Test
 
 class MonkeyInTheMiddleTest {
 
-    val monkey0 = Monkey(
+    private val monkey0 = Monkey(
         items = mutableListOf(79, 98),
         operation = { it * 19 },
         divisor = 23,
         throwTo = Pair(2, 3)
+    )
+
+    private val monkey1 = Monkey(
+        items = mutableListOf(54, 65, 75, 74),
+        operation = { it + 6 },
+        divisor = 19,
+        throwTo = Pair(2, 0)
+    )
+
+    private val monkey2 = Monkey(
+        items = mutableListOf(79, 60, 97),
+        operation = { it * it },
+        divisor = 13,
+        throwTo = Pair(1, 3)
+    )
+
+    private val monkey3 = Monkey(
+        items = mutableListOf(74),
+        operation = { it + 3 },
+        divisor = 17,
+        throwTo = Pair(0, 1)
     )
 
     @Test
@@ -65,6 +86,36 @@ class MonkeyInTheMiddleTest {
 
         // assert
         assertThat(monkey0.items).containsExactly(79, 98, 100)
+    }
+
+    @Test
+    fun playRound() {
+        // arrange
+        val monkeys = listOf(monkey0, monkey1, monkey2, monkey3)
+
+        // act
+        MonkeyInTheMiddle(monkeys).playRound()
+
+        // assert
+        println(monkey0.items)
+        println(monkey1.items)
+        println(monkey2.items)
+        println(monkey3.items)
+        assertThat((monkey0.items)).containsExactly(20, 23, 27, 26)
+        assertThat((monkey1.items)).containsExactly(2080, 25, 167, 207, 401, 1046)
+        assertThat((monkey2.items)).isEmpty()
+        assertThat((monkey3.items)).isEmpty()
+    }
+
+    @Test
+    fun monkey2_throwTo_error() {
+        // arrange
+
+        // act
+        val throwTo = monkey2.throwToMonkey(2080)
+
+        // assert
+        assertThat(throwTo).isEqualTo(1)
     }
 
 }
