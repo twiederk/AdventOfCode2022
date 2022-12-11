@@ -1,6 +1,6 @@
 import kotlin.math.floor
 
-class MonkeyInTheMiddle(val monkeys: List<Monkey>) {
+class MonkeyInTheMiddle(private val monkeys: List<Monkey>) {
 
     fun playRound() {
         for (monkey in monkeys) {
@@ -13,12 +13,12 @@ class MonkeyInTheMiddle(val monkeys: List<Monkey>) {
         }
     }
 
-    fun playRounds(rounds: Int): Int {
+    fun playRounds(rounds: Int): Long {
         for (r in 1..rounds) playRound()
         return monkeyBusiness()
     }
 
-    private fun monkeyBusiness(): Int {
+    private fun monkeyBusiness(): Long {
         val sortedInspectCount = monkeys.map { it.inspectCount }.sorted().reversed()
         println(sortedInspectCount)
         return sortedInspectCount[0] * sortedInspectCount[1]
@@ -26,33 +26,32 @@ class MonkeyInTheMiddle(val monkeys: List<Monkey>) {
 }
 
 class Monkey(
-    val items: MutableList<Int>,
-    private val operation: (Int) -> Int,
-    private val divisor: Int,
+    val items: MutableList<Long>,
+    private val operation: (Long) -> Long,
+    private val divisor: Long,
     private val throwTo: Pair<Int, Int>
 ) {
-    var inspectCount = 0
+    var inspectCount = 0L
 
-    fun newWorryLevel(item: Int): Int = operation(item)
+    fun newWorryLevel(item: Long): Long = operation(item)
 
-    fun normalizedWorryLevel(item: Int): Int {
+    fun normalizedWorryLevel(item: Long): Long {
         val newWorryLevel = newWorryLevel(item)
-        val normalizedWorryLevel = floor(newWorryLevel.toDouble() / 3.0f).toInt()
-        return normalizedWorryLevel
+        return floor(newWorryLevel.toDouble() / 3.0f).toLong()
 
     }
 
-    fun throwToMonkey(worryLevel: Int): Int {
-        if (worryLevel % divisor == 0) return throwTo.first
+    fun throwToMonkey(worryLevel: Long): Int {
+        if (worryLevel % divisor == 0L) return throwTo.first
         return throwTo.second
     }
 
-    fun inspect(): Int {
+    fun inspect(): Long {
         inspectCount++
         return items.removeFirst()
     }
 
-    fun catchItem(item: Int) {
+    fun catchItem(item: Long) {
         items.add(item)
     }
 
