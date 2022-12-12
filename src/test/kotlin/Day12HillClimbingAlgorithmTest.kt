@@ -4,10 +4,12 @@ import kotlin.io.path.Path
 
 class HillClimbingAlgorithmTest {
 
+    private val hillClimbingAlgorithm = HillClimbingAlgorithm()
+
     @Test
     fun loadData() {
         // act
-        val grid = HillClimbingAlgorithm().loadData(Path("src", "test", "resources", "Day12_TestData.txt"))
+        val grid = hillClimbingAlgorithm.loadData(Path("src", "test", "resources", "Day12_TestData.txt"))
 
         // assert
         assertThat(grid[0]).hasSize(8)
@@ -53,5 +55,28 @@ class HillClimbingAlgorithmTest {
         assertThat(result).isEqualTo(0)
     }
 
+    @Test
+    fun aStar() {
+        // arrange
+        val grid = hillClimbingAlgorithm.loadData(Path("src", "test", "resources", "Day12_TestData.txt"))
+
+        // act
+        val result = hillClimbingAlgorithm.aStar(grid)
+
+        // assert
+        assertThat(result).isEqualTo(31)
+    }
+
+    @Test
+    fun findStartNode() {
+        // arrange
+        val grid = hillClimbingAlgorithm.loadData(Path("src", "test", "resources", "Day12_TestData.txt"))
+
+        // act
+        val start = hillClimbingAlgorithm.findStartNode(grid)
+
+        // assert
+        assertThat(start).isEqualTo(Node(0, 0, 0))
+    }
 }
 
