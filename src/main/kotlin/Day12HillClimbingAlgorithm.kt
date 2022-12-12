@@ -104,16 +104,22 @@ class HillClimbingAlgorithm {
 
     fun getNeighbors(grid: List<List<Char>>, currentNode: Node): List<Node> {
         val neighbors = mutableListOf<Node>()
-        if (currentNode.col - 1 in grid.indices) {
-            val neighborNode = Node(currentNode.row, currentNode.col - 1)
+        if (currentNode.row - 1 in grid.indices) {
+            val neighborNode = Node(currentNode.row - 1, currentNode.col)
+            if (isClimbable(grid, currentNode, neighborNode)) neighbors.add(neighborNode)
+        }
+        if (currentNode.col + 1 in grid.indices) {
+            val neighborNode = Node(currentNode.row, currentNode.col + 1)
             if (isClimbable(grid, currentNode, neighborNode)) neighbors.add(neighborNode)
         }
         if (currentNode.row + 1 in grid.indices) {
             val neighborNode = Node(currentNode.row + 1, currentNode.col)
             if (isClimbable(grid, currentNode, neighborNode)) neighbors.add(neighborNode)
         }
-        if (currentNode.col + 1 in grid.indices) neighbors.add(Node(currentNode.row, currentNode.col + 1))
-        if (currentNode.row - 1 in grid.indices) neighbors.add(Node(currentNode.row - 1, currentNode.col))
+        if (currentNode.col - 1 in grid.indices) {
+            val neighborNode = Node(currentNode.row, currentNode.col - 1)
+            if (isClimbable(grid, currentNode, neighborNode)) neighbors.add(neighborNode)
+        }
         return neighbors
     }
 

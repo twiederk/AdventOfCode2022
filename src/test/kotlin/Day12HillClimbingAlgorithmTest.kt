@@ -94,8 +94,8 @@ class HillClimbingAlgorithmTest {
 
         // assert
         assertThat(neighbors).containsExactly(
-            Node(1, 0),
-            Node(0, 1)
+            Node(0, 1),
+            Node(1, 0)
         )
     }
 
@@ -107,9 +107,9 @@ class HillClimbingAlgorithmTest {
 
         // assert
         assertThat(neighbors).containsExactly(
-            Node(2, 0),
-            Node(1, 1),
             Node(0, 0),
+            Node(1, 1),
+            Node(2, 0),
         )
     }
 
@@ -121,10 +121,10 @@ class HillClimbingAlgorithmTest {
 
         // assert
         assertThat(neighbors).containsExactly(
-            Node(1, 0),
-            Node(2, 1),
-            Node(1, 2),
             Node(0, 1),
+            Node(1, 2),
+            Node(2, 1),
+            Node(1, 0),
         )
     }
 
@@ -136,9 +136,9 @@ class HillClimbingAlgorithmTest {
 
         // assert
         assertThat(neighbors).containsExactly(
-            Node(0, 0),
-            Node(1, 1),
             Node(0, 2),
+            Node(1, 1),
+            Node(0, 0),
         )
     }
 
@@ -150,7 +150,7 @@ class HillClimbingAlgorithmTest {
 
         // assert
         assertThat(neighbors).containsExactly(
-            Node(1, 0),
+            Node(1, 2),
             Node(0, 1),
         )
     }
