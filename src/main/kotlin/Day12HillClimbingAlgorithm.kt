@@ -1,6 +1,7 @@
 import java.nio.file.Path
 import java.util.*
 import kotlin.io.path.readLines
+import kotlin.math.abs
 
 class HillClimbingAlgorithm {
 
@@ -11,7 +12,6 @@ class HillClimbingAlgorithm {
 
     val openList = PriorityQueue<Node>()
     val closedList = mutableSetOf<Node>()
-
 
     fun aStar(grid: List<List<Char>>): Int {
 
@@ -57,12 +57,12 @@ class HillClimbingAlgorithm {
 
             // g-Wert für den neuen Weg berechnen: g-Wert des Vorgängers plus
             // die Kosten der gerade benutzten Kante
-            val tentative_g = currentNode.f + 1
+            val tentative_g = currentNode.g + 1
 //        tentative_g = g(currentNode) + c(currentNode, successor)
 
             // wenn der Nachfolgeknoten bereits auf der Open List ist,
             // aber der neue Weg nicht besser ist als der alte – tue nichts
-            if (openList.contains(successor) && tentative_g >= successor.f) {
+            if (openList.contains(successor) && tentative_g >= successor.g) {
                 continue
             }
 //        if openlist.contains(successor) and tentative_g >= g(successor) then
@@ -71,7 +71,7 @@ class HillClimbingAlgorithm {
             // Vorgängerzeiger setzen und g Wert merken oder anpassen
             successor.parent = currentNode
 //        successor.predecessor := currentNode
-            successor.f = tentative_g
+            successor.g = tentative_g
 //        g(successor) = tentative_g
 
             // f-Wert des Knotens in der Open List aktualisieren
@@ -134,14 +134,20 @@ class HillClimbingAlgorithm {
         'S' -> 'a'
         else -> input
     }
+
+    fun distance(src: Node, dest: Node): Int {
+        return abs(src.col - dest.col) + abs(src.row - dest.row)
+    }
 }
 
 
 data class Node(
     val row: Int = 0,
     val col: Int = 0,
-    var f: Int = Int.MAX_VALUE,
+    var f: Int = 0,
     var parent: Node? = null
 ) : Comparable<Node> {
+
+    var g: Int = 0
     override fun compareTo(other: Node): Int = f.compareTo(other.f)
 }
