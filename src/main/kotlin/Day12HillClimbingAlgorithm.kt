@@ -57,39 +57,26 @@ class HillClimbingAlgorithm {
 
             // g-Wert für den neuen Weg berechnen: g-Wert des Vorgängers plus
             // die Kosten der gerade benutzten Kante
-            val tentative_g = currentNode.g + 1
-//        tentative_g = g(currentNode) + c(currentNode, successor)
+            val tentativeG = currentNode.g + 1
 
             // wenn der Nachfolgeknoten bereits auf der Open List ist,
             // aber der neue Weg nicht besser ist als der alte – tue nichts
-            if (openList.contains(successor) && tentative_g >= successor.g) {
+            if (openList.contains(successor) && tentativeG >= successor.g) {
                 continue
             }
-//        if openlist.contains(successor) and tentative_g >= g(successor) then
-//                continue
 
             // Vorgängerzeiger setzen und g Wert merken oder anpassen
             successor.parent = currentNode
-//        successor.predecessor := currentNode
-            successor.g = tentative_g
-//        g(successor) = tentative_g
+            successor.g = tentativeG
 
             // f-Wert des Knotens in der Open List aktualisieren
             // bzw. Knoten mit f-Wert in die Open List einfügen
-            val f = tentative_g + distance(currentNode, successor)
-//        f := tentative_g + h(successor)
+            val f = tentativeG + distance(currentNode, successor)
 
-            if (openList.contains(successor)) {
-                successor.f = f
-            } else {
-                successor.f = f
+            successor.f = f
+            if (!openList.contains(successor)) {
                 openList.add(successor)
             }
-//        if openlist.contains(successor) then
-//                openlist.updateKey(successor, f)
-//        else
-//            openlist.enqueue(successor, f)
-//        end
         }
     }
 
