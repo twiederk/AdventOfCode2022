@@ -1,5 +1,6 @@
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
+import kotlin.math.floor
 
 class MonkeyInTheMiddleTest {
 
@@ -7,28 +8,32 @@ class MonkeyInTheMiddleTest {
         items = mutableListOf(79, 98),
         operation = { it * 19 },
         divisor = 23,
-        throwTo = Pair(2, 3)
+        throwTo = Pair(2, 3),
+        normalizer = { floor(it.toDouble() / 3.0).toLong() }
     )
 
     private val monkey1 = Monkey(
         items = mutableListOf(54, 65, 75, 74),
         operation = { it + 6 },
         divisor = 19,
-        throwTo = Pair(2, 0)
+        throwTo = Pair(2, 0),
+        normalizer = { floor(it.toDouble() / 3.0).toLong() }
     )
 
     private val monkey2 = Monkey(
         items = mutableListOf(79, 60, 97),
         operation = { it * it },
         divisor = 13,
-        throwTo = Pair(1, 3)
+        throwTo = Pair(1, 3),
+        normalizer = { floor(it.toDouble() / 3.0).toLong() }
     )
 
     private val monkey3 = Monkey(
         items = mutableListOf(74),
         operation = { it + 3 },
         divisor = 17,
-        throwTo = Pair(0, 1)
+        throwTo = Pair(0, 1),
+        normalizer = { floor(it.toDouble() / 3.0).toLong() }
     )
 
     @Test
@@ -140,7 +145,11 @@ class MonkeyInTheMiddleTest {
     @Test
     fun playRounds_part2() {
         // arrange
-        val monkeys = listOf(monkey0, monkey1, monkey2, monkey3)
+        val monkey0Part2 = monkey0.copy(normalizer = { floor(it.toDouble() % 96_577).toLong() })
+        val monkey1Part2 = monkey1.copy(normalizer = { floor(it.toDouble() % 96_577).toLong() })
+        val monkey2Part2 = monkey2.copy(normalizer = { floor(it.toDouble() % 96_577).toLong() })
+        val monkey3Part2 = monkey3.copy(normalizer = { floor(it.toDouble() % 96_577).toLong() })
+        val monkeys = listOf(monkey0Part2, monkey1Part2, monkey2Part2, monkey3Part2)
 
         // act
         val monkeyBusiness = MonkeyInTheMiddle(monkeys).playRounds(10_000)
