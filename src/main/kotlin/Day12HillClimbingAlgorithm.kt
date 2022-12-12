@@ -153,9 +153,9 @@ data class Node(
     val row: Int = 0,
     val col: Int = 0,
     var f: Int = 0,
+    var g: Int = 0,
     var parent: Node? = null
 ) : Comparable<Node> {
 
-    var g: Int = 0
     override fun compareTo(other: Node): Int = f.compareTo(other.f)
 }

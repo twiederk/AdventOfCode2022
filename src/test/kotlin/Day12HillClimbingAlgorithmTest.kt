@@ -180,7 +180,7 @@ class HillClimbingAlgorithmTest {
     }
 
     @Test
-    fun distanz_00_11_is2() {
+    fun distance_00_11_is2() {
 
         // act
         val distance = hillClimbingAlgorithm.distance(Node(0, 0), Node (1, 1))
@@ -188,6 +188,18 @@ class HillClimbingAlgorithmTest {
         // assert
         assertThat(distance).isEqualTo(2)
 
+    }
+
+    @Test
+    fun expandNode_00() {
+
+        // act
+        hillClimbingAlgorithm.expandNode(grid, Node(0,0))
+        
+        // assert
+        assertThat(hillClimbingAlgorithm.openList).hasSize(2)
+
+        println(hillClimbingAlgorithm.openList)
     }
 }
 
