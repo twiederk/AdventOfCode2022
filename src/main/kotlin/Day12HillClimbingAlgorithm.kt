@@ -102,21 +102,34 @@ class HillClimbingAlgorithm {
         throw IllegalArgumentException("Can't find start node")
     }
 
-    fun getNeighbors(grid: List<List<Char>>, node: Node): List<Node> {
+    fun getNeighbors(grid: List<List<Char>>, currentNode: Node): List<Node> {
         val neighbors = mutableListOf<Node>()
-        if (node.col - 1 in grid.indices) neighbors.add(Node(node.row, node.col - 1))
-        if (node.row + 1 in grid.indices) neighbors.add(Node(node.row + 1, node.col))
-        if (node.col + 1 in grid.indices) neighbors.add(Node(node.row, node.col + 1))
-        if (node.row - 1 in grid.indices) neighbors.add(Node(node.row - 1, node.col))
+        if (currentNode.col - 1 in grid.indices) {
+            val neighborNode = Node(currentNode.row, currentNode.col - 1)
+            if (isClimbable(grid, currentNode, neighborNode)) neighbors.add(neighborNode)
+        }
+        if (currentNode.row + 1 in grid.indices) {
+            val neighborNode = Node(currentNode.row + 1, currentNode.col)
+            if (isClimbable(grid, currentNode, neighborNode)) neighbors.add(neighborNode)
+        }
+        if (currentNode.col + 1 in grid.indices) neighbors.add(Node(currentNode.row, currentNode.col + 1))
+        if (currentNode.row - 1 in grid.indices) neighbors.add(Node(currentNode.row - 1, currentNode.col))
         return neighbors
     }
 
     fun isClimbable(grid: List<List<Char>>, currentNode: Node, nextNode: Node): Boolean {
-        return grid[nextNode.row][nextNode.col] - grid[currentNode.row][currentNode.col] <= 1
+        val nextNodeChar = normalizeChar(grid[nextNode.row][nextNode.col])
+        val currentNodeChar = normalizeChar(grid[currentNode.row][currentNode.col])
+        return nextNodeChar - currentNodeChar <= 1
     }
 
-
+    private fun normalizeChar(input: Char) = when (input) {
+        'E' -> 'z'
+        'S' -> 'a'
+        else -> input
+    }
 }
+
 
 data class Node(
     val row: Int = 0,
