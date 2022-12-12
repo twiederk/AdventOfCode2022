@@ -156,4 +156,7 @@ data class Node(
     var g: Int = 0
     var parent: Node? = null
     override fun compareTo(other: Node): Int = f.compareTo(other.f)
+    override fun toString(): String {
+        return "[Node(row=$row, col=$col, parentRow=${parent?.row}, parentCol=${parent?.col}]"
+    }
 }
