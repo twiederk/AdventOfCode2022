@@ -90,5 +90,18 @@ class HillClimbingAlgorithmTest {
         // assert
         assertThat(start).isEqualTo(Node(5, 2, 0))
     }
+
+    @Test
+    fun getNeighbors_00_twoNeighbors() {
+        // arrange
+        val grid = hillClimbingAlgorithm.loadData(Path("src", "test", "resources", "Day12_TestData.txt"))
+
+        // act
+        val neighbors = hillClimbingAlgorithm.getNeighbors(grid, Node(0, 0, 0))
+
+        // assert
+        assertThat(neighbors).hasSize(2)
+
+    }
 }
 
