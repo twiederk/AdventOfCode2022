@@ -76,7 +76,15 @@ class HillClimbingAlgorithm {
 
             // f-Wert des Knotens in der Open List aktualisieren
             // bzw. Knoten mit f-Wert in die Open List einfügen
+            val f = tentative_g + distance(currentNode, successor)
 //        f := tentative_g + h(successor)
+
+            if (openList.contains(successor)) {
+                successor.f = f
+            } else {
+                successor.f = f
+                openList.add(successor)
+            }
 //        if openlist.contains(successor) then
 //                openlist.updateKey(successor, f)
 //        else
