@@ -78,5 +78,17 @@ class HillClimbingAlgorithmTest {
         // assert
         assertThat(start).isEqualTo(Node(0, 0, 0))
     }
+
+    @Test
+    fun findEndNode() {
+        // arrange
+        val grid = hillClimbingAlgorithm.loadData(Path("src", "test", "resources", "Day12_TestData.txt"))
+
+        // act
+        val start = hillClimbingAlgorithm.findEndNode(grid)
+
+        // assert
+        assertThat(start).isEqualTo(Node(5, 2, 0))
+    }
 }
 
