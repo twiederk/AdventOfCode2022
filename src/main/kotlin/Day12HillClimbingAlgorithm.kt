@@ -17,6 +17,8 @@ class HillClimbingAlgorithm {
 
         val start = findStartNode(grid)
         val end = findEndNode(grid)
+        println("start = ${start}")
+        println("end = ${end}")
 
         // Initialisierung der Open List, die Closed List ist noch leer
         // (die Priorität bzw. der f-Wert des Startknotens ist unerheblich)
@@ -24,9 +26,12 @@ class HillClimbingAlgorithm {
         // diese Schleife wird durchlaufen bis entweder
         // - die optimale Lösung gefunden wurde oder
         // - feststeht, dass keine Lösung existiert
+        var count = 0
         do {
+            println("##############################")
             // Knoten mit dem geringsten f-Wert aus der Open List entfernen
             val currentNode = openList.remove()
+            println("currentNode = ${currentNode}")
 
             // Wurde das Ziel gefunden?
             if (currentNode == end) {
@@ -40,7 +45,14 @@ class HillClimbingAlgorithm {
             // Wenn das Ziel noch nicht gefunden wurde: Nachfolgeknoten
             // des aktuellen Knotens auf die Open List setzen
             expandNode(grid, currentNode)
+
+            println("openList.size = ${openList.size}")
+            println("openList = ${openList}")
+            println("closedList.size = ${closedList.size}")
+            println("closedList = ${closedList}")
         } while (openList.isNotEmpty())
+//            count++
+//        } while (count < 2)
 
         // die Open List ist leer, es existiert kein Pfad zum Ziel
         return 0
@@ -91,7 +103,7 @@ class HillClimbingAlgorithm {
     private fun findNode(grid: List<List<Char>>, c: Char): Node {
         for (row in grid.indices) {
             for (col in grid[0].indices) {
-                if (grid[row][col] == c) return Node(col, row, 0)
+                if (grid[row][col] == c) return Node(col, row)
             }
         }
         throw IllegalArgumentException("Can't find start node")
@@ -138,11 +150,10 @@ class HillClimbingAlgorithm {
 
 data class Node(
     val row: Int = 0,
-    val col: Int = 0,
-    var f: Int = 0,
-    var g: Int = 0,
-    var parent: Node? = null
+    val col: Int = 0
 ) : Comparable<Node> {
-
+    var f: Int = 0
+    var g: Int = 0
+    var parent: Node? = null
     override fun compareTo(other: Node): Int = f.compareTo(other.f)
 }

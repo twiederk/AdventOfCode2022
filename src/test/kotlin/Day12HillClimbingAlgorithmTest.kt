@@ -20,8 +20,8 @@ class HillClimbingAlgorithmTest {
     @Test
     fun nodeComparator_firstNodeLessWeight() {
         // arrange
-        val node1 = Node(f = 1)
-        val node2 = Node(f = 2)
+        val node1 = Node().apply { f = 1 }
+        val node2 = Node().apply { f = 2 }
 
         // act
         val result = node1.compareTo(node2)
@@ -33,8 +33,8 @@ class HillClimbingAlgorithmTest {
     @Test
     fun nodeComparator_firstNodeMoreWeight() {
         // arrange
-        val node1 = Node(f = 2)
-        val node2 = Node(f = 1)
+        val node1 = Node().apply { f = 2 }
+        val node2 = Node().apply { f = 1 }
 
         // act
         val result = node1.compareTo(node2)
@@ -46,8 +46,8 @@ class HillClimbingAlgorithmTest {
     @Test
     fun nodeComparator_sameWeight() {
         // arrange
-        val node1 = Node(f = 2)
-        val node2 = Node(f = 2)
+        val node1 = Node().apply { f = 2 }
+        val node2 = Node().apply { f = 2 }
 
         // act
         val result = node1.compareTo(node2)
@@ -73,7 +73,7 @@ class HillClimbingAlgorithmTest {
         val start = hillClimbingAlgorithm.findStartNode(grid)
 
         // assert
-        assertThat(start).isEqualTo(Node(0, 0, 0))
+        assertThat(start).isEqualTo(Node(0, 0))
     }
 
     @Test
@@ -83,7 +83,7 @@ class HillClimbingAlgorithmTest {
         val start = hillClimbingAlgorithm.findEndNode(grid)
 
         // assert
-        assertThat(start).isEqualTo(Node(5, 2, 0))
+        assertThat(start).isEqualTo(Node(5, 2))
     }
 
     @Test
@@ -183,7 +183,7 @@ class HillClimbingAlgorithmTest {
     fun distance_00_11_is2() {
 
         // act
-        val distance = hillClimbingAlgorithm.distance(Node(0, 0), Node (1, 1))
+        val distance = hillClimbingAlgorithm.distance(Node(0, 0), Node(1, 1))
 
         // assert
         assertThat(distance).isEqualTo(2)
@@ -194,8 +194,8 @@ class HillClimbingAlgorithmTest {
     fun expandNode_00() {
 
         // act
-        hillClimbingAlgorithm.expandNode(grid, Node(0,0))
-        
+        hillClimbingAlgorithm.expandNode(grid, Node(0, 0))
+
         // assert
         assertThat(hillClimbingAlgorithm.openList).hasSize(2)
 
