@@ -97,11 +97,63 @@ class HillClimbingAlgorithmTest {
         val grid = hillClimbingAlgorithm.loadData(Path("src", "test", "resources", "Day12_TestData.txt"))
 
         // act
-        val neighbors = hillClimbingAlgorithm.getNeighbors(grid, Node(0, 0, 0))
+        val neighbors = hillClimbingAlgorithm.getNeighbors(grid, Node(0, 0))
 
         // assert
-        assertThat(neighbors).hasSize(2)
-
+        assertThat(neighbors).containsExactly(
+            Node(1, 0),
+            Node(0, 1)
+        )
     }
+
+    @Test
+    fun getNeighbors_10_threeNeighbors() {
+        // arrange
+        val grid = hillClimbingAlgorithm.loadData(Path("src", "test", "resources", "Day12_TestData.txt"))
+
+        // act
+        val neighbors = hillClimbingAlgorithm.getNeighbors(grid, Node(1, 0))
+
+        // assert
+        assertThat(neighbors).containsExactly(
+            Node(2, 0),
+            Node(1, 1),
+            Node(0, 0),
+        )
+    }
+
+    @Test
+    fun getNeighbors_11_fourNeighbors() {
+        // arrange
+        val grid = hillClimbingAlgorithm.loadData(Path("src", "test", "resources", "Day12_TestData.txt"))
+
+        // act
+        val neighbors = hillClimbingAlgorithm.getNeighbors(grid, Node(1, 1))
+
+        // assert
+        assertThat(neighbors).containsExactly(
+            Node(1, 0),
+            Node(2, 1),
+            Node(1, 2),
+            Node(0, 1),
+        )
+    }
+
+    @Test
+    fun getNeighbors_01_fourNeighbors() {
+        // arrange
+        val grid = hillClimbingAlgorithm.loadData(Path("src", "test", "resources", "Day12_TestData.txt"))
+
+        // act
+        val neighbors = hillClimbingAlgorithm.getNeighbors(grid, Node(0, 1))
+
+        // assert
+        assertThat(neighbors).containsExactly(
+            Node(0, 0),
+            Node(1, 1),
+            Node(0, 2),
+        )
+    }
+
 }
 
