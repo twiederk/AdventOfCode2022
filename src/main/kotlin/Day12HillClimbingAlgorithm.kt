@@ -51,22 +51,31 @@ class HillClimbingAlgorithm {
     // - ein besserer Weg zu diesem Knoten gefunden wird
     fun expandNode(grid: List<List<Char>>, currentNode: Node) {
         for (successor in getNeighbors(grid, currentNode)) {
-//        foreach successor of currentNode
-//                // wenn der Nachfolgeknoten bereits auf der Closed List ist – tue nichts
-//                if closedlist.contains(successor) then
-//                        continue
-//        // g-Wert für den neuen Weg berechnen: g-Wert des Vorgängers plus
-//        // die Kosten der gerade benutzten Kante
+            if (closedList.contains(successor)) {
+                continue
+            }
+
+            // g-Wert für den neuen Weg berechnen: g-Wert des Vorgängers plus
+            // die Kosten der gerade benutzten Kante
+            val tentative_g = currentNode.f + 1
 //        tentative_g = g(currentNode) + c(currentNode, successor)
-//        // wenn der Nachfolgeknoten bereits auf der Open List ist,
-//        // aber der neue Weg nicht besser ist als der alte – tue nichts
+
+            // wenn der Nachfolgeknoten bereits auf der Open List ist,
+            // aber der neue Weg nicht besser ist als der alte – tue nichts
+            if (openList.contains(successor) && tentative_g >= successor.f) {
+                continue
+            }
 //        if openlist.contains(successor) and tentative_g >= g(successor) then
 //                continue
-//        // Vorgängerzeiger setzen und g Wert merken oder anpassen
+
+            // Vorgängerzeiger setzen und g Wert merken oder anpassen
+            successor.parent = currentNode
 //        successor.predecessor := currentNode
+            successor.f = tentative_g
 //        g(successor) = tentative_g
-//        // f-Wert des Knotens in der Open List aktualisieren
-//        // bzw. Knoten mit f-Wert in die Open List einfügen
+
+            // f-Wert des Knotens in der Open List aktualisieren
+            // bzw. Knoten mit f-Wert in die Open List einfügen
 //        f := tentative_g + h(successor)
 //        if openlist.contains(successor) then
 //                openlist.updateKey(successor, f)
@@ -95,20 +104,25 @@ class HillClimbingAlgorithm {
 
     fun getNeighbors(grid: List<List<Char>>, node: Node): List<Node> {
         val neighbors = mutableListOf<Node>()
-        if (node.row - 1 in grid.indices) neighbors.add(Node(node.col, node.row - 1))
-        if (node.col + 1 in grid.indices) neighbors.add(Node(node.col + 1, node.row))
-        if (node.row + 1 in grid.indices) neighbors.add(Node(node.col, node.row + 1))
-        if (node.col - 1 in grid.indices) neighbors.add(Node(node.col - 1, node.row))
+        if (node.col - 1 in grid.indices) neighbors.add(Node(node.row, node.col - 1))
+        if (node.row + 1 in grid.indices) neighbors.add(Node(node.row + 1, node.col))
+        if (node.col + 1 in grid.indices) neighbors.add(Node(node.row, node.col + 1))
+        if (node.row - 1 in grid.indices) neighbors.add(Node(node.row - 1, node.col))
         return neighbors
+    }
+
+    fun isClimbable(grid: List<List<Char>>, currentNode: Node, nextNode: Node): Boolean {
+        return grid[nextNode.row][nextNode.col] - grid[currentNode.row][currentNode.col] <= 1
     }
 
 
 }
 
 data class Node(
-    val col: Int = 0,
     val row: Int = 0,
-    val f: Int = 0
+    val col: Int = 0,
+    var f: Int = Int.MAX_VALUE,
+    var parent: Node? = null
 ) : Comparable<Node> {
     override fun compareTo(other: Node): Int = f.compareTo(other.f)
 }

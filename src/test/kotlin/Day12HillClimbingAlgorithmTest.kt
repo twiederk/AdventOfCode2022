@@ -155,5 +155,29 @@ class HillClimbingAlgorithmTest {
         )
     }
 
+    @Test
+    fun isClimbable_ab_true() {
+        // arrange
+        val grid = hillClimbingAlgorithm.loadData(Path("src", "test", "resources", "Day12_TestData.txt"))
+
+        // act
+        val climbable = hillClimbingAlgorithm.isClimbable(grid, Node(0, 1), Node(0, 2))
+
+        // assert
+        assertThat(climbable).isTrue
+    }
+
+    @Test
+    fun isClimbable_bq_false() {
+        // arrange
+        val grid = hillClimbingAlgorithm.loadData(Path("src", "test", "resources", "Day12_TestData.txt"))
+
+        // act
+        val climbable = hillClimbingAlgorithm.isClimbable(grid, Node(0, 2), Node(0, 3))
+
+        // assert
+        assertThat(climbable).isFalse
+    }
+
 }
 
