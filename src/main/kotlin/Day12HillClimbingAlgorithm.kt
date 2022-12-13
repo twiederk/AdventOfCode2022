@@ -16,6 +16,9 @@ class HillClimbingAlgorithm {
 
     fun aStar(grid: List<List<Char>>, start: Node, maxRounds: Int = Int.MAX_VALUE, debug: Boolean = false): List<Node> {
 
+        openList.clear()
+        closedList.clear()
+
         val end = findEndNode(grid)
 
         // Initialisierung der Open List, die Closed List ist noch leer
@@ -205,9 +208,17 @@ class HillClimbingAlgorithm {
     fun allTrails(grid: List<List<Char>>, startingPoints: List<Node>): List<List<Node>> {
         val allTrails = mutableListOf<List<Node>>()
         for (startPoint in startingPoints) {
-            allTrails.add(aStar(grid, startPoint))
+            val path = aStar(grid, startPoint)
+            println(path.size)
+            allTrails.add(path)
         }
         return allTrails
+    }
+
+    fun findShortestTrail(grid: List<List<Char>>): Int {
+        val startingPoints = findAllStartingPoints(grid)
+        val allTrails = allTrails(grid, startingPoints)
+        return allTrails.filter { it.isNotEmpty() }.map { it.size }.minOf { it }
     }
 }
 
@@ -228,6 +239,8 @@ fun main() {
     val start = hillClimbingAlgorithm.findStartNode(grid)
 
     val result = hillClimbingAlgorithm.aStar(grid, start)
-
     println("result.size - 1 = ${result.size - 1}")
+
+    val shortestTrail = hillClimbingAlgorithm.findShortestTrail(grid)
+    println("shortestTrail - 1 = ${shortestTrail - 1}")
 }

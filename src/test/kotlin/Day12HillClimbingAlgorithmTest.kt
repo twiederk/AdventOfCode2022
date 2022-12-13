@@ -557,6 +557,17 @@ class HillClimbingAlgorithmTest {
         // assert
         assertThat(allTrails).hasSize(6)
     }
+
+    @Test
+    internal fun findShortestTrail() {
+
+        // act
+        val shortestTrail = hillClimbingAlgorithm.findShortestTrail(grid)
+
+        // assert
+        assertThat(shortestTrail).isEqualTo(30)
+    }
+
 }
 
 class NodeAssert(actual: Node) : AbstractAssert<NodeAssert, Node>(actual, NodeAssert::class.java) {
