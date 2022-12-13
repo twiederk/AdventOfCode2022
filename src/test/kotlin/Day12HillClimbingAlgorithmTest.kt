@@ -552,10 +552,10 @@ class HillClimbingAlgorithmTest {
         val startingPoints = hillClimbingAlgorithm.findAllStartingPoints(grid)
 
         // act
-//        val allTrails = hillClimbingAlgorithm.allTrails(grid, startingPoints)
-
+        val allTrails = hillClimbingAlgorithm.allTrails(grid, startingPoints)
 
         // assert
+        assertThat(allTrails).hasSize(6)
     }
 }
 

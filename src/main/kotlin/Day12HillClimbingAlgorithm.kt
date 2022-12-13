@@ -201,6 +201,14 @@ class HillClimbingAlgorithm {
         }
         return startingPoints
     }
+
+    fun allTrails(grid: List<List<Char>>, startingPoints: List<Node>): List<List<Node>> {
+        val allTrails = mutableListOf<List<Node>>()
+        for (startPoint in startingPoints) {
+            allTrails.add(aStar(grid, startPoint))
+        }
+        return allTrails
+    }
 }
 
 
