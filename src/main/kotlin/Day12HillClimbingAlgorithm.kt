@@ -166,13 +166,28 @@ class HillClimbingAlgorithm {
     }
 
     fun getPath(end: Node): List<Node> {
-        var currentNode : Node? = closedList.first { it == end }
+        var currentNode: Node? = closedList.first { it == end }
         val path = mutableListOf<Node>()
         while (currentNode != null) {
             path.add(currentNode)
             currentNode = currentNode.parent
         }
         return path.reversed()
+    }
+
+    fun renderPath(grid: List<List<Char>>, path: List<Node>): String {
+        val char2d = Array(grid.size) { CharArray(grid[0].size) { '.' } }
+
+        for (node in path) {
+            char2d[node.row][node.col] = 'X'
+        }
+
+        val display = StringBuffer()
+        for (i in char2d.indices) {
+            display.append(char2d[i]).append('\n')
+        }
+        return display.toString()
+
     }
 }
 

@@ -507,6 +507,28 @@ class HillClimbingAlgorithmTest {
         assertThat(path).hasSize(32)
     }
 
+    @Test
+    fun renderPath() {
+        // arrange
+        hillClimbingAlgorithm.aStar(grid)
+        val path = hillClimbingAlgorithm.getPath(hillClimbingAlgorithm.findEndNode(grid))
+
+        // act
+        val display = hillClimbingAlgorithm.renderPath(grid, path)
+
+        // assert
+        assertThat(display).isEqualTo(
+            """
+            XX.XXXXX
+            .X.XXXXX
+            .XXXXXXX
+            ..XXXXXX
+            ..XXXXXX
+            
+        """.trimIndent()
+        )
+    }
+
 }
 
 class NodeAssert(actual: Node) : AbstractAssert<NodeAssert, Node>(actual, NodeAssert::class.java) {
