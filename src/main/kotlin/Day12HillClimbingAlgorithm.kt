@@ -13,7 +13,7 @@ class HillClimbingAlgorithm {
     val openList = PriorityQueue<Node>()
     val closedList = mutableSetOf<Node>()
 
-    fun aStar(grid: List<List<Char>>, maxRounds: Int = Int.MAX_VALUE, debug: Boolean = false): Int {
+    fun aStar(grid: List<List<Char>>, maxRounds: Int = Int.MAX_VALUE, debug: Boolean = false): List<Node> {
 
         val start = findStartNode(grid)
         val end = findEndNode(grid)
@@ -33,7 +33,8 @@ class HillClimbingAlgorithm {
 
             // Wurde das Ziel gefunden?
             if (currentNode == end) {
-                return closedList.size
+                closedList.add(currentNode)
+                return getPath(end)
             }
 
             // Der aktuelle Knoten soll durch nachfolgende Funktionen
@@ -50,7 +51,7 @@ class HillClimbingAlgorithm {
         } while (openList.isNotEmpty() && round < maxRounds)
 
         // die Open List ist leer, es existiert kein Pfad zum Ziel
-        return 0
+        return emptyList()
     }
 
     private fun debug(message: String, debug: Boolean) {
@@ -164,8 +165,14 @@ class HillClimbingAlgorithm {
         return '.'
     }
 
-    fun getPath(): List<Node> {
-        return emptyList()
+    fun getPath(end: Node): List<Node> {
+        var currentNode : Node? = closedList.first { it == end }
+        val path = mutableListOf<Node>()
+        while (currentNode != null) {
+            path.add(currentNode)
+            currentNode = currentNode.parent
+        }
+        return path.reversed()
     }
 }
 

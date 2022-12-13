@@ -228,8 +228,7 @@ class HillClimbingAlgorithmTest {
         val result = hillClimbingAlgorithm.aStar(grid)
 
         // assert
-        println("hillClimbingAlgorithm.closedList.size = ${hillClimbingAlgorithm.closedList.size}")
-        assertThat(result).isEqualTo(31)
+        assertThat(result.size).isEqualTo(32)
     }
 
     @Test
@@ -502,11 +501,12 @@ class HillClimbingAlgorithmTest {
         hillClimbingAlgorithm.aStar(grid)
 
         // act
-        val path = hillClimbingAlgorithm.getPath()
+        val path = hillClimbingAlgorithm.getPath(hillClimbingAlgorithm.findEndNode(grid))
 
         // assert
-        assertThat(path).hasSize(31)
+        assertThat(path).hasSize(32)
     }
+
 }
 
 class NodeAssert(actual: Node) : AbstractAssert<NodeAssert, Node>(actual, NodeAssert::class.java) {
