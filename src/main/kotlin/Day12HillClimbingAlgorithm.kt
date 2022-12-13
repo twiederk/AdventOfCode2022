@@ -137,6 +137,17 @@ class HillClimbingAlgorithm {
     fun distance(src: Node, dest: Node): Int {
         return abs(src.col - dest.col) + abs(src.row - dest.row)
     }
+
+    fun render(grid: List<List<Char>>): String {
+        var display = ""
+        for (row in grid.indices) {
+            for (col in grid[0].indices) {
+                display += "."
+            }
+            if (row < grid.lastIndex) display += "\n"
+        }
+        return display
+    }
 }
 
 

@@ -395,6 +395,24 @@ class HillClimbingAlgorithmTest {
         NodeAssert(closedList.elementAt(7)).hasCoords(2, 2).hasG(4).hasF(7).hasParent(Node(2, 1))
     }
 
+    @Test
+    fun render() {
+
+        // act
+        val display = hillClimbingAlgorithm.render(grid)
+
+        // assert
+        assertThat(display).isEqualTo("""
+            ........
+            ........
+            ........
+            ........
+            ........
+        """.trimIndent())
+
+    }
+
+
 }
 
 class NodeAssert(actual: Node) : AbstractAssert<NodeAssert, Node>(actual, NodeAssert::class.java) {
