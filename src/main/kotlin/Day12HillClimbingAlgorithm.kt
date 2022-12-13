@@ -13,7 +13,7 @@ class HillClimbingAlgorithm {
     val openList = PriorityQueue<Node>()
     val closedList = mutableSetOf<Node>()
 
-    fun aStar(grid: List<List<Char>>, maxRounds: Int = Int.MAX_VALUE): Int {
+    fun aStar(grid: List<List<Char>>, maxRounds: Int = Int.MAX_VALUE, debug: Boolean = false): Int {
 
         val start = findStartNode(grid)
         val end = findEndNode(grid)
@@ -28,8 +28,8 @@ class HillClimbingAlgorithm {
         do {
             // Knoten mit dem geringsten f-Wert aus der Open List entfernen
             val currentNode = openList.remove()
-            println("######## round $round #############")
-            println("currentNode = $currentNode")
+            debug("######## round $round #############", debug)
+            debug("currentNode = $currentNode", debug)
 
             // Wurde das Ziel gefunden?
             if (currentNode == end) {
@@ -45,7 +45,7 @@ class HillClimbingAlgorithm {
             expandNode(grid, currentNode, end)
 
             round++
-            println(render(grid))
+            debug(render(grid), debug)
 
         } while (openList.isNotEmpty() && round < maxRounds)
 
@@ -53,11 +53,16 @@ class HillClimbingAlgorithm {
         return 0
     }
 
+    private fun debug(message: String, debug: Boolean) {
+        if (debug) {
+            println(message)
+        }
+    }
+
     // überprüft alle Nachfolgeknoten und fügt sie der Open List hinzu, wenn entweder
     // - der Nachfolgeknoten zum ersten Mal gefunden wird, oder
     // - ein besserer Weg zu diesem Knoten gefunden wird
     fun expandNode(grid: List<List<Char>>, currentNode: Node, end: Node) {
-        println("number Of neighbors: ${getNeighbors(grid, currentNode)}")
         for (successor in getNeighbors(grid, currentNode)) {
             if (closedList.contains(successor)) {
                 continue
@@ -157,6 +162,10 @@ class HillClimbingAlgorithm {
         if (openList.contains(Node(row, col))) return 'O'
         if (closedList.contains(Node(row, col))) return 'C'
         return '.'
+    }
+
+    fun getPath(): List<Node> {
+        return emptyList()
     }
 }
 

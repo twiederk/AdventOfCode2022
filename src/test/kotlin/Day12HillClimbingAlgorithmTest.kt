@@ -495,6 +495,18 @@ class HillClimbingAlgorithmTest {
         // assert
         assertThat(char).isEqualTo('C')
     }
+
+    @Test
+    fun getPath() {
+        // arrange
+        hillClimbingAlgorithm.aStar(grid)
+
+        // act
+        val path = hillClimbingAlgorithm.getPath()
+
+        // assert
+        assertThat(path).hasSize(31)
+    }
 }
 
 class NodeAssert(actual: Node) : AbstractAssert<NodeAssert, Node>(actual, NodeAssert::class.java) {
