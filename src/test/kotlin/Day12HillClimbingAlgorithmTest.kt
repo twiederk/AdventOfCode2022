@@ -273,7 +273,6 @@ class HillClimbingAlgorithmTest {
         // assert
         // expand Node(1, 1)
         val openList = hillClimbingAlgorithm.openList
-        println("openList = ${openList}")
 //        openList = [Node(row=2, col=0), Node(row=0, col=2), Node(row=1, col=2), Node(row=2, col=1)]
         assertThat(openList).hasSize(4)
         NodeAssert(openList.elementAt(0)).hasCoords(2, 0).hasG(2).hasF(7)
@@ -287,6 +286,31 @@ class HillClimbingAlgorithmTest {
         NodeAssert(closedList.elementAt(1)).hasCoords(0, 1).hasG(1).hasF(7)
         NodeAssert(closedList.elementAt(2)).hasCoords(1, 0).hasG(1).hasF(7)
         NodeAssert(closedList.elementAt(3)).hasCoords(1, 1).hasG(2).hasF(7)
+    }
+
+    @Test
+    fun aStar_step5() {
+
+        // act
+        hillClimbingAlgorithm.aStar(grid, 5)
+
+        // assert
+        // expand Node(2, 0)
+        val openList = hillClimbingAlgorithm.openList
+//        openList = [Node(row=2, col=1), Node(row=0, col=2), Node(row=1, col=2), Node(row=3, col=0)]
+        assertThat(openList).hasSize(4)
+        NodeAssert(openList.elementAt(0)).hasCoords(2, 1).hasG(3).hasF(7)
+        NodeAssert(openList.elementAt(1)).hasCoords(0, 2).hasG(2).hasF(7)
+        NodeAssert(openList.elementAt(2)).hasCoords(1, 2).hasG(3).hasF(7)
+        NodeAssert(openList.elementAt(3)).hasCoords(3, 0).hasG(3).hasF(9)
+
+        val closedList = hillClimbingAlgorithm.closedList
+        assertThat(hillClimbingAlgorithm.closedList).hasSize(5)
+        NodeAssert(closedList.elementAt(0)).hasCoords(0, 0).hasG(0).hasF(0)
+        NodeAssert(closedList.elementAt(1)).hasCoords(0, 1).hasG(1).hasF(7)
+        NodeAssert(closedList.elementAt(2)).hasCoords(1, 0).hasG(1).hasF(7)
+        NodeAssert(closedList.elementAt(3)).hasCoords(1, 1).hasG(2).hasF(7)
+        NodeAssert(closedList.elementAt(4)).hasCoords(2, 0).hasG(2).hasF(7)
     }
 
 }
