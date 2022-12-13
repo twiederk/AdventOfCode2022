@@ -24,10 +24,11 @@ class HillClimbingAlgorithm {
         // diese Schleife wird durchlaufen bis entweder
         // - die optimale Lösung gefunden wurde oder
         // - feststeht, dass keine Lösung existiert
-        var rounds = 0
+        var round = 0
         do {
             // Knoten mit dem geringsten f-Wert aus der Open List entfernen
             val currentNode = openList.remove()
+            println("$round. currentNode = ${currentNode}")
 
             // Wurde das Ziel gefunden?
             if (currentNode == end) {
@@ -42,8 +43,8 @@ class HillClimbingAlgorithm {
             // des aktuellen Knotens auf die Open List setzen
             expandNode(grid, currentNode, end)
 
-            rounds++
-        } while (openList.isNotEmpty() && rounds < maxRounds)
+            round++
+        } while (openList.isNotEmpty() && round < maxRounds)
 
         // die Open List ist leer, es existiert kein Pfad zum Ziel
         return 0
