@@ -307,10 +307,10 @@ class HillClimbingAlgorithmTest {
         val closedList = hillClimbingAlgorithm.closedList
         assertThat(hillClimbingAlgorithm.closedList).hasSize(5)
         NodeAssert(closedList.elementAt(0)).hasCoords(0, 0).hasG(0).hasF(0)
-        NodeAssert(closedList.elementAt(1)).hasCoords(0, 1).hasG(1).hasF(7)
-        NodeAssert(closedList.elementAt(2)).hasCoords(1, 0).hasG(1).hasF(7)
-        NodeAssert(closedList.elementAt(3)).hasCoords(1, 1).hasG(2).hasF(7)
-        NodeAssert(closedList.elementAt(4)).hasCoords(2, 0).hasG(2).hasF(7)
+        NodeAssert(closedList.elementAt(1)).hasCoords(0, 1).hasG(1).hasF(7).hasParent(Node(0, 0))
+        NodeAssert(closedList.elementAt(2)).hasCoords(1, 0).hasG(1).hasF(7).hasParent(Node(0, 0))
+        NodeAssert(closedList.elementAt(3)).hasCoords(1, 1).hasG(2).hasF(7).hasParent(Node(0, 1))
+        NodeAssert(closedList.elementAt(4)).hasCoords(2, 0).hasG(2).hasF(7).hasParent(Node(1, 0))
     }
 
 }
@@ -354,6 +354,13 @@ class NodeAssert(actual: Node) : AbstractAssert<NodeAssert, Node>(actual, NodeAs
     fun hasF(f: Int): NodeAssert {
         if (actual.f != f) {
             failWithMessage("Expected node to have F [$f] but was [${actual.f}]")
+        }
+        return this
+    }
+
+    fun hasParent(parent: Node): NodeAssert {
+        if (actual.parent != parent) {
+            failWithMessage("Expected node to have PARENT [$parent] but was [${actual.parent}")
         }
         return this
     }
