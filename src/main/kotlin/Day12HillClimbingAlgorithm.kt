@@ -13,12 +13,10 @@ class HillClimbingAlgorithm {
     val openList = PriorityQueue<Node>()
     val closedList = mutableSetOf<Node>()
 
-    fun aStar(grid: List<List<Char>>): Int {
+    fun aStar(grid: List<List<Char>>, maxRounds: Int = Int.MAX_VALUE): Int {
 
         val start = findStartNode(grid)
         val end = findEndNode(grid)
-        println("start = ${start}")
-        println("end = ${end}")
 
         // Initialisierung der Open List, die Closed List ist noch leer
         // (die Priorität bzw. der f-Wert des Startknotens ist unerheblich)
@@ -26,12 +24,10 @@ class HillClimbingAlgorithm {
         // diese Schleife wird durchlaufen bis entweder
         // - die optimale Lösung gefunden wurde oder
         // - feststeht, dass keine Lösung existiert
-        var count = 0
+        var rounds = 0
         do {
-            println("##############################")
             // Knoten mit dem geringsten f-Wert aus der Open List entfernen
             val currentNode = openList.remove()
-            println("currentNode = ${currentNode}")
 
             // Wurde das Ziel gefunden?
             if (currentNode == end) {
@@ -44,15 +40,10 @@ class HillClimbingAlgorithm {
 
             // Wenn das Ziel noch nicht gefunden wurde: Nachfolgeknoten
             // des aktuellen Knotens auf die Open List setzen
-            expandNode(grid, currentNode)
+            expandNode(grid, currentNode, end)
 
-            println("openList.size = ${openList.size}")
-            println("openList = ${openList}")
-            println("closedList.size = ${closedList.size}")
-            println("closedList = ${closedList}")
-        } while (openList.isNotEmpty())
-//            count++
-//        } while (count < 2)
+            rounds++
+        } while (openList.isNotEmpty() && rounds < maxRounds)
 
         // die Open List ist leer, es existiert kein Pfad zum Ziel
         return 0
@@ -61,7 +52,7 @@ class HillClimbingAlgorithm {
     // überprüft alle Nachfolgeknoten und fügt sie der Open List hinzu, wenn entweder
     // - der Nachfolgeknoten zum ersten Mal gefunden wird, oder
     // - ein besserer Weg zu diesem Knoten gefunden wird
-    fun expandNode(grid: List<List<Char>>, currentNode: Node) {
+    fun expandNode(grid: List<List<Char>>, currentNode: Node, end: Node) {
         for (successor in getNeighbors(grid, currentNode)) {
             if (closedList.contains(successor)) {
                 continue
@@ -83,7 +74,7 @@ class HillClimbingAlgorithm {
 
             // f-Wert des Knotens in der Open List aktualisieren
             // bzw. Knoten mit f-Wert in die Open List einfügen
-            val f = tentativeG + distance(currentNode, successor)
+            val f = tentativeG + distance(successor, end)
 
             successor.f = f
             if (!openList.contains(successor)) {
@@ -156,7 +147,4 @@ data class Node(
     var g: Int = 0
     var parent: Node? = null
     override fun compareTo(other: Node): Int = f.compareTo(other.f)
-    override fun toString(): String {
-        return "[Node(row=$row, col=$col, parentRow=${parent?.row}, parentCol=${parent?.col}]"
-    }
 }

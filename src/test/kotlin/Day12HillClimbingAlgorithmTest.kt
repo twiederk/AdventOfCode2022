@@ -1,6 +1,8 @@
+import org.assertj.core.api.AbstractAssert
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import kotlin.io.path.Path
+
 
 class HillClimbingAlgorithmTest {
 
@@ -54,16 +56,6 @@ class HillClimbingAlgorithmTest {
 
         // assert
         assertThat(result).isEqualTo(0)
-    }
-
-    @Test
-    fun aStar() {
-
-        // act
-        val result = hillClimbingAlgorithm.aStar(grid)
-
-        // assert
-        assertThat(result).isEqualTo(31)
     }
 
     @Test
@@ -194,12 +186,79 @@ class HillClimbingAlgorithmTest {
     fun expandNode_00() {
 
         // act
-        hillClimbingAlgorithm.expandNode(grid, Node(0, 0))
+        hillClimbingAlgorithm.expandNode(grid, Node(0, 0), Node(2, 5))
 
         // assert
         assertThat(hillClimbingAlgorithm.openList).hasSize(2)
+    }
 
-        println(hillClimbingAlgorithm.openList)
+    @Test
+    fun aStar() {
+
+        // act
+        val result = hillClimbingAlgorithm.aStar(grid)
+
+        // assert
+        assertThat(result).isEqualTo(31)
+    }
+
+    @Test
+    fun aStar_step1() {
+
+        // act
+        hillClimbingAlgorithm.aStar(grid, 1)
+
+        // assert
+        val openList = hillClimbingAlgorithm.openList
+        assertThat(openList).hasSize(2)
+        NodeAssert(openList.elementAt(0)).hasCoords(0, 1).hasG(1).hasF(7)
+
+        assertThat(hillClimbingAlgorithm.closedList).hasSize(1)
+    }
+
+}
+
+class NodeAssert(actual: Node) : AbstractAssert<NodeAssert, Node>(actual, NodeAssert::class.java) {
+
+    companion object {
+        fun assertThat(actual: Node): NodeAssert {
+            return NodeAssert(actual)
+        }
+    }
+
+    fun hasRow(row: Int): NodeAssert {
+        if (actual.row != row) {
+            failWithMessage("Expected node to have ROW [$row] but was [${actual.row}]")
+        }
+        return this
+    }
+
+    fun hasCol(col: Int): NodeAssert {
+        if (actual.col != col) {
+            failWithMessage("Expected node to have COL [$col] but was [${actual.col}]")
+        }
+        return this
+    }
+
+    fun hasCoords(row: Int, col: Int): NodeAssert {
+        hasRow(row)
+        hasCol(col)
+        return this
+    }
+
+
+    fun hasG(g: Int): NodeAssert {
+        if (actual.g != g) {
+            failWithMessage("Expected node to have G [$g] but was [${actual.g}]")
+        }
+        return this
+    }
+
+    fun hasF(f: Int): NodeAssert {
+        if (actual.f != f) {
+            failWithMessage("Expected node to have F [$f] but was [${actual.f}]")
+        }
+        return this
     }
 }
 
