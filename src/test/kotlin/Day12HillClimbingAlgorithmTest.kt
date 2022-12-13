@@ -581,4 +581,3 @@ class NodeAssert(actual: Node) : AbstractAssert<NodeAssert, Node>(actual, NodeAs
         return this
     }
 }
-

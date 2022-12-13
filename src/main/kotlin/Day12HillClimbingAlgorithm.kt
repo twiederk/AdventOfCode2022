@@ -1,5 +1,6 @@
 import java.nio.file.Path
 import java.util.*
+import kotlin.io.path.Path
 import kotlin.io.path.readLines
 import kotlin.math.abs
 
@@ -200,4 +201,13 @@ data class Node(
     var g: Int = 0
     var parent: Node? = null
     override fun compareTo(other: Node): Int = f.compareTo(other.f)
+}
+
+fun main() {
+    val hillClimbingAlgorithm = HillClimbingAlgorithm()
+    val grid = hillClimbingAlgorithm.loadData(Path("src", "main", "resources", "Day12_Part1_InputData.txt"))
+
+    val result = hillClimbingAlgorithm.aStar(grid)
+
+    println("result.size - 1 = ${result.size - 1}")
 }
