@@ -340,6 +340,33 @@ class HillClimbingAlgorithmTest {
         NodeAssert(closedList.elementAt(5)).hasCoords(2, 1).hasG(3).hasF(7).hasParent(Node(1, 1))
     }
 
+    @Test
+    fun aStar_step7() {
+
+        // act
+        hillClimbingAlgorithm.aStar(grid, 7)
+
+        // assert
+        // expand Node(0, 2)
+        val openList = hillClimbingAlgorithm.openList
+//        openList = [Node(row=2, col=2), Node(row=3, col=1), Node(row=1, col=2), Node(row=3, col=0)]
+        assertThat(openList).hasSize(4)
+        NodeAssert(openList.elementAt(0)).hasCoords(2, 2).hasG(4).hasF(7)
+        NodeAssert(openList.elementAt(1)).hasCoords(3, 1).hasG(4).hasF(9)
+        NodeAssert(openList.elementAt(2)).hasCoords(1, 2).hasG(3).hasF(7)
+        NodeAssert(openList.elementAt(3)).hasCoords(3, 0).hasG(3).hasF(9)
+
+        val closedList = hillClimbingAlgorithm.closedList
+        assertThat(closedList).hasSize(7)
+        NodeAssert(closedList.elementAt(0)).hasCoords(0, 0).hasG(0).hasF(0)
+        NodeAssert(closedList.elementAt(1)).hasCoords(0, 1).hasG(1).hasF(7).hasParent(Node(0, 0))
+        NodeAssert(closedList.elementAt(2)).hasCoords(1, 0).hasG(1).hasF(7).hasParent(Node(0, 0))
+        NodeAssert(closedList.elementAt(3)).hasCoords(1, 1).hasG(2).hasF(7).hasParent(Node(0, 1))
+        NodeAssert(closedList.elementAt(4)).hasCoords(2, 0).hasG(2).hasF(7).hasParent(Node(1, 0))
+        NodeAssert(closedList.elementAt(5)).hasCoords(2, 1).hasG(3).hasF(7).hasParent(Node(1, 1))
+        NodeAssert(closedList.elementAt(6)).hasCoords(0, 2).hasG(2).hasF(7).hasParent(Node(0, 1))
+    }
+
 }
 
 class NodeAssert(actual: Node) : AbstractAssert<NodeAssert, Node>(actual, NodeAssert::class.java) {
