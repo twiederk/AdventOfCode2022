@@ -225,7 +225,7 @@ class HillClimbingAlgorithmTest {
     fun aStar() {
 
         // act
-        val result = hillClimbingAlgorithm.aStar(grid)
+        val result = hillClimbingAlgorithm.aStar(grid, Node(0, 0))
 
         // assert
         assertThat(result.size).isEqualTo(32)
@@ -235,7 +235,7 @@ class HillClimbingAlgorithmTest {
     fun aStar_step1() {
 
         // act
-        hillClimbingAlgorithm.aStar(grid, 1)
+        hillClimbingAlgorithm.aStar(grid, Node(0, 0), 1)
 
         // assert
         // expandNode(0, 0)
@@ -253,7 +253,7 @@ class HillClimbingAlgorithmTest {
     fun aStar_step2() {
 
         // act
-        hillClimbingAlgorithm.aStar(grid, 2)
+        hillClimbingAlgorithm.aStar(grid, Node(0, 0), 2)
 
         // assert
         // expand Node(0, 1)
@@ -274,7 +274,7 @@ class HillClimbingAlgorithmTest {
     fun aStar_step3() {
 
         // act
-        hillClimbingAlgorithm.aStar(grid, 3)
+        hillClimbingAlgorithm.aStar(grid, Node(0, 0), 3)
 
         // assert
         // expand Node(1, 0)
@@ -296,7 +296,7 @@ class HillClimbingAlgorithmTest {
     fun aStar_step4() {
 
         // act
-        hillClimbingAlgorithm.aStar(grid, 4)
+        hillClimbingAlgorithm.aStar(grid, Node(0, 0), 4)
 
         // assert
         // expand Node(1, 1)
@@ -320,7 +320,7 @@ class HillClimbingAlgorithmTest {
     fun aStar_step5() {
 
         // act
-        hillClimbingAlgorithm.aStar(grid, 5)
+        hillClimbingAlgorithm.aStar(grid, Node(0, 0), 5)
 
         // assert
         // expand Node(2, 0)
@@ -345,7 +345,7 @@ class HillClimbingAlgorithmTest {
     fun aStar_step6() {
 
         // act
-        hillClimbingAlgorithm.aStar(grid, 6)
+        hillClimbingAlgorithm.aStar(grid, Node(0, 0), 6)
 
         // assert
         // expand Node(2, 1)
@@ -372,7 +372,7 @@ class HillClimbingAlgorithmTest {
     fun aStar_step7() {
 
         // act
-        hillClimbingAlgorithm.aStar(grid, 7)
+        hillClimbingAlgorithm.aStar(grid, Node(0, 0), 7)
 
         // assert
         // expand Node(0, 2)
@@ -399,7 +399,7 @@ class HillClimbingAlgorithmTest {
     fun aStar_step8() {
 
         // act
-        hillClimbingAlgorithm.aStar(grid, 8)
+        hillClimbingAlgorithm.aStar(grid, Node(0, 0), 8)
 
         // assert
         // expand Node(2, 2)
@@ -444,7 +444,7 @@ class HillClimbingAlgorithmTest {
     @Test
     fun render_step1() {
         // arrange
-        hillClimbingAlgorithm.aStar(grid, 1)
+        hillClimbingAlgorithm.aStar(grid, Node(0, 0), 1)
 
         // act
         val display = hillClimbingAlgorithm.render(grid)
@@ -498,7 +498,7 @@ class HillClimbingAlgorithmTest {
     @Test
     fun getPath() {
         // arrange
-        hillClimbingAlgorithm.aStar(grid)
+        hillClimbingAlgorithm.aStar(grid, Node(0, 0))
 
         // act
         val path = hillClimbingAlgorithm.getPath(hillClimbingAlgorithm.findEndNode(grid))
@@ -510,7 +510,7 @@ class HillClimbingAlgorithmTest {
     @Test
     fun renderPath() {
         // arrange
-        hillClimbingAlgorithm.aStar(grid)
+        hillClimbingAlgorithm.aStar(grid, Node(0, 0))
         val path = hillClimbingAlgorithm.getPath(hillClimbingAlgorithm.findEndNode(grid))
 
         // act
@@ -544,9 +544,19 @@ class HillClimbingAlgorithmTest {
             Node(3, 0),
             Node(4, 0),
         )
-
     }
 
+    @Test
+    fun findAllTrails() {
+        // arrange
+        val startingPoints = hillClimbingAlgorithm.findAllStartingPoints(grid)
+
+        // act
+//        val allTrails = hillClimbingAlgorithm.allTrails(grid, startingPoints)
+
+
+        // assert
+    }
 }
 
 class NodeAssert(actual: Node) : AbstractAssert<NodeAssert, Node>(actual, NodeAssert::class.java) {

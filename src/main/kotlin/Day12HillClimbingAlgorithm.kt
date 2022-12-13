@@ -14,9 +14,8 @@ class HillClimbingAlgorithm {
     val openList = PriorityQueue<Node>()
     val closedList = mutableSetOf<Node>()
 
-    fun aStar(grid: List<List<Char>>, maxRounds: Int = Int.MAX_VALUE, debug: Boolean = false): List<Node> {
+    fun aStar(grid: List<List<Char>>, start: Node, maxRounds: Int = Int.MAX_VALUE, debug: Boolean = false): List<Node> {
 
-        val start = findStartNode(grid)
         val end = findEndNode(grid)
 
         // Initialisierung der Open List, die Closed List ist noch leer
@@ -218,8 +217,9 @@ data class Node(
 fun main() {
     val hillClimbingAlgorithm = HillClimbingAlgorithm()
     val grid = hillClimbingAlgorithm.loadData(Path("src", "main", "resources", "Day12_Part1_InputData.txt"))
+    val start = hillClimbingAlgorithm.findStartNode(grid)
 
-    val result = hillClimbingAlgorithm.aStar(grid)
+    val result = hillClimbingAlgorithm.aStar(grid, start)
 
     println("result.size - 1 = ${result.size - 1}")
 }
