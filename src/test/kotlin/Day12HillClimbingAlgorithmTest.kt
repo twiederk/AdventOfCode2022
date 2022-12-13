@@ -242,6 +242,28 @@ class HillClimbingAlgorithmTest {
         NodeAssert(closedList.elementAt(1)).hasCoords(0, 1).hasG(1).hasF(7)
     }
 
+    @Test
+    fun aStar_step3() {
+
+        // act
+        hillClimbingAlgorithm.aStar(grid, 3)
+
+        // assert
+        // expand Node(1, 0)
+        val openList = hillClimbingAlgorithm.openList
+//        openList = [Node(row=1, col=1), Node(row=0, col=2), Node(row=2, col=0)]
+        assertThat(openList).hasSize(3)
+        NodeAssert(openList.elementAt(0)).hasCoords(1, 1).hasG(2).hasF(7)
+        NodeAssert(openList.elementAt(1)).hasCoords(0, 2).hasG(2).hasF(7)
+        NodeAssert(openList.elementAt(2)).hasCoords(2, 0).hasG(2).hasF(7)
+
+        val closedList = hillClimbingAlgorithm.closedList
+        assertThat(hillClimbingAlgorithm.closedList).hasSize(3)
+        NodeAssert(closedList.elementAt(0)).hasCoords(0, 0).hasG(0).hasF(0)
+        NodeAssert(closedList.elementAt(1)).hasCoords(0, 1).hasG(1).hasF(7)
+        NodeAssert(closedList.elementAt(2)).hasCoords(1, 0).hasG(1).hasF(7)
+    }
+
 }
 
 class NodeAssert(actual: Node) : AbstractAssert<NodeAssert, Node>(actual, NodeAssert::class.java) {
