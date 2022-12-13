@@ -217,7 +217,7 @@ class HillClimbingAlgorithmTest {
         NodeAssert(openList.elementAt(1)).hasCoords(1, 0).hasG(1).hasF(7)
 
         val closedList = hillClimbingAlgorithm.closedList
-        assertThat(hillClimbingAlgorithm.closedList).hasSize(1)
+        assertThat(closedList).hasSize(1)
         NodeAssert(closedList.elementAt(0)).hasCoords(0, 0).hasG(0).hasF(0)
     }
 
@@ -237,7 +237,7 @@ class HillClimbingAlgorithmTest {
         NodeAssert(openList.elementAt(2)).hasCoords(1, 1).hasG(2).hasF(7)
 
         val closedList = hillClimbingAlgorithm.closedList
-        assertThat(hillClimbingAlgorithm.closedList).hasSize(2)
+        assertThat(closedList).hasSize(2)
         NodeAssert(closedList.elementAt(0)).hasCoords(0, 0).hasG(0).hasF(0)
         NodeAssert(closedList.elementAt(1)).hasCoords(0, 1).hasG(1).hasF(7)
     }
@@ -258,7 +258,7 @@ class HillClimbingAlgorithmTest {
         NodeAssert(openList.elementAt(2)).hasCoords(2, 0).hasG(2).hasF(7)
 
         val closedList = hillClimbingAlgorithm.closedList
-        assertThat(hillClimbingAlgorithm.closedList).hasSize(3)
+        assertThat(closedList).hasSize(3)
         NodeAssert(closedList.elementAt(0)).hasCoords(0, 0).hasG(0).hasF(0)
         NodeAssert(closedList.elementAt(1)).hasCoords(0, 1).hasG(1).hasF(7)
         NodeAssert(closedList.elementAt(2)).hasCoords(1, 0).hasG(1).hasF(7)
@@ -281,7 +281,7 @@ class HillClimbingAlgorithmTest {
         NodeAssert(openList.elementAt(3)).hasCoords(2, 1).hasG(3).hasF(7)
 
         val closedList = hillClimbingAlgorithm.closedList
-        assertThat(hillClimbingAlgorithm.closedList).hasSize(4)
+        assertThat(closedList).hasSize(4)
         NodeAssert(closedList.elementAt(0)).hasCoords(0, 0).hasG(0).hasF(0)
         NodeAssert(closedList.elementAt(1)).hasCoords(0, 1).hasG(1).hasF(7)
         NodeAssert(closedList.elementAt(2)).hasCoords(1, 0).hasG(1).hasF(7)
@@ -305,12 +305,39 @@ class HillClimbingAlgorithmTest {
         NodeAssert(openList.elementAt(3)).hasCoords(3, 0).hasG(3).hasF(9)
 
         val closedList = hillClimbingAlgorithm.closedList
-        assertThat(hillClimbingAlgorithm.closedList).hasSize(5)
+        assertThat(closedList).hasSize(5)
         NodeAssert(closedList.elementAt(0)).hasCoords(0, 0).hasG(0).hasF(0)
         NodeAssert(closedList.elementAt(1)).hasCoords(0, 1).hasG(1).hasF(7).hasParent(Node(0, 0))
         NodeAssert(closedList.elementAt(2)).hasCoords(1, 0).hasG(1).hasF(7).hasParent(Node(0, 0))
         NodeAssert(closedList.elementAt(3)).hasCoords(1, 1).hasG(2).hasF(7).hasParent(Node(0, 1))
         NodeAssert(closedList.elementAt(4)).hasCoords(2, 0).hasG(2).hasF(7).hasParent(Node(1, 0))
+    }
+
+    @Test
+    fun aStar_step6() {
+
+        // act
+        hillClimbingAlgorithm.aStar(grid, 6)
+
+        // assert
+        // expand Node(2, 1)
+        val openList = hillClimbingAlgorithm.openList
+//        openList = [Node(row=0, col=2), Node(row=2, col=2), Node(row=1, col=2), Node(row=3, col=0), Node(row=3, col=1)]
+        assertThat(openList).hasSize(5)
+        NodeAssert(openList.elementAt(0)).hasCoords(0, 2).hasG(2).hasF(7)
+        NodeAssert(openList.elementAt(1)).hasCoords(2, 2).hasG(4).hasF(7)
+        NodeAssert(openList.elementAt(2)).hasCoords(1, 2).hasG(3).hasF(7)
+        NodeAssert(openList.elementAt(3)).hasCoords(3, 0).hasG(3).hasF(9)
+        NodeAssert(openList.elementAt(4)).hasCoords(3, 1).hasG(4).hasF(9)
+
+        val closedList = hillClimbingAlgorithm.closedList
+        assertThat(closedList).hasSize(6)
+        NodeAssert(closedList.elementAt(0)).hasCoords(0, 0).hasG(0).hasF(0)
+        NodeAssert(closedList.elementAt(1)).hasCoords(0, 1).hasG(1).hasF(7).hasParent(Node(0, 0))
+        NodeAssert(closedList.elementAt(2)).hasCoords(1, 0).hasG(1).hasF(7).hasParent(Node(0, 0))
+        NodeAssert(closedList.elementAt(3)).hasCoords(1, 1).hasG(2).hasF(7).hasParent(Node(0, 1))
+        NodeAssert(closedList.elementAt(4)).hasCoords(2, 0).hasG(2).hasF(7).hasParent(Node(1, 0))
+        NodeAssert(closedList.elementAt(5)).hasCoords(2, 1).hasG(3).hasF(7).hasParent(Node(1, 1))
     }
 
 }
