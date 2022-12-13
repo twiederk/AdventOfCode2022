@@ -396,23 +396,76 @@ class HillClimbingAlgorithmTest {
     }
 
     @Test
-    fun render() {
+    fun render_emptyGrid() {
 
         // act
         val display = hillClimbingAlgorithm.render(grid)
 
         // assert
-        assertThat(display).isEqualTo("""
+        assertThat(display).isEqualTo(
+            """
             ........
             ........
             ........
             ........
             ........
-        """.trimIndent())
-
+        """.trimIndent()
+        )
     }
 
+    @Test
+    fun render_step1() {
+        // arrange
+        hillClimbingAlgorithm.aStar(grid, 1)
 
+        // act
+        val display = hillClimbingAlgorithm.render(grid)
+
+        // assert
+        assertThat(display).isEqualTo(
+            """
+            CO......
+            O.......
+            ........
+            ........
+            ........
+        """.trimIndent()
+        )
+    }
+
+    @Test
+    fun renderNode_NodeUnknown_dot() {
+
+        // act
+        val char = hillClimbingAlgorithm.renderNode(0, 0)
+
+        // assert
+        assertThat(char).isEqualTo('.')
+    }
+
+    @Test
+    fun renderNode_NodeOpenList_O() {
+        // arrange
+        hillClimbingAlgorithm.openList.add(Node(0, 0))
+
+        // act
+        val char = hillClimbingAlgorithm.renderNode(0, 0)
+
+        // assert
+        assertThat(char).isEqualTo('O')
+    }
+
+    @Test
+    fun renderNode_NodeCloseList_O() {
+        // arrange
+        hillClimbingAlgorithm.closedList.add(Node(0, 0))
+
+        // act
+        val char = hillClimbingAlgorithm.renderNode(0, 0)
+
+        // assert
+        assertThat(char).isEqualTo('C')
+    }
 }
 
 class NodeAssert(actual: Node) : AbstractAssert<NodeAssert, Node>(actual, NodeAssert::class.java) {

@@ -28,7 +28,8 @@ class HillClimbingAlgorithm {
         do {
             // Knoten mit dem geringsten f-Wert aus der Open List entfernen
             val currentNode = openList.remove()
-            println("$round. currentNode = ${currentNode}")
+            println("######## round $round #############")
+            println("currentNode = $currentNode")
 
             // Wurde das Ziel gefunden?
             if (currentNode == end) {
@@ -44,6 +45,8 @@ class HillClimbingAlgorithm {
             expandNode(grid, currentNode, end)
 
             round++
+            println(render(grid))
+
         } while (openList.isNotEmpty() && round < maxRounds)
 
         // die Open List ist leer, es existiert kein Pfad zum Ziel
@@ -142,11 +145,17 @@ class HillClimbingAlgorithm {
         var display = ""
         for (row in grid.indices) {
             for (col in grid[0].indices) {
-                display += "."
+                display += renderNode(row, col)
             }
             if (row < grid.lastIndex) display += "\n"
         }
         return display
+    }
+
+    fun renderNode(row: Int, col: Int): Char {
+        if (openList.contains(Node(row, col))) return 'O'
+        if (closedList.contains(Node(row, col))) return 'C'
+        return '.'
     }
 }
 
