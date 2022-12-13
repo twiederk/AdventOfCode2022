@@ -179,7 +179,13 @@ class HillClimbingAlgorithm {
     }
 
     fun renderPath(grid: List<List<Char>>, path: List<Node>): String {
-        val char2d = Array(grid.size) { CharArray(grid[0].size) { '.' } }
+        val char2d = Array(grid.size) { CharArray(grid[0].size) }
+
+        for (row in grid.indices) {
+            for (col in grid[0].indices) {
+                char2d[row][col] = grid[row][col]
+            }
+        }
 
         for (node in path) {
             char2d[node.row][node.col] = 'X'
@@ -241,6 +247,9 @@ fun main() {
     val result = hillClimbingAlgorithm.aStar(grid, start)
     println("result.size - 1 = ${result.size - 1}")
 
-    val shortestTrail = hillClimbingAlgorithm.findShortestTrail(grid)
-    println("shortestTrail - 1 = ${shortestTrail - 1}")
+    val display = hillClimbingAlgorithm.renderPath(grid, result)
+    println(display)
+
+//    val shortestTrail = hillClimbingAlgorithm.findShortestTrail(grid)
+//    println("shortestTrail - 1 = ${shortestTrail - 1}")
 }

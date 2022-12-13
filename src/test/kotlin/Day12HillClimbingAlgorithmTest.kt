@@ -519,11 +519,11 @@ class HillClimbingAlgorithmTest {
         // assert
         assertThat(display).isEqualTo(
             """
-            XX.XXXXX
-            .X.XXXXX
-            .XXXXXXX
-            ..XXXXXX
-            ..XXXXXX
+            XXbXXXXX
+            aXcXXXXX
+            aXXXXXXX
+            acXXXXXX
+            abXXXXXX
             
         """.trimIndent()
         )
