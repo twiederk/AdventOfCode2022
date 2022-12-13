@@ -75,7 +75,7 @@ class HillClimbingAlgorithmTest {
         val start = hillClimbingAlgorithm.findEndNode(grid)
 
         // assert
-        assertThat(start).isEqualTo(Node(5, 2))
+        assertThat(start).isEqualTo(Node(2, 5))
     }
 
     @Test
@@ -199,6 +199,7 @@ class HillClimbingAlgorithmTest {
         val result = hillClimbingAlgorithm.aStar(grid)
 
         // assert
+        println("hillClimbingAlgorithm.closedList.size = ${hillClimbingAlgorithm.closedList.size}")
         assertThat(result).isEqualTo(31)
     }
 
@@ -212,8 +213,11 @@ class HillClimbingAlgorithmTest {
         val openList = hillClimbingAlgorithm.openList
         assertThat(openList).hasSize(2)
         NodeAssert(openList.elementAt(0)).hasCoords(0, 1).hasG(1).hasF(7)
+        NodeAssert(openList.elementAt(1)).hasCoords(1, 0).hasG(1).hasF(7)
 
+        val closedList = hillClimbingAlgorithm.closedList
         assertThat(hillClimbingAlgorithm.closedList).hasSize(1)
+        NodeAssert(closedList.elementAt(0)).hasCoords(0, 0).hasG(0).hasF(0)
     }
 
 }

@@ -94,7 +94,7 @@ class HillClimbingAlgorithm {
     private fun findNode(grid: List<List<Char>>, c: Char): Node {
         for (row in grid.indices) {
             for (col in grid[0].indices) {
-                if (grid[row][col] == c) return Node(col, row)
+                if (grid[row][col] == c) return Node(row, col)
             }
         }
         throw IllegalArgumentException("Can't find start node")
