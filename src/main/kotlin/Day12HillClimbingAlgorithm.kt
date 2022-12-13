@@ -190,6 +190,18 @@ class HillClimbingAlgorithm {
         return display.toString()
 
     }
+
+    fun findAllStartingPoints(grid: List<List<Char>>): List<Node> {
+        val startingPoints = mutableListOf<Node>()
+        for (row in grid.indices) {
+            for (col in grid[0].indices) {
+                if (grid[row][col] == 'a' || grid[row][col] == 'S') {
+                    startingPoints.add(Node(row, col))
+                }
+            }
+        }
+        return startingPoints
+    }
 }
 
 

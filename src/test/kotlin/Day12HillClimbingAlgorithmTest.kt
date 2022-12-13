@@ -529,6 +529,24 @@ class HillClimbingAlgorithmTest {
         )
     }
 
+    @Test
+    fun findAllStartingPoints() {
+
+        // act
+        val startingPoints = hillClimbingAlgorithm.findAllStartingPoints(grid)
+
+        // assert
+        assertThat(startingPoints).containsExactly(
+            Node(0, 0),
+            Node(0, 1),
+            Node(1, 0),
+            Node(2, 0),
+            Node(3, 0),
+            Node(4, 0),
+        )
+
+    }
+
 }
 
 class NodeAssert(actual: Node) : AbstractAssert<NodeAssert, Node>(actual, NodeAssert::class.java) {
@@ -580,4 +598,5 @@ class NodeAssert(actual: Node) : AbstractAssert<NodeAssert, Node>(actual, NodeAs
         }
         return this
     }
+
 }
