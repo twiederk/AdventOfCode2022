@@ -57,6 +57,7 @@ class HillClimbingAlgorithm {
     // - der Nachfolgeknoten zum ersten Mal gefunden wird, oder
     // - ein besserer Weg zu diesem Knoten gefunden wird
     fun expandNode(grid: List<List<Char>>, currentNode: Node, end: Node) {
+        println("number Of neighbors: ${getNeighbors(grid, currentNode)}")
         for (successor in getNeighbors(grid, currentNode)) {
             if (closedList.contains(successor)) {
                 continue
@@ -110,7 +111,7 @@ class HillClimbingAlgorithm {
             val neighborNode = Node(currentNode.row - 1, currentNode.col)
             if (isClimbable(grid, currentNode, neighborNode)) neighbors.add(neighborNode)
         }
-        if (currentNode.col + 1 in grid.indices) {
+        if (currentNode.col + 1 in grid[0].indices) {
             val neighborNode = Node(currentNode.row, currentNode.col + 1)
             if (isClimbable(grid, currentNode, neighborNode)) neighbors.add(neighborNode)
         }
@@ -118,7 +119,7 @@ class HillClimbingAlgorithm {
             val neighborNode = Node(currentNode.row + 1, currentNode.col)
             if (isClimbable(grid, currentNode, neighborNode)) neighbors.add(neighborNode)
         }
-        if (currentNode.col - 1 in grid.indices) {
+        if (currentNode.col - 1 in grid[0].indices) {
             val neighborNode = Node(currentNode.row, currentNode.col - 1)
             if (isClimbable(grid, currentNode, neighborNode)) neighbors.add(neighborNode)
         }

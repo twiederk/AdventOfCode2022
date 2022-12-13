@@ -148,9 +148,20 @@ class HillClimbingAlgorithmTest {
     }
 
     @Test
+    fun getNeighbors_44_twoNeighbors() {
+
+        // act
+        val neighbors = hillClimbingAlgorithm.getNeighbors(grid, Node(4, 4))
+
+        // assert
+        assertThat(neighbors).containsExactly(
+            Node(4, 5),
+            Node(4, 3),
+        )
+    }
+
+    @Test
     fun isClimbable_ab_true() {
-        // arrange
-        val grid = hillClimbingAlgorithm.loadData(Path("src", "test", "resources", "Day12_TestData.txt"))
 
         // act
         val climbable = hillClimbingAlgorithm.isClimbable(grid, Node(0, 1), Node(0, 2))
@@ -161,14 +172,22 @@ class HillClimbingAlgorithmTest {
 
     @Test
     fun isClimbable_bq_false() {
-        // arrange
-        val grid = hillClimbingAlgorithm.loadData(Path("src", "test", "resources", "Day12_TestData.txt"))
 
         // act
         val climbable = hillClimbingAlgorithm.isClimbable(grid, Node(0, 2), Node(0, 3))
 
         // assert
         assertThat(climbable).isFalse
+    }
+
+    @Test
+    fun isClimbable_fg_true() {
+
+        // act
+        val climbable = hillClimbingAlgorithm.isClimbable(grid, Node(4, 4), Node(4, 5))
+
+        // assert
+        assertThat(climbable).isTrue
     }
 
     @Test
@@ -187,6 +206,16 @@ class HillClimbingAlgorithmTest {
 
         // act
         hillClimbingAlgorithm.expandNode(grid, Node(0, 0), Node(2, 5))
+
+        // assert
+        assertThat(hillClimbingAlgorithm.openList).hasSize(2)
+    }
+
+    @Test
+    fun expandNode_44() {
+
+        // act
+        hillClimbingAlgorithm.expandNode(grid, Node(4, 4), Node(2, 5))
 
         // assert
         assertThat(hillClimbingAlgorithm.openList).hasSize(2)
