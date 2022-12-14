@@ -145,4 +145,16 @@ class DistressSignalTest {
         // assert
         assertThat(hasMore).isFalse
     }
+
+    @Test
+    fun decodeAll() {
+        // arrange
+        val packets = distressSignal.loadData(Path("src", "test", "resources", "Day13_TestData.txt"))
+
+        // act
+        val result = distressSignal.decodeAll(packets)
+
+        // assert
+        assertThat(result).isEqualTo(13)
+    }
 }

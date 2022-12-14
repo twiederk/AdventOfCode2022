@@ -67,6 +67,16 @@ class DistressSignal {
         return Order.WRONG
     }
 
+    fun decodeAll(packets: List<Pair<String, String>>): Int {
+        var result = 0
+        for ((index, packet) in packets.withIndex()) {
+            if (decode(packet) == Order.CORRECT) {
+                result += (index + 1)
+            }
+        }
+        return result
+    }
+
 }
 
 data class Packet(val content: String) {
