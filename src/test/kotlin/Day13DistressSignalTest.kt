@@ -169,4 +169,27 @@ class DistressSignalTest {
         // assert
         assertThat(result).isEqualTo(13)
     }
+
+    @Test
+    fun decode_twoDigitValue_correct() {
+        // arrange
+
+        // act
+        val order = distressSignal.decode(PairOfPacket("[8]", "10"))
+
+        // assert
+        assertThat(order).isEqualTo(Order.CORRECT)
+    }
+
+    @Test
+    fun decode_twoDigitValue_wrong() {
+        // arrange
+
+        // act
+        val order = distressSignal.decode(PairOfPacket("[10]", "8"))
+
+        // assert
+        assertThat(order).isEqualTo(Order.WRONG)
+
+    }
 }
