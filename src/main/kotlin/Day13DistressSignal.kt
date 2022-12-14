@@ -22,11 +22,15 @@ class DistressSignal {
         val secondPacket = Packet(pairOfPacket.second)
 
         while (firstPacket.hasMoreToken()) {
-            val left = firstPacket.nextToken()
+            var left = firstPacket.nextToken()
             var right = secondPacket.nextToken()
 
             if (left is IntegerToken && right == StartListToken) {
                 right = secondPacket.nextToken()
+            }
+
+            if (left is StartListToken && right is IntegerToken) {
+                left = firstPacket.nextToken()
             }
 
             if (left == StartListToken && right == StartListToken) {
@@ -47,8 +51,16 @@ class DistressSignal {
                 continue
             }
 
-            if (left is EndListToken) {
+            if (left == EndListToken && right is IntegerToken) {
                 return Order.CORRECT
+            }
+
+            if (left == EndPacketToken) {
+                return Order.CORRECT
+            }
+
+            if (right == EndPacketToken) {
+                return Order.WRONG
             }
         }
 
@@ -57,7 +69,7 @@ class DistressSignal {
 
 }
 
-class Packet(val content: String) {
+data class Packet(val content: String) {
     var listCounter: ListCounter = 0
     var pointer: Pointer = 0
 
