@@ -17,10 +17,40 @@ class DistressSignalTest {
     }
 
     @Test
-    fun decode_packet_1() {
+    fun decode_packet1_correct() {
 
         // act
         val order = distressSignal.decode(PairOfPacket("[1,1,3,1,1]", "[1,1,5,1,1]"))
+
+        // assert
+        assertThat(order).isEqualTo(Order.CORRECT)
+    }
+
+    @Test
+    fun decode_packet2_correct() {
+
+        // act
+        val order = distressSignal.decode(PairOfPacket("[[1],[2,3,4]]", "[[1],4]"))
+
+        // assert
+        assertThat(order).isEqualTo(Order.CORRECT)
+    }
+
+    @Test
+    fun decode_packet3_wrong() {
+
+        // act
+        val order = distressSignal.decode(PairOfPacket("[9]", "[[8,7,6]]"))
+
+        // assert
+        assertThat(order).isEqualTo(Order.WRONG)
+    }
+
+    @Test
+    fun decode_packet4_correct() {
+
+        // act
+        val order = distressSignal.decode(PairOfPacket("[[4,4],4,4]", "[[4,4],4,4,4]"))
 
         // assert
         assertThat(order).isEqualTo(Order.CORRECT)
