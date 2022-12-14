@@ -491,7 +491,9 @@ class DistressSignalTest {
         val result = distressSignal.sortAllSignals(signals)
 
         // assert
-        println("result = ${result}")
+        assertThat(result).hasSize(18)
+        assertThat(result[9]).isEqualTo("2]]]")
+        assertThat(result[13]).isEqualTo("6]]]")
     }
 
 
