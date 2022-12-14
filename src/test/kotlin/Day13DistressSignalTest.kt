@@ -329,5 +329,80 @@ class DistressSignalTest {
         assertThat(order).isEqualTo(Order.WRONG)
     }
 
+    @Test
+    fun decode_real_packet12_wrong() {
+
+        // act
+        val order = distressSignal.decode(
+            PairOfPacket(
+                "[[],[10,[7,3,[6],7],[9,[3],[8],7,[1]],10],[6,9,[9,3],[[4,8,1],[10,1,4,7],7],10],[[],[3]]]",
+                "[[[6],5,6,10,6],[[]],[1,[6,10],8,3],[1]]"
+            )
+        )
+
+        // assert
+        assertThat(order).isEqualTo(Order.WRONG)
+    }
+
+    @Test
+    fun decode_real_packet13_wrong() {
+
+        // act
+        val order = distressSignal.decode(
+            PairOfPacket(
+                "[[1,3],[10,[2],8,1,[6,6,[5],5,[2]]],[[4]],[],[]]",
+                "[[[],[1,0,[8],8,[0,3,6]],1],[[[6,1],8,3,1],1,[6,[6,9,3,8,7]],10,[5,[4]]]]"
+            )
+        )
+
+        // assert
+        assertThat(order).isEqualTo(Order.WRONG)
+    }
+
+    @Test
+    fun decode_real_packet14_wrong() {
+
+        // act
+        val order = distressSignal.decode(
+            PairOfPacket(
+                "[[9,[6,2,[],[3,0,2,7]],0],[[[5,4,0],0,[2],[7,3,2,5,1]],9,3]]",
+                "[[2,[7,[5,2,4],8,5,[3,0,4,5,4]],0,8]]"
+            )
+        )
+
+        // assert
+        assertThat(order).isEqualTo(Order.WRONG)
+    }
+
+    @Test
+    fun decode_real_packet16_correct() {
+
+        // act
+        val order = distressSignal.decode(
+            PairOfPacket(
+                "[[],[6],[[[3,6,3,9]],[[2,0],7,1,[10,10,4,4,10]]]]",
+                "[[4,[[6,8,4,9,2],[],5,[10,1]],1,6],[[[4,2,5],4]],[[3,6]],[7,8,[[5,8,9,10],1,[6,8],1,7]]]"
+            )
+        )
+
+        // assert
+        assertThat(order).isEqualTo(Order.CORRECT)
+    }
+
+    @Test
+    fun decode_real_packet17_wrong() {
+
+        // act
+        val order = distressSignal.decode(
+            PairOfPacket(
+                "[[[[],10,7],[],[1,[]],8,[9,0]],[0,[[6],3,1,[0,7,5]],[[7,6,3,9,3],4,4],[],0],[],[9,2,[9,1,[0,9,4,6],[9,2],10],9]]",
+                "[[],[2,5,6,5,8]]"
+            )
+        )
+
+        // assert
+        assertThat(order).isEqualTo(Order.WRONG)
+    }
+
 
 }
