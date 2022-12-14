@@ -20,10 +20,59 @@ class DistressSignalTest {
     fun decode_packet_1() {
 
         // act
-        val order = distressSignal.decode(Pair("[1,1,3,1,1]", "[1,1,5,1,1]"))
+        val order = distressSignal.decode(PairOfPacket("[1,1,3,1,1]", "[1,1,5,1,1]"))
 
         // assert
-        assertThat(order).isEqualTo(Order.RIGHT)
+        assertThat(order).isEqualTo(Order.CORRECT)
+    }
 
+    @Test
+    fun getToken_startList() {
+
+        // act
+        val token = Packet("[").nextToken()
+
+        // assert
+        assertThat(token).isEqualTo(Token.StartListToken)
+    }
+
+    @Test
+    fun getToken_endList() {
+
+        // act
+        val token = Packet("]").nextToken()
+
+        // assert
+        assertThat(token).isEqualTo(Token.EndListToken)
+    }
+
+    @Test
+    fun getToken_IntegerToken() {
+
+        // act
+        val token = Packet("1").nextToken()
+
+        // assert
+        assertThat(token).isInstanceOf(Token.IntegerToken::class.java)
+    }
+
+    @Test
+    fun hasMoreToken_true() {
+
+        // act
+        val hasMore = Packet("1").hasMoreToken()
+
+        // assert
+        assertThat(hasMore).isTrue
+    }
+
+    @Test
+    fun hasMoreToken_false() {
+
+        // act
+        val hasMore = Packet("").hasMoreToken()
+
+        // assert
+        assertThat(hasMore).isFalse
     }
 }
