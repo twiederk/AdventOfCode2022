@@ -92,8 +92,17 @@ class RegolithReservoir {
     }
 
     fun fallingDown(cave: Array<CharArray>, startPosition: Pair<Int, Int>): Position {
+        // down one step
         if (cave[startPosition.second + 1][startPosition.first] == '.') {
             return Position(first = startPosition.first, second = startPosition.second + 1)
+        }
+        // one step down and to the left
+        if (cave[startPosition.second + 1][startPosition.first - 1] == '.') {
+            return Position(first = startPosition.first - 1, second = startPosition.second + 1)
+        }
+        // one step down and to the right
+        if (cave[startPosition.second + 1][startPosition.first + 1] == '.') {
+            return Position(first = startPosition.first + 1, second = startPosition.second + 1)
         }
         return startPosition
     }

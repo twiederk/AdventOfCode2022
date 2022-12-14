@@ -112,16 +112,55 @@ class RegolithReservoirTest {
     }
 
     @Test
-     fun fallingDown() {
+     fun fallingDown_down() {
         // arrange
         val cave = regolithReservoir.createCave(lines)
         val startPosition = Position(500, 0)
-
 
         // act
         val nextPosition = regolithReservoir.fallingDown(cave, startPosition)
 
         // assert
         assertThat(nextPosition).isEqualTo(Position(500, 1))
+    }
+
+    @Test
+     fun fallingDown_downLeft() {
+        // arrange
+        val cave = regolithReservoir.createCave(lines)
+        val startPosition = Position(502, 3)
+
+        // act
+        val nextPosition = regolithReservoir.fallingDown(cave, startPosition)
+
+        // assert
+        assertThat(nextPosition).isEqualTo(Position(501, 4))
+    }
+
+    @Test
+     fun fallingDown_downRight() {
+        // arrange
+        val cave = regolithReservoir.createCave(lines)
+        cave[4][497] = '#'
+        val startPosition = Position(498, 3)
+
+        // act
+        val nextPosition = regolithReservoir.fallingDown(cave, startPosition)
+
+        // assert
+        assertThat(nextPosition).isEqualTo(Position(499, 4))
+    }
+
+    @Test
+     fun fallingDown_rest() {
+        // arrange
+        val cave = regolithReservoir.createCave(lines)
+        val startPosition = Position(500, 8)
+
+        // act
+        val nextPosition = regolithReservoir.fallingDown(cave, startPosition)
+
+        // assert
+        assertThat(nextPosition).isEqualTo(Position(500, 8))
     }
 }
