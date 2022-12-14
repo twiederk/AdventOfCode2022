@@ -4,7 +4,7 @@ import kotlin.io.path.readLines
 import kotlin.math.max
 
 typealias Cave = Array<CharArray>
-typealias Position = Pair<Int,Int>
+typealias Position = Pair<Int, Int>
 
 class RegolithReservoir {
 
@@ -39,7 +39,7 @@ class RegolithReservoir {
 
     fun createCave(lines: List<Line>): Cave {
 
-        val maxX = maxX(lines) + 1
+        val maxX = maxX(lines) * 2
         val maxY = maxY(lines) + 1
 
         val cave = Array(maxY) { CharArray(maxX) }
@@ -81,7 +81,13 @@ class RegolithReservoir {
         }
     }
 
-    fun renderCave(cave: Array<CharArray>, startX: Int = 0, startY: Int = 0, endX: Int = cave[0].size, endY: Int = cave.size): String {
+    fun renderCave(
+        cave: Array<CharArray>,
+        startX: Int = 0,
+        startY: Int = 0,
+        endX: Int = cave[0].size,
+        endY: Int = cave.size
+    ): String {
         val display = StringBuffer()
         for (y in startY until endY) {
             for (x in startX until endX) {
@@ -130,11 +136,24 @@ class RegolithReservoir {
         var count = 0
         while (true) {
 //            println(renderCave(cave, startX = 494))
-            if (fallingToRest(cave, startPosition) == Position(-1, -1)) {
+            val restPosition = fallingToRest(cave, startPosition)
+            if (restPosition == Position(-1, -1) || restPosition == startPosition) {
+                println("restPosition = $restPosition")
                 return count
             }
             count++
         }
+    }
+
+    fun createCaveWithFloor(lines: List<Line>): Cave {
+        var cave = createCave(lines)
+        cave += CharArray(cave[0].size)
+        cave += CharArray(cave[0].size)
+        for (x in cave[0].indices) {
+            cave[cave.lastIndex - 1][x] = '.'
+            cave[cave.lastIndex][x] = '#'
+        }
+        return cave
     }
 
 
@@ -148,7 +167,14 @@ fun main() {
     val lines = regolithReservoir.createLines(rawData)
     val cave = regolithReservoir.createCave(lines)
     val startPosition = Position(500, 0)
-    val unitOfSand = regolithReservoir.drizzle(cave, startPosition)
+//    var unitOfSand = regolithReservoir.drizzle(cave, startPosition)
+//
+//    println(regolithReservoir.renderCave(cave))
+//    println("unitOfSand = $unitOfSand")
 
+    val caveWithFloor = regolithReservoir.createCaveWithFloor(lines)
+    val unitOfSand = regolithReservoir.drizzle(caveWithFloor, startPosition)
+    println(regolithReservoir.renderCave(caveWithFloor))
     println("unitOfSand = $unitOfSand")
+
 }

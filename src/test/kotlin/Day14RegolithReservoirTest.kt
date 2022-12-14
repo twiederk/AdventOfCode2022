@@ -86,13 +86,27 @@ class RegolithReservoirTest {
     }
 
     @Test
+    fun createCaveWithFloor() {
+
+        // act
+        val cave = regolithReservoir.createCaveWithFloor(lines)
+
+        // assert
+        assertThat(cave[0]).hasSize(504)
+        assertThat(cave.size).isEqualTo(12)
+
+        assertThat(cave[11][0]).isEqualTo('#')
+        assertThat(cave[11][503]).isEqualTo('#')
+    }
+
+    @Test
     fun renderCave() {
 
         // arrange
         val cave = regolithReservoir.createCave(lines)
 
         // act
-        val display = regolithReservoir.renderCave(cave, startX = 494)
+        val display = regolithReservoir.renderCave(cave, startX = 494, endX = 504)
 
         // assert
         assertThat(display).isEqualTo(
@@ -207,7 +221,7 @@ class RegolithReservoirTest {
     }
 
     @Test
-    fun drizzle() {
+    fun drizzle_noFloor() {
         // arrange
         val cave = regolithReservoir.createCave(lines)
         val startPosition = Position(500, 0)
@@ -217,6 +231,20 @@ class RegolithReservoirTest {
 
         // assert
         assertThat(unitOfSand).isEqualTo(24)
+    }
+
+    @Test
+    fun drizzle_floor() {
+        // arrange
+        val cave = regolithReservoir.createCaveWithFloor(lines)
+        val startPosition = Position(500, 0)
+
+        // act
+        val unitOfSand = regolithReservoir.drizzle(cave, startPosition)
+
+        // assert
+        println(regolithReservoir.renderCave(cave, startX = 488, endX = 513 ))
+        assertThat(unitOfSand).isEqualTo(93)
     }
 
 
