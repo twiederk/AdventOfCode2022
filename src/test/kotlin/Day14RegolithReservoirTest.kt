@@ -163,4 +163,61 @@ class RegolithReservoirTest {
         // assert
         assertThat(nextPosition).isEqualTo(Position(500, 8))
     }
+
+    @Test
+    fun fallingDown_outOfBounds() {
+        // arrange
+        val cave = regolithReservoir.createCave(lines)
+        val startPosition = Position(493, 9)
+
+        // act
+        val nextPosition = regolithReservoir.fallingDown(cave, startPosition)
+
+        // assert
+        assertThat(nextPosition).isEqualTo(Position(-1, -1))
+    }
+
+    @Test
+    fun fallingToRest_sand_1() {
+        // arrange
+        val cave = regolithReservoir.createCave(lines)
+        val startPosition = Position(500, 0)
+
+        // act
+        val restPosition = regolithReservoir.fallingToRest(cave, startPosition)
+
+        // assert
+        assertThat(restPosition).isEqualTo(Position(500, 8))
+        assertThat(cave[restPosition.second][restPosition.first]).isEqualTo('o')
+    }
+
+    @Test
+    fun fallingToRest_sand_2() {
+        // arrange
+        val cave = regolithReservoir.createCave(lines)
+        val startPosition = Position(500, 0)
+        regolithReservoir.fallingToRest(cave, startPosition)
+
+        // act
+        val restPosition = regolithReservoir.fallingToRest(cave, startPosition)
+
+        // assert
+        assertThat(restPosition).isEqualTo(Position(499, 8))
+        assertThat(cave[restPosition.second][restPosition.first]).isEqualTo('o')
+    }
+
+    @Test
+    fun drizzle() {
+        // arrange
+        val cave = regolithReservoir.createCave(lines)
+        val startPosition = Position(500, 0)
+
+        // act
+        val unitOfSand = regolithReservoir.drizzle(cave, startPosition)
+
+        // assert
+        assertThat(unitOfSand).isEqualTo(24)
+    }
+
+
 }

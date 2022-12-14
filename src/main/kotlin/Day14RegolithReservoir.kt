@@ -92,6 +92,11 @@ class RegolithReservoir {
     }
 
     fun fallingDown(cave: Array<CharArray>, startPosition: Pair<Int, Int>): Position {
+        // out of bounds
+        if (startPosition.second + 1 >= cave.size) {
+            return Position(-1, -1)
+        }
+
         // down one step
         if (cave[startPosition.second + 1][startPosition.first] == '.') {
             return Position(first = startPosition.first, second = startPosition.second + 1)
@@ -105,6 +110,30 @@ class RegolithReservoir {
             return Position(first = startPosition.first + 1, second = startPosition.second + 1)
         }
         return startPosition
+    }
+
+    fun fallingToRest(cave: Array<CharArray>, startPosition: Pair<Int, Int>): Position {
+        var currentPosition = startPosition
+        for (y in cave.indices) {
+            val nextPosition = fallingDown(cave, currentPosition)
+            if (nextPosition == currentPosition) {
+                cave[currentPosition.second][currentPosition.first] = 'o'
+                return currentPosition
+            }
+            currentPosition = nextPosition
+        }
+        return Position(-1, -1)
+    }
+
+    fun drizzle(cave: Array<CharArray>, startPosition: Pair<Int, Int>): Int {
+        var count = 0
+        while (true) {
+//            println(renderCave(cave, startX = 494))
+            if (fallingToRest(cave, startPosition) == Position(-1, -1)) {
+                return count
+            }
+            count++
+        }
     }
 
 
