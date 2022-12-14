@@ -161,5 +161,8 @@ fun main() {
 
     println("result = $result")
 
+    val decoderKey = distressSignal.decoderKeyForDistressSignal(packets)
+    println("decoderKey = $decoderKey")
+
 }
 
