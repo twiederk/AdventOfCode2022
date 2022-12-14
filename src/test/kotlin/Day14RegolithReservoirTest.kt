@@ -94,10 +94,23 @@ class RegolithReservoirTest {
         val cave = regolithReservoir.createCave(lines)
 
         // act
-        val display = regolithReservoir.renderCave(cave)
+        val display = regolithReservoir.renderCave(cave, startX = 494)
 
         // assert
-        println(display)
+        assertThat(display).isEqualTo(
+            """
+            ..........
+            ..........
+            ..........
+            ..........
+            ....#...##
+            ....#...#.
+            ..###...#.
+            ........#.
+            ........#.
+            #########.
+            
+            """.trimIndent())
     }
 
 }
