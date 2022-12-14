@@ -1,4 +1,5 @@
 import java.nio.file.Path
+import kotlin.io.path.Path
 import kotlin.io.path.readLines
 import kotlin.math.max
 
@@ -140,3 +141,14 @@ class RegolithReservoir {
 }
 
 data class Line(val startX: Int, val startY: Int, val endX: Int, val endY: Int)
+
+fun main() {
+    val regolithReservoir = RegolithReservoir()
+    val rawData = regolithReservoir.loadData(Path("src", "main", "resources", "Day14_Part1_InputData.txt"))
+    val lines = regolithReservoir.createLines(rawData)
+    val cave = regolithReservoir.createCave(lines)
+    val startPosition = Position(500, 0)
+    val unitOfSand = regolithReservoir.drizzle(cave, startPosition)
+
+    println("unitOfSand = $unitOfSand")
+}
