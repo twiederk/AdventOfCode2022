@@ -85,8 +85,6 @@ class RegolithReservoirTest {
         assertThat(cave[6][496]).isEqualTo('#')
     }
 
-
-
     @Test
     fun renderCave() {
 

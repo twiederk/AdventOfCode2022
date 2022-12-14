@@ -1,5 +1,6 @@
 import java.nio.file.Path
 import kotlin.io.path.readLines
+import kotlin.math.max
 
 typealias Cave = Array<CharArray>
 
@@ -23,21 +24,15 @@ class RegolithReservoir {
     }
 
     fun maxX(lines: List<Line>): Int {
-        var maxX = 0
-        for (line in lines) {
-            if (line.startX > maxX) maxX = line.startX
-            if (line.endX > maxX) maxX = line.endX
-        }
-        return maxX
+        val maxStartX = lines.maxBy { it.startX }.startX
+        val maxEndX = lines.maxBy { it.endX }.endX
+        return max(maxStartX, maxEndX)
     }
 
     fun maxY(lines: List<Line>): Int {
-        var maxY = 0
-        for (line in lines) {
-            if (line.startY > maxY) maxY = line.startY
-            if (line.endY > maxY) maxY = line.endY
-        }
-        return maxY
+        val maxStartY = lines.maxBy { it.startY }.startY
+        val maxEndY = lines.maxBy { it.endY }.endY
+        return max(maxStartY, maxEndY)
     }
 
     fun createCave(lines: List<Line>): Cave {
