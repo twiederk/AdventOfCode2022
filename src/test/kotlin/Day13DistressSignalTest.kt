@@ -496,5 +496,15 @@ class DistressSignalTest {
         assertThat(result[13]).isEqualTo("6]]]")
     }
 
+    @Test
+    fun decoderKeyForDistressSignal() {
+        // arrange
+        val packets = distressSignal.loadData(Path("src", "test", "resources", "Day13_TestData.txt"))
 
+        // act
+        val result = distressSignal.decoderKeyForDistressSignal(packets)
+
+        // assert
+        assertThat(result).isEqualTo(140)
+    }
 }

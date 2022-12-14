@@ -101,6 +101,14 @@ class DistressSignal {
 
     }
 
+    fun decoderKeyForDistressSignal(packets: List<Pair<String, String>>): Int {
+        val signals = flatPackets(packets)
+        val sortedSignals = sortAllSignals(signals)
+        val startSignal = sortedSignals.indexOf("2]]]") + 1
+        val endSignal = sortedSignals.indexOf("6]]]") + 1
+        return startSignal * endSignal
+    }
+
 }
 
 enum class Order {
