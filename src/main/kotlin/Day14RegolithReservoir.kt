@@ -1,6 +1,7 @@
 import java.nio.file.Path
 import kotlin.io.path.readLines
 
+typealias Cave = Array<CharArray>
 
 class RegolithReservoir {
 
@@ -38,6 +39,29 @@ class RegolithReservoir {
         }
         return maxY
     }
+
+    fun createCave(lines: List<Line>): Cave {
+
+        val maxX = maxX(lines)
+        val maxY = maxY(lines)
+
+        val cave = Array(maxY) { CharArray(maxX) }
+
+        for (y in 0 until maxY) {
+            for (x in 0 until maxX) {
+                cave[y][x] = '.'
+            }
+        }
+
+        val display = StringBuffer()
+        for (i in cave.indices) {
+            display.append(cave[i]).append('\n')
+        }
+        println(display.toString())
+
+        return cave
+    }
+
 
 }
 

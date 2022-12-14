@@ -12,6 +12,13 @@ class RegolithReservoirTest {
     // sand drops endless if max y is exceeded
 
     private val regolithReservoir = RegolithReservoir()
+    private val lines = listOf(
+        Line(498,4, 498,6),
+        Line(498,6, 496,6),
+        Line(503,4, 502,4),
+        Line(502,4, 502,9),
+        Line(502,9, 494,9),
+    )
 
     @Test
     fun loadData() {
@@ -43,9 +50,6 @@ class RegolithReservoirTest {
 
     @Test
     fun maxX() {
-        // arrange
-        val rawData = regolithReservoir.loadData(Path("src", "test", "resources", "Day14_TestData.txt"))
-        val lines = regolithReservoir.createLines(rawData)
 
         // act
         val maxX = regolithReservoir.maxX(lines)
@@ -56,14 +60,22 @@ class RegolithReservoirTest {
 
     @Test
     fun maxY() {
-        // arrange
-        val rawData = regolithReservoir.loadData(Path("src", "test", "resources", "Day14_TestData.txt"))
-        val lines = regolithReservoir.createLines(rawData)
 
         // act
         val maxY = regolithReservoir.maxY(lines)
 
         // assert
         assertThat(maxY).isEqualTo(9)
+    }
+
+    @Test
+    fun createCave() {
+
+        // act
+        val cave = regolithReservoir.createCave(lines)
+
+        // assert
+        assertThat(cave[0]).hasSize(503)
+        assertThat(cave.size).isEqualTo(9)
     }
 }
