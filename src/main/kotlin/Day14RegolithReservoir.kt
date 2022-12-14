@@ -8,6 +8,10 @@ typealias Position = Pair<Int, Int>
 
 class RegolithReservoir {
 
+    companion object {
+        val ExitPosition = Position(-1, -1)
+    }
+
     fun loadData(path: Path) = path.readLines()
 
     fun createLines(rawData: List<String>): List<Line> {
@@ -101,7 +105,7 @@ class RegolithReservoir {
     fun fallingDown(cave: Array<CharArray>, startPosition: Pair<Int, Int>): Position {
         // out of bounds
         if (startPosition.second + 1 >= cave.size) {
-            return Position(-1, -1)
+            return ExitPosition
         }
 
         // down one step
@@ -129,7 +133,7 @@ class RegolithReservoir {
             }
             currentPosition = nextPosition
         }
-        return Position(-1, -1)
+        return ExitPosition
     }
 
     fun drizzle(cave: Array<CharArray>, startPosition: Pair<Int, Int>): Int {
@@ -137,8 +141,7 @@ class RegolithReservoir {
         while (true) {
 //            println(renderCave(cave, startX = 494))
             val restPosition = fallingToRest(cave, startPosition)
-            if (restPosition == Position(-1, -1) || restPosition == startPosition) {
-                println("restPosition = $restPosition")
+            if (restPosition == ExitPosition || restPosition == startPosition) {
                 return count
             }
             count++
@@ -156,6 +159,8 @@ class RegolithReservoir {
         return cave
     }
 
+    fun drizzleWithFloor(cave: Array<CharArray>, startPosition: Pair<Int, Int>): Int = drizzle(cave, startPosition) + 1
+
 
 }
 
@@ -165,16 +170,32 @@ fun main() {
     val regolithReservoir = RegolithReservoir()
     val rawData = regolithReservoir.loadData(Path("src", "main", "resources", "Day14_Part1_InputData.txt"))
     val lines = regolithReservoir.createLines(rawData)
-    val cave = regolithReservoir.createCave(lines)
     val startPosition = Position(500, 0)
-//    var unitOfSand = regolithReservoir.drizzle(cave, startPosition)
-//
+
+    part1(regolithReservoir, lines, startPosition)
+    part2(regolithReservoir, lines, startPosition)
+
+}
+
+private fun part1(
+    regolithReservoir: RegolithReservoir,
+    lines: List<Line>,
+    startPosition: Position
+) {
+    val cave = regolithReservoir.createCave(lines)
+    val unitOfSandNoFloor = regolithReservoir.drizzle(cave, startPosition)
+
 //    println(regolithReservoir.renderCave(cave))
-//    println("unitOfSand = $unitOfSand")
+    println("unitOfSandNoFloor = $unitOfSandNoFloor")
+}
 
+private fun part2(
+    regolithReservoir: RegolithReservoir,
+    lines: List<Line>,
+    startPosition: Position
+) {
     val caveWithFloor = regolithReservoir.createCaveWithFloor(lines)
-    val unitOfSand = regolithReservoir.drizzle(caveWithFloor, startPosition)
-    println(regolithReservoir.renderCave(caveWithFloor))
-    println("unitOfSand = $unitOfSand")
-
+    val unitOfSandWithFloor = regolithReservoir.drizzleWithFloor(caveWithFloor, startPosition)
+//    println(regolithReservoir.renderCave(caveWithFloor))
+    println("unitOfSandWithFloor = $unitOfSandWithFloor")
 }
