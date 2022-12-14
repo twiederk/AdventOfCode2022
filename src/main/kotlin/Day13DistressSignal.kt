@@ -1,5 +1,6 @@
 import Token.*
 import java.nio.file.Path
+import kotlin.io.path.Path
 import kotlin.io.path.readLines
 
 typealias PairOfPacket = Pair<String, String>
@@ -117,4 +118,13 @@ sealed class Token {
 
 enum class Order {
     CORRECT, WRONG
+}
+
+fun main() {
+    val distressSignal = DistressSignal()
+    val packets = distressSignal.loadData(Path("src", "main", "resources", "Day13_Part1_InputData.txt"))
+    val result = distressSignal.decodeAll(packets)
+
+    println("result = $result")
+
 }

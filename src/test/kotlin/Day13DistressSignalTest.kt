@@ -192,4 +192,36 @@ class DistressSignalTest {
         assertThat(order).isEqualTo(Order.WRONG)
 
     }
+
+    @Test
+    fun decode_real_packet1_correct() {
+
+        // act
+        val order = distressSignal.decode(
+            PairOfPacket(
+                "[[5,[[3,0]],[0,[8,6,9],2,9],[5,6,[2,8,3],[0]],[6,2,[2,6,8],10]]]",
+                "[[6,4,[2,[2,2],8,[3,7,0,6,2]]],[4,10]]"
+            )
+        )
+
+        // assert
+        assertThat(order).isEqualTo(Order.CORRECT)
+    }
+
+    @Test
+    fun decode_real_packet2_wrong() {
+
+        // act
+        val order = distressSignal.decode(
+            PairOfPacket(
+                "[[[6,[10,9,7]],9,[9,[9,0,8,3],[0],3],[8,1]],[2,10,9],[[0,6,[4]],2,[2,3,[6,7,0],[1,4,2]],[[3,7,2],[],0],9],[],[[]]]",
+                "[[1,[1,10]]]"
+            )
+        )
+
+        // assert
+        assertThat(order).isEqualTo(Order.WRONG)
+    }
+
+
 }
