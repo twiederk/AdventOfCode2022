@@ -18,78 +18,47 @@ class DistressSignal {
         return packets
     }
 
-    fun decode(pairOfPacket: PairOfPacket): Order {
-        val firstPacket = Packet(pairOfPacket.first)
-        val secondPacket = Packet(pairOfPacket.second)
+    fun decode(pairOfPacket: PairOfPacket): Reason {
+        val firstPacket = preparePacket(pairOfPacket.first)
+        val secondPacket = preparePacket(pairOfPacket.second)
 
-        while (firstPacket.hasMoreToken()) {
-            var left = firstPacket.nextToken()
-            var right = secondPacket.nextToken()
+        for (index in firstPacket.indices) {
+            val left = firstPacket[index]
 
-            if (left is IntegerToken && right == StartListToken) {
-                right = secondPacket.nextToken()
-            }
+            if (index >= secondPacket.length) return Reason(left, '?', Order.WRONG, "END OF RIGHT reached", index)
+            val right = secondPacket[index]
 
-            if (left is IntegerToken && right == EndListToken) {
-                return Order.WRONG
-            }
-
-            if (left is StartListToken && right is IntegerToken) {
-                left = firstPacket.nextToken()
-            }
-
-            if (left is StartListToken && right is EndListToken) {
-                return Order.WRONG
-            }
-
-            if (left == StartListToken && right == StartListToken) {
-                firstPacket.listCounter++
-                secondPacket.listCounter++
+            if (left == right) {
                 continue
             }
 
-            if (left == EndListToken && right == EndListToken) {
-                firstPacket.listCounter--
-                secondPacket.listCounter--
-                continue
+            if (left.isDigitOrA() && right.isDigitOrA()) {
+                if (left < right) return Reason(left, right, Order.CORRECT, "LOWER than right", index)
+                if (left > right) return Reason(left, right, Order.WRONG, "HIGHER than right", index)
             }
 
-            if (left is IntegerToken && right is IntegerToken) {
-                if (left.value < right.value) return Order.CORRECT
-                if (left.value > right.value) return Order.WRONG
-                continue
-            }
-
-            if (left == EndListToken && right is IntegerToken) {
-                return Order.CORRECT
-            }
-
-            if (left == EndPacketToken) {
-                return Order.CORRECT
-            }
-
-            if (right == EndPacketToken) {
-                return Order.WRONG
-            }
+            if (left == ']') return Reason(left, right, Order.CORRECT, "LEFT ran out of elements", index)
+            if (right == ']') return Reason(left, right, Order.WRONG, "RIGHT ran out of elements", index)
         }
-
-        return Order.WRONG
+        return Reason('?', '?', Order.CORRECT, "END OF LEFT reached", -1)
     }
 
     fun decodeAll(packets: List<Pair<String, String>>): Int {
         var result = 0
         for ((index, packet) in packets.withIndex()) {
-            if (decode(packet) == Order.CORRECT) {
+            if (decode(packet).order == Order.CORRECT) {
                 result += (index + 1)
             }
         }
         return result
     }
 
+    fun replaceTenWithA(input: String): String = input.replace("10", "a")
+
     fun createSingleLists(input: String): String {
         var output = ""
         for (char in input) {
-            if (char.isDigit()) {
+            if (char.isDigitOrA()) {
                 output += "[$char]"
             } else {
                 output += char
@@ -102,7 +71,7 @@ class DistressSignal {
 
     fun removeStartList(input: String): String = removeChar(input, '[')
 
-    private fun removeChar(input: String, charToRemove: Char) : String {
+    private fun removeChar(input: String, charToRemove: Char): String {
         var output = ""
         for (char in input) {
             if (char == charToRemove) {
@@ -113,7 +82,7 @@ class DistressSignal {
         return output
     }
 
-    fun preparePacket(input: String): String = removeStartList(removeCommas(createSingleLists(input)))
+    fun preparePacket(input: String): String = removeStartList(removeCommas(createSingleLists(replaceTenWithA(input))))
 
 }
 
@@ -157,6 +126,16 @@ enum class Order {
     CORRECT, WRONG
 }
 
+data class Reason(
+    val left: Char,
+    val right: Char,
+    val order: Order,
+    val reason: String,
+    val index: Int
+)
+
+fun Char.isDigitOrA(): Boolean = this.isDigit() || this == 'a'
+
 fun main() {
     val distressSignal = DistressSignal()
     val packets = distressSignal.loadData(Path("src", "main", "resources", "Day13_Part1_InputData.txt"))
@@ -165,3 +144,4 @@ fun main() {
     println("result = $result")
 
 }
+
