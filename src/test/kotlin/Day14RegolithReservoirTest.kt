@@ -75,7 +75,29 @@ class RegolithReservoirTest {
         val cave = regolithReservoir.createCave(lines)
 
         // assert
-        assertThat(cave[0]).hasSize(503)
-        assertThat(cave.size).isEqualTo(9)
+        assertThat(cave[0]).hasSize(504)
+        assertThat(cave.size).isEqualTo(10)
+
+        assertThat(cave[4][498]).isEqualTo('#')
+        assertThat(cave[5][498]).isEqualTo('#')
+        assertThat(cave[6][498]).isEqualTo('#')
+        assertThat(cave[6][497]).isEqualTo('#')
+        assertThat(cave[6][496]).isEqualTo('#')
     }
+
+
+
+    @Test
+    fun renderCave() {
+
+        // arrange
+        val cave = regolithReservoir.createCave(lines)
+
+        // act
+        val display = regolithReservoir.renderCave(cave)
+
+        // assert
+        println(display)
+    }
+
 }

@@ -42,24 +42,57 @@ class RegolithReservoir {
 
     fun createCave(lines: List<Line>): Cave {
 
-        val maxX = maxX(lines)
-        val maxY = maxY(lines)
+        val maxX = maxX(lines) + 1
+        val maxY = maxY(lines) + 1
 
         val cave = Array(maxY) { CharArray(maxX) }
+        emptyCave(maxY, maxX, cave)
+        drawRocks(lines, cave)
 
+        return cave
+    }
+
+    private fun drawRocks(lines: List<Line>, cave: Array<CharArray>) {
+        for (line in lines) {
+            if (line.startY == line.endY) {
+                drawHorizontalLine(line, cave)
+            } else {
+                drawVerticalLine(line, cave)
+            }
+        }
+    }
+
+    private fun emptyCave(maxY: Int, maxX: Int, cave: Array<CharArray>) {
         for (y in 0 until maxY) {
             for (x in 0 until maxX) {
                 cave[y][x] = '.'
             }
         }
+    }
 
-        val display = StringBuffer()
-        for (i in cave.indices) {
-            display.append(cave[i]).append('\n')
+    private fun drawVerticalLine(line: Line, cave: Array<CharArray>) {
+        val rangeY = if (line.startY < line.endY) line.startY..line.endY else line.endY..line.startY
+        for (y in rangeY) {
+            cave[y][line.startX] = '#'
         }
-        println(display.toString())
+    }
 
-        return cave
+    private fun drawHorizontalLine(line: Line, cave: Array<CharArray>) {
+        val rangeX = if (line.startX < line.endX) line.startX..line.endX else line.endX..line.startX
+        for (x in rangeX) {
+            cave[line.startY][x] = '#'
+        }
+    }
+
+    fun renderCave(cave: Array<CharArray>, startX: Int = 0, startY: Int = 0, endX: Int = cave[0].size, endY: Int = cave.size): String {
+        val display = StringBuffer()
+        for (y in startY until endY) {
+            for (x in startX until endX) {
+                display.append(cave[y][x])
+            }
+            display.append('\n')
+        }
+        return display.toString()
     }
 
 
