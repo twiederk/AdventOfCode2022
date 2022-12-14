@@ -326,7 +326,6 @@ class DistressSignalTest {
         )
 
         // assert
-        println(reason)
         assertThat(reason.order).isEqualTo(Order.WRONG)
     }
 
@@ -342,7 +341,8 @@ class DistressSignalTest {
         )
 
         // assert
-        assertThat(reason.order).isEqualTo(Order.WRONG)
+        println(reason)
+        assertThat(reason.order).isEqualTo(Order.CORRECT)
     }
 
     @Test
