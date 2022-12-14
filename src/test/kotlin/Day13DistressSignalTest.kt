@@ -117,13 +117,25 @@ class DistressSignalTest {
     }
 
     @Test
-    fun getToken_IntegerToken() {
+    fun getToken_IntegerToken_oneDigit() {
 
         // act
         val token = Packet("1").nextToken()
 
         // assert
         assertThat(token).isInstanceOf(Token.IntegerToken::class.java)
+    }
+
+    @Test
+    fun getToken_IntegerToken_twoDigits() {
+
+        // act
+        val token = Packet("10").nextToken()
+
+        // assert
+        assertThat(token).isInstanceOf(Token.IntegerToken::class.java)
+        val integerToken = token as Token.IntegerToken
+        assertThat(integerToken.value).isEqualTo(10)
     }
 
     @Test

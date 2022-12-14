@@ -86,12 +86,17 @@ data class Packet(val content: String) {
     fun nextToken(): Token {
 
         if (!hasMoreToken()) return EndPacketToken
-        if (content[pointer] == ',') pointer ++
+        if (content[pointer] == ',') pointer++
 
         val token = when (content[pointer]) {
             '[' -> StartListToken
             ']' -> EndListToken
-            else -> IntegerToken(content[pointer].digitToInt())
+            else -> if (pointer + 1 < content.length && content[pointer + 1] == '0') {
+                pointer++
+                IntegerToken(10)
+            } else {
+                IntegerToken(content[pointer].digitToInt())
+            }
         }
         pointer++
         return token
@@ -101,8 +106,6 @@ data class Packet(val content: String) {
     fun hasMoreToken(): Boolean = pointer < content.length
 
 }
-
-
 
 
 sealed class Token {
