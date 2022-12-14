@@ -21,6 +21,24 @@ class RegolithReservoir {
         return lines
     }
 
+    fun maxX(lines: List<Line>): Int {
+        var maxX = 0
+        for (line in lines) {
+            if (line.startX > maxX) maxX = line.startX
+            if (line.endX > maxX) maxX = line.endX
+        }
+        return maxX
+    }
+
+    fun maxY(lines: List<Line>): Int {
+        var maxY = 0
+        for (line in lines) {
+            if (line.startY > maxY) maxY = line.startY
+            if (line.endY > maxY) maxY = line.endY
+        }
+        return maxY
+    }
+
 }
 
 data class Line(val startX: Int, val startY: Int, val endX: Int, val endY: Int)

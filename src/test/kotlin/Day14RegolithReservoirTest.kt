@@ -4,10 +4,10 @@ import kotlin.io.path.Path
 
 class RegolithReservoirTest {
 
+    // + create/render all rocks (lines)
     // need a canvas (cave)
     // find lowest and highest x value
     // find lowest and highest y value
-    // create/render all rocks (lines)
     // implement logic of falling sand.
     // sand drops endless if max y is exceeded
 
@@ -39,5 +39,31 @@ class RegolithReservoirTest {
             Line(502,4, 502,9),
             Line(502,9, 494,9),
         )
+    }
+
+    @Test
+    fun maxX() {
+        // arrange
+        val rawData = regolithReservoir.loadData(Path("src", "test", "resources", "Day14_TestData.txt"))
+        val lines = regolithReservoir.createLines(rawData)
+
+        // act
+        val maxX = regolithReservoir.maxX(lines)
+
+        // assert
+        assertThat(maxX).isEqualTo(503)
+    }
+
+    @Test
+    fun maxY() {
+        // arrange
+        val rawData = regolithReservoir.loadData(Path("src", "test", "resources", "Day14_TestData.txt"))
+        val lines = regolithReservoir.createLines(rawData)
+
+        // act
+        val maxY = regolithReservoir.maxY(lines)
+
+        // assert
+        assertThat(maxY).isEqualTo(9)
     }
 }
