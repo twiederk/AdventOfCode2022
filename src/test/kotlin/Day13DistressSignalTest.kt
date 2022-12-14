@@ -449,10 +449,50 @@ class DistressSignalTest {
         val packets = distressSignal.loadData(Path("src", "test", "resources", "Day13_TestData.txt"))
 
         // act
-        val flatPackets = distressSignal.flatPackets(packets)
+        val signals = distressSignal.flatPackets(packets)
 
         // assert
-        assertThat(flatPackets).hasSize(18)
-
+        assertThat(signals).hasSize(18)
     }
+
+    @Test
+    fun sortSignals_positive() {
+        // arrange
+        val signal1 = distressSignal.preparePacket("[1,1,3,1,1]")
+        val signal2 = distressSignal.preparePacket("[1,1,5,1,1]")
+
+        // act
+        val result = SignalComparator().compare(signal1, signal2)
+
+        // assert
+        assertThat(result).isEqualTo(1)
+    }
+
+    @Test
+    fun sortSignals_negative() {
+        // arrange
+        val signal1 = distressSignal.preparePacket("[1,1,5,1,1]")
+        val signal2 = distressSignal.preparePacket("[1,1,3,1,1]")
+
+        // act
+        val result = SignalComparator().compare(signal1, signal2)
+
+        // assert
+        assertThat(result).isEqualTo(-1)
+    }
+
+    @Test
+    fun sortAllSignals() {
+        // arrange
+        val packets = distressSignal.loadData(Path("src", "test", "resources", "Day13_TestData.txt"))
+        val signals = distressSignal.flatPackets(packets)
+
+        // act
+        val result = distressSignal.sortAllSignals(signals)
+
+        // assert
+        println("result = ${result}")
+    }
+
+
 }

@@ -92,6 +92,15 @@ class DistressSignal {
         return flatPackets
     }
 
+    fun sortAllSignals(signals: List<String>): List<String> {
+        val preparedSignals = mutableListOf<String>()
+        for (signal in signals) {
+            preparedSignals.add(preparePacket(signal))
+        }
+        return preparedSignals.sortedWith(SignalComparator()).reversed()
+
+    }
+
 }
 
 enum class Order {
@@ -107,6 +116,35 @@ data class Reason(
 )
 
 fun Char.isDigitOrA(): Boolean = this.isDigit() || this == 'a'
+
+
+class SignalComparator: Comparator<String> {
+
+    override fun compare(signal1: String, signal2: String): Int {
+        for (index in signal1.indices) {
+            val left = signal1[index]
+
+            if (index >= signal2.length) return -1
+            val right = signal2[index]
+
+            if (left == right) {
+                continue
+            }
+
+            if (left.isDigitOrA() && right.isDigitOrA()) {
+                if (left < right) return 1
+                return -1
+            }
+
+            if (left == ']') return 1
+            if (right == ']') return -1
+        }
+        return 1
+    }
+}
+
+
+
 
 fun main() {
     val distressSignal = DistressSignal()
