@@ -3,6 +3,7 @@ import kotlin.io.path.readLines
 import kotlin.math.max
 
 typealias Cave = Array<CharArray>
+typealias Position = Pair<Int,Int>
 
 class RegolithReservoir {
 
@@ -88,6 +89,13 @@ class RegolithReservoir {
             display.append('\n')
         }
         return display.toString()
+    }
+
+    fun fallingDown(cave: Array<CharArray>, startPosition: Pair<Int, Int>): Position {
+        if (cave[startPosition.second + 1][startPosition.first] == '.') {
+            return Position(first = startPosition.first, second = startPosition.second + 1)
+        }
+        return startPosition
     }
 
 
