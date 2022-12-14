@@ -30,6 +30,10 @@ class DistressSignal {
                 right = secondPacket.nextToken()
             }
 
+            if (left is IntegerToken && right == EndListToken) {
+                return Order.WRONG
+            }
+
             if (left is StartListToken && right is IntegerToken) {
                 left = firstPacket.nextToken()
             }
