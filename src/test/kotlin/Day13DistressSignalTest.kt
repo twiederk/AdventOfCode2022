@@ -404,5 +404,43 @@ class DistressSignalTest {
         assertThat(order).isEqualTo(Order.WRONG)
     }
 
+    @Test
+    fun createSingleLists() {
 
+        // act
+        val result = distressSignal.createSingleLists("[1,1,3,1,1]")
+
+        // assert
+        assertThat(result).isEqualTo("[[1],[1],[3],[1],[1]]")
+    }
+
+    @Test
+    fun removeCommas() {
+
+        // act
+        val result = distressSignal.removeCommas("[[1],[1],[3],[1],[1]]")
+
+        // assert
+        assertThat(result).isEqualTo("[[1][1][3][1][1]]")
+    }
+
+    @Test
+    fun removeStartList() {
+
+        // act
+        val result = distressSignal.removeStartList("[[1][1][3][1][1]]")
+
+        // assert
+        assertThat(result).isEqualTo("1]1]3]1]1]]")
+    }
+
+    @Test
+    fun preparePaket_packet_1() {
+
+        // act
+        val result = distressSignal.preparePacket("[1,1,3,1,1]")
+
+        // assert
+        assertThat(result).isEqualTo("1]1]3]1]1]]")
+    }
 }

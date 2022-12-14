@@ -86,6 +86,35 @@ class DistressSignal {
         return result
     }
 
+    fun createSingleLists(input: String): String {
+        var output = ""
+        for (char in input) {
+            if (char.isDigit()) {
+                output += "[$char]"
+            } else {
+                output += char
+            }
+        }
+        return output
+    }
+
+    fun removeCommas(input: String): String = removeChar(input, ',')
+
+    fun removeStartList(input: String): String = removeChar(input, '[')
+
+    private fun removeChar(input: String, charToRemove: Char) : String {
+        var output = ""
+        for (char in input) {
+            if (char == charToRemove) {
+                continue
+            }
+            output += char
+        }
+        return output
+    }
+
+    fun preparePacket(input: String): String = removeStartList(removeCommas(createSingleLists(input)))
+
 }
 
 data class Packet(val content: String) {
