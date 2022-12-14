@@ -77,6 +77,26 @@ class DistressSignalTest {
     }
 
     @Test
+    fun decode_packet7_wrong() {
+
+        // act
+        val order = distressSignal.decode(PairOfPacket("[[[]]]", "[[]]"))
+
+        // assert
+        assertThat(order).isEqualTo(Order.WRONG)
+    }
+
+    @Test
+    fun decode_packet8_wrong() {
+
+        // act
+        val order = distressSignal.decode(PairOfPacket("[1,[2,[3,[4,[5,6,7]]]],8,9]", "[1,[2,[3,[4,[5,6,0]]]],8,9]"))
+
+        // assert
+        assertThat(order).isEqualTo(Order.WRONG)
+    }
+
+    @Test
     fun getToken_startList() {
 
         // act
