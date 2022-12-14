@@ -1,11 +1,8 @@
-import Token.*
 import java.nio.file.Path
 import kotlin.io.path.Path
 import kotlin.io.path.readLines
 
 typealias PairOfPacket = Pair<String, String>
-typealias Pointer = Int
-typealias ListCounter = Int
 
 class DistressSignal {
 
@@ -34,7 +31,7 @@ class DistressSignal {
 
             if (left.isDigitOrA() && right.isDigitOrA()) {
                 if (left < right) return Reason(left, right, Order.CORRECT, "LOWER than right", index)
-                if (left > right) return Reason(left, right, Order.WRONG, "HIGHER than right", index)
+                return Reason(left, right, Order.WRONG, "HIGHER than right", index)
             }
 
             if (left == ']') return Reason(left, right, Order.CORRECT, "LEFT ran out of elements", index)
@@ -84,42 +81,6 @@ class DistressSignal {
 
     fun preparePacket(input: String): String = removeStartList(removeCommas(createSingleLists(replaceTenWithA(input))))
 
-}
-
-data class Packet(val content: String) {
-    var listCounter: ListCounter = 0
-    var pointer: Pointer = 0
-
-    fun nextToken(): Token {
-
-        if (!hasMoreToken()) return EndPacketToken
-        if (content[pointer] == ',') pointer++
-
-        val token = when (content[pointer]) {
-            '[' -> StartListToken
-            ']' -> EndListToken
-            else -> if (pointer + 1 < content.length && content[pointer + 1] == '0') {
-                pointer++
-                IntegerToken(10)
-            } else {
-                IntegerToken(content[pointer].digitToInt())
-            }
-        }
-        pointer++
-        return token
-
-    }
-
-    fun hasMoreToken(): Boolean = pointer < content.length
-
-}
-
-
-sealed class Token {
-    object StartListToken : Token()
-    object EndListToken : Token()
-    object EndPacketToken : Token()
-    class IntegerToken(val value: Int) : Token()
 }
 
 enum class Order {

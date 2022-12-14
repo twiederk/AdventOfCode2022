@@ -97,68 +97,6 @@ class DistressSignalTest {
     }
 
     @Test
-    fun getToken_startList() {
-
-        // act
-        val token = Packet("[").nextToken()
-
-        // assert
-        assertThat(token).isEqualTo(Token.StartListToken)
-    }
-
-    @Test
-    fun getToken_endList() {
-
-        // act
-        val token = Packet("]").nextToken()
-
-        // assert
-        assertThat(token).isEqualTo(Token.EndListToken)
-    }
-
-    @Test
-    fun getToken_IntegerToken_oneDigit() {
-
-        // act
-        val token = Packet("1").nextToken()
-
-        // assert
-        assertThat(token).isInstanceOf(Token.IntegerToken::class.java)
-    }
-
-    @Test
-    fun getToken_IntegerToken_twoDigits() {
-
-        // act
-        val token = Packet("10").nextToken()
-
-        // assert
-        assertThat(token).isInstanceOf(Token.IntegerToken::class.java)
-        val integerToken = token as Token.IntegerToken
-        assertThat(integerToken.value).isEqualTo(10)
-    }
-
-    @Test
-    fun hasMoreToken_true() {
-
-        // act
-        val hasMore = Packet("1").hasMoreToken()
-
-        // assert
-        assertThat(hasMore).isTrue
-    }
-
-    @Test
-    fun hasMoreToken_false() {
-
-        // act
-        val hasMore = Packet("").hasMoreToken()
-
-        // assert
-        assertThat(hasMore).isFalse
-    }
-
-    @Test
     fun decodeAll() {
         // arrange
         val packets = distressSignal.loadData(Path("src", "test", "resources", "Day13_TestData.txt"))
