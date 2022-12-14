@@ -415,7 +415,6 @@ class DistressSignalTest {
 
     @Test
     fun isDigitOrA_digit() {
-        // arrange
 
         // act
         val result = '5'.isDigitOrA()
@@ -426,7 +425,6 @@ class DistressSignalTest {
 
     @Test
     fun isDigitOrA_A() {
-        // arrange
 
         // act
         val result = 'a'.isDigitOrA()
@@ -437,12 +435,24 @@ class DistressSignalTest {
 
     @Test
     fun isDigitOrA_otherSign() {
-        // arrange
 
         // act
         val result = ']'.isDigitOrA()
 
         // assert
         assertThat(result).isFalse
+    }
+
+    @Test
+    fun flatPackets() {
+        // arrange
+        val packets = distressSignal.loadData(Path("src", "test", "resources", "Day13_TestData.txt"))
+
+        // act
+        val flatPackets = distressSignal.flatPackets(packets)
+
+        // assert
+        assertThat(flatPackets).hasSize(18)
+
     }
 }

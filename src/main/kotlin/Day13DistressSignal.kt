@@ -81,6 +81,17 @@ class DistressSignal {
 
     fun preparePacket(input: String): String = removeStartList(removeCommas(createSingleLists(replaceTenWithA(input))))
 
+    fun flatPackets(packets: List<Pair<String, String>>): List<String> {
+        val flatPackets = mutableListOf<String>()
+        for (packet in packets) {
+            flatPackets.add(packet.first)
+            flatPackets.add(packet.second)
+        }
+        flatPackets.add("[[2]]")
+        flatPackets.add("[[6]]")
+        return flatPackets
+    }
+
 }
 
 enum class Order {
