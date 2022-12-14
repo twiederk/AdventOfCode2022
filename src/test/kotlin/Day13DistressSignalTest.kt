@@ -67,6 +67,16 @@ class DistressSignalTest {
     }
 
     @Test
+    fun decode_packet6_correct() {
+
+        // act
+        val order = distressSignal.decode(PairOfPacket("[]", "[3]"))
+
+        // assert
+        assertThat(order).isEqualTo(Order.CORRECT)
+    }
+
+    @Test
     fun getToken_startList() {
 
         // act
