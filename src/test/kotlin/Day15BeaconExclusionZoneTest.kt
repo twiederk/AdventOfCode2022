@@ -86,7 +86,7 @@ class BeaconExclusionZoneTest {
         val sensorsScanningRow = beaconExclusionZone.findSensorsScanningRow(sensors, 10)
 
         // assert
-        println(sensorsScanningRow)
+        assertThat(sensorsScanningRow).hasSize(6)
     }
 
     @Test
@@ -136,4 +136,20 @@ class BeaconExclusionZoneTest {
         // assert
         assertThat(scanRow).isEqualTo(8..8)
     }
+
+    @Test
+    internal fun scanRowByAllSensors() {
+        // arrange
+        val rawData = beaconExclusionZone.loadData(Path("src", "test", "resources", "Day15_TestData.txt"))
+        val sensors = beaconExclusionZone.createSensors(rawData)
+
+        // act
+        val scanRanges = beaconExclusionZone.scanRowByAllSensors(sensors, 10)
+
+        // assert
+        assertThat(scanRanges).contains(
+            -2..2, 2..14, 2..2, 12..12, 14..18, 16..24
+        )
+    }
+
 }

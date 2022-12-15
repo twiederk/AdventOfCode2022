@@ -34,7 +34,7 @@ class BeaconExclusionZone {
     fun scan(sensors: List<Sensor>, row: Int): Int {
         val totalScanArea = mutableSetOf<Point>()
         for ((index, sensor) in sensors.withIndex()) {
-            println("scan ... $index of ${sensors.size}")
+//            println("scan ... $index of ${sensors.size}")
             totalScanArea.addAll(sensor.scanArea())
         }
         val allPositions = totalScanArea.count { it.y == row }
@@ -44,9 +44,10 @@ class BeaconExclusionZone {
         return allPositions - sensorPositions - beaconPositions
     }
 
-    fun findSensorsScanningRow(sensors: List<Sensor>, row: Int): List<Sensor> {
-        return sensors.filter { it.isInScanArea(row) }
-    }
+    fun findSensorsScanningRow(sensors: List<Sensor>, row: Int): List<Sensor> = sensors.filter { it.isInScanArea(row) }
+
+    fun scanRowByAllSensors(sensors: List<Sensor>, row: Int): List<IntRange> =
+        sensors.filter { it.isInScanArea(row) }.map { it.scanRow(row)}
 
 }
 
