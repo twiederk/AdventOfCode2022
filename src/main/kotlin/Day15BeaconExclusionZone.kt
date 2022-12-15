@@ -1,5 +1,6 @@
 import java.nio.file.Path
 import kotlin.io.path.readLines
+import kotlin.math.abs
 
 class BeaconExclusionZone {
 
@@ -35,4 +36,7 @@ data class Sensor(
     val y: Int,
     val beaconX: Int,
     val beaconY: Int
-)
+) {
+    val manhattenDistance: Int
+        get() = abs(x - beaconX) + abs(y - beaconY)
+}

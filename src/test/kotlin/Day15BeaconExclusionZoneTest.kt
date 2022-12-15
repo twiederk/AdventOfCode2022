@@ -48,6 +48,7 @@ class BeaconExclusionZoneTest {
         assertThat(sensor.y).isEqualTo(18)
         assertThat(sensor.beaconX).isEqualTo(-2)
         assertThat(sensor.beaconY).isEqualTo(15)
+        assertThat(sensor.manhattenDistance).isEqualTo(7)
 
     }
 
