@@ -1,4 +1,3 @@
-import org.w3c.dom.ranges.Range
 import java.nio.file.Path
 import kotlin.io.path.Path
 import kotlin.io.path.readLines
@@ -81,7 +80,10 @@ data class Sensor(
     }
 
     fun scanRow(row: Int): IntRange {
-        TODO("Not yet implemented")
+        val distanceX = manhattenDistance - abs(y - row)
+        val minX = x - distanceX
+        val maxX = x + distanceX
+        return minX..maxX
     }
 
     val manhattenDistance: Int

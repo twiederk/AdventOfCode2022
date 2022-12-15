@@ -90,7 +90,19 @@ class BeaconExclusionZoneTest {
     }
 
     @Test
-    fun scanRow() {
+    fun scanRow_minus2() {
+        // arrange
+        val sensor = Sensor(x = 8, y = 7, beaconX = 2, beaconY = 10)
+
+        // act
+        val scanRow = sensor.scanRow(-2)
+
+        // assert
+        assertThat(scanRow).isEqualTo(8..8)
+    }
+
+    @Test
+    fun scanRow_minus1() {
         // arrange
         val sensor = Sensor(x = 8, y = 7, beaconX = 2, beaconY = 10)
 
@@ -99,5 +111,29 @@ class BeaconExclusionZoneTest {
 
         // assert
         assertThat(scanRow).isEqualTo(7..9)
+    }
+
+    @Test
+    fun scanRow_plus7() {
+        // arrange
+        val sensor = Sensor(x = 8, y = 7, beaconX = 2, beaconY = 10)
+
+        // act
+        val scanRow = sensor.scanRow(7)
+
+        // assert
+        assertThat(scanRow).isEqualTo(-1..17)
+    }
+
+    @Test
+    fun scanRow_plus16() {
+        // arrange
+        val sensor = Sensor(x = 8, y = 7, beaconX = 2, beaconY = 10)
+
+        // act
+        val scanRow = sensor.scanRow(16)
+
+        // assert
+        assertThat(scanRow).isEqualTo(8..8)
     }
 }
