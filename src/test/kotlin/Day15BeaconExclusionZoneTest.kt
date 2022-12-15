@@ -8,8 +8,8 @@ class BeaconExclusionZoneTest {
     // + create sensor
     // + create beacon
     // + calculate Manhatten distance for each sensor
-    // calculate area for each sensor covered
-    //   by its scan using by drawing a circle with sensor as center and Manhatten distance as radius
+    // + calculate area for each sensor covered
+    //   + by its scan using by drawing a circle with sensor as center and Manhatten distance as radius
     // store all fields of all scans in one place (Set)
     // check row (y) how many fields are covered
 
@@ -62,4 +62,18 @@ class BeaconExclusionZoneTest {
         // assert
         assertThat(scanArea).hasSize(113)
     }
+
+    @Test
+    fun scan() {
+        // arrange
+        val rawData = beaconExclusionZone.loadData(Path("src", "test", "resources", "Day15_TestData.txt"))
+        val sensors = beaconExclusionZone.createSensors(rawData)
+
+        // act
+        val positions = beaconExclusionZone.scan(sensors, 10)
+
+        // assert
+        assertThat(positions).isEqualTo(26)
+    }
+
 }

@@ -30,6 +30,18 @@ class BeaconExclusionZone {
     private fun parseBeaconY(rawBeacon: String) =
         rawBeacon.substring(" closest beacon is at x=".length).split(',')[1].substring(" y=".length).toInt()
 
+    fun scan(sensors: List<Sensor>, row: Int): Int {
+        val totalScanArea = mutableSetOf<Point>()
+        for (sensor in sensors) {
+            totalScanArea.addAll(sensor.scanArea())
+        }
+        val allPositions = totalScanArea.count { it.y == row }
+        val sensorPositions = sensors.map { Point(it.x, it.y) }.filter { it.y == row }.toSet().count()
+        val beaconPositions = sensors.map { Point(it.beaconX, it.beaconY) }.filter { it.y == row }.toSet().count()
+
+        return allPositions - sensorPositions - beaconPositions
+    }
+
 }
 
 data class Sensor(
