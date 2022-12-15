@@ -76,4 +76,28 @@ class BeaconExclusionZoneTest {
         assertThat(positions).isEqualTo(26)
     }
 
+    @Test
+    fun findSensorsScanningRow() {
+        // arrange
+        val rawData = beaconExclusionZone.loadData(Path("src", "test", "resources", "Day15_TestData.txt"))
+        val sensors = beaconExclusionZone.createSensors(rawData)
+
+        // act
+        val sensorsScanningRow = beaconExclusionZone.findSensorsScanningRow(sensors, 10)
+
+        // assert
+        println(sensorsScanningRow)
+    }
+
+    @Test
+    fun scanRow() {
+        // arrange
+        val sensor = Sensor(x = 8, y = 7, beaconX = 2, beaconY = 10)
+
+        // act
+        val scanRow = sensor.scanRow(-1)
+
+        // assert
+        assertThat(scanRow).isEqualTo(7..9)
+    }
 }

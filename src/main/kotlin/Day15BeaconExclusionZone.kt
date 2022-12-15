@@ -1,3 +1,4 @@
+import org.w3c.dom.ranges.Range
 import java.nio.file.Path
 import kotlin.io.path.Path
 import kotlin.io.path.readLines
@@ -44,6 +45,10 @@ class BeaconExclusionZone {
         return allPositions - sensorPositions - beaconPositions
     }
 
+    fun findSensorsScanningRow(sensors: List<Sensor>, row: Int): List<Sensor> {
+        return sensors.filter { it.isInScanArea(row) }
+    }
+
 }
 
 data class Sensor(
@@ -67,6 +72,16 @@ data class Sensor(
             distance -= 1
         }
         return scanArea
+    }
+
+    fun isInScanArea(row: Int): Boolean {
+        val minY = y - manhattenDistance
+        val maxY = y + manhattenDistance
+        return (row in minY..maxY)
+    }
+
+    fun scanRow(row: Int): IntRange {
+        TODO("Not yet implemented")
     }
 
     val manhattenDistance: Int
