@@ -4,7 +4,7 @@ import kotlin.io.path.Path
 
 class BeaconExclusionZoneTest {
 
-    // load data
+    // + load data
     // create sensor
     // create beacon
     // calculate Manhatten distance for each sensor
@@ -46,7 +46,8 @@ class BeaconExclusionZoneTest {
         // assert
         assertThat(sensor.x).isEqualTo(2)
         assertThat(sensor.y).isEqualTo(18)
-//        assertThat(sensor.beaconX).isEqualTo(18)
+        assertThat(sensor.beaconX).isEqualTo(-2)
+        assertThat(sensor.beaconY).isEqualTo(15)
 
     }
 
