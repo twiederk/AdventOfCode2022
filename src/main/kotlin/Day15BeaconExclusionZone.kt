@@ -1,4 +1,5 @@
 import java.nio.file.Path
+import kotlin.io.path.Path
 import kotlin.io.path.readLines
 import kotlin.math.abs
 
@@ -32,7 +33,8 @@ class BeaconExclusionZone {
 
     fun scan(sensors: List<Sensor>, row: Int): Int {
         val totalScanArea = mutableSetOf<Point>()
-        for (sensor in sensors) {
+        for ((index, sensor) in sensors.withIndex()) {
+            println("scan ... $index of ${sensors.size}")
             totalScanArea.addAll(sensor.scanArea())
         }
         val allPositions = totalScanArea.count { it.y == row }
@@ -75,3 +77,13 @@ data class Point(
     val x: Int,
     val y: Int
 )
+
+fun main() {
+    val beaconExclusionZone = BeaconExclusionZone()
+    val rawData = beaconExclusionZone.loadData(Path("src", "main", "resources", "Day15_part1_InputData.txt"))
+    val sensors = beaconExclusionZone.createSensors(rawData)
+    val positions = beaconExclusionZone.scan(sensors, 2_000_000)
+
+    println("positions = $positions")
+
+}
