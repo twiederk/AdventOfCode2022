@@ -24,7 +24,8 @@ class BeaconExclusionZone {
     private fun parseY(rawSensor: String) =
         rawSensor.substring("Sensor at x=".length).split(',')[1].substring(" y=".length).toInt()
 
-    private fun parseBeaconX(rawBeacon: String) = rawBeacon.substring(" closest beacon is at x=".length).split(',')[0].toInt()
+    private fun parseBeaconX(rawBeacon: String) =
+        rawBeacon.substring(" closest beacon is at x=".length).split(',')[0].toInt()
 
     private fun parseBeaconY(rawBeacon: String) =
         rawBeacon.substring(" closest beacon is at x=".length).split(',')[1].substring(" y=".length).toInt()
@@ -37,6 +38,28 @@ data class Sensor(
     val beaconX: Int,
     val beaconY: Int
 ) {
+    fun scanArea(): List<Point> {
+        val minY = y - manhattenDistance
+        val maxY = y + manhattenDistance
+        val minX = x - manhattenDistance
+        val maxX = x + manhattenDistance
+
+        val scanArea = mutableListOf<Point>()
+        var distance = manhattenDistance
+        for (y in minY..maxY) {
+            for (x in (minX + abs(distance)..maxX - abs(distance))) {
+                scanArea.add(Point(x, y))
+            }
+            distance -= 1
+        }
+        return scanArea
+    }
+
     val manhattenDistance: Int
         get() = abs(x - beaconX) + abs(y - beaconY)
 }
+
+data class Point(
+    val x: Int,
+    val y: Int
+)

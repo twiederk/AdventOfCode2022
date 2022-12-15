@@ -5,12 +5,12 @@ import kotlin.io.path.Path
 class BeaconExclusionZoneTest {
 
     // + load data
-    // create sensor
-    // create beacon
-    // calculate Manhatten distance for each sensor
+    // + create sensor
+    // + create beacon
+    // + calculate Manhatten distance for each sensor
     // calculate area for each sensor covered
     //   by its scan using by drawing a circle with sensor as center and Manhatten distance as radius
-    // store all fields of all scans in one place
+    // store all fields of all scans in one place (Set)
     // check row (y) how many fields are covered
 
     private val beaconExclusionZone = BeaconExclusionZone()
@@ -49,7 +49,17 @@ class BeaconExclusionZoneTest {
         assertThat(sensor.beaconX).isEqualTo(-2)
         assertThat(sensor.beaconY).isEqualTo(15)
         assertThat(sensor.manhattenDistance).isEqualTo(7)
-
     }
 
+    @Test
+    fun scanArea() {
+        // arrange
+        val sensor = Sensor(2, 18, -2, 15)
+
+        // act
+        val scanArea = sensor.scanArea()
+
+        // assert
+        assertThat(scanArea).hasSize(113)
+    }
 }
