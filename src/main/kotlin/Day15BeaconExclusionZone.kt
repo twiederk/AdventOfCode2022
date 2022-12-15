@@ -100,7 +100,7 @@ class BeaconExclusionZone {
         throw IllegalArgumentException("Can't find beacon position")
     }
 
-    fun calculateFrequency(point: Point): Int = point.x * 4_000_000 + point.y
+    fun calculateFrequency(point: Point): Long = point.x.toLong() * 4_000_000L + point.y.toLong()
 
 
 }
@@ -159,7 +159,10 @@ fun main() {
     val rawData = beaconExclusionZone.loadData(Path("src", "main", "resources", "Day15_part1_InputData.txt"))
     val sensors = beaconExclusionZone.createSensors(rawData)
     val positions = beaconExclusionZone.scanWithRanges(sensors, 2_000_000)
-
     println("positions = $positions")
+
+    val position = beaconExclusionZone.findEmptySpaceInScan(sensors, 4_000_000)
+    val frequency = beaconExclusionZone.calculateFrequency(position)
+    println("frequency = $frequency")
 
 }
