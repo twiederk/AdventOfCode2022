@@ -142,7 +142,7 @@ fun main() {
     val beaconExclusionZone = BeaconExclusionZone()
     val rawData = beaconExclusionZone.loadData(Path("src", "main", "resources", "Day15_part1_InputData.txt"))
     val sensors = beaconExclusionZone.createSensors(rawData)
-    val positions = beaconExclusionZone.scanWithPoints(sensors, 2_000_000)
+    val positions = beaconExclusionZone.scanWithRanges(sensors, 2_000_000)
 
     println("positions = $positions")
 
