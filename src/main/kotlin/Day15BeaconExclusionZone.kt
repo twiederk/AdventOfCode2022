@@ -1,3 +1,5 @@
+import java.lang.IllegalArgumentException
+import java.lang.IllegalStateException
 import java.nio.file.Path
 import kotlin.io.path.Path
 import kotlin.io.path.readLines
@@ -33,8 +35,7 @@ class BeaconExclusionZone {
 
     fun scanWithPoints(sensors: List<Sensor>, row: Int): Int {
         val totalScanArea = mutableSetOf<Point>()
-        for ((index, sensor) in sensors.withIndex()) {
-            println("scan ... $index of ${sensors.size}")
+        for (sensor in sensors) {
             totalScanArea.addAll(sensor.scanArea())
         }
         val allPositions = totalScanArea.count { it.y == row }
@@ -85,6 +86,21 @@ class BeaconExclusionZone {
         mergedRanges.add(currentRange)
         return mergedRanges
     }
+
+    fun findEmptySpaceInScan(sensors: List<Sensor>, maxY: Int): Point {
+        for (y in 0..maxY) {
+            val sensorsScanningRow = findSensorsScanningRow(sensors, y)
+            val scanRanges = scanRowByAllSensors(sensorsScanningRow, y)
+            val mergedRanges = mergeRanges(scanRanges)
+
+            if (mergedRanges.size == 1) continue
+            if (mergedRanges.size == 2) return Point(mergedRanges[0].last + 1, y)
+            if (mergedRanges.size >= 3) throw IllegalStateException("Too many ranges: $mergedRanges")
+        }
+        throw IllegalArgumentException("Can't find beacon position")
+    }
+
+    fun calculateFrequency(point: Point): Int = point.x * 4_000_000 + point.y
 
 
 }

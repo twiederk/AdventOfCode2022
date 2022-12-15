@@ -4,15 +4,6 @@ import kotlin.io.path.Path
 
 class BeaconExclusionZoneTest {
 
-    // + load data
-    // + create sensor
-    // + create beacon
-    // + calculate Manhatten distance for each sensor
-    // + calculate area for each sensor covered
-    //   + by its scan using by drawing a circle with sensor as center and Manhatten distance as radius
-    // store all fields of all scans in one place (Set)
-    // check row (y) how many fields are covered
-
     private val beaconExclusionZone = BeaconExclusionZone()
 
     @Test
@@ -187,4 +178,31 @@ class BeaconExclusionZoneTest {
         assertThat(positions).isEqualTo(26)
     }
 
+    // scan row by row (y)
+    // scan col by col (x) and check if it is not i a merged row
+    // calculate frequency x coordinate by 4000000 and then adding its y coordinate.
+    // (x=14, y=11) = 14 * 4_000_000 + y =  56_000_011
+
+    @Test
+    fun findEmptySpaceInScan() {
+        // arrange
+        val rawData = beaconExclusionZone.loadData(Path("src", "test", "resources", "Day15_TestData.txt"))
+        val sensors = beaconExclusionZone.createSensors(rawData)
+
+        // act
+        val position = beaconExclusionZone.findEmptySpaceInScan(sensors, 20)
+
+        // assert
+        assertThat(position).isEqualTo(Point(14, 11))
+    }
+
+    @Test
+    fun calculateFrequency() {
+
+        // act
+        val frequency = beaconExclusionZone.calculateFrequency(Point(14,11))
+
+        // assert
+        assertThat(frequency).isEqualTo(56_000_011)
+    }
 }
