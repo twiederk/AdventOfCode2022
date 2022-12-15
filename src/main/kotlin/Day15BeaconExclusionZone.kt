@@ -31,23 +31,61 @@ class BeaconExclusionZone {
     private fun parseBeaconY(rawBeacon: String) =
         rawBeacon.substring(" closest beacon is at x=".length).split(',')[1].substring(" y=".length).toInt()
 
-    fun scan(sensors: List<Sensor>, row: Int): Int {
+    fun scanWithPoints(sensors: List<Sensor>, row: Int): Int {
         val totalScanArea = mutableSetOf<Point>()
         for ((index, sensor) in sensors.withIndex()) {
-//            println("scan ... $index of ${sensors.size}")
+            println("scan ... $index of ${sensors.size}")
             totalScanArea.addAll(sensor.scanArea())
         }
         val allPositions = totalScanArea.count { it.y == row }
-        val sensorPositions = sensors.map { Point(it.x, it.y) }.filter { it.y == row }.toSet().count()
-        val beaconPositions = sensors.map { Point(it.beaconX, it.beaconY) }.filter { it.y == row }.toSet().count()
+        val sensorPositions = countSensorPositions(sensors, row)
+        val beaconPositions = countBeaconPositions(sensors, row)
 
         return allPositions - sensorPositions - beaconPositions
     }
 
+    fun scanWithRanges(sensors: List<Sensor>, row: Int): Int {
+        val sensorsScanningRow = findSensorsScanningRow(sensors, row)
+        val scanRanges = scanRowByAllSensors(sensorsScanningRow, row)
+        val mergedRanges = mergeRanges(scanRanges)
+
+        val allPositions = mergedRanges.sumOf { it.count() }
+        val sensorPositions = countSensorPositions(sensors, row)
+        val beaconPositions = countBeaconPositions(sensors, row)
+        return allPositions - sensorPositions - beaconPositions
+
+    }
+
+    private fun countBeaconPositions(sensors: List<Sensor>, row: Int) =
+        sensors.map { Point(it.beaconX, it.beaconY) }.filter { it.y == row }.toSet().count()
+
+    private fun countSensorPositions(sensors: List<Sensor>, row: Int) =
+        sensors.map { Point(it.x, it.y) }.filter { it.y == row }.toSet().count()
+
+
     fun findSensorsScanningRow(sensors: List<Sensor>, row: Int): List<Sensor> = sensors.filter { it.isInScanArea(row) }
 
     fun scanRowByAllSensors(sensors: List<Sensor>, row: Int): List<IntRange> =
-        sensors.filter { it.isInScanArea(row) }.map { it.scanRow(row)}
+        sensors.filter { it.isInScanArea(row) }.map { it.scanRow(row) }
+
+    fun mergeRanges(ranges: List<IntRange>): List<IntRange> {
+        val sortedRanges = ranges.sortedBy { it.first }
+        val mergedRanges = mutableListOf<IntRange>()
+
+        var currentRange = sortedRanges[0]
+        for (i in 1..sortedRanges.lastIndex) {
+            if (currentRange fullyOverlaps sortedRanges[i]) continue
+            if (currentRange overlaps sortedRanges[i]) {
+                currentRange = currentRange.first..sortedRanges[i].last
+                continue
+            }
+            mergedRanges.add(currentRange)
+            currentRange = sortedRanges[i]
+        }
+        mergedRanges.add(currentRange)
+        return mergedRanges
+    }
+
 
 }
 
@@ -96,11 +134,15 @@ data class Point(
     val y: Int
 )
 
+infix fun IntRange.overlaps(other: IntRange): Boolean = first <= other.last && other.first <= last
+
+infix fun IntRange.fullyOverlaps(other: IntRange): Boolean = first <= other.first && last >= other.last
+
 fun main() {
     val beaconExclusionZone = BeaconExclusionZone()
     val rawData = beaconExclusionZone.loadData(Path("src", "main", "resources", "Day15_part1_InputData.txt"))
     val sensors = beaconExclusionZone.createSensors(rawData)
-    val positions = beaconExclusionZone.scan(sensors, 2_000_000)
+    val positions = beaconExclusionZone.scanWithPoints(sensors, 2_000_000)
 
     println("positions = $positions")
 

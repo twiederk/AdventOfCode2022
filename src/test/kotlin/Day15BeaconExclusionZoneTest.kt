@@ -64,13 +64,13 @@ class BeaconExclusionZoneTest {
     }
 
     @Test
-    fun scan() {
+    fun scanWithPoints() {
         // arrange
         val rawData = beaconExclusionZone.loadData(Path("src", "test", "resources", "Day15_TestData.txt"))
         val sensors = beaconExclusionZone.createSensors(rawData)
 
         // act
-        val positions = beaconExclusionZone.scan(sensors, 10)
+        val positions = beaconExclusionZone.scanWithPoints(sensors, 10)
 
         // assert
         assertThat(positions).isEqualTo(26)
@@ -138,7 +138,7 @@ class BeaconExclusionZoneTest {
     }
 
     @Test
-    internal fun scanRowByAllSensors() {
+    fun scanRowByAllSensors() {
         // arrange
         val rawData = beaconExclusionZone.loadData(Path("src", "test", "resources", "Day15_TestData.txt"))
         val sensors = beaconExclusionZone.createSensors(rawData)
@@ -147,9 +147,44 @@ class BeaconExclusionZoneTest {
         val scanRanges = beaconExclusionZone.scanRowByAllSensors(sensors, 10)
 
         // assert
-        assertThat(scanRanges).contains(
-            -2..2, 2..14, 2..2, 12..12, 14..18, 16..24
-        )
+        assertThat(scanRanges).contains(12..12, 2..14, 2..2, -2..2, 16..24, 14..18)
+    }
+
+    @Test
+    fun mergeRanges_oneRange() {
+        // arrange
+        val ranges = listOf(12..12, 2..14, 2..2, -2..2, 16..24, 14..18)
+
+        // act
+        val mergedRanges = beaconExclusionZone.mergeRanges(ranges)
+
+        // assert
+        assertThat(mergedRanges).contains(-2..24)
+    }
+
+    @Test
+    fun mergeRanges_twoRanges() {
+        // arrange
+        val ranges = listOf(12..12, 2..14, 2..2, -2..2, 16..24)
+
+        // act
+        val mergedRanges = beaconExclusionZone.mergeRanges(ranges)
+
+        // assert
+        assertThat(mergedRanges).contains(-2..14, 16..24)
+    }
+
+    @Test
+    fun scanWithRanges() {
+        // arrange
+        val rawData = beaconExclusionZone.loadData(Path("src", "test", "resources", "Day15_TestData.txt"))
+        val sensors = beaconExclusionZone.createSensors(rawData)
+
+        // act
+        val positions = beaconExclusionZone.scanWithRanges(sensors, 10)
+
+        // assert
+        assertThat(positions).isEqualTo(26)
     }
 
 }
