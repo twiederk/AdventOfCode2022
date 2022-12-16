@@ -3,26 +3,43 @@ import org.junit.jupiter.api.Test
 
 class ProboscideaVolcaniumTest {
 
+    private val proboscideaVolcanium = ProboscideaVolcanium()
+
     @Test
     fun loadData() {
 
         // act
-        val rawData = ProboscideaVolcanium().loadData("Day16_TestData.txt")
+        val rawData = proboscideaVolcanium.loadData("Day16_TestData.txt")
 
         // assert
         assertThat(rawData).hasSize(10)
     }
 
     @Test
-    fun createPipes() {
+    fun createValves() {
         // arrange
-        val rawData = ProboscideaVolcanium().loadData("Day16_TestData.txt")
+        val rawData = proboscideaVolcanium.loadData("Day16_TestData.txt")
 
         // act
-        val pipes = ProboscideaVolcanium().createValves(rawData)
+        val valves = proboscideaVolcanium.createValves(rawData)
 
         // assert
-        assertThat(pipes).hasSize(10)
-
+        assertThat(valves).hasSize(10)
+        assertThat(valves["AA"]?.flowRate).isEqualTo(0)
     }
+
+    @Test
+    fun addNeighbors() {
+        // arrange
+        val rawData = proboscideaVolcanium.loadData("Day16_TestData.txt")
+        val valves = proboscideaVolcanium.createValves(rawData)
+
+        // act
+        proboscideaVolcanium.addNeighbors(rawData, valves)
+
+        // assert
+        assertThat(valves.getValue("AA").neighbors).hasSize(3)
+        assertThat(valves.getValue("HH").neighbors).hasSize(1)
+    }
+
 }
