@@ -43,18 +43,27 @@ class ProboscideaVolcaniumTest {
     }
 
     @Test
-    fun breadthFirstSearch() {
+    fun solve1_example() {
         // arrange
-        val rawData = proboscideaVolcanium.loadData("Day16_TestData.txt")
-        val valves = proboscideaVolcanium.createValves(rawData)
-        proboscideaVolcanium.addNeighbors(rawData, valves)
+        val rawData = Resources.resourceAsText("Day16_TestData.txt")
 
         // act
-        val result = proboscideaVolcanium.breadFirstSearch(valves.getValue("AA")) { it >= 30 }
+        val result = Day16(rawData).solve1()
 
         // assert
-        println("result = ${result}")
+        assertThat(result).isEqualTo(1651)
     }
 
+    @Test
+    fun solve2_example() {
+        // arrange
+        val rawData = Resources.resourceAsText("Day16_TestData.txt")
+
+        // act
+        val result = Day16(rawData).solve2()
+
+        // assert
+        assertThat(result).isEqualTo(1707)
+    }
 
 }
