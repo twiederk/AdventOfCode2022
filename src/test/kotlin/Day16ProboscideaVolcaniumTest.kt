@@ -19,7 +19,7 @@ class ProboscideaVolcaniumTest {
         val rawData = ProboscideaVolcanium().loadData("Day16_TestData.txt")
 
         // act
-        val pipes = ProboscideaVolcanium().createPipes(rawData)
+        val pipes = ProboscideaVolcanium().createValves(rawData)
 
         // assert
         assertThat(pipes).hasSize(10)
