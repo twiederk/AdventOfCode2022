@@ -42,4 +42,19 @@ class ProboscideaVolcaniumTest {
         assertThat(valves.getValue("HH").neighbors).hasSize(1)
     }
 
+    @Test
+    fun breadthFirstSearch() {
+        // arrange
+        val rawData = proboscideaVolcanium.loadData("Day16_TestData.txt")
+        val valves = proboscideaVolcanium.createValves(rawData)
+        proboscideaVolcanium.addNeighbors(rawData, valves)
+
+        // act
+        val result = proboscideaVolcanium.breadFirstSearch(valves.getValue("AA")) { it >= 30 }
+
+        // assert
+        println("result = ${result}")
+    }
+
+
 }
