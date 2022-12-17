@@ -417,7 +417,26 @@ class PyroclasticFlowTest {
         val y = pyroclasticFlow.fallMove(tile)
 
         // assert
-        assertThat(y).isEqualTo(1)
+        assertThat(y).isEqualTo(2)
+    }
+
+
+    //    |...@...|
+    //    |..@@@..|
+    //    |...@...|
+    //    |..####.|
+    //    +-------+
+    @Test
+    fun fallMove_error_2() {
+        // arrange
+        pyroclasticFlow.restTiles.add(Tile(2,1,0))
+        val tile2 = Tile(2,2,1)
+
+        // act
+        val y = pyroclasticFlow.fallMove(tile2)
+
+        // assert
+        assertThat(y).isEqualTo(2)
     }
 
     @Test

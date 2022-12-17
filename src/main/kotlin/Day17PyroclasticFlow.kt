@@ -42,7 +42,8 @@ class PyroclasticFlow(val jetStream: String, var debug: Boolean = false) {
     }
 
     fun fallMove(tile: Tile): Int {
-        if (restTiles.firstOrNull { it.collide(tile) } != null) return tile.y
+        val tileFallen = tile.copy(y = tile.y - 1)
+        if (restTiles.firstOrNull { it.collide(tileFallen) } != null) return tile.y
         if (tile.y - 1 == FLOOR) return tile.y
         return tile.y - 1
     }
