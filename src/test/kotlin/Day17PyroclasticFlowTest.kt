@@ -155,8 +155,8 @@ class PyroclasticFlowTest {
     @Test
     fun jetMove_collideRight() {
         // arrange
-        pyroclasticFlow.restTiles.add(Tile(2, 4, 1))
-        val tile = Tile(0, 6, 2)
+        pyroclasticFlow.restTiles.add(Tile(2, 2, 1))
+        val tile = Tile(0, 4, 2)
 
         // act
         val x = pyroclasticFlow.jetMove(tile, '>')
@@ -228,8 +228,8 @@ class PyroclasticFlowTest {
     @Test
     fun collide_2_true() {
         // arrange
-        val tile1 = Tile(1, 6, 2)
-        val tile2 = Tile(2, 4, 1)
+        val tile1 = Tile(1, 4, 2)
+        val tile2 = Tile(2, 2, 1)
 
         // act
         val collide = tile1.collide(tile2)
@@ -412,9 +412,9 @@ class PyroclasticFlowTest {
         // assert
         assertThat(globalPoints).contains(
             Point(0, 0),
-            Point(0, 1),
-            Point(0, 2),
-            Point(1, 2),
+            Point(1, 0),
+            Point(2, 0),
+            Point(2, 1),
             Point(2, 2),
         )
     }
@@ -528,9 +528,10 @@ class PyroclasticFlowTest {
         assertThat(pyroclasticFlow.jetCounter).isEqualTo(0)
     }
 
+//    |..1111.|
+//    +-------+
     @Test
     fun tetris_block1() {
-        pyroclasticFlow.debug = true
 
         // act
         val towerHeight = pyroclasticFlow.tetris(1)
@@ -540,9 +541,13 @@ class PyroclasticFlowTest {
         assertThat(pyroclasticFlow.restTiles).containsExactly(Tile(2, 1, 0))
     }
 
+    //    |...2...|
+    //    |..222..|
+    //    |...2...|
+    //    |..1111.|
+    //    +-------+
     @Test
     fun tetris_block2() {
-        pyroclasticFlow.debug = true
 
         // act
         val towerHeight = pyroclasticFlow.tetris(2)
@@ -555,9 +560,16 @@ class PyroclasticFlowTest {
         )
     }
 
+    //    |.......|
+    //    |..3....|
+    //    |..3....|
+    //    |3332...|
+    //    |..222..|
+    //    |...2...|
+    //    |..1111.|
+    //    +-------+
     @Test
     fun tetris_block3() {
-        pyroclasticFlow.debug = true
 
         // act
         val towerHeight = pyroclasticFlow.tetris(3)
@@ -567,13 +579,21 @@ class PyroclasticFlowTest {
         assertThat(pyroclasticFlow.restTiles).containsExactly(
             Tile(2, 1, 0),
             Tile(2, 2, 1),
-            Tile(0, 4, 2)
+            Tile(0, 4, 2),
         )
     }
 
+    //    |.......|
+    //    |....4..|
+    //    |..3.4..|
+    //    |..3.4..|
+    //    |33324..|
+    //    |..222..|
+    //    |...2...|
+    //    |..1111.|
+    //    +-------+
     @Test
     fun tetris_block4() {
-        pyroclasticFlow.debug = true
 
         // act
         val towerHeight = pyroclasticFlow.tetris(4)
@@ -583,7 +603,66 @@ class PyroclasticFlowTest {
         assertThat(pyroclasticFlow.restTiles).containsExactly(
             Tile(2, 1, 0),
             Tile(2, 2, 1),
-            Tile(0, 4, 2)
+            Tile(0, 4, 2),
+            Tile(4, 4, 3),
+        )
+    }
+
+    //    |.......|
+    //    |....55.|
+    //    |....55.|
+    //    |....4..|
+    //    |..3.4..|
+    //    |..3.4..|
+    //    |33324..|
+    //    |..222..|
+    //    |...2...|
+    //    |..1111.|
+    //    +-------+
+    @Test
+    fun tetris_block5() {
+
+        // act
+        val towerHeight = pyroclasticFlow.tetris(5)
+
+        // assert
+        assertThat(towerHeight).isEqualTo(9)
+        assertThat(pyroclasticFlow.restTiles).containsExactly(
+            Tile(2, 1, 0),
+            Tile(2, 2, 1),
+            Tile(0, 4, 2),
+            Tile(4, 4, 3),
+            Tile(4, 8, 4),
+        )
+    }
+
+    //    |.......|
+    //    |.6666..|
+    //    |....55.|
+    //    |....55.|
+    //    |....4..|
+    //    |..3.4..|
+    //    |..3.4..|
+    //    |33324..|
+    //    |..222..|
+    //    |...2...|
+    //    |..1111.|
+    //    +-------+
+    @Test
+    fun tetris_block6() {
+
+        // act
+        val towerHeight = pyroclasticFlow.tetris(6)
+
+        // assert
+        assertThat(towerHeight).isEqualTo(10)
+        assertThat(pyroclasticFlow.restTiles).containsExactly(
+            Tile(2, 1, 0),
+            Tile(2, 2, 1),
+            Tile(0, 4, 2),
+            Tile(4, 4, 3),
+            Tile(4, 8, 4),
+            Tile(1, 10, 0),
         )
     }
 

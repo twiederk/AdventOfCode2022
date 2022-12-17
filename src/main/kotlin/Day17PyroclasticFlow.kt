@@ -93,41 +93,43 @@ class PyroclasticFlow(val jetStream: String, var debug: Boolean = false) {
         val shapes = listOf(
             // id: 0
             Shape(
-                4, 1, """
-                ####
-                """.trimIndent().replace("\n", "")
+                4, 1,
+                arrayOf(
+                    "####".toCharArray(),
+                )
             ),
             // id: 1
             Shape(
-                3, 3, """
-                .#.
-                ###
-                .#.
-                """.trimIndent().replace("\n", "")
+                3, 3,
+                arrayOf(
+                    ".#.".toCharArray(),
+                    "###".toCharArray(),
+                    ".#.".toCharArray(),
+                )
             ),
             // id: 2
             Shape(
-                3, 3, """
-                #..
-                #..
-                ###
-            """.trimIndent().replace("\n", "")
+                3, 3, arrayOf(
+                    "###".toCharArray(),
+                    "..#".toCharArray(),
+                    "..#".toCharArray(),
+                )
             ),
             // id: 3
             Shape(
-                1, 4, """
-                #
-                #
-                #
-                #
-            """.trimIndent().replace("\n", "")
+                1, 4, arrayOf(
+                    "#".toCharArray(),
+                    "#".toCharArray(),
+                    "#".toCharArray(),
+                    "#".toCharArray(),
+                )
             ),
             // id: 4
             Shape(
-                2, 2, """
-                ##
-                ##
-            """.trimIndent().replace("\n", "")
+                2, 2, arrayOf(
+                    "##".toCharArray(),
+                    "##".toCharArray(),
+                )
             ),
         )
 
@@ -159,17 +161,37 @@ data class Tile(
 data class Shape(
     val width: Int,
     val height: Int,
-    val body: String
+    val body: Array<CharArray>
 ) {
     fun globalPoints(x: Int, y: Int): Set<Point> {
         val globalPoints = mutableSetOf<Point>()
-        for (h in 0 until height) {
-            for (w in 0 until width) {
-                if (body[h * width + w] == '#') {
-                    globalPoints.add(Point(x + w, y + h))
+        for (row in height - 1 downTo 0) {
+            for (col in 0 until width) {
+                if (body[row][col] == '#') {
+                    globalPoints.add(Point(x + col, y + row))
                 }
             }
         }
         return globalPoints
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (javaClass != other?.javaClass) return false
+
+        other as Shape
+
+        if (width != other.width) return false
+        if (height != other.height) return false
+        if (!body.contentDeepEquals(other.body)) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = width
+        result = 31 * result + height
+        result = 31 * result + body.contentDeepHashCode()
+        return result
     }
 }
