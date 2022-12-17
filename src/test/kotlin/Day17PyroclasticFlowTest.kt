@@ -353,10 +353,10 @@ class PyroclasticFlowTest {
 
         // assert
         assertThat(globalPoints).contains(
-            Point(0, 0),
-            Point(1, 0),
-            Point(2, 0),
-            Point(3, 0),
+            LongPoint(0, 0),
+            LongPoint(1, 0),
+            LongPoint(2, 0),
+            LongPoint(3, 0),
         )
     }
 
@@ -367,10 +367,10 @@ class PyroclasticFlowTest {
 
         // assert
         assertThat(globalPoints).contains(
-            Point(1, 1),
-            Point(2, 1),
-            Point(3, 1),
-            Point(4, 1),
+            LongPoint(1, 1),
+            LongPoint(2, 1),
+            LongPoint(3, 1),
+            LongPoint(4, 1),
         )
     }
 
@@ -381,11 +381,11 @@ class PyroclasticFlowTest {
 
         // assert
         assertThat(globalPoints).contains(
-            Point(1, 0),
-            Point(0, 1),
-            Point(1, 1),
-            Point(2, 1),
-            Point(1, 2),
+            LongPoint(1, 0),
+            LongPoint(0, 1),
+            LongPoint(1, 1),
+            LongPoint(2, 1),
+            LongPoint(1, 2),
         )
     }
 
@@ -396,11 +396,11 @@ class PyroclasticFlowTest {
 
         // assert
         assertThat(globalPoints).contains(
-            Point(3, 2),
-            Point(2, 3),
-            Point(3, 3),
-            Point(4, 3),
-            Point(3, 4),
+            LongPoint(3, 2),
+            LongPoint(2, 3),
+            LongPoint(3, 3),
+            LongPoint(4, 3),
+            LongPoint(3, 4),
         )
     }
 
@@ -411,11 +411,11 @@ class PyroclasticFlowTest {
 
         // assert
         assertThat(globalPoints).contains(
-            Point(0, 0),
-            Point(1, 0),
-            Point(2, 0),
-            Point(2, 1),
-            Point(2, 2),
+            LongPoint(0, 0),
+            LongPoint(1, 0),
+            LongPoint(2, 0),
+            LongPoint(2, 1),
+            LongPoint(2, 2),
         )
     }
 
@@ -427,10 +427,10 @@ class PyroclasticFlowTest {
 
         // assert
         assertThat(globalPoints).contains(
-            Point(0, 0),
-            Point(0, 1),
-            Point(0, 2),
-            Point(0, 3),
+            LongPoint(0, 0),
+            LongPoint(0, 1),
+            LongPoint(0, 2),
+            LongPoint(0, 3),
         )
     }
 
@@ -820,12 +820,21 @@ class PyroclasticFlowTest {
     }
 
     @Test
-    fun tetris_example() {
+    fun tetris_example_part1() {
         // act
         val towerHeight = pyroclasticFlow.tetris(2022)
 
         // assert
         assertThat(towerHeight).isEqualTo(3068)
+    }
+
+    @Test
+    fun tetris_example_part2() {
+        // act
+        val towerHeight = pyroclasticFlow.tetris(1_000_000_000_000)
+
+        // assert
+        assertThat(towerHeight).isEqualTo(1_514_285_714_288)
     }
 
 }

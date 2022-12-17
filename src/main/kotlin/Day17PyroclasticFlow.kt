@@ -2,7 +2,7 @@ import PyroclasticFlow.Companion.shapes
 
 class PyroclasticFlow(val jetStream: String, var debug: Boolean = false) {
 
-    var towerHeight = 0
+    var towerHeight = 0L
     var shapeId = 0
     var jetCounter = 0
 
@@ -11,7 +11,7 @@ class PyroclasticFlow(val jetStream: String, var debug: Boolean = false) {
 
     fun createNextTile(): Tile {
         val tileShapeId = shapeId
-        val x = 2
+        val x = 2L
         val y = towerHeight + 4
 
         shapeId++
@@ -19,19 +19,19 @@ class PyroclasticFlow(val jetStream: String, var debug: Boolean = false) {
         return Tile(x, y, tileShapeId)
     }
 
-    fun jetMove(tile: Tile, char: Char): Int = when (char) {
+    fun jetMove(tile: Tile, char: Char): Long = when (char) {
         '>' -> collideRight(tile)
         '<' -> collideLeft(tile)
         else -> throw IllegalArgumentException("Unknown jet sign [$char]")
     }
 
-    private fun collideLeft(tile: Tile): Int {
+    private fun collideLeft(tile: Tile): Long {
         val tileMovedToLeft = tile.copy(x = tile.x - 1)
         if (restTiles.firstOrNull { it.collide(tileMovedToLeft) } != null) return tile.x
         return if (tile.x - 1 >= 0) tile.x - 1 else tile.x
     }
 
-    private fun collideRight(tile: Tile): Int {
+    private fun collideRight(tile: Tile): Long {
         val tileMovedToRight = tile.copy(x = tile.x + 1)
         if (restTiles.firstOrNull { it.collide(tileMovedToRight) } != null) return tile.x
         return if (tile.x + shapes[tile.shapeId].width + 1 <= TUNNEL_WIDTH) {
@@ -41,14 +41,14 @@ class PyroclasticFlow(val jetStream: String, var debug: Boolean = false) {
         }
     }
 
-    fun fallMove(tile: Tile): Int {
+    fun fallMove(tile: Tile): Long {
         val tileFallen = tile.copy(y = tile.y - 1)
         if (restTiles.firstOrNull { it.collide(tileFallen) } != null) return tile.y
         if (tile.y - 1 == FLOOR) return tile.y
         return tile.y - 1
     }
 
-    fun tetris(maxTiles: Int): Int {
+    fun tetris(maxTiles: Long): Long {
         while (restTiles.size < maxTiles) {
             val tile = createNextTile()
             debug("appearing: $tile")
@@ -75,7 +75,7 @@ class PyroclasticFlow(val jetStream: String, var debug: Boolean = false) {
         return towerHeight
     }
 
-    private fun calculateTowerHeight(y: Int, tile: Tile): Int {
+    private fun calculateTowerHeight(y: Long, tile: Tile): Long {
         val newTowerHeight = towerHeight + ((y - 1) + shapes[tile.shapeId].height - towerHeight)
         return maxOf(newTowerHeight, towerHeight)
     }
@@ -92,8 +92,8 @@ class PyroclasticFlow(val jetStream: String, var debug: Boolean = false) {
     }
 
     companion object {
-        const val TUNNEL_WIDTH = 7
-        const val FLOOR = 0
+        const val TUNNEL_WIDTH = 7L
+        const val FLOOR = 0L
 
         val shapes = listOf(
             // id: 0
@@ -142,15 +142,15 @@ class PyroclasticFlow(val jetStream: String, var debug: Boolean = false) {
 }
 
 data class Tile(
-    var x: Int,
-    var y: Int,
+    var x: Long,
+    var y: Long,
     val shapeId: Int,
 ) {
     fun overlap(other: Tile): Boolean {
-        val endX = x + shapes[shapeId].width - 1
-        val otherEndX = other.x + shapes[other.shapeId].width - 1
-        val endY = y + shapes[shapeId].height - 1
-        val otherEndY = other.y + shapes[other.shapeId].height - 1
+        val endX : Long = x + shapes[shapeId].width - 1
+        val otherEndX : Long = other.x + shapes[other.shapeId].width - 1
+        val endY : Long = y + shapes[shapeId].height - 1
+        val otherEndY : Long = other.y + shapes[other.shapeId].height - 1
         return x..endX overlaps other.x..otherEndX && y..endY overlaps other.y..otherEndY
     }
 
@@ -168,12 +168,12 @@ data class Shape(
     val height: Int,
     val body: Array<CharArray>
 ) {
-    fun globalPoints(x: Int, y: Int): Set<Point> {
-        val globalPoints = mutableSetOf<Point>()
+    fun globalPoints(x: Long, y: Long): Set<LongPoint> {
+        val globalPoints = mutableSetOf<LongPoint>()
         for (row in height - 1 downTo 0) {
             for (col in 0 until width) {
                 if (body[row][col] == '#') {
-                    globalPoints.add(Point(x + col, y + row))
+                    globalPoints.add(LongPoint(x + col, y + row))
                 }
             }
         }

@@ -18,6 +18,16 @@ infix fun IntRange.overlaps(other: IntRange): Boolean = first <= other.last && o
  */
 infix fun IntRange.fullyOverlaps(other: IntRange): Boolean = first <= other.first && last >= other.last
 
+/**
+ * Check if IntRanges overlap
+ */
+infix fun LongRange.overlaps(other: LongRange): Boolean = first <= other.last && other.first <= last
+
+/**
+ * Check if InRanges overlap fully
+ */
+infix fun LongRange.fullyOverlaps(other: LongRange): Boolean = first <= other.first && last >= other.last
+
 internal object Resources {
     fun resourceAsString(fileName: String, delimiter: String = ""): String =
         resourceAsListOfString(fileName).reduce { a, b -> "$a$delimiter$b" }
@@ -42,4 +52,9 @@ internal object Resources {
 data class Point(
     val x: Int,
     val y: Int
+)
+
+data class LongPoint(
+    val x: Long,
+    val y: Long
 )
