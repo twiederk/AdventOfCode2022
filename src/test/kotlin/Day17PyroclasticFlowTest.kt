@@ -1,3 +1,4 @@
+import PyroclasticFlow.Companion.shapes
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -114,27 +115,34 @@ class PyroclasticFlowTest {
     // |..####.|
     // +-------+
     @Test
-    fun collide_shape1AndShape2_false() {
+    fun collide_false() {
         // arrange
         val tile1 = Tile(0, 4, 2)
         val tile2 = Tile(2, 4, 1)
 
         // act
-        val collide = pyroclasticFlow.collide(tile1, tile2)
+        val collide = tile1.collide(tile2)
 
         // assert
         assertThat(collide).isFalse
     }
 
-
+    // |.......|
+    // |...1...|
+    // |...1...|
+    // |.11*...|
+    // |..222..|
+    // |...2...|
+    // |..####.|
+    // +-------+
     @Test
-    fun collide_shape1AndShape2_true() {
+    fun collide_true() {
         // arrange
         val tile1 = Tile(1, 4, 2)
         val tile2 = Tile(2, 4, 1)
 
         // act
-        val collide = pyroclasticFlow.collide(tile1, tile2)
+        val collide = tile1.collide(tile2)
 
         // assert
         assertThat(collide).isTrue
@@ -164,6 +172,65 @@ class PyroclasticFlowTest {
 
         // assert
         assertThat(overlap).isTrue
+    }
+
+
+    @Test
+    fun shapeGlobalPoints_shape0At00() {
+        // act
+        val globalPoints = shapes[0].globalPoints(0, 0)
+
+        // assert
+        assertThat(globalPoints).contains(
+            Point(0,0),
+            Point(1,0),
+            Point(2,0),
+            Point(3,0),
+        )
+    }
+
+    @Test
+    fun shapeGlobalPoints_shape0At11() {
+        // act
+        val globalPoints = shapes[0].globalPoints(1, 1)
+
+        // assert
+        assertThat(globalPoints).contains(
+            Point(1,1),
+            Point(2,1),
+            Point(3,1),
+            Point(4,1),
+        )
+    }
+
+    @Test
+    fun shapeGlobalPoints_shape1At00() {
+        // act
+        val globalPoints = shapes[1].globalPoints(0, 0)
+
+        // assert
+        assertThat(globalPoints).contains(
+            Point(1,0),
+            Point(0,1),
+            Point(1,1),
+            Point(2,1),
+            Point(1,2),
+        )
+    }
+
+    @Test
+    fun shapeGlobalPoints_shape1At22() {
+        // act
+        val globalPoints = shapes[1].globalPoints(2, 2)
+
+        // assert
+        assertThat(globalPoints).contains(
+            Point(3,2),
+            Point(2,3),
+            Point(3,3),
+            Point(4,3),
+            Point(3,4),
+        )
     }
 
 }

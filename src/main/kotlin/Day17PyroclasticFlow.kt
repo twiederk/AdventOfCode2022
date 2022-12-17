@@ -1,3 +1,5 @@
+import PyroclasticFlow.Companion.shapes
+
 class PyroclasticFlow(val input: String) {
 
     var towerHeight = 0
@@ -27,37 +29,33 @@ class PyroclasticFlow(val input: String) {
         tile.x
     }
 
-    fun collide(tile: Tile, other: Tile): Boolean {
-        return tile.overlap(other)
-    }
-
     companion object {
         const val TUNNEL_WIDTH = 7
 
         val shapes = listOf(
             Shape(4, 1, """
                 ####
-                """.trimIndent()),
+                """.trimIndent().replace("\n","")),
             Shape(3, 3,"""
                 .#.
                 ###
                 .#.
-                """.trimIndent()),
+                """.trimIndent().replace("\n","")),
             Shape(3, 3,"""
                 ..#
                 ..#
                 ###
-            """.trimIndent()),
+            """.trimIndent().replace("\n","")),
             Shape(1, 4, """
                 #
                 #
                 #
                 #
-            """.trimIndent()),
+            """.trimIndent().replace("\n","")),
             Shape(2, 2, """
                 ##
                 ##
-            """.trimIndent()),
+            """.trimIndent().replace("\n","")),
         )
 
     }
@@ -69,8 +67,23 @@ data class Tile(
     val shapeId: Int,
 ) {
     fun overlap(other: Tile): Boolean {
-        return x..x + PyroclasticFlow.shapes[shapeId].width overlaps other.x..other.x + PyroclasticFlow.shapes[other.shapeId].width
-                && y..y + PyroclasticFlow.shapes[shapeId].height overlaps other.y..other.y + PyroclasticFlow.shapes[other.shapeId].height
+        return x..x + shapes[shapeId].width overlaps other.x..other.x + shapes[other.shapeId].width
+                && y..y + shapes[shapeId].height overlaps other.y..other.y + shapes[other.shapeId].height
+    }
+
+    fun collide(other: Tile): Boolean {
+        if (!overlap(other)) return false
+        // |.......|
+        // |..1....|
+        // |..1....|
+        // |1112...|
+        // |..222..|
+        // |...2...|
+        // |..####.|
+        // +-------+
+
+
+        return true
     }
 }
 
@@ -78,4 +91,16 @@ data class Shape(
     val width: Int,
     val height: Int,
     val body: String
-)
+) {
+    fun globalPoints(x: Int, y: Int): Set<Point> {
+        val globalPoints = mutableSetOf<Point>()
+        for (h in 0 until height) {
+            for (w in 0 until width) {
+                if (body[h * height + w] == '#') {
+                    globalPoints.add(Point(x + w, y + h))
+                }
+            }
+        }
+        return globalPoints
+    }
+}

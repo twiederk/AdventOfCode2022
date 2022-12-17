@@ -145,11 +145,6 @@ data class Sensor(
         get() = abs(x - beaconX) + abs(y - beaconY)
 }
 
-data class Point(
-    val x: Int,
-    val y: Int
-)
-
 fun main() {
     val beaconExclusionZone = BeaconExclusionZone()
     val rawData = beaconExclusionZone.loadData(Path("src", "main", "resources", "Day15_part1_InputData.txt"))

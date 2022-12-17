@@ -38,3 +38,8 @@ internal object Resources {
         Resources.javaClass.classLoader.getResource(this)?.toURI()
             ?: throw IllegalArgumentException("Cannot find Resource: $this")
 }
+
+data class Point(
+    val x: Int,
+    val y: Int
+)
