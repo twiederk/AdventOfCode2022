@@ -13,16 +13,31 @@ class PyroclasticFlowTest {
     }
 
     @Test
-    fun createNextTile() {
-        // arrange
+    fun createNextTile_1() {
 
         // act
         val tile = pyroclasticFlow.createNextTile()
 
         // assert
         assertThat(tile.x).isEqualTo(2)
-        assertThat(tile.y).isEqualTo(3)
+        assertThat(tile.y).isEqualTo(4)
         assertThat(tile.shapeId).isEqualTo(0)
+        assertThat(pyroclasticFlow.shapeId).isEqualTo(1)
+    }
 
+    @Test
+    fun createNextTile_2() {
+        // arrange
+        pyroclasticFlow.towerHeight = 1
+        pyroclasticFlow.shapeId = 1
+
+        // act
+        val tile = pyroclasticFlow.createNextTile()
+
+        // assert
+        assertThat(tile.x).isEqualTo(2)
+        assertThat(tile.y).isEqualTo(7)
+        assertThat(tile.shapeId).isEqualTo(1)
+        assertThat(pyroclasticFlow.shapeId).isEqualTo(2)
     }
 }
