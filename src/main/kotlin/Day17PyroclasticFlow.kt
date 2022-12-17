@@ -200,3 +200,9 @@ data class Shape(
         return result
     }
 }
+
+fun main() {
+    val pyroclasticFlow = PyroclasticFlow(Resources.resourceAsText("Day17_InputData.txt"))
+    val towerHeight = pyroclasticFlow.tetris(2022)
+    println("towerHeight = $towerHeight")
+}
