@@ -68,7 +68,7 @@ class PyroclasticFlow(val jetStream: String, var debug: Boolean = false) {
                     break
                 } else {
                     tile.y = y
-                    debug("after fallMove: $tile")
+                    debug("after fallMove   : $tile")
                 }
             } while (true)
         }
@@ -108,8 +108,8 @@ class PyroclasticFlow(val jetStream: String, var debug: Boolean = false) {
             // id: 2
             Shape(
                 3, 3, """
-                ..#
-                ..#
+                #..
+                #..
                 ###
             """.trimIndent().replace("\n", "")
             ),
@@ -166,7 +166,7 @@ data class Shape(
         for (h in 0 until height) {
             for (w in 0 until width) {
                 if (body[h * width + w] == '#') {
-                    globalPoints.add(Point(x + w, y - h))
+                    globalPoints.add(Point(x + w, y + h))
                 }
             }
         }

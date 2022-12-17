@@ -130,17 +130,18 @@ class PyroclasticFlowTest {
     // 2|...2...|
     // 1|..####.|
     // 0+-------+
+    //   01234567
     @Test
     fun jetMove_collideLeft() {
         // arrange
-        pyroclasticFlow.restTiles.add(Tile(2, 4, 1))
-        val tile = Tile(4, 6, 2)
+        pyroclasticFlow.restTiles.add(Tile(2, 2, 1))
+        val tile = Tile(4, 4, 2)
 
         // act
         val x = pyroclasticFlow.jetMove(tile, '<')
 
         // assert
-        assertThat(x).isEqualTo(tile.x)
+        assertThat(x).isEqualTo(4)
     }
 
     //   01234567
@@ -259,10 +260,10 @@ class PyroclasticFlowTest {
     }
 
     //    |..@....|
-//    |.@@@...|
-//    |..@....|
-//    |..####.|
-//    +-------+
+    //    |.@@@...|
+    //    |..@....|
+    //    |..####.|
+    //    +-------+
     @Test
     fun collide_error_1() {
         // arrange
@@ -274,6 +275,29 @@ class PyroclasticFlowTest {
 
         // assert
         assertThat(collide).isFalse
+    }
+
+    //    01234567
+    // 6|.....1.|
+    // 5|.....1.|
+    // 4|...X11.|
+    // 3|..222..|
+    // 2|...2...|
+    // 1|..####.|
+    // 0+-------+
+    //  01234567
+
+    @Test
+    fun collide_error_5() {
+        // arrange
+        val tile1 = Tile(2, 2, 1)
+        val tile2 = Tile(3, 4, 2)
+
+        // act
+        val collide = tile1.collide(tile2)
+
+        // assert
+        assertThat(collide).isTrue
     }
 
 
@@ -358,10 +382,10 @@ class PyroclasticFlowTest {
         // assert
         assertThat(globalPoints).contains(
             Point(1, 0),
-            Point(0, -1),
-            Point(1, -1),
-            Point(2, -1),
-            Point(1, -2),
+            Point(0, 1),
+            Point(1, 1),
+            Point(2, 1),
+            Point(1, 2),
         )
     }
 
@@ -372,11 +396,26 @@ class PyroclasticFlowTest {
 
         // assert
         assertThat(globalPoints).contains(
-            Point(3, 0),
-            Point(2, 1),
-            Point(3, 1),
-            Point(4, 1),
             Point(3, 2),
+            Point(2, 3),
+            Point(3, 3),
+            Point(4, 3),
+            Point(3, 4),
+        )
+    }
+
+    @Test
+    fun shapeGlobalPoints_shape2At00() {
+        // act
+        val globalPoints = shapes[2].globalPoints(0, 0)
+
+        // assert
+        assertThat(globalPoints).contains(
+            Point(0, 0),
+            Point(0, 1),
+            Point(0, 2),
+            Point(1, 2),
+            Point(2, 2),
         )
     }
 
@@ -389,9 +428,9 @@ class PyroclasticFlowTest {
         // assert
         assertThat(globalPoints).contains(
             Point(0, 0),
-            Point(0, -1),
-            Point(0, -2),
-            Point(0, -3),
+            Point(0, 1),
+            Point(0, 2),
+            Point(0, 3),
         )
     }
 
@@ -452,6 +491,21 @@ class PyroclasticFlowTest {
     }
 
     @Test
+    fun fallMove_error_4() {
+        // arrange
+        pyroclasticFlow.restTiles.add(Tile(2, 1, 0))
+        pyroclasticFlow.restTiles.add(Tile(2, 2, 1))
+        pyroclasticFlow.restTiles.add(Tile(0, 4, 2))
+        val tile = Tile(4, 5, 3)
+
+        // act
+        val y = pyroclasticFlow.fallMove(tile)
+
+        // assert
+        assertThat(y).isEqualTo(4)
+    }
+
+    @Test
     fun getJet() {
         // act
         val jet = pyroclasticFlow.getJet()
@@ -509,12 +563,28 @@ class PyroclasticFlowTest {
         val towerHeight = pyroclasticFlow.tetris(3)
 
         // assert
+        assertThat(towerHeight).isEqualTo(6)
         assertThat(pyroclasticFlow.restTiles).containsExactly(
             Tile(2, 1, 0),
             Tile(2, 2, 1),
             Tile(0, 4, 2)
         )
-        assertThat(towerHeight).isEqualTo(6)
+    }
+
+    @Test
+    fun tetris_block4() {
+        pyroclasticFlow.debug = true
+
+        // act
+        val towerHeight = pyroclasticFlow.tetris(4)
+
+        // assert
+        assertThat(towerHeight).isEqualTo(7)
+        assertThat(pyroclasticFlow.restTiles).containsExactly(
+            Tile(2, 1, 0),
+            Tile(2, 2, 1),
+            Tile(0, 4, 2)
+        )
     }
 
     @Test
