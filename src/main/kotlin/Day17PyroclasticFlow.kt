@@ -1,6 +1,6 @@
 import PyroclasticFlow.Companion.shapes
 
-class PyroclasticFlow(val jetStream: String) {
+class PyroclasticFlow(val jetStream: String, var debug: Boolean = false) {
 
     var towerHeight = 0
     var shapeId = 0
@@ -12,9 +12,10 @@ class PyroclasticFlow(val jetStream: String) {
     fun createNextTile(): Tile {
         val tileShapeId = shapeId
         val x = 2
-        val y = towerHeight + 3 + shapes[tileShapeId].height
+        val y = towerHeight + 4
 
         shapeId++
+        if (shapeId > shapes.lastIndex) shapeId = 0
         return Tile(x, y, tileShapeId)
     }
 
@@ -49,16 +50,24 @@ class PyroclasticFlow(val jetStream: String) {
     fun tetris(maxTiles: Int): Int {
         while (restTiles.size < maxTiles) {
             val tile = createNextTile()
+            debug("appearing: $tile")
             do {
                 val jet = getJet()
                 tile.x = jetMove(tile, jet)
+                debug("after jetMove: $tile")
                 val y = fallMove(tile)
                 if (tile.y == y) {
+                    debug("resting: $tile")
                     restTiles.add(tile)
-                    towerHeight += (y - towerHeight)
+                    debug("restTiles = $restTiles")
+
+                    towerHeight += ((y - 1) + shapes[tile.shapeId].height - towerHeight)
+                    debug("towerHeight = $towerHeight")
+                    debug("####################")
                     break
                 } else {
                     tile.y = y
+                    debug("after fallMove: $tile")
                 }
             } while (true)
         }
@@ -70,6 +79,10 @@ class PyroclasticFlow(val jetStream: String) {
         jetCounter++
         if (jetCounter > jetStream.lastIndex) jetCounter = 0
         return jet
+    }
+
+    private fun debug(message: String) {
+        if (debug) println(message)
     }
 
     companion object {
@@ -126,8 +139,11 @@ data class Tile(
     val shapeId: Int,
 ) {
     fun overlap(other: Tile): Boolean {
-        return x..x + shapes[shapeId].width overlaps other.x..other.x + shapes[other.shapeId].width
-                && y..y + shapes[shapeId].height overlaps other.y..other.y + shapes[other.shapeId].height
+        val endX = x + shapes[shapeId].width - 1
+        val otherEndX = other.x + shapes[other.shapeId].width - 1
+        val endY = y + shapes[shapeId].height - 1
+        val otherEndY = other.y + shapes[other.shapeId].height - 1
+        return x..endX overlaps other.x..otherEndX && y..endY overlaps other.y..otherEndY
     }
 
     fun collide(other: Tile): Boolean {

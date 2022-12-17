@@ -37,7 +37,7 @@ class PyroclasticFlowTest {
 
         // assert
         assertThat(tile.x).isEqualTo(2)
-        assertThat(tile.y).isEqualTo(7)
+        assertThat(tile.y).isEqualTo(5)
         assertThat(tile.shapeId).isEqualTo(1)
         assertThat(pyroclasticFlow.shapeId).isEqualTo(2)
     }
@@ -53,9 +53,25 @@ class PyroclasticFlowTest {
 
         // assert
         assertThat(tile.x).isEqualTo(2)
-        assertThat(tile.y).isEqualTo(10)
+        assertThat(tile.y).isEqualTo(8)
         assertThat(tile.shapeId).isEqualTo(2)
         assertThat(pyroclasticFlow.shapeId).isEqualTo(3)
+    }
+
+    @Test
+    fun createNextTile_5() {
+        // arrange
+        pyroclasticFlow.towerHeight = 9
+        pyroclasticFlow.shapeId = 4
+
+        // act
+        val tile = pyroclasticFlow.createNextTile()
+
+        // assert
+        assertThat(tile.x).isEqualTo(2)
+        assertThat(tile.y).isEqualTo(13)
+        assertThat(tile.shapeId).isEqualTo(4)
+        assertThat(pyroclasticFlow.shapeId).isEqualTo(0)
     }
 
     @Test
@@ -148,6 +164,25 @@ class PyroclasticFlowTest {
         assertThat(x).isEqualTo(tile.x)
     }
 
+    //    |..@....|
+    //    |.@@@...|
+    //    |..@....|
+    //    |..####.|
+    //    +-------+
+    @Test
+    fun jetMove_error_1() {
+        // arrange
+        pyroclasticFlow.restTiles.add(Tile(2, 1, 0))
+        val tile = Tile(1, 2, 1)
+
+        // act
+        val x = pyroclasticFlow.jetMove(tile, '>')
+
+        // assert
+        assertThat(x).isEqualTo(2)
+
+    }
+
     //   01234567
     // 6|..1....|
     // 5|..1....|
@@ -211,6 +246,23 @@ class PyroclasticFlowTest {
         assertThat(collide).isTrue
     }
 
+    //    |..@....|
+//    |.@@@...|
+//    |..@....|
+//    |..####.|
+//    +-------+
+    @Test
+    fun collide_error_1() {
+        // arrange
+        val tile1 = Tile(1, 2, 1)
+        val tile2 = Tile(2, 1, 0)
+
+        // act
+        val collide = tile1.collide(tile2)
+
+        // assert
+        assertThat(collide).isFalse
+    }
 
 
     @Test
@@ -239,6 +291,24 @@ class PyroclasticFlowTest {
         assertThat(overlap).isTrue
     }
 
+    //    |..@....|
+    //    |.@@@...|
+    //    |..@....|
+    //    |..####.|
+    //    +-------+
+    @Test
+    fun tileOverlap_error_1() {
+        // arrange
+        val tile1 = Tile(1, 2, 1)
+        val tile2 = Tile(2, 1, 0)
+
+        // act
+        val overlap = tile1.overlap(tile2)
+
+        // assert
+        assertThat(overlap).isFalse
+
+    }
 
     @Test
     fun shapeGlobalPoints_shape0At00() {
@@ -375,11 +445,38 @@ class PyroclasticFlowTest {
 
     @Test
     fun tetris_block1() {
+        pyroclasticFlow.debug = true
+
         // act
         val towerHeight = pyroclasticFlow.tetris(1)
 
         // assert
         assertThat(towerHeight).isEqualTo(1)
+        assertThat(pyroclasticFlow.restTiles).containsExactly(Tile(2, 1, 0))
+    }
+
+    @Test
+    fun tetris_block2() {
+        pyroclasticFlow.debug = true
+
+        // act
+        val towerHeight = pyroclasticFlow.tetris(2)
+
+        // assert
+        assertThat(towerHeight).isEqualTo(4)
+        assertThat(pyroclasticFlow.restTiles).containsExactly(
+            Tile(2, 1, 0),
+            Tile(2, 2, 1),
+        )
+    }
+
+    @Test
+    fun tetris_block3() {
+        // act
+        val towerHeight = pyroclasticFlow.tetris(3)
+
+        // assert
+        assertThat(towerHeight).isEqualTo(6)
     }
 
     @Test
