@@ -56,4 +56,29 @@ class PyroclasticFlowTest {
         assertThat(tile.shapeId).isEqualTo(2)
         assertThat(pyroclasticFlow.shapeId).isEqualTo(3)
     }
+
+    @Test
+    fun jetMove_rightFree() {
+        // arrange
+        val tile = Tile(2, 4, 0)
+
+        // act
+        val x = pyroclasticFlow.jetMove(tile, '>')
+
+        // assert
+        assertThat(x).isEqualTo(3)
+    }
+
+    @Test
+    fun jetMove_rightWall() {
+        // arrange
+        val tile = Tile(3, 4, 0)
+
+        // act
+        val x = pyroclasticFlow.jetMove(tile, '>')
+
+        // assert
+        assertThat(x).isEqualTo(3)
+    }
+
 }
