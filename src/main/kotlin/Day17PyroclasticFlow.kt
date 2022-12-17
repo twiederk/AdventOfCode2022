@@ -33,29 +33,39 @@ class PyroclasticFlow(val input: String) {
         const val TUNNEL_WIDTH = 7
 
         val shapes = listOf(
-            Shape(4, 1, """
+            Shape(
+                4, 1, """
                 ####
-                """.trimIndent().replace("\n","")),
-            Shape(3, 3,"""
+                """.trimIndent().replace("\n", "")
+            ),
+            Shape(
+                3, 3, """
                 .#.
                 ###
                 .#.
-                """.trimIndent().replace("\n","")),
-            Shape(3, 3,"""
+                """.trimIndent().replace("\n", "")
+            ),
+            Shape(
+                3, 3, """
                 ..#
                 ..#
                 ###
-            """.trimIndent().replace("\n","")),
-            Shape(1, 4, """
+            """.trimIndent().replace("\n", "")
+            ),
+            Shape(
+                1, 4, """
                 #
                 #
                 #
                 #
-            """.trimIndent().replace("\n","")),
-            Shape(2, 2, """
+            """.trimIndent().replace("\n", "")
+            ),
+            Shape(
+                2, 2, """
                 ##
                 ##
-            """.trimIndent().replace("\n","")),
+            """.trimIndent().replace("\n", "")
+            ),
         )
 
     }
@@ -73,17 +83,10 @@ data class Tile(
 
     fun collide(other: Tile): Boolean {
         if (!overlap(other)) return false
-        // |.......|
-        // |..1....|
-        // |..1....|
-        // |1112...|
-        // |..222..|
-        // |...2...|
-        // |..####.|
-        // +-------+
-
-
-        return true
+        val myShape = shapes[shapeId].globalPoints(x, y)
+        val otherShape = shapes[other.shapeId].globalPoints(other.x, other.y)
+        val collide = myShape intersect otherShape
+        return collide.isNotEmpty()
     }
 }
 

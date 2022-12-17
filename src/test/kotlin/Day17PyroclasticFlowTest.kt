@@ -106,19 +106,19 @@ class PyroclasticFlowTest {
         assertThat(x).isEqualTo(0)
     }
 
-    // |.......|
-    // |..1....|
-    // |..1....|
-    // |1112...|
-    // |..222..|
-    // |...2...|
-    // |..####.|
+    //   01234567
+    // 0|..1....|
+    // 1|..1....|
+    // 2|1112...|
+    // 3|..222..|
+    // 4|...2...|
+    // 5|..####.|
     // +-------+
     @Test
     fun collide_false() {
         // arrange
-        val tile1 = Tile(0, 4, 2)
-        val tile2 = Tile(2, 4, 1)
+        val tile1 = Tile(0, 0, 2)
+        val tile2 = Tile(2, 2, 1)
 
         // act
         val collide = tile1.collide(tile2)
@@ -127,19 +127,19 @@ class PyroclasticFlowTest {
         assertThat(collide).isFalse
     }
 
-    // |.......|
-    // |...1...|
-    // |...1...|
-    // |.11*...|
-    // |..222..|
-    // |...2...|
-    // |..####.|
+    //   01234567
+    // 0|...1...|
+    // 1|...1...|
+    // 2|.11*..|
+    // 3|..222..|
+    // 4|...2...|
+    // 5|..####.|
     // +-------+
     @Test
     fun collide_true() {
         // arrange
-        val tile1 = Tile(1, 4, 2)
-        val tile2 = Tile(2, 4, 1)
+        val tile1 = Tile(1, 0, 2)
+        val tile2 = Tile(2, 2, 1)
 
         // act
         val collide = tile1.collide(tile2)
