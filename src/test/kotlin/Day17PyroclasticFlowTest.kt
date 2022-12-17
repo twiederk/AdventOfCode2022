@@ -107,6 +107,27 @@ class PyroclasticFlowTest {
     }
 
     //   01234567
+    // 6|......1|
+    // 5|......1|
+    // 4|...2111|
+    // 3|..222..|
+    // 2|...2...|
+    // 1|..####.|
+    // 0+-------+
+    @Test
+    fun jetMove_collideLeft() {
+        // arrange
+        pyroclasticFlow.restTiles.add(Tile(2, 4, 1))
+        val tile = Tile(4, 6, 2)
+
+        // act
+        val x = pyroclasticFlow.jetMove(tile, '<')
+
+        // assert
+        assertThat(x).isEqualTo(tile.x)
+    }
+
+    //   01234567
     // 6|..1....|
     // 5|..1....|
     // 4|1112...|
@@ -115,7 +136,28 @@ class PyroclasticFlowTest {
     // 1|..####.|
     // 0+-------+
     @Test
-    fun collide_false() {
+    fun jetMove_collideRight() {
+        // arrange
+        pyroclasticFlow.restTiles.add(Tile(2, 4, 1))
+        val tile = Tile(0, 6, 2)
+
+        // act
+        val x = pyroclasticFlow.jetMove(tile, '>')
+
+        // assert
+        assertThat(x).isEqualTo(tile.x)
+    }
+
+    //   01234567
+    // 6|..1....|
+    // 5|..1....|
+    // 4|1112...|
+    // 3|..222..|
+    // 2|...2...|
+    // 1|..####.|
+    // 0+-------+
+    @Test
+    fun collide_1_false() {
         // arrange
         val tile1 = Tile(0, 6, 2)
         val tile2 = Tile(2, 4, 1)
@@ -136,7 +178,7 @@ class PyroclasticFlowTest {
     // 1|..####.|
     // 0+-------+
     @Test
-    fun collide_true() {
+    fun collide_2_true() {
         // arrange
         val tile1 = Tile(1, 6, 2)
         val tile2 = Tile(2, 4, 1)
@@ -147,6 +189,29 @@ class PyroclasticFlowTest {
         // assert
         assertThat(collide).isTrue
     }
+
+    //   01234567
+    // 6|.....1.|
+    // 5|.....1.|
+    // 4|...*11.|
+    // 3|..222..|
+    // 2|...2...|
+    // 1|..####.|
+    // 0+-------+
+    @Test
+    fun collide_3_true() {
+        // arrange
+        val tile1 = Tile(3, 6, 2)
+        val tile2 = Tile(2, 4, 1)
+
+        // act
+        val collide = tile1.collide(tile2)
+
+        // assert
+        assertThat(collide).isTrue
+    }
+
+
 
     @Test
     fun tileOverlap_false() {
@@ -182,10 +247,10 @@ class PyroclasticFlowTest {
 
         // assert
         assertThat(globalPoints).contains(
-            Point(0,0),
-            Point(1,0),
-            Point(2,0),
-            Point(3,0),
+            Point(0, 0),
+            Point(1, 0),
+            Point(2, 0),
+            Point(3, 0),
         )
     }
 
@@ -196,10 +261,10 @@ class PyroclasticFlowTest {
 
         // assert
         assertThat(globalPoints).contains(
-            Point(1,1),
-            Point(2,1),
-            Point(3,1),
-            Point(4,1),
+            Point(1, 1),
+            Point(2, 1),
+            Point(3, 1),
+            Point(4, 1),
         )
     }
 
@@ -210,11 +275,11 @@ class PyroclasticFlowTest {
 
         // assert
         assertThat(globalPoints).contains(
-            Point(1,0),
-            Point(0,1),
-            Point(1,1),
-            Point(2,1),
-            Point(1,2),
+            Point(1, 0),
+            Point(0, -1),
+            Point(1, -1),
+            Point(2, -1),
+            Point(1, -2),
         )
     }
 
@@ -225,11 +290,11 @@ class PyroclasticFlowTest {
 
         // assert
         assertThat(globalPoints).contains(
-            Point(3,2),
-            Point(2,3),
-            Point(3,3),
-            Point(4,3),
-            Point(3,4),
+            Point(3, 0),
+            Point(2, 1),
+            Point(3, 1),
+            Point(4, 1),
+            Point(3, 2),
         )
     }
 
@@ -260,7 +325,7 @@ class PyroclasticFlowTest {
     @Test
     fun fallMove_tile() {
         // arrange
-        pyroclasticFlow.restTiles.add(Tile(2,1, 0))
+        pyroclasticFlow.restTiles.add(Tile(2, 1, 0))
         val tile = Tile(2, 2, 0)
 
         // act

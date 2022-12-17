@@ -17,19 +17,26 @@ class PyroclasticFlow(val input: String) {
         return Tile(x, y, tileShapeId)
     }
 
-    fun jetMove(tile: Tile, char: Char): Int =
-        when (char) {
-            '>' -> collideRightWall(tile)
-            '<' -> collideLeftWall(tile)
-            else -> throw IllegalArgumentException("Unknown jet sign [$char]")
+    fun jetMove(tile: Tile, char: Char): Int = when (char) {
+        '>' -> collideRight(tile)
+        '<' -> collideLeft(tile)
+        else -> throw IllegalArgumentException("Unknown jet sign [$char]")
+    }
+
+    private fun collideLeft(tile: Tile): Int {
+        val tileMovedToLeft = tile.copy(x = tile.x - 1)
+        if (restTiles.firstOrNull { it.collide(tileMovedToLeft) } != null) return tile.x
+        return if (tile.x - 1 > 0) tile.x - 1 else tile.x
+    }
+
+    private fun collideRight(tile: Tile): Int {
+        val tileMovedToRight = tile.copy(x = tile.x + 1)
+        if (restTiles.firstOrNull { it.collide(tileMovedToRight) } != null) return tile.x
+        return if (tile.x + shapes[tile.shapeId].width + 1 <= TUNNEL_WIDTH) {
+            tile.x + 1
+        } else {
+            tile.x
         }
-
-    private fun collideLeftWall(tile: Tile): Int = if (tile.x - 1 > 0) tile.x - 1 else tile.x
-
-    private fun collideRightWall(tile: Tile): Int = if (tile.x + shapes[tile.shapeId].width + 1 <= TUNNEL_WIDTH) {
-        tile.x + 1
-    } else {
-        tile.x
     }
 
     fun fallMove(tile: Tile): Int {
@@ -110,7 +117,7 @@ data class Shape(
         for (h in 0 until height) {
             for (w in 0 until width) {
                 if (body[h * height + w] == '#') {
-                    globalPoints.add(Point(x + w, y + h))
+                    globalPoints.add(Point(x + w, y - h))
                 }
             }
         }
