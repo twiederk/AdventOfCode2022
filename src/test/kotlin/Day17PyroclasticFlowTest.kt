@@ -1,4 +1,4 @@
-import org.assertj.core.api.Assertions.*
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
 class PyroclasticFlowTest {
@@ -79,6 +79,92 @@ class PyroclasticFlowTest {
 
         // assert
         assertThat(x).isEqualTo(3)
+    }
+
+    @Test
+    fun jetMove_leftFree() {
+        // arrange
+        val tile = Tile(2, 4, 0)
+
+        // act
+        val x = pyroclasticFlow.jetMove(tile, '<')
+
+        // assert
+        assertThat(x).isEqualTo(1)
+    }
+
+    @Test
+    fun jetMove_leftWall() {
+        // arrange
+        val tile = Tile(0, 4, 0)
+
+        // act
+        val x = pyroclasticFlow.jetMove(tile, '<')
+
+        // assert
+        assertThat(x).isEqualTo(0)
+    }
+
+    @Test
+    fun collide_shape1AndShape2_false() {
+        // arrange
+        val tile1 = Tile(0, 4, 2)
+        val tile2 = Tile(2, 4, 1)
+
+        // act
+        val collide = pyroclasticFlow.collide(tile1, tile2)
+
+        // assert
+        assertThat(collide).isFalse
+    }
+
+    /*
+    |.......|
+    |..#....|
+    |..#....|
+    |####...|
+    |..###..|
+    |...#...|
+    |..####.|
+    +-------+
+*/
+    @Test
+    fun collide_shape1AndShape2_true() {
+        // arrange
+        val tile1 = Tile(1, 4, 2)
+        val tile2 = Tile(2, 4, 1)
+
+        // act
+        val collide = pyroclasticFlow.collide(tile1, tile2)
+
+        // assert
+        assertThat(collide).isTrue
+    }
+
+    @Test
+    fun tileOverlap_false() {
+        // arrange
+        val tile1 = Tile(1, 0, 2)
+        val tile2 = Tile(2, 4, 1)
+
+        // act
+        val overlap = tile1.overlap(tile2)
+
+        // assert
+        assertThat(overlap).isFalse
+    }
+
+    @Test
+    fun tileOverlap_true() {
+        // arrange
+        val tile1 = Tile(1, 4, 2)
+        val tile2 = Tile(2, 4, 1)
+
+        // act
+        val overlap = tile1.overlap(tile2)
+
+        // assert
+        assertThat(overlap).isTrue
     }
 
 }
