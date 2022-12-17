@@ -666,6 +666,159 @@ class PyroclasticFlowTest {
         )
     }
 
+    //    |.......|
+    //    |..7....|
+    //    |.777...|
+    //    |..7....|
+    //    |.6666..|
+    //    |....55.|
+    //    |....55.|
+    //    |....4..|
+    //    |..3.4..|
+    //    |..3.4..|
+    //    |33324..|
+    //    |..222..|
+    //    |...2...|
+    //    |..1111.|
+    //    +-------+
+    @Test
+    fun tetris_block7() {
+
+        // act
+        val towerHeight = pyroclasticFlow.tetris(7)
+
+        // assert
+        assertThat(towerHeight).isEqualTo(13)
+        assertThat(pyroclasticFlow.restTiles).containsExactly(
+            Tile(2, 1, 0),
+            Tile(2, 2, 1),
+            Tile(0, 4, 2),
+            Tile(4, 4, 3),
+            Tile(4, 8, 4),
+            Tile(1, 10, 0),
+            Tile(1, 11, 1),
+        )
+    }
+
+    //    |.......|
+    //    |.......|
+    //    |.....8.|
+    //    |.....8.|
+    //    |..7888.|
+    //    |.777...|
+    //    |..7....|
+    //    |.6666..|
+    //    |....55.|
+    //    |....55.|
+    //    |....4..|
+    //    |..3.4..|
+    //    |..3.4..|
+    //    |33324..|
+    //    |..222..|
+    //    |...2...|
+    //    |..1111.|
+    //    +-------+
+    @Test
+    fun tetris_block8() {
+
+        // act
+        val towerHeight = pyroclasticFlow.tetris(8)
+
+        // assert
+        assertThat(towerHeight).isEqualTo(15)
+        assertThat(pyroclasticFlow.restTiles).containsExactly(
+            Tile(2, 1, 0),
+            Tile(2, 2, 1),
+            Tile(0, 4, 2),
+            Tile(4, 4, 3),
+            Tile(4, 8, 4),
+            Tile(1, 10, 0),
+            Tile(1, 11, 1),
+            Tile(3, 13, 2),
+        )
+    }
+
+    //    |.......|
+    //    |....9..|
+    //    |....9..|
+    //    |....98.|
+    //    |....98.|
+    //    |..7888.|
+    //    |.777...|
+    //    |..7....|
+    //    |.6666..|
+    //    |....55.|
+    //    |....55.|
+    //    |....4..|
+    //    |..3.4..|
+    //    |..3.4..|
+    //    |33324..|
+    //    |..222..|
+    //    |...2...|
+    //    |..1111.|
+    //    +-------+
+    @Test
+    fun tetris_block9() {
+
+        // act
+        val towerHeight = pyroclasticFlow.tetris(9)
+
+        // assert
+        assertThat(towerHeight).isEqualTo(17)
+        assertThat(pyroclasticFlow.restTiles).containsExactly(
+            Tile(2, 1, 0),
+            Tile(2, 2, 1),
+            Tile(0, 4, 2),
+            Tile(4, 4, 3),
+            Tile(4, 8, 4),
+            Tile(1, 10, 0),
+            Tile(1, 11, 1),
+            Tile(3, 13, 2),
+            Tile(4, 14, 3),
+        )
+    }
+
+    //    |.......|
+    //    |....9..|
+    //    |....9..|
+    //    |....98.|
+    //    |aa..98.|
+    //    |aa7888.|
+    //    |.777...|
+    //    |..7....|
+    //    |.6666..|
+    //    |....55.|
+    //    |....55.|
+    //    |....4..|
+    //    |..3.4..|
+    //    |..3.4..|
+    //    |33324..|
+    //    |..222..|
+    //    |...2...|
+    //    |..1111.|
+    //    +-------+
+    @Test
+    fun tetris_block10() {
+
+        // act
+        val towerHeight = pyroclasticFlow.tetris(10)
+
+        // assert
+        assertThat(towerHeight).isEqualTo(17)
+        assertThat(pyroclasticFlow.restTiles).containsExactly(
+            Tile(2, 1, 0),
+            Tile(2, 2, 1),
+            Tile(0, 4, 2),
+            Tile(4, 4, 3),
+            Tile(4, 8, 4),
+            Tile(1, 10, 0),
+            Tile(1, 11, 1),
+            Tile(3, 13, 2),
+            Tile(4, 14, 3),
+            Tile(0, 13, 4),
+        )
+    }
+
     @Test
     fun tetris_example() {
         // act

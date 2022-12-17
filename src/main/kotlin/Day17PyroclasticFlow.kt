@@ -62,7 +62,7 @@ class PyroclasticFlow(val jetStream: String, var debug: Boolean = false) {
                     restTiles.add(tile)
                     debug("restTiles = $restTiles")
 
-                    towerHeight += ((y - 1) + shapes[tile.shapeId].height - towerHeight)
+                    towerHeight = calculateTowerHeight(y, tile)
                     debug("towerHeight = $towerHeight")
                     debug("####################")
                     break
@@ -73,6 +73,11 @@ class PyroclasticFlow(val jetStream: String, var debug: Boolean = false) {
             } while (true)
         }
         return towerHeight
+    }
+
+    private fun calculateTowerHeight(y: Int, tile: Tile): Int {
+        val newTowerHeight = towerHeight + ((y - 1) + shapes[tile.shapeId].height - towerHeight)
+        return maxOf(newTowerHeight, towerHeight)
     }
 
     fun getJet(): Char {
