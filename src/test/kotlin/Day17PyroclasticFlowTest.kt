@@ -40,4 +40,20 @@ class PyroclasticFlowTest {
         assertThat(tile.shapeId).isEqualTo(1)
         assertThat(pyroclasticFlow.shapeId).isEqualTo(2)
     }
+
+    @Test
+    fun createNextTile_3() {
+        // arrange
+        pyroclasticFlow.towerHeight = 4
+        pyroclasticFlow.shapeId = 2
+
+        // act
+        val tile = pyroclasticFlow.createNextTile()
+
+        // assert
+        assertThat(tile.x).isEqualTo(2)
+        assertThat(tile.y).isEqualTo(10)
+        assertThat(tile.shapeId).isEqualTo(2)
+        assertThat(pyroclasticFlow.shapeId).isEqualTo(3)
+    }
 }
