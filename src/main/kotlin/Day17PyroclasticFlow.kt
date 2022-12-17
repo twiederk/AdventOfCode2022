@@ -35,11 +35,29 @@ class PyroclasticFlow(val input: String) {
         const val TUNNEL_WIDTH = 7
 
         val shapes = listOf(
-            Shape(4, 1),
-            Shape(3, 3),
-            Shape(3, 3),
-            Shape(1, 4),
-            Shape(2, 2),
+            Shape(4, 1, """
+                ####
+                """.trimIndent()),
+            Shape(3, 3,"""
+                .#.
+                ###
+                .#.
+                """.trimIndent()),
+            Shape(3, 3,"""
+                ..#
+                ..#
+                ###
+            """.trimIndent()),
+            Shape(1, 4, """
+                #
+                #
+                #
+                #
+            """.trimIndent()),
+            Shape(2, 2, """
+                ##
+                ##
+            """.trimIndent()),
         )
 
     }
@@ -59,4 +77,5 @@ data class Tile(
 data class Shape(
     val width: Int,
     val height: Int,
+    val body: String
 )
