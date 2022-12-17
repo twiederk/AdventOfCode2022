@@ -45,6 +45,29 @@ class PyroclasticFlow(val input: String) {
         return tile.y - 1
     }
 
+    fun tetris(maxTiles: Int): Int {
+        while (restTiles.size < maxTiles) {
+            val tile = createNextTile()
+            do {
+                val jet = getJet()
+                tile.x = jetMove(tile, jet)
+                val y = fallMove(tile)
+                if (tile.y == y) {
+                    restTiles.add(tile)
+                    towerHeight += (y - towerHeight)
+                    break
+                } else {
+                    tile.y = y
+                }
+            } while (true)
+        }
+        return towerHeight
+    }
+
+    private fun getJet(): Char {
+        return '<'
+    }
+
     companion object {
         const val TUNNEL_WIDTH = 7
         const val FLOOR = 0
@@ -89,8 +112,8 @@ class PyroclasticFlow(val input: String) {
 }
 
 data class Tile(
-    val x: Int,
-    val y: Int,
+    var x: Int,
+    var y: Int,
     val shapeId: Int,
 ) {
     fun overlap(other: Tile): Boolean {

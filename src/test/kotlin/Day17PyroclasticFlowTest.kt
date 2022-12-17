@@ -334,4 +334,16 @@ class PyroclasticFlowTest {
         // assert
         assertThat(y).isEqualTo(1)
     }
+
+    @Test
+    fun tetris_block1() {
+        // arrange
+
+        // act
+        val towerHeight = pyroclasticFlow.tetris(1)
+
+        // assert
+        assertThat(towerHeight).isEqualTo(1)
+
+    }
 }
