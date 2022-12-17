@@ -105,6 +105,14 @@ class PyroclasticFlowTest {
         assertThat(x).isEqualTo(0)
     }
 
+    // |.......|
+    // |..1....|
+    // |..1....|
+    // |1112...|
+    // |..222..|
+    // |...2...|
+    // |..####.|
+    // +-------+
     @Test
     fun collide_shape1AndShape2_false() {
         // arrange
@@ -118,16 +126,7 @@ class PyroclasticFlowTest {
         assertThat(collide).isFalse
     }
 
-    /*
-    |.......|
-    |..#....|
-    |..#....|
-    |####...|
-    |..###..|
-    |...#...|
-    |..####.|
-    +-------+
-*/
+
     @Test
     fun collide_shape1AndShape2_true() {
         // arrange
