@@ -298,6 +298,21 @@ class PyroclasticFlowTest {
         )
     }
 
+
+    @Test
+    fun shapeGlobalPoints_shape3At00() {
+        // act
+        val globalPoints = shapes[3].globalPoints(0, 0)
+
+        // assert
+        assertThat(globalPoints).contains(
+            Point(0, 0),
+            Point(0, -1),
+            Point(0, -2),
+            Point(0, -3),
+        )
+    }
+
     @Test
     fun fallMove_free() {
         // arrange
@@ -336,15 +351,6 @@ class PyroclasticFlowTest {
     }
 
     @Test
-    fun tetris_block1() {
-        // act
-        val towerHeight = pyroclasticFlow.tetris(1)
-
-        // assert
-        assertThat(towerHeight).isEqualTo(1)
-    }
-
-    @Test
     fun getJet() {
         // act
         val jet = pyroclasticFlow.getJet()
@@ -365,6 +371,24 @@ class PyroclasticFlowTest {
         // assert
         assertThat(jet).isEqualTo('>')
         assertThat(pyroclasticFlow.jetCounter).isEqualTo(0)
+    }
+
+    @Test
+    fun tetris_block1() {
+        // act
+        val towerHeight = pyroclasticFlow.tetris(1)
+
+        // assert
+        assertThat(towerHeight).isEqualTo(1)
+    }
+
+    @Test
+    fun tetris_example() {
+        // act
+        val towerHeight = pyroclasticFlow.tetris(2022)
+
+        // assert
+        assertThat(towerHeight).isEqualTo(3068)
     }
 
 }

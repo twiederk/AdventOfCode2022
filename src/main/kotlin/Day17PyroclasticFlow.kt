@@ -77,11 +77,13 @@ class PyroclasticFlow(val jetStream: String) {
         const val FLOOR = 0
 
         val shapes = listOf(
+            // id: 0
             Shape(
                 4, 1, """
                 ####
                 """.trimIndent().replace("\n", "")
             ),
+            // id: 1
             Shape(
                 3, 3, """
                 .#.
@@ -89,6 +91,7 @@ class PyroclasticFlow(val jetStream: String) {
                 .#.
                 """.trimIndent().replace("\n", "")
             ),
+            // id: 2
             Shape(
                 3, 3, """
                 ..#
@@ -96,6 +99,7 @@ class PyroclasticFlow(val jetStream: String) {
                 ###
             """.trimIndent().replace("\n", "")
             ),
+            // id: 3
             Shape(
                 1, 4, """
                 #
@@ -104,6 +108,7 @@ class PyroclasticFlow(val jetStream: String) {
                 #
             """.trimIndent().replace("\n", "")
             ),
+            // id: 4
             Shape(
                 2, 2, """
                 ##
@@ -143,7 +148,7 @@ data class Shape(
         val globalPoints = mutableSetOf<Point>()
         for (h in 0 until height) {
             for (w in 0 until width) {
-                if (body[h * height + w] == '#') {
+                if (body[h * width + w] == '#') {
                     globalPoints.add(Point(x + w, y - h))
                 }
             }
