@@ -233,4 +233,16 @@ class PyroclasticFlowTest {
         )
     }
 
+    @Test
+    fun fallMove_free() {
+        // arrange
+        val tile = Tile(2, 4, 0)
+
+        // act
+        val y = pyroclasticFlow.fallMove(tile)
+
+        // assert
+        assertThat(y).isEqualTo(3)
+    }
+
 }

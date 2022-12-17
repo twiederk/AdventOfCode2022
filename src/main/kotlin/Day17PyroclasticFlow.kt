@@ -29,6 +29,10 @@ class PyroclasticFlow(val input: String) {
         tile.x
     }
 
+    fun fallMove(tile: Tile): Int {
+        return tile.y - 1
+    }
+
     companion object {
         const val TUNNEL_WIDTH = 7
 
