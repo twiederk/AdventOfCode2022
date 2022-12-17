@@ -5,6 +5,9 @@ class PyroclasticFlow(val input: String) {
     var towerHeight = 0
     var shapeId = 0
 
+    val restTiles = mutableListOf<Tile>()
+
+
     fun createNextTile(): Tile {
         val tileShapeId = shapeId
         val x = 2
@@ -30,11 +33,14 @@ class PyroclasticFlow(val input: String) {
     }
 
     fun fallMove(tile: Tile): Int {
+        if (restTiles.firstOrNull { it.collide(tile) } != null) return tile.y
+        if (tile.y - 1 == FLOOR) return tile.y
         return tile.y - 1
     }
 
     companion object {
         const val TUNNEL_WIDTH = 7
+        const val FLOOR = 0
 
         val shapes = listOf(
             Shape(
