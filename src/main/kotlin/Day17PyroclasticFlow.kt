@@ -1,9 +1,10 @@
 import PyroclasticFlow.Companion.shapes
 
-class PyroclasticFlow(val input: String) {
+class PyroclasticFlow(val jetStream: String) {
 
     var towerHeight = 0
     var shapeId = 0
+    var jetCounter = 0
 
     val restTiles = mutableListOf<Tile>()
 
@@ -64,8 +65,11 @@ class PyroclasticFlow(val input: String) {
         return towerHeight
     }
 
-    private fun getJet(): Char {
-        return '<'
+    fun getJet(): Char {
+        val jet = jetStream[jetCounter]
+        jetCounter++
+        if (jetCounter > jetStream.lastIndex) jetCounter = 0
+        return jet
     }
 
     companion object {

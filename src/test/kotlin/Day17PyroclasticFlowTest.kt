@@ -10,7 +10,7 @@ class PyroclasticFlowTest {
     fun loadData() {
 
         // assert
-        assertThat(pyroclasticFlow.input).isEqualTo(">>><<><>><<<>><>>><<<>>><<<><<<>><>><<>>")
+        assertThat(pyroclasticFlow.jetStream).isEqualTo(">>><<><>><<<>><>>><<<>>><<<><<<>><>><<>>")
     }
 
     @Test
@@ -337,13 +337,34 @@ class PyroclasticFlowTest {
 
     @Test
     fun tetris_block1() {
-        // arrange
-
         // act
         val towerHeight = pyroclasticFlow.tetris(1)
 
         // assert
         assertThat(towerHeight).isEqualTo(1)
-
     }
+
+    @Test
+    fun getJet() {
+        // act
+        val jet = pyroclasticFlow.getJet()
+
+        // assert
+        assertThat(jet).isEqualTo('>')
+        assertThat(pyroclasticFlow.jetCounter).isEqualTo(1)
+    }
+
+    @Test
+    fun getJet_lastIndex() {
+        // arrange
+        pyroclasticFlow.jetCounter = pyroclasticFlow.jetStream.lastIndex
+
+        // act
+        val jet = pyroclasticFlow.getJet()
+
+        // assert
+        assertThat(jet).isEqualTo('>')
+        assertThat(pyroclasticFlow.jetCounter).isEqualTo(0)
+    }
+
 }
