@@ -183,6 +183,18 @@ class PyroclasticFlowTest {
 
     }
 
+    @Test
+    fun jetMove_error_3() {
+        // arrange
+        val tile = Tile(x = 1, y = 5, shapeId = 2)
+
+        // act
+        val x = pyroclasticFlow.jetMove(tile, '<')
+
+        // assert
+        assertThat(x).isEqualTo(0)
+    }
+
     //   01234567
     // 6|..1....|
     // 5|..1....|
@@ -429,8 +441,8 @@ class PyroclasticFlowTest {
     @Test
     fun fallMove_error_2() {
         // arrange
-        pyroclasticFlow.restTiles.add(Tile(2,1,0))
-        val tile2 = Tile(2,2,1)
+        pyroclasticFlow.restTiles.add(Tile(2, 1, 0))
+        val tile2 = Tile(2, 2, 1)
 
         // act
         val y = pyroclasticFlow.fallMove(tile2)
@@ -491,10 +503,17 @@ class PyroclasticFlowTest {
 
     @Test
     fun tetris_block3() {
+        pyroclasticFlow.debug = true
+
         // act
         val towerHeight = pyroclasticFlow.tetris(3)
 
         // assert
+        assertThat(pyroclasticFlow.restTiles).containsExactly(
+            Tile(2, 1, 0),
+            Tile(2, 2, 1),
+            Tile(0, 4, 2)
+        )
         assertThat(towerHeight).isEqualTo(6)
     }
 

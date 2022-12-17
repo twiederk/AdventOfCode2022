@@ -28,7 +28,7 @@ class PyroclasticFlow(val jetStream: String, var debug: Boolean = false) {
     private fun collideLeft(tile: Tile): Int {
         val tileMovedToLeft = tile.copy(x = tile.x - 1)
         if (restTiles.firstOrNull { it.collide(tileMovedToLeft) } != null) return tile.x
-        return if (tile.x - 1 > 0) tile.x - 1 else tile.x
+        return if (tile.x - 1 >= 0) tile.x - 1 else tile.x
     }
 
     private fun collideRight(tile: Tile): Int {
@@ -55,7 +55,7 @@ class PyroclasticFlow(val jetStream: String, var debug: Boolean = false) {
             do {
                 val jet = getJet()
                 tile.x = jetMove(tile, jet)
-                debug("after jetMove: $tile")
+                debug("after jetMove [$jet]: $tile")
                 val y = fallMove(tile)
                 if (tile.y == y) {
                     debug("resting: $tile")
