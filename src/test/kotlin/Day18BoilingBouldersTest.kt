@@ -3,27 +3,6 @@ import org.junit.jupiter.api.Test
 
 class BoilingBouldersTest {
 
-
-    /*
-    x,y,z
-
-    (1,1,1), (2,1,1)
-
-    (1,1,1)=>
-    8 corners:
-    1.) 0,0,0
-    2.) 1,0,0
-    3.) 0,1,0
-    4.) 0,0,1
-    5.) 1,0,1
-    6.) 1,1,0
-    7.) 0,1,1
-    8.) 1,1,1
-
-    6 sides:
-    1.)
-     */
-
     @Test
     fun loadData() {
 
@@ -52,6 +31,30 @@ class BoilingBouldersTest {
             Point3D(0, 1, 1), // F
             Point3D(1, 1, 1), // G
             Point3D(1, 0, 1), // H
+        )
+    }
+
+    @Test
+    fun createSides() {
+        // arrange
+        val cube = Cube(1,1,1)
+        cube.createCornerPoints()
+
+        // act
+        cube.createSides()
+
+        // assert
+        val a = Point3D(0, 0, 0)
+        val b = Point3D(0, 1, 0)
+        val c = Point3D(1, 1, 0)
+        val d = Point3D(1, 0, 0)
+        val e = Point3D(0, 1, 1)
+        val f = Point3D(0, 0, 1)
+        val g = Point3D(1, 1, 1)
+        val h = Point3D(1, 0, 1)
+
+        assertThat(cube.sides).containsExactly(
+            Side(setOf(a,b,c,d))
         )
 
     }

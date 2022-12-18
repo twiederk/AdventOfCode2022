@@ -19,6 +19,7 @@ data class Cube(
     val y: Int,
     val z: Int,
 ) {
+    val sides = mutableListOf<Side>()
     val cornerPoints = mutableListOf<Point3D>()
 
     fun createCornerPoints() {
@@ -32,4 +33,12 @@ data class Cube(
         cornerPoints.add(Point3D(x, y - 1, z)) // H
 
     }
+
+    fun createSides() {
+        sides.add(Side(setOf(cornerPoints[0], cornerPoints[1], cornerPoints[2], cornerPoints[3]))) // back
+//        sides.add(Side(setOf(cornerPoints[0], cornerPoints[1], cornerPoints[2], cornerPoints[3])))
+
+    }
 }
+
+data class Side(val points: Set<Point3D>)
