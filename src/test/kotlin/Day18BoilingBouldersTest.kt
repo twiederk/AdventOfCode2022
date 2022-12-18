@@ -37,7 +37,7 @@ class BoilingBouldersTest {
     @Test
     fun createSides() {
         // arrange
-        val cube = Cube(1,1,1)
+        val cube = Cube(1, 1, 1)
         cube.createCornerPoints()
 
         // act
@@ -54,26 +54,83 @@ class BoilingBouldersTest {
         val h = Point3D(1, 0, 1)
 
         assertThat(cube.sides).containsExactly(
-            Side(setOf(a,b,c,d)), // back
-            Side(setOf(e,f,g,h)), // front
-            Side(setOf(b,c,f,g)), // top
-            Side(setOf(a,d,e,h)), // bottom
-            Side(setOf(a,b,e,f)), // left
-            Side(setOf(c,d,g,h)), // right
+            Side(setOf(a, b, c, d)), // back
+            Side(setOf(e, f, g, h)), // front
+            Side(setOf(b, c, f, g)), // top
+            Side(setOf(a, d, e, h)), // bottom
+            Side(setOf(a, b, e, f)), // left
+            Side(setOf(c, d, g, h)), // right
         )
     }
 
     @Test
     fun isAdjacent() {
         // arrange
-        val cube1 = Cube(1,1,1)
-        val cube2 = Cube(2,1,1)
+        val cube1 = Cube(1, 1, 1)
+        val cube2 = Cube(2, 1, 1)
 
         // act
         val adjacent = cube1.isAdjacent(cube2)
 
         // assert
         assertThat(adjacent).isTrue
-
     }
+
+    @Test
+    fun solve_1() {
+        // arrange
+        val cubes = listOf(
+            Cube(1, 1, 1),
+        )
+
+        // act
+        val visibleSides = BoilingBoulders().solve(cubes)
+
+        // assert
+        assertThat(visibleSides).isEqualTo(6)
+    }
+
+    @Test
+    fun solve_2() {
+        // arrange
+        val cubes = listOf(
+            Cube(1, 1, 1),
+            Cube(2, 1, 1),
+        )
+
+        // act
+        val visibleSides = BoilingBoulders().solve(cubes)
+
+        // assert
+        assertThat(visibleSides).isEqualTo(10)
+    }
+
+    @Test
+    fun solve_3() {
+        // arrange
+        val cubes = listOf(
+            Cube(1, 1, 1),
+            Cube(2, 1, 1),
+            Cube(3, 1, 1),
+        )
+
+        // act
+        val visibleSides = BoilingBoulders().solve(cubes)
+
+        // assert
+        assertThat(visibleSides).isEqualTo(14)
+    }
+
+    @Test
+    fun solve_example() {
+        // arrange
+        val cubes = BoilingBoulders().loadData("Day18_TestData.txt")
+
+        // act
+        val visibleSides = BoilingBoulders().solve(cubes)
+
+        // assert
+        assertThat(visibleSides).isEqualTo(64)
+    }
+
 }

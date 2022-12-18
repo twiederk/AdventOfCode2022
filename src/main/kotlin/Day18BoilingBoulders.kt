@@ -5,6 +5,19 @@ class BoilingBoulders {
         return lines.map { it.split(',') }.map { Cube(it[0].toInt(), it[1].toInt(), it[2].toInt()) }
     }
 
+    fun solve(cubes: List<Cube>): Int {
+        var countAdjacent = 0
+
+        for (cube in cubes) {
+            for (other in cubes) {
+                if (cube == other) continue
+                if (cube.isAdjacent(other)) countAdjacent++
+            }
+        }
+
+        return cubes.size * 6 - countAdjacent
+    }
+
 
 }
 
