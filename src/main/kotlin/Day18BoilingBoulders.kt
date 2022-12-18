@@ -18,7 +18,32 @@ class BoilingBoulders {
         return cubes.size * 6 - countAdjacent
     }
 
+    // Solution from Todd Ginsberg
+    // https://todd.ginsberg.com/post/advent-of-code/2022/day18/
+    fun solvePart2(cubes: Set<Cube>): Int {
+        val xRange = cubes.rangeOf { it.x }
+        val yRange = cubes.rangeOf { it.y }
+        val zRange = cubes.rangeOf { it.z }
 
+        val queue = ArrayDeque<Cube>().apply { add(Cube(xRange.first, yRange.first, zRange.first)) }
+        val seen = mutableSetOf<Cube>()
+        var sidesFound = 0
+        queue.forEach { lookNext ->
+            if (lookNext !in seen) {
+                lookNext.cardinalNeighbors()
+                    .filter { it.x in xRange && it.y in yRange && it.z in zRange }
+                    .forEach { neighbor ->
+                        seen += lookNext
+                        if (neighbor in cubes) sidesFound++
+                        else queue.add(neighbor)
+                    }
+            }
+        }
+        return sidesFound
+    }
+
+    private fun Set<Cube>.rangeOf(function: (Cube) -> Int): IntRange =
+        this.minOf(function) - 1..this.maxOf(function) + 1
 }
 
 data class Point3D(
@@ -67,15 +92,30 @@ data class Cube(
     fun isAdjacent(other: Cube) : Boolean {
         return (sides intersect other.sides).size == 1
     }
+
+    fun cardinalNeighbors(): Set<Cube> =
+        setOf(
+            copy(x = x - 1),
+            copy(x = x + 1),
+            copy(y = y - 1),
+            copy(y = y + 1),
+            copy(z = z - 1),
+            copy(z = z + 1)
+        )
+
 }
 
 data class Side(val points: Set<Point3D>)
 
 
 fun main() {
-    val cubes = BoilingBoulders().loadData("Day18_InputData.txt")
-    val visibleSides = BoilingBoulders().solve(cubes)
+    val boilingBoulders = BoilingBoulders()
+    val cubes = boilingBoulders.loadData("Day18_InputData.txt")
+    val part1 = boilingBoulders.solve(cubes)
 
-    println("visibleSides = $visibleSides")
+    println("visibleSides = $part1")
+
+    val part2 = boilingBoulders.solvePart2(cubes.toSet())
+    println("part2 = $part2")
 
 }

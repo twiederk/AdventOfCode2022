@@ -122,7 +122,7 @@ class BoilingBouldersTest {
     }
 
     @Test
-    fun solve_example() {
+    fun solve_part1_example() {
         // arrange
         val cubes = BoilingBoulders().loadData("Day18_TestData.txt")
 
@@ -131,6 +131,18 @@ class BoilingBouldersTest {
 
         // assert
         assertThat(visibleSides).isEqualTo(64)
+    }
+
+    @Test
+    fun solve_part2_example() {
+        // arrange
+        val cubes = BoilingBoulders().loadData("Day18_TestData.txt")
+
+        // act
+        val visibleSides = BoilingBoulders().solvePart2(cubes.toSet())
+
+        // assert
+        assertThat(visibleSides).isEqualTo(58)
     }
 
 }
