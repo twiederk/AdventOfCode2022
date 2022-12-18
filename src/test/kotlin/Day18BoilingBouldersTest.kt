@@ -61,6 +61,19 @@ class BoilingBouldersTest {
             Side(setOf(a,b,e,f)), // left
             Side(setOf(c,d,g,h)), // right
         )
+    }
+
+    @Test
+    fun isAdjacent() {
+        // arrange
+        val cube1 = Cube(1,1,1)
+        val cube2 = Cube(2,1,1)
+
+        // act
+        val adjacent = cube1.isAdjacent(cube2)
+
+        // assert
+        assertThat(adjacent).isTrue
 
     }
 }

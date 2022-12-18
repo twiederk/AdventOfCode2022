@@ -19,10 +19,16 @@ data class Cube(
     val y: Int,
     val z: Int,
 ) {
-    val sides = mutableListOf<Side>()
+    val sides = mutableSetOf<Side>()
     val cornerPoints = mutableListOf<Point3D>()
 
+    init {
+        createCornerPoints()
+        createSides()
+    }
+
     fun createCornerPoints() {
+        cornerPoints.clear()
         cornerPoints.add(Point3D(x - 1, y - 1, z - 1)) // A
         cornerPoints.add(Point3D(x - 1, y, z - 1)) // B
         cornerPoints.add(Point3D(x, y, z - 1)) // C
@@ -35,6 +41,7 @@ data class Cube(
     }
 
     fun createSides() {
+        sides.clear()
         sides.add(Side(setOf(cornerPoints[0], cornerPoints[1], cornerPoints[2], cornerPoints[3]))) // back
         sides.add(Side(setOf(cornerPoints[4], cornerPoints[5], cornerPoints[6], cornerPoints[7]))) // front
         sides.add(Side(setOf(cornerPoints[1], cornerPoints[2], cornerPoints[5], cornerPoints[6]))) // top
@@ -42,6 +49,10 @@ data class Cube(
         sides.add(Side(setOf(cornerPoints[0], cornerPoints[1], cornerPoints[4], cornerPoints[5]))) // left
         sides.add(Side(setOf(cornerPoints[2], cornerPoints[3], cornerPoints[6], cornerPoints[7]))) // right
 
+    }
+
+    fun isAdjacent(other: Cube) : Boolean {
+        return (sides intersect other.sides).size == 1
     }
 }
 
