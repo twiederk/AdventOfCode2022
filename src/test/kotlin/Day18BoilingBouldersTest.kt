@@ -48,13 +48,18 @@ class BoilingBouldersTest {
         val b = Point3D(0, 1, 0)
         val c = Point3D(1, 1, 0)
         val d = Point3D(1, 0, 0)
-        val e = Point3D(0, 1, 1)
-        val f = Point3D(0, 0, 1)
+        val e = Point3D(0, 0, 1)
+        val f = Point3D(0, 1, 1)
         val g = Point3D(1, 1, 1)
         val h = Point3D(1, 0, 1)
 
         assertThat(cube.sides).containsExactly(
-            Side(setOf(a,b,c,d))
+            Side(setOf(a,b,c,d)), // back
+            Side(setOf(e,f,g,h)), // front
+            Side(setOf(b,c,f,g)), // top
+            Side(setOf(a,d,e,h)), // bottom
+            Side(setOf(a,b,e,f)), // left
+            Side(setOf(c,d,g,h)), // right
         )
 
     }

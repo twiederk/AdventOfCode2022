@@ -36,7 +36,11 @@ data class Cube(
 
     fun createSides() {
         sides.add(Side(setOf(cornerPoints[0], cornerPoints[1], cornerPoints[2], cornerPoints[3]))) // back
-//        sides.add(Side(setOf(cornerPoints[0], cornerPoints[1], cornerPoints[2], cornerPoints[3])))
+        sides.add(Side(setOf(cornerPoints[4], cornerPoints[5], cornerPoints[6], cornerPoints[7]))) // front
+        sides.add(Side(setOf(cornerPoints[1], cornerPoints[2], cornerPoints[5], cornerPoints[6]))) // top
+        sides.add(Side(setOf(cornerPoints[0], cornerPoints[3], cornerPoints[4], cornerPoints[7]))) // bottom
+        sides.add(Side(setOf(cornerPoints[0], cornerPoints[1], cornerPoints[4], cornerPoints[5]))) // left
+        sides.add(Side(setOf(cornerPoints[2], cornerPoints[3], cornerPoints[6], cornerPoints[7]))) // right
 
     }
 }
