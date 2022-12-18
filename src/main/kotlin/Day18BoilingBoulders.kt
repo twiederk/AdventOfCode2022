@@ -70,3 +70,12 @@ data class Cube(
 }
 
 data class Side(val points: Set<Point3D>)
+
+
+fun main() {
+    val cubes = BoilingBoulders().loadData("Day18_InputData.txt")
+    val visibleSides = BoilingBoulders().solve(cubes)
+
+    println("visibleSides = $visibleSides")
+
+}
