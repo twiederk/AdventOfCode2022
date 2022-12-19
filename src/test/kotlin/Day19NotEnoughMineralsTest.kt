@@ -113,7 +113,7 @@ class NotEnoughMineralsTest {
     inner class Simulation {
 
         @Test
-        fun simulate_minute1() {
+        fun simulate_minute_1() {
 
             // act
             val totalQualityLevel = notEnoughMinerals.simulate(blueprint1, 1)
@@ -127,7 +127,7 @@ class NotEnoughMineralsTest {
         }
 
         @Test
-        fun simulate_minute2() {
+        fun simulate_minute_2() {
 
             // act
             val totalQualityLevel = notEnoughMinerals.simulate(blueprint1, 2)
@@ -142,7 +142,7 @@ class NotEnoughMineralsTest {
         }
 
         @Test
-        fun simulate_minute3() {
+        fun simulate_minute_3() {
 
             // act
             val totalQualityLevel = notEnoughMinerals.simulate(blueprint1, 3)
@@ -160,7 +160,7 @@ class NotEnoughMineralsTest {
         }
 
         @Test
-        fun simulate_minute4() {
+        fun simulate_minute_4() {
 
             // act
             val totalQualityLevel = notEnoughMinerals.simulate(blueprint1, 4)
@@ -177,9 +177,7 @@ class NotEnoughMineralsTest {
         }
 
         @Test
-        fun simulate_minute5() {
-            // arrange
-            notEnoughMinerals.debug = true
+        fun simulate_minute_5() {
 
             // act
             val totalQualityLevel = notEnoughMinerals.simulate(blueprint1, 5)
@@ -197,5 +195,24 @@ class NotEnoughMineralsTest {
             assertThat(notEnoughMinerals.clay).isEqualTo(2)
         }
 
+        @Test
+        fun simulate_minute_10() {
+            // arrange
+            notEnoughMinerals.debug = true
+
+            // act
+            val totalQualityLevel = notEnoughMinerals.simulate(blueprint1, 10)
+
+            // assert
+            assertThat(totalQualityLevel).isEqualTo(0)
+//            == Minute 10 ==
+//            1 ore-collecting robot collects 1 ore; you now have 4 ore.
+            assertThat(notEnoughMinerals.countOreRobots).isEqualTo(1)
+            assertThat(notEnoughMinerals.ore).isEqualTo(4)
+//            3 clay-collecting robots collect 3 clay; you now have 15 clay.
+            assertThat(notEnoughMinerals.countClayRobots).isEqualTo(3)
+            assertThat(notEnoughMinerals.clay).isEqualTo(15)
+        }
     }
+
 }
