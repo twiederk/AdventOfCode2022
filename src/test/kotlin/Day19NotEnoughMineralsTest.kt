@@ -1,4 +1,3 @@
-import org.assertj.core.api.Assertions
 import org.assertj.core.api.Assertions.*
 import org.junit.jupiter.api.Test
 
@@ -36,7 +35,13 @@ class NotEnoughMineralsTest {
 
         // assert
         assertThat(blueprint.id).isEqualTo(1)
-        assertThat(blueprint.oreRobot).isEqualTo(4)
+        assertThat(blueprint.oreRobotOre).isEqualTo(4)
+        assertThat(blueprint.clayRobotOre).isEqualTo(2)
+        assertThat(blueprint.obsidianRobotOre).isEqualTo(3)
+        assertThat(blueprint.obsidianRobotClay).isEqualTo(14)
+        assertThat(blueprint.geodeRobotOre).isEqualTo(2)
+        assertThat(blueprint.geodeRobotObsidian).isEqualTo(7)
+
     }
 
 }

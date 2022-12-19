@@ -12,15 +12,24 @@ class NotEnoughMinerals {
 //        " Each geode robot costs 2 ore and 7 obsidian"
 //        ""
 
-        val oreRobot = robotResources[0].substringAfter("costs ").substringBefore(" ore").toInt()
-        println(robotResources)
-        return Blueprint(id, oreRobot)
+        val oreRobotOre = robotResources[0].substringAfter("costs ").substringBefore(" ore").toInt()
+        val clayRobotOre = robotResources[1].substringAfter("costs ").substringBefore(" ore").toInt()
+        val obsidianRobotOre = robotResources[2].substringAfter("costs ").substringBefore(" ore").toInt()
+        val obsidianRobotClay = robotResources[2].substringAfter("and ").substringBefore(" clay").toInt()
+        val geodeRobotOre = robotResources[3].substringAfter("costs ").substringBefore(" ore").toInt()
+        val geodeRobotObsidian = robotResources[3].substringAfter("and ").substringBefore(" obsidian").toInt()
+        return Blueprint(id, oreRobotOre, clayRobotOre, obsidianRobotOre, obsidianRobotClay, geodeRobotOre, geodeRobotObsidian)
     }
 
 }
 
 data class Blueprint(
     val id: Int,
-    val oreRobot: Int,
+    val oreRobotOre: Int,
+    val clayRobotOre: Int,
+    val obsidianRobotOre: Int,
+    val obsidianRobotClay: Int,
+    val geodeRobotOre: Int,
+    val geodeRobotObsidian: Int,
 )
 
