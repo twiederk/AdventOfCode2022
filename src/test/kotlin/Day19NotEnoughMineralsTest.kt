@@ -1,4 +1,4 @@
-import org.assertj.core.api.Assertions.*
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 
@@ -120,6 +120,10 @@ class NotEnoughMineralsTest {
 
             // assert
             assertThat(totalQualityLevel).isEqualTo(0)
+//            == Minute 1 ==
+//            1 ore-collecting robot collects 1 ore; you now have 1 ore.
+            assertThat(notEnoughMinerals.countOreRobots).isEqualTo(1)
+            assertThat(notEnoughMinerals.ore).isEqualTo(1)
         }
 
         @Test
@@ -130,23 +134,49 @@ class NotEnoughMineralsTest {
 
             // assert
             assertThat(totalQualityLevel).isEqualTo(0)
+//            == Minute 2 ==
+//            1 ore-collecting robot collects 1 ore; you now have 2 ore.
+            assertThat(notEnoughMinerals.countOreRobots).isEqualTo(1)
+            assertThat(notEnoughMinerals.ore).isEqualTo(2)
+
         }
 
         @Test
         fun simulate_minute3() {
-            // arrange
-            notEnoughMinerals.debug = true
 
             // act
             val totalQualityLevel = notEnoughMinerals.simulate(blueprint1, 3)
 
             // assert
-            assertThat(totalQualityLevel).isEqualTo(0)
 //            == Minute 3 ==
+            assertThat(totalQualityLevel).isEqualTo(0)
 //            Spend 2 ore to start building a clay-collecting robot.
 //            1 ore-collecting robot collects 1 ore; you now have 1 ore.
+            assertThat(notEnoughMinerals.countOreRobots).isEqualTo(1)
+            assertThat(notEnoughMinerals.ore).isEqualTo(1)
 //            The new clay-collecting robot is ready; you now have 1 of them.
-        }
-    }
+            assertThat(notEnoughMinerals.countClayRobots).isEqualTo(1)
 
+        }
+
+        @Test
+        fun simulate_minute4() {
+            // arrange
+            notEnoughMinerals.debug = true
+
+            // act
+            val totalQualityLevel = notEnoughMinerals.simulate(blueprint1, 4)
+
+            // assert
+            assertThat(totalQualityLevel).isEqualTo(0)
+//            == Minute 4 ==
+//            1 ore-collecting robot collects 1 ore; you now have 2 ore.
+            assertThat(notEnoughMinerals.countOreRobots).isEqualTo(1)
+            assertThat(notEnoughMinerals.ore).isEqualTo(2)
+//            1 clay-collecting robot collects 1 clay; you now have 1 clay.        }
+            assertThat(notEnoughMinerals.countClayRobots).isEqualTo(1)
+            assertThat(notEnoughMinerals.clay).isEqualTo(1)
+        }
+
+    }
 }

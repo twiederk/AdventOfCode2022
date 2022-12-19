@@ -10,6 +10,7 @@ class NotEnoughMinerals(
     var countGeodeRobots = 0
 
     var ore: Int = 0
+    var clay: Int = 0
 
     fun loadData(fileName: String): List<String> = Resources.resourceAsListOfString(fileName)
 
