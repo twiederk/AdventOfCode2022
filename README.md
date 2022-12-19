@@ -23,6 +23,13 @@
 | [17] | PyroclasticFlow         | solved | OPEN   | Tetris! Solved part 2 on my own, but ran in many easy avoidable bug. Part 2 still open.                                          |
 | [18] | Boiling Boulders        | solved | solved | First 3D puzzle (lava cube). Solved part 1 on my own. Solved part 2 based on [solution from Todd Ginsberg][Day18-TG]             |
 
+## Resources
+
+* [Todd Ginsberg blog][todd]
+* [Advent of code Jetbrains Playlist][jetbrains]
+* [reddit][reddit]
+
+
 ## To Do
 * Solve day 12 with breadth-first search (BFS)
 
@@ -53,3 +60,5 @@
 [reddit]: https://www.reddit.com/r/adventofcode/
 [sebi]: https://github.com/SebastianAigner
 [olaf]: https://github.com/Zordid
+[todd]: https://todd.ginsberg.com/post/advent-of-code/2022/
+[jetbrains]: https://www.youtube.com/playlist?list=PLlFc5cFwUnmwxQlKf8uWp-la8BVSTH47J
