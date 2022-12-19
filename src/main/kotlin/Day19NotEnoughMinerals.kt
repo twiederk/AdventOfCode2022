@@ -4,7 +4,8 @@ class NotEnoughMinerals(
 
     var orderClayRobot = 0
 
-    var oreRobots = 1
+    var countOreRobot = 1
+    var countClayRobot = 0
 
     var ore: Int = 0
 
@@ -32,8 +33,8 @@ class NotEnoughMinerals(
     }
 
     fun collect() {
-        debug("$oreRobots ore-collecting robot collects $oreRobots ore; you now have $ore ore.")
-        ore += oreRobots
+        debug("$countOreRobot ore-collecting robot collects $countOreRobot ore; you now have $ore ore.")
+        ore += countOreRobot
     }
 
     private fun debug(message: String) {
@@ -45,6 +46,14 @@ class NotEnoughMinerals(
             orderClayRobot++
             ore -= 2
             debug("Spend 2 ore to start building a clay-collecting robot.")
+        }
+    }
+
+    fun deliver() {
+        if (orderClayRobot == 1) {
+            countClayRobot += orderClayRobot
+            orderClayRobot = 0
+            debug("The new clay-collecting robot is ready; you now have $countClayRobot of them.")
         }
     }
 

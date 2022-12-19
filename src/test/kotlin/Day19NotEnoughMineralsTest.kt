@@ -70,4 +70,17 @@ class NotEnoughMineralsTest {
         assertThat(notEnoughMinerals.ore).isEqualTo(0)
     }
 
+    @Test
+    fun deliver_oneClayRobot() {
+        // arrange
+        notEnoughMinerals.orderClayRobot = 1
+
+        // act
+        notEnoughMinerals.deliver()
+
+        // assert
+        assertThat(notEnoughMinerals.orderClayRobot).isEqualTo(0)
+        assertThat(notEnoughMinerals.countClayRobot).isEqualTo(1)
+    }
+
 }
