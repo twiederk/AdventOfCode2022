@@ -31,7 +31,8 @@
 
 
 ## To Do
-* Solve day 12 with breadth-first search (BFS)
+* Day 12: solve with breadth-first search (BFS)
+* Day 18: replace foreach with while (queue.isNotEmpty()) because it is more readable
 
 [1]: src/main/kotlin/Day01CalorieCounting.kt
 [2]: src/main/kotlin/Day02RockPaperScissors.kt
