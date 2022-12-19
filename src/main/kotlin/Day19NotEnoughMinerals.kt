@@ -36,8 +36,16 @@ class NotEnoughMinerals(
     }
 
     fun collect() {
-        ore += countOreRobots
-        debug("$countOreRobots ore-collecting robot collects $countOreRobots ore; you now have $ore ore.")
+        if (countOreRobots > 0) {
+            ore += countOreRobots
+            debug("$countOreRobots ore-collecting robot collects $countOreRobots ore; you now have $ore ore.")
+        }
+
+        if (countClayRobots > 0) {
+            clay += countClayRobots
+            debug("$countClayRobots clay-collecting robot collects $countClayRobots clay; you now have $clay clay.")
+        }
+
     }
 
     private fun debug(message: String) {
@@ -61,7 +69,7 @@ class NotEnoughMinerals(
     }
 
     fun simulate(blueprint: Blueprint, maxMinutes: Int): Int {
-        for(minute in 1..maxMinutes) {
+        for (minute in 1..maxMinutes) {
             debug("\n== Minute $minute ==")
             order()
             collect()
