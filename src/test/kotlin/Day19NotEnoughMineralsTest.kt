@@ -80,18 +80,41 @@ class NotEnoughMineralsTest {
 
         // assert
         assertThat(notEnoughMinerals.orderClayRobot).isEqualTo(0)
-        assertThat(notEnoughMinerals.countClayRobot).isEqualTo(1)
+        assertThat(notEnoughMinerals.countClayRobots).isEqualTo(1)
     }
 
     @Test
     fun simulate() {
         // arrange
         notEnoughMinerals.debug = true
+        val blueprint = Blueprint(
+            id = 1,
+            oreRobotOre = 4,
+            clayRobotOre = 2,
+            obsidianRobotOre = 3,
+            obsidianRobotClay = 14,
+            geodeRobotOre = 2,
+            geodeRobotObsidian = 7
+        )
 
         // act
-        notEnoughMinerals.simulate(1)
+        val totalQualityLevel = notEnoughMinerals.simulate(blueprint, 1)
 
         // assert
-
+        assertThat(totalQualityLevel).isEqualTo(0)
     }
+
+    @Test
+    fun calculateQualityLevel() {
+        // arrange
+        notEnoughMinerals.countGeodeRobots = 5
+        val blueprint = Blueprint(2, 0,0,0,0,0,0)
+
+        // act
+        val qualityLevel = notEnoughMinerals.calculateQualityLevel(blueprint)
+
+        // assert
+        assertThat(qualityLevel).isEqualTo(10)
+    }
+
 }

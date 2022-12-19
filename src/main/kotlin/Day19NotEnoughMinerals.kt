@@ -4,8 +4,10 @@ class NotEnoughMinerals(
 
     var orderClayRobot = 0
 
-    var countOreRobot = 1
-    var countClayRobot = 0
+    var countOreRobots = 1
+    var countClayRobots = 0
+    var countObsidianRobots = 0
+    var countGeodeRobots = 0
 
     var ore: Int = 0
 
@@ -33,8 +35,8 @@ class NotEnoughMinerals(
     }
 
     fun collect() {
-        ore += countOreRobot
-        debug("$countOreRobot ore-collecting robot collects $countOreRobot ore; you now have $ore ore.")
+        ore += countOreRobots
+        debug("$countOreRobots ore-collecting robot collects $countOreRobots ore; you now have $ore ore.")
     }
 
     private fun debug(message: String) {
@@ -51,19 +53,24 @@ class NotEnoughMinerals(
 
     fun deliver() {
         if (orderClayRobot == 1) {
-            countClayRobot += orderClayRobot
+            countClayRobots += orderClayRobot
             orderClayRobot = 0
-            debug("The new clay-collecting robot is ready; you now have $countClayRobot of them.")
+            debug("The new clay-collecting robot is ready; you now have $countClayRobots of them.")
         }
     }
 
-    fun simulate(maxMinutes: Int) {
+    fun simulate(blueprint: Blueprint, maxMinutes: Int): Int {
         for(minute in 1..maxMinutes) {
             debug("\n== Minute $minute ==")
             order()
             collect()
             deliver()
         }
+        return calculateQualityLevel(blueprint)
+    }
+
+    fun calculateQualityLevel(blueprint: Blueprint): Int {
+        return blueprint.id * countGeodeRobots
     }
 
 }
