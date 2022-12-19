@@ -14,12 +14,14 @@ class NotEnoughMineralsTest {
     // quality level = number of geodes * id of blueprint
     // solution = sum of quality levels
 
+    private val notEnoughMinerals = NotEnoughMinerals()
+
     @Test
     fun loadData() {
         // arrange
 
         // act
-        val rawData = NotEnoughMinerals().loadData("Day19_TestData.txt")
+        val rawData = notEnoughMinerals.loadData("Day19_TestData.txt")
 
         // assert
         assertThat(rawData).hasSize(2)
@@ -31,7 +33,7 @@ class NotEnoughMineralsTest {
         val rawBlueprint = "Blueprint 1: Each ore robot costs 4 ore. Each clay robot costs 2 ore. Each obsidian robot costs 3 ore and 14 clay. Each geode robot costs 2 ore and 7 obsidian."
 
         // act
-        val blueprint = NotEnoughMinerals().parseBlueprint(rawBlueprint)
+        val blueprint = notEnoughMinerals.parseBlueprint(rawBlueprint)
 
         // assert
         assertThat(blueprint.id).isEqualTo(1)
@@ -44,4 +46,16 @@ class NotEnoughMineralsTest {
 
     }
 
+    @Test
+    fun collect_oneOreRobot() {
+        // arrange
+        notEnoughMinerals.debug = true
+
+        // act
+        notEnoughMinerals.collect()
+
+        // assert
+        assertThat(notEnoughMinerals.ore).isEqualTo(1)
+
+    }
 }

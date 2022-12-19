@@ -1,16 +1,16 @@
-class NotEnoughMinerals {
+class NotEnoughMinerals(
+    var debug: Boolean = false
+) {
+
+    var oreRobots = 1
+
+    var ore: Int = 0
 
     fun loadData(fileName: String): List<String> = Resources.resourceAsListOfString(fileName)
 
     fun parseBlueprint(rawBlueprint: String): Blueprint {
         val id = rawBlueprint.substringAfter("Blueprint ").substringBefore(":").toInt()
         val robotResources = rawBlueprint.substringAfter(":").split('.')
-//        [ Each ore robot costs 4 ore,  Each clay robot costs 2 ore,  Each obsidian robot costs 3 ore and 14 clay,  Each geode robot costs 2 ore and 7 obsidian, ]
-//        " Each ore robot costs 4 ore"
-//        " Each clay robot costs 2 ore"
-//        " Each obsidian robot costs 3 ore and 14 clay"
-//        " Each geode robot costs 2 ore and 7 obsidian"
-//        ""
 
         val oreRobotOre = robotResources[0].substringAfter("costs ").substringBefore(" ore").toInt()
         val clayRobotOre = robotResources[1].substringAfter("costs ").substringBefore(" ore").toInt()
@@ -18,7 +18,24 @@ class NotEnoughMinerals {
         val obsidianRobotClay = robotResources[2].substringAfter("and ").substringBefore(" clay").toInt()
         val geodeRobotOre = robotResources[3].substringAfter("costs ").substringBefore(" ore").toInt()
         val geodeRobotObsidian = robotResources[3].substringAfter("and ").substringBefore(" obsidian").toInt()
-        return Blueprint(id, oreRobotOre, clayRobotOre, obsidianRobotOre, obsidianRobotClay, geodeRobotOre, geodeRobotObsidian)
+        return Blueprint(
+            id,
+            oreRobotOre,
+            clayRobotOre,
+            obsidianRobotOre,
+            obsidianRobotClay,
+            geodeRobotOre,
+            geodeRobotObsidian
+        )
+    }
+
+    fun collect() {
+        debug("$oreRobots ore-collecting robot collects $oreRobots ore; you now have $ore ore.")
+        ore += oreRobots
+    }
+
+    private fun debug(message: String) {
+        if (debug) println(message)
     }
 
 }
