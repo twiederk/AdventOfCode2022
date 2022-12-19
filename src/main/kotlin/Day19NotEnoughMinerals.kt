@@ -2,6 +2,8 @@ class NotEnoughMinerals(
     var debug: Boolean = false
 ) {
 
+    var orderClayRobot = 0
+
     var oreRobots = 1
 
     var ore: Int = 0
@@ -36,6 +38,14 @@ class NotEnoughMinerals(
 
     private fun debug(message: String) {
         if (debug) println(message)
+    }
+
+    fun order() {
+        if (ore >= 2) {
+            orderClayRobot++
+            ore -= 2
+            debug("Spend 2 ore to start building a clay-collecting robot.")
+        }
     }
 
 }

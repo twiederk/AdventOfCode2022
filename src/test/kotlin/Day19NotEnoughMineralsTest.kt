@@ -48,14 +48,26 @@ class NotEnoughMineralsTest {
 
     @Test
     fun collect_oneOreRobot() {
-        // arrange
-        notEnoughMinerals.debug = true
 
         // act
         notEnoughMinerals.collect()
 
         // assert
         assertThat(notEnoughMinerals.ore).isEqualTo(1)
-
     }
+
+    @Test
+    fun order_oneClayRobot() {
+        // arrange
+        notEnoughMinerals.debug = true
+        notEnoughMinerals.ore = 2
+
+        // act
+        notEnoughMinerals.order()
+
+        // assert
+        assertThat(notEnoughMinerals.orderClayRobot).isEqualTo(1)
+        assertThat(notEnoughMinerals.ore).isEqualTo(0)
+    }
+
 }
