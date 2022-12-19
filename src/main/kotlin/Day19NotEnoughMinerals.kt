@@ -33,8 +33,8 @@ class NotEnoughMinerals(
     }
 
     fun collect() {
-        debug("$countOreRobot ore-collecting robot collects $countOreRobot ore; you now have $ore ore.")
         ore += countOreRobot
+        debug("$countOreRobot ore-collecting robot collects $countOreRobot ore; you now have $ore ore.")
     }
 
     private fun debug(message: String) {
@@ -54,6 +54,15 @@ class NotEnoughMinerals(
             countClayRobot += orderClayRobot
             orderClayRobot = 0
             debug("The new clay-collecting robot is ready; you now have $countClayRobot of them.")
+        }
+    }
+
+    fun simulate(maxMinutes: Int) {
+        for(minute in 1..maxMinutes) {
+            debug("\n== Minute $minute ==")
+            order()
+            collect()
+            deliver()
         }
     }
 

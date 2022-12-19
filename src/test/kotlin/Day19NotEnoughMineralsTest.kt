@@ -83,4 +83,15 @@ class NotEnoughMineralsTest {
         assertThat(notEnoughMinerals.countClayRobot).isEqualTo(1)
     }
 
+    @Test
+    fun simulate() {
+        // arrange
+        notEnoughMinerals.debug = true
+
+        // act
+        notEnoughMinerals.simulate(1)
+
+        // assert
+
+    }
 }
