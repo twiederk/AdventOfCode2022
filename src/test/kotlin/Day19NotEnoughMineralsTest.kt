@@ -36,6 +36,7 @@ class NotEnoughMineralsTest {
 
         // assert
         assertThat(blueprint.id).isEqualTo(1)
-
+        assertThat(blueprint.oreRobot).isEqualTo(4)
     }
+
 }
