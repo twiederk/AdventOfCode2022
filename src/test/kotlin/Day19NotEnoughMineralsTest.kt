@@ -1,4 +1,5 @@
 import org.assertj.core.api.Assertions.*
+import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 
 class NotEnoughMineralsTest {
@@ -14,7 +15,17 @@ class NotEnoughMineralsTest {
     // quality level = number of geodes * id of blueprint
     // solution = sum of quality levels
 
-    private val notEnoughMinerals = NotEnoughMinerals()
+    val notEnoughMinerals = NotEnoughMinerals()
+    val blueprint1 = Blueprint(
+        id = 1,
+        oreRobotOre = 4,
+        clayRobotOre = 2,
+        obsidianRobotOre = 3,
+        obsidianRobotClay = 14,
+        geodeRobotOre = 2,
+        geodeRobotObsidian = 7
+    )
+
 
     @Test
     fun loadData() {
@@ -30,7 +41,8 @@ class NotEnoughMineralsTest {
     @Test
     fun parseBlueprint() {
         // arrange
-        val rawBlueprint = "Blueprint 1: Each ore robot costs 4 ore. Each clay robot costs 2 ore. Each obsidian robot costs 3 ore and 14 clay. Each geode robot costs 2 ore and 7 obsidian."
+        val rawBlueprint =
+            "Blueprint 1: Each ore robot costs 4 ore. Each clay robot costs 2 ore. Each obsidian robot costs 3 ore and 14 clay. Each geode robot costs 2 ore and 7 obsidian."
 
         // act
         val blueprint = notEnoughMinerals.parseBlueprint(rawBlueprint)
@@ -84,37 +96,57 @@ class NotEnoughMineralsTest {
     }
 
     @Test
-    fun simulate() {
-        // arrange
-        notEnoughMinerals.debug = true
-        val blueprint = Blueprint(
-            id = 1,
-            oreRobotOre = 4,
-            clayRobotOre = 2,
-            obsidianRobotOre = 3,
-            obsidianRobotClay = 14,
-            geodeRobotOre = 2,
-            geodeRobotObsidian = 7
-        )
-
-        // act
-        val totalQualityLevel = notEnoughMinerals.simulate(blueprint, 1)
-
-        // assert
-        assertThat(totalQualityLevel).isEqualTo(0)
-    }
-
-    @Test
     fun calculateQualityLevel() {
         // arrange
         notEnoughMinerals.countGeodeRobots = 5
-        val blueprint = Blueprint(2, 0,0,0,0,0,0)
+        val blueprint = Blueprint(2, 0, 0, 0, 0, 0, 0)
 
         // act
         val qualityLevel = notEnoughMinerals.calculateQualityLevel(blueprint)
 
         // assert
         assertThat(qualityLevel).isEqualTo(10)
+    }
+
+
+    @Nested
+    inner class Simulation {
+
+        @Test
+        fun simulate_minute1() {
+
+            // act
+            val totalQualityLevel = notEnoughMinerals.simulate(blueprint1, 1)
+
+            // assert
+            assertThat(totalQualityLevel).isEqualTo(0)
+        }
+
+        @Test
+        fun simulate_minute2() {
+
+            // act
+            val totalQualityLevel = notEnoughMinerals.simulate(blueprint1, 2)
+
+            // assert
+            assertThat(totalQualityLevel).isEqualTo(0)
+        }
+
+        @Test
+        fun simulate_minute3() {
+            // arrange
+            notEnoughMinerals.debug = true
+
+            // act
+            val totalQualityLevel = notEnoughMinerals.simulate(blueprint1, 3)
+
+            // assert
+            assertThat(totalQualityLevel).isEqualTo(0)
+//            == Minute 3 ==
+//            Spend 2 ore to start building a clay-collecting robot.
+//            1 ore-collecting robot collects 1 ore; you now have 1 ore.
+//            The new clay-collecting robot is ready; you now have 1 of them.
+        }
     }
 
 }
