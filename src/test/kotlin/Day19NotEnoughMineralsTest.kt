@@ -108,6 +108,39 @@ class NotEnoughMineralsTest {
         assertThat(qualityLevel).isEqualTo(10)
     }
 
+    @Test
+    fun calculateEvolutionLevel_1() {
+
+        // act
+        val evolutionLevel = notEnoughMinerals.calculateEvolutionLevel()
+
+        // assert
+        assertThat(evolutionLevel).isEqualTo(1)
+    }
+
+    @Test
+    fun calculateEvolutionLevel_2() {
+        // arrange
+        notEnoughMinerals.countClayRobots = 1
+
+        // act
+        val evolutionLevel = notEnoughMinerals.calculateEvolutionLevel()
+
+        // assert
+        assertThat(evolutionLevel).isEqualTo(2)
+    }
+
+    @Test
+    fun calculateEvolutionLevel_3() {
+        // arrange
+        notEnoughMinerals.countObsidianRobots = 1
+
+        // act
+        val evolutionLevel = notEnoughMinerals.calculateEvolutionLevel()
+
+        // assert
+        assertThat(evolutionLevel).isEqualTo(3)
+    }
 
     @Nested
     inner class Simulation {
@@ -178,6 +211,8 @@ class NotEnoughMineralsTest {
 
         @Test
         fun simulate_minute_5() {
+            // arrange
+            notEnoughMinerals.debug = true
 
             // act
             val totalQualityLevel = notEnoughMinerals.simulate(blueprint1, 5)
@@ -197,8 +232,6 @@ class NotEnoughMineralsTest {
 
         @Test
         fun simulate_minute_10() {
-            // arrange
-            notEnoughMinerals.debug = true
 
             // act
             val totalQualityLevel = notEnoughMinerals.simulate(blueprint1, 10)
