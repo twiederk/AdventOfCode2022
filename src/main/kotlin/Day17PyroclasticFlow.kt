@@ -80,12 +80,7 @@ class PyroclasticFlow(val jetStream: String, var debug: Boolean = false) {
         return maxOf(newTowerHeight, towerHeight)
     }
 
-    fun getJet(): Char {
-        val jet = jetStream[jetCounter]
-        jetCounter++
-        if (jetCounter > jetStream.lastIndex) jetCounter = 0
-        return jet
-    }
+    fun getJet(): Char = jetStream.nth(jetCounter++)
 
     private fun debug(message: String) {
         if (debug) println(message)

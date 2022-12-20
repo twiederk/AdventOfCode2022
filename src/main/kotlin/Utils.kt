@@ -46,6 +46,9 @@ internal object Resources {
 fun <T> List<T>.nth(n: Int): T =
     this[n % size]
 
+fun String.nth(n: Int): Char =
+    this[n % length]
+
 data class Point(
     val x: Int,
     val y: Int
