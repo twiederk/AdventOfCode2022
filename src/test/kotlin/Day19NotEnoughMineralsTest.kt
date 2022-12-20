@@ -222,8 +222,6 @@ class NotEnoughMineralsTest {
 
         @Test
         fun simulate_minute_8() {
-            // arrange
-            notEnoughMinerals.debug = true
 
             // act
             val totalQualityLevel = notEnoughMinerals.simulate(blueprint1, 8)
@@ -237,6 +235,25 @@ class NotEnoughMineralsTest {
 //            3 clay-collecting robots collect 3 clay; you now have 9 clay.
             assertThat(notEnoughMinerals.countClayRobots).isEqualTo(3)
             assertThat(notEnoughMinerals.clay).isEqualTo(9)
+        }
+
+        @Test
+        fun simulate_minute_9() {
+            // arrange
+            notEnoughMinerals.debug = true
+
+            // act
+            val totalQualityLevel = notEnoughMinerals.simulate(blueprint1, 9)
+
+            // assert
+            assertThat(totalQualityLevel).isEqualTo(0)
+//            == Minute 9 ==
+//            1 ore-collecting robot collects 1 ore; you now have 3 ore.
+            assertThat(notEnoughMinerals.countOreRobots).isEqualTo(1)
+            assertThat(notEnoughMinerals.ore).isEqualTo(3)
+//            3 clay-collecting robots collect 3 clay; you now have 12 clay.
+            assertThat(notEnoughMinerals.countClayRobots).isEqualTo(3)
+            assertThat(notEnoughMinerals.clay).isEqualTo(12)
         }
 
         @Test
