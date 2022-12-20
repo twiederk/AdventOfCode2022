@@ -29,10 +29,9 @@ class NotEnoughMineralsTest {
 
     @Test
     fun loadData() {
-        // arrange
 
         // act
-        val rawData = notEnoughMinerals.loadData("Day19_TestData.txt")
+        val rawData = NotEnoughMinerals.loadData("Day19_TestData.txt")
 
         // assert
         assertThat(rawData).hasSize(2)

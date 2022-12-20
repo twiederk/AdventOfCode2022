@@ -2,6 +2,11 @@ class NotEnoughMinerals(
     var debug: Boolean = false
 ) {
 
+    companion object {
+        fun loadData(fileName: String): List<String> = Resources.resourceAsListOfString(fileName)
+
+    }
+
     var orderClayRobot = 0
     var orderObsidianRobot = 0
 
@@ -13,7 +18,6 @@ class NotEnoughMinerals(
     var ore: Int = 0
     var clay: Int = 0
 
-    fun loadData(fileName: String): List<String> = Resources.resourceAsListOfString(fileName)
 
     fun parseBlueprint(rawBlueprint: String): Blueprints {
         val id = rawBlueprint.substringAfter("Blueprint ").substringBefore(":").toInt()
