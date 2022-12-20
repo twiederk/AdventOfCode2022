@@ -43,6 +43,9 @@ internal object Resources {
             ?: throw IllegalArgumentException("Cannot find Resource: $this")
 }
 
+fun <T> List<T>.nth(n: Int): T =
+    this[n % size]
+
 data class Point(
     val x: Int,
     val y: Int
