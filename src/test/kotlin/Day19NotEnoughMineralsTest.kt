@@ -17,13 +17,7 @@ class NotEnoughMineralsTest {
 
     val notEnoughMinerals = NotEnoughMinerals()
     val blueprint1 = Blueprints(
-        id = 1,
-        oreRobotOre = 4,
-        clayRobotOre = 2,
-        obsidianRobotOre = 3,
-        obsidianRobotClay = 14,
-        geodeRobotOre = 2,
-        geodeRobotObsidian = 7
+        id = 1
     )
 
 
@@ -48,13 +42,21 @@ class NotEnoughMineralsTest {
 
         // assert
         assertThat(blueprint.id).isEqualTo(1)
-        assertThat(blueprint.oreRobotOre).isEqualTo(4)
-        assertThat(blueprint.clayRobotOre).isEqualTo(2)
-        assertThat(blueprint.obsidianRobotOre).isEqualTo(3)
-        assertThat(blueprint.obsidianRobotClay).isEqualTo(14)
-        assertThat(blueprint.geodeRobotOre).isEqualTo(2)
-        assertThat(blueprint.geodeRobotObsidian).isEqualTo(7)
+        assertThat(blueprint.blueprints[Robot.ORE.ordinal].ore).isEqualTo(4)
+        assertThat(blueprint.blueprints[Robot.ORE.ordinal].clay).isEqualTo(0)
+        assertThat(blueprint.blueprints[Robot.ORE.ordinal].obsidian).isEqualTo(0)
 
+        assertThat(blueprint.blueprints[Robot.CLAY.ordinal].ore).isEqualTo(2)
+        assertThat(blueprint.blueprints[Robot.CLAY.ordinal].clay).isEqualTo(0)
+        assertThat(blueprint.blueprints[Robot.CLAY.ordinal].obsidian).isEqualTo(0)
+
+        assertThat(blueprint.blueprints[Robot.OBSIDIAN.ordinal].ore).isEqualTo(3)
+        assertThat(blueprint.blueprints[Robot.OBSIDIAN.ordinal].clay).isEqualTo(14)
+        assertThat(blueprint.blueprints[Robot.OBSIDIAN.ordinal].obsidian).isEqualTo(0)
+
+        assertThat(blueprint.blueprints[Robot.GEODE.ordinal].ore).isEqualTo(2)
+        assertThat(blueprint.blueprints[Robot.GEODE.ordinal].clay).isEqualTo(0)
+        assertThat(blueprint.blueprints[Robot.GEODE.ordinal].obsidian).isEqualTo(7)
     }
 
     @Test
@@ -84,7 +86,7 @@ class NotEnoughMineralsTest {
     fun calculateQualityLevel() {
         // arrange
         notEnoughMinerals.countGeodeRobots = 5
-        val blueprint = Blueprints(2, 0, 0, 0, 0, 0, 0)
+        val blueprint = Blueprints(2)
 
         // act
         val qualityLevel = notEnoughMinerals.calculateQualityLevel(blueprint)

@@ -24,20 +24,23 @@ class NotEnoughMinerals(
         val robotResources = rawBlueprint.substringAfter(":").split('.')
 
         val oreRobotOre = robotResources[0].substringAfter("costs ").substringBefore(" ore").toInt()
+
+
         val clayRobotOre = robotResources[1].substringAfter("costs ").substringBefore(" ore").toInt()
+
         val obsidianRobotOre = robotResources[2].substringAfter("costs ").substringBefore(" ore").toInt()
         val obsidianRobotClay = robotResources[2].substringAfter("and ").substringBefore(" clay").toInt()
+
         val geodeRobotOre = robotResources[3].substringAfter("costs ").substringBefore(" ore").toInt()
         val geodeRobotObsidian = robotResources[3].substringAfter("and ").substringBefore(" obsidian").toInt()
-        return Blueprints(
+        val blueprints = Blueprints(
             id,
-            oreRobotOre,
-            clayRobotOre,
-            obsidianRobotOre,
-            obsidianRobotClay,
-            geodeRobotOre,
-            geodeRobotObsidian
         )
+        blueprints.blueprints.add(Blueprint(Robot.ORE, ore = oreRobotOre))
+        blueprints.blueprints.add(Blueprint(Robot.CLAY, ore = clayRobotOre))
+        blueprints.blueprints.add(Blueprint(Robot.OBSIDIAN, ore = obsidianRobotOre, clay = obsidianRobotClay))
+        blueprints.blueprints.add(Blueprint(Robot.GEODE, ore = geodeRobotOre, obsidian = geodeRobotObsidian))
+        return blueprints
     }
 
     private fun debug(message: String) {
@@ -50,6 +53,7 @@ class NotEnoughMinerals(
                 println("...want to order clay-collection robot")
                 orderClayCollectingRobot()
             }
+
             2 -> {
                 println("...want to order obsidian-collection robot")
                 orderObsidianCollectingRobot()
@@ -128,15 +132,9 @@ class NotEnoughMinerals(
 
 }
 
-data class Blueprints(
-    val id: Int,
-    val oreRobotOre: Int,
-    val clayRobotOre: Int,
-    val obsidianRobotOre: Int,
-    val obsidianRobotClay: Int,
-    val geodeRobotOre: Int,
-    val geodeRobotObsidian: Int,
-)
+data class Blueprints(val id: Int) {
+    val blueprints = mutableListOf<Blueprint>()
+}
 
 data class Blueprint(
     val robot: Robot,
