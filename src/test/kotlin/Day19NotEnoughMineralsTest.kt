@@ -16,9 +16,12 @@ class NotEnoughMineralsTest {
     // solution = sum of quality levels
 
     val notEnoughMinerals = NotEnoughMinerals()
-    val blueprint1 = Blueprints(
-        id = 1
-    )
+    val blueprint1 = BlueprintList(id = 1).also {
+        it.blueprints.add(Blueprint(robot = Robot.ORE, ore = 4))
+        it.blueprints.add(Blueprint(robot = Robot.CLAY, ore = 2))
+        it.blueprints.add(Blueprint(robot = Robot.OBSIDIAN, ore = 3, clay = 14))
+        it.blueprints.add(Blueprint(robot = Robot.GEODE, ore = 2, obsidian = 7))
+    }
 
 
     @Test
@@ -72,13 +75,13 @@ class NotEnoughMineralsTest {
     @Test
     fun deliver_oneClayRobot() {
         // arrange
-        notEnoughMinerals.orderClayRobot = 1
+        notEnoughMinerals.orderedRobot = Robot.CLAY
 
         // act
         notEnoughMinerals.deliver()
 
         // assert
-        assertThat(notEnoughMinerals.orderClayRobot).isEqualTo(0)
+        assertThat(notEnoughMinerals.orderedRobot).isNull()
         assertThat(notEnoughMinerals.countClayRobots).isEqualTo(1)
     }
 
@@ -86,47 +89,13 @@ class NotEnoughMineralsTest {
     fun calculateQualityLevel() {
         // arrange
         notEnoughMinerals.countGeodeRobots = 5
-        val blueprint = Blueprints(2)
+        val blueprint = BlueprintList(2)
 
         // act
         val qualityLevel = notEnoughMinerals.calculateQualityLevel(blueprint)
 
         // assert
         assertThat(qualityLevel).isEqualTo(10)
-    }
-
-    @Test
-    fun calculateEvolutionLevel_1() {
-
-        // act
-        val evolutionLevel = notEnoughMinerals.calculateEvolutionLevel()
-
-        // assert
-        assertThat(evolutionLevel).isEqualTo(1)
-    }
-
-    @Test
-    fun calculateEvolutionLevel_2() {
-        // arrange
-        notEnoughMinerals.countClayRobots = 1
-
-        // act
-        val evolutionLevel = notEnoughMinerals.calculateEvolutionLevel()
-
-        // assert
-        assertThat(evolutionLevel).isEqualTo(2)
-    }
-
-    @Test
-    fun calculateEvolutionLevel_3() {
-        // arrange
-        notEnoughMinerals.countObsidianRobots = 1
-
-        // act
-        val evolutionLevel = notEnoughMinerals.calculateEvolutionLevel()
-
-        // assert
-        assertThat(evolutionLevel).isEqualTo(3)
     }
 
     @Nested
@@ -245,10 +214,10 @@ class NotEnoughMineralsTest {
             notEnoughMinerals.ore = 2
 
             // act
-            notEnoughMinerals.order()
+            notEnoughMinerals.order(blueprint1.blueprints)
 
             // assert
-            assertThat(notEnoughMinerals.orderClayRobot).isEqualTo(1)
+            assertThat(notEnoughMinerals.orderedRobot).isEqualTo(Robot.CLAY)
             assertThat(notEnoughMinerals.ore).isEqualTo(0)
         }
 

@@ -7,8 +7,6 @@ class NotEnoughMinerals(
 
     }
 
-    var orderClayRobot = 0
-    var orderObsidianRobot = 0
 
     var countOreRobots = 1
     var countClayRobots = 0
@@ -17,9 +15,12 @@ class NotEnoughMinerals(
 
     var ore: Int = 0
     var clay: Int = 0
+    var obsidian: Int = 0
+
+    var orderedRobot: Robot? = null
 
 
-    fun parseBlueprint(rawBlueprint: String): Blueprints {
+    fun parseBlueprint(rawBlueprint: String): BlueprintList {
         val id = rawBlueprint.substringAfter("Blueprint ").substringBefore(":").toInt()
         val robotResources = rawBlueprint.substringAfter(":").split('.')
 
@@ -33,53 +34,30 @@ class NotEnoughMinerals(
 
         val geodeRobotOre = robotResources[3].substringAfter("costs ").substringBefore(" ore").toInt()
         val geodeRobotObsidian = robotResources[3].substringAfter("and ").substringBefore(" obsidian").toInt()
-        val blueprints = Blueprints(
+        val blueprintList = BlueprintList(
             id,
         )
-        blueprints.blueprints.add(Blueprint(Robot.ORE, ore = oreRobotOre))
-        blueprints.blueprints.add(Blueprint(Robot.CLAY, ore = clayRobotOre))
-        blueprints.blueprints.add(Blueprint(Robot.OBSIDIAN, ore = obsidianRobotOre, clay = obsidianRobotClay))
-        blueprints.blueprints.add(Blueprint(Robot.GEODE, ore = geodeRobotOre, obsidian = geodeRobotObsidian))
-        return blueprints
+        blueprintList.blueprints.add(Blueprint(Robot.ORE, ore = oreRobotOre))
+        blueprintList.blueprints.add(Blueprint(Robot.CLAY, ore = clayRobotOre))
+        blueprintList.blueprints.add(Blueprint(Robot.OBSIDIAN, ore = obsidianRobotOre, clay = obsidianRobotClay))
+        blueprintList.blueprints.add(Blueprint(Robot.GEODE, ore = geodeRobotOre, obsidian = geodeRobotObsidian))
+        return blueprintList
     }
 
     private fun debug(message: String) {
         if (debug) println(message)
     }
 
-    fun order() {
-        when (calculateEvolutionLevel()) {
-            1 -> {
-                println("...want to order clay-collection robot")
-                orderClayCollectingRobot()
+    fun order(blueprints: List<Blueprint>) {
+        for (index in blueprints.lastIndex downTo 0) {
+            val blueprint = blueprints[index]
+            if (ore >= blueprint.ore && clay >= blueprint.clay && obsidian >= blueprint.obsidian) {
+                orderedRobot = blueprint.robot
+                ore -= blueprint.ore
+                clay -= blueprint.clay
+                obsidian -= blueprint.obsidian
+                debug("Spend ${blueprint.ore} ore, ${blueprint.clay} clay and ${blueprint.obsidian} obsidian to start building a ${blueprint.robot}-collecting robot.")
             }
-
-            2 -> {
-                println("...want to order obsidian-collection robot")
-                orderObsidianCollectingRobot()
-            }
-
-            3 -> {
-                println("...want to order geode-collection robot")
-
-            }
-        }
-    }
-
-    private fun orderClayCollectingRobot() {
-        if (ore >= 2) {
-            orderClayRobot++
-            ore -= 2
-            debug("Spend 2 ore to start building a clay-collecting robot.")
-        }
-    }
-
-
-    private fun orderObsidianCollectingRobot() {
-        if (ore >= 3 && clay >= 14) {
-            orderObsidianRobot++
-            ore -= 3
-            debug("Spend 3 ore and 14 clay clay to start building a obsidian-collecting robot.")
         }
     }
 
@@ -96,43 +74,52 @@ class NotEnoughMinerals(
     }
 
     fun deliver() {
-        if (orderClayRobot == 1) {
-            countClayRobots += orderClayRobot
-            orderClayRobot = 0
-            debug("The new clay-collecting robot is ready; you now have $countClayRobots of them.")
-        }
-        if (orderObsidianRobot == 1) {
-            countObsidianRobots += orderObsidianRobot
-            orderObsidianRobot = 0
-            debug("The new obsidian-collecting robot is ready; you now have $countObsidianRobots of them.")
-        }
+        when (orderedRobot) {
+            Robot.ORE -> {
+                countOreRobots++
+                orderedRobot = null
+                debug("The new ore-collecting robot is ready; you now have $countOreRobots of them.")
+            }
 
+            Robot.CLAY -> {
+                countClayRobots++
+                orderedRobot = null
+                debug("The new clay-collecting robot is ready; you now have $countClayRobots of them.")
+            }
+
+            Robot.OBSIDIAN -> {
+                countObsidianRobots++
+                orderedRobot = null
+                debug("The new obsidian-collecting robot is ready; you now have $countObsidianRobots of them.")
+            }
+
+            Robot.GEODE -> {
+                countGeodeRobots++
+                orderedRobot = null
+                debug("The new geode-collecting robot is ready; you now have $countGeodeRobots of them.")
+            }
+
+            else -> {}
+        }
     }
 
-    fun calculateEvolutionLevel(): Int {
-        if (countObsidianRobots > 0) return 3
-        if (countClayRobots > 0) return 2
-        if (countOreRobots > 0) return 1
-        throw IllegalArgumentException("unknown evolution level")
-    }
-
-    fun simulate(blueprint: Blueprints, maxMinutes: Int): Int {
+    fun simulate(blueprintList: BlueprintList, maxMinutes: Int): Int {
         for (minute in 1..maxMinutes) {
             debug("\n== Minute $minute ==")
-            order()
+            order(blueprintList.blueprints)
             collect()
             deliver()
         }
-        return calculateQualityLevel(blueprint)
+        return calculateQualityLevel(blueprintList)
     }
 
-    fun calculateQualityLevel(blueprint: Blueprints): Int {
-        return blueprint.id * countGeodeRobots
+    fun calculateQualityLevel(blueprintList: BlueprintList): Int {
+        return blueprintList.id * countGeodeRobots
     }
 
 }
 
-data class Blueprints(val id: Int) {
+data class BlueprintList(val id: Int) {
     val blueprints = mutableListOf<Blueprint>()
 }
 
