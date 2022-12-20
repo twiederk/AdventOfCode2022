@@ -15,7 +15,7 @@ class NotEnoughMinerals(
 
     fun loadData(fileName: String): List<String> = Resources.resourceAsListOfString(fileName)
 
-    fun parseBlueprint(rawBlueprint: String): Blueprint {
+    fun parseBlueprint(rawBlueprint: String): Blueprints {
         val id = rawBlueprint.substringAfter("Blueprint ").substringBefore(":").toInt()
         val robotResources = rawBlueprint.substringAfter(":").split('.')
 
@@ -25,7 +25,7 @@ class NotEnoughMinerals(
         val obsidianRobotClay = robotResources[2].substringAfter("and ").substringBefore(" clay").toInt()
         val geodeRobotOre = robotResources[3].substringAfter("costs ").substringBefore(" ore").toInt()
         val geodeRobotObsidian = robotResources[3].substringAfter("and ").substringBefore(" obsidian").toInt()
-        return Blueprint(
+        return Blueprints(
             id,
             oreRobotOre,
             clayRobotOre,
@@ -108,7 +108,7 @@ class NotEnoughMinerals(
         throw IllegalArgumentException("unknown evolution level")
     }
 
-    fun simulate(blueprint: Blueprint, maxMinutes: Int): Int {
+    fun simulate(blueprint: Blueprints, maxMinutes: Int): Int {
         for (minute in 1..maxMinutes) {
             debug("\n== Minute $minute ==")
             order()
@@ -118,13 +118,13 @@ class NotEnoughMinerals(
         return calculateQualityLevel(blueprint)
     }
 
-    fun calculateQualityLevel(blueprint: Blueprint): Int {
+    fun calculateQualityLevel(blueprint: Blueprints): Int {
         return blueprint.id * countGeodeRobots
     }
 
 }
 
-data class Blueprint(
+data class Blueprints(
     val id: Int,
     val oreRobotOre: Int,
     val clayRobotOre: Int,
@@ -134,3 +134,13 @@ data class Blueprint(
     val geodeRobotObsidian: Int,
 )
 
+data class Blueprint(
+    val robot: Robot,
+    val ore: Int = 0,
+    val clay: Int = 0,
+    val obsidian: Int = 0
+)
+
+enum class Robot {
+    ORE, CLAY, OBSIDIAN, GEODE
+}

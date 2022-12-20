@@ -16,7 +16,7 @@ class NotEnoughMineralsTest {
     // solution = sum of quality levels
 
     val notEnoughMinerals = NotEnoughMinerals()
-    val blueprint1 = Blueprint(
+    val blueprint1 = Blueprints(
         id = 1,
         oreRobotOre = 4,
         clayRobotOre = 2,
@@ -69,20 +69,6 @@ class NotEnoughMineralsTest {
     }
 
     @Test
-    fun order_oneClayRobot() {
-        // arrange
-        notEnoughMinerals.debug = true
-        notEnoughMinerals.ore = 2
-
-        // act
-        notEnoughMinerals.order()
-
-        // assert
-        assertThat(notEnoughMinerals.orderClayRobot).isEqualTo(1)
-        assertThat(notEnoughMinerals.ore).isEqualTo(0)
-    }
-
-    @Test
     fun deliver_oneClayRobot() {
         // arrange
         notEnoughMinerals.orderClayRobot = 1
@@ -99,7 +85,7 @@ class NotEnoughMineralsTest {
     fun calculateQualityLevel() {
         // arrange
         notEnoughMinerals.countGeodeRobots = 5
-        val blueprint = Blueprint(2, 0, 0, 0, 0, 0, 0)
+        val blueprint = Blueprints(2, 0, 0, 0, 0, 0, 0)
 
         // act
         val qualityLevel = notEnoughMinerals.calculateQualityLevel(blueprint)
@@ -247,5 +233,25 @@ class NotEnoughMineralsTest {
             assertThat(notEnoughMinerals.clay).isEqualTo(15)
         }
     }
+
+    @Nested
+    inner class BlueprintTest {
+
+        @Test
+        fun order_oneClayRobot() {
+            // arrange
+            notEnoughMinerals.debug = true
+            notEnoughMinerals.ore = 2
+
+            // act
+            notEnoughMinerals.order()
+
+            // assert
+            assertThat(notEnoughMinerals.orderClayRobot).isEqualTo(1)
+            assertThat(notEnoughMinerals.ore).isEqualTo(0)
+        }
+
+    }
+
 
 }
