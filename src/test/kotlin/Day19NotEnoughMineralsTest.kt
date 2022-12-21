@@ -63,29 +63,6 @@ class NotEnoughMineralsTest {
         assertThat(blueprint.blueprints[Robot.GEODE.ordinal].costObsidian).isEqualTo(7)
     }
 
-    @Test
-    fun collect_oneOreRobot() {
-
-        // act
-        notEnoughMinerals.collect()
-
-        // assert
-        assertThat(notEnoughMinerals.ore).isEqualTo(1)
-    }
-
-    @Test
-    fun deliver_oneClayRobot() {
-        // arrange
-        notEnoughMinerals.orderedRobot = Robot.CLAY
-
-        // act
-        notEnoughMinerals.deliver()
-
-        // assert
-        assertThat(notEnoughMinerals.orderedRobot).isNull()
-        assertThat(notEnoughMinerals.countClayRobots).isEqualTo(1)
-    }
-
     @Nested
     inner class Simulation {
 
@@ -260,7 +237,7 @@ class NotEnoughMineralsTest {
     }
 
     @Nested
-    inner class BlueprintTest {
+    inner class BlueprintListTest {
 
         @Test
         fun maxOre() {
@@ -283,7 +260,7 @@ class NotEnoughMineralsTest {
         @Test
         fun maxObsidian() {
             // act
-            val maxOre = blueprintList.maxOre
+            val maxOre = blueprintList.maxObsidian
 
             // assert
             assertThat(maxOre).isEqualTo(7)
@@ -362,6 +339,58 @@ class NotEnoughMineralsTest {
             // assert
             assertThat(productionStates).hasSize(2)
         }
+
+    }
+
+    @Nested
+    inner class BlueprintTest {
+
+        @Test
+        fun timeUntilBuild_canBuildClayRobotInOneTurn() {
+            // arrange
+            val productionState = ProductionState(
+                ore = 2
+            )
+
+            // act
+            val timeUntilBuild = blueprintList.blueprints[Robot.CLAY.ordinal].timeUntilBuild(productionState)
+
+            // assert
+            assertThat(timeUntilBuild).isEqualTo(1)
+
+
+        }
+
+        @Test
+        fun timeUntilBuild_canBuildClayRobotWithThreeOreRobotsInTwoTurns() {
+            // arrange
+            val productionState = ProductionState(
+                ore = 0,
+                robots = arrayOf(3, 0, 0, 0)
+            )
+
+            // act
+            val timeUntilBuild = blueprintList.blueprints[Robot.CLAY.ordinal].timeUntilBuild(productionState)
+
+            // assert
+            assertThat(timeUntilBuild).isEqualTo(2)
+        }
+
+        @Test
+        fun timeUntilBuild_cantBuildClayRobotWithoutOreAndOreRobot() {
+            // arrange
+            val productionState = ProductionState(
+                ore = 0,
+                robots = arrayOf(0, 0, 0, 0)
+            )
+
+            // act
+            val timeUntilBuild = blueprintList.blueprints[Robot.CLAY.ordinal].timeUntilBuild(productionState)
+
+            // assert
+            assertThat(timeUntilBuild).isEqualTo(Int.MIN_VALUE)
+        }
+
 
     }
 

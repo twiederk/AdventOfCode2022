@@ -1,4 +1,5 @@
 import java.util.*
+import kotlin.math.ceil
 
 class NotEnoughMinerals(
     var debug: Boolean = false
@@ -144,6 +145,14 @@ data class Blueprint(
 ) {
     fun scheduleBuild(productionState: ProductionState): ProductionState {
         TODO("Not yet implemented")
+    }
+
+    fun timeUntilBuild(productionState: ProductionState): Int {
+        return maxOf(
+            if (costOre <= productionState.ore) 0 else ceil((costOre - productionState.ore) / productionState.robots[Robot.ORE.ordinal].toFloat()).toInt(),
+            if (costClay <= productionState.clay) 0 else ceil((costClay - productionState.clay) / productionState.robots[Robot.CLAY.ordinal].toFloat()).toInt(),
+            if (costObsidian <= productionState.obsidian) 0 else ceil((costObsidian - productionState.obsidian) / productionState.robots[Robot.OBSIDIAN.ordinal].toFloat()).toInt()
+        ) + 1
     }
 }
 
