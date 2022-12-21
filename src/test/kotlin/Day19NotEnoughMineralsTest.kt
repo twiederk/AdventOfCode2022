@@ -4,19 +4,8 @@ import org.junit.jupiter.api.Test
 
 class NotEnoughMineralsTest {
 
-    // load blueprint
-    // robot factory needs factory method to produce robots based on resources known from blueprint
-    // factory method checks available resources and builds most important robot
-    // robots are stored in counters
-    // we need a minute counter
-    // simulate all blueprints
-    // each simulation stops after 24 minutes
-    // should we print the data to compare it to the log of aoc puzzle?
-    // quality level = number of geodes * id of blueprint
-    // solution = sum of quality levels
-
     val notEnoughMinerals = NotEnoughMinerals()
-    val blueprintList = BlueprintList(
+    val blueprintList1 = BlueprintList(
         id = 1, listOf(
             Blueprint(robot = Robot.ORE, costOre = 4),
             Blueprint(robot = Robot.CLAY, costOre = 2),
@@ -67,173 +56,25 @@ class NotEnoughMineralsTest {
     inner class Simulation {
 
         @Test
-        fun simulate_minute_1() {
+        fun simulate_blueprintList_1() {
 
             // act
-            val totalQualityLevel = notEnoughMinerals.simulate(blueprintList, 1)
+            val totalQualityLevel = notEnoughMinerals.simulate(blueprintList1, 24)
 
             // assert
-            assertThat(totalQualityLevel).isEqualTo(0)
-            assertThat(notEnoughMinerals.queue).hasSize(2)
+            assertThat(totalQualityLevel).isEqualTo(9)
         }
 
         @Test
-        fun simulate_minute_2() {
+        fun simulate_blueprintList_2() {
 
             // act
-            val totalQualityLevel = notEnoughMinerals.simulate(blueprintList, 2)
+            val totalQualityLevel = notEnoughMinerals.simulate(blueprintList1, 24)
 
             // assert
-            assertThat(totalQualityLevel).isEqualTo(0)
-//            == Minute 2 ==
-//            1 ore-collecting robot collects 1 ore; you now have 2 ore.
-            assertThat(notEnoughMinerals.countOreRobots).isEqualTo(1)
-            assertThat(notEnoughMinerals.ore).isEqualTo(2)
-
+            assertThat(totalQualityLevel).isEqualTo(9)
         }
 
-        @Test
-        fun simulate_minute_3() {
-
-            // act
-            val totalQualityLevel = notEnoughMinerals.simulate(blueprintList, 3)
-
-            // assert
-//            == Minute 3 ==
-            assertThat(totalQualityLevel).isEqualTo(0)
-//            Spend 2 ore to start building a clay-collecting robot.
-//            1 ore-collecting robot collects 1 ore; you now have 1 ore.
-            assertThat(notEnoughMinerals.countOreRobots).isEqualTo(1)
-            assertThat(notEnoughMinerals.ore).isEqualTo(1)
-//            The new clay-collecting robot is ready; you now have 1 of them.
-            assertThat(notEnoughMinerals.countClayRobots).isEqualTo(1)
-
-        }
-
-        @Test
-        fun simulate_minute_4() {
-
-            // act
-            val totalQualityLevel = notEnoughMinerals.simulate(blueprintList, 4)
-
-            // assert
-            assertThat(totalQualityLevel).isEqualTo(0)
-//            == Minute 4 ==
-//            1 ore-collecting robot collects 1 ore; you now have 2 ore.
-            assertThat(notEnoughMinerals.countOreRobots).isEqualTo(1)
-            assertThat(notEnoughMinerals.ore).isEqualTo(2)
-//            1 clay-collecting robot collects 1 clay; you now have 1 clay.
-            assertThat(notEnoughMinerals.countClayRobots).isEqualTo(1)
-            assertThat(notEnoughMinerals.clay).isEqualTo(1)
-        }
-
-        @Test
-        fun simulate_minute_5() {
-
-            // act
-            val totalQualityLevel = notEnoughMinerals.simulate(blueprintList, 5)
-
-            // assert
-            assertThat(totalQualityLevel).isEqualTo(0)
-//            == Minute 5 ==
-//            Spend 2 ore to start building a clay-collecting robot.
-//            1 ore-collecting robot collects 1 ore; you now have 1 ore.
-            assertThat(notEnoughMinerals.countOreRobots).isEqualTo(1)
-            assertThat(notEnoughMinerals.ore).isEqualTo(1)
-//            1 clay-collecting robot collects 1 clay; you now have 2 clay.
-//            The new clay-collecting robot is ready; you now have 2 of them.
-            assertThat(notEnoughMinerals.countClayRobots).isEqualTo(2)
-            assertThat(notEnoughMinerals.clay).isEqualTo(2)
-        }
-
-        @Test
-        fun simulate_minute_6() {
-
-            // act
-            val totalQualityLevel = notEnoughMinerals.simulate(blueprintList, 6)
-
-            // assert
-            assertThat(totalQualityLevel).isEqualTo(0)
-//            == Minute 6 ==
-//            1 ore-collecting robot collects 1 ore; you now have 2 ore.
-            assertThat(notEnoughMinerals.countOreRobots).isEqualTo(1)
-            assertThat(notEnoughMinerals.ore).isEqualTo(2)
-
-//            2 clay-collecting robots collect 2 clay; you now have 4 clay.
-            assertThat(notEnoughMinerals.countClayRobots).isEqualTo(2)
-            assertThat(notEnoughMinerals.clay).isEqualTo(4)
-        }
-
-        @Test
-        fun simulate_minute_7() {
-
-            // act
-            val totalQualityLevel = notEnoughMinerals.simulate(blueprintList, 7)
-
-            // assert
-            assertThat(totalQualityLevel).isEqualTo(0)
-//            Spend 2 ore to start building a clay-collecting robot.
-//            1 ore-collecting robot collects 1 ore; you now have 1 ore.
-            assertThat(notEnoughMinerals.countOreRobots).isEqualTo(1)
-            assertThat(notEnoughMinerals.ore).isEqualTo(1)
-//            2 clay-collecting robots collect 2 clay; you now have 6 clay.
-//            The new clay-collecting robot is ready; you now have 3 of them.
-            assertThat(notEnoughMinerals.countClayRobots).isEqualTo(3)
-            assertThat(notEnoughMinerals.clay).isEqualTo(6)
-        }
-
-        @Test
-        fun simulate_minute_8() {
-
-            // act
-            val totalQualityLevel = notEnoughMinerals.simulate(blueprintList, 8)
-
-            // assert
-            assertThat(totalQualityLevel).isEqualTo(0)
-//            == Minute 8 ==
-//            1 ore-collecting robot collects 1 ore; you now have 2 ore.
-            assertThat(notEnoughMinerals.countOreRobots).isEqualTo(1)
-            assertThat(notEnoughMinerals.ore).isEqualTo(2)
-//            3 clay-collecting robots collect 3 clay; you now have 9 clay.
-            assertThat(notEnoughMinerals.countClayRobots).isEqualTo(3)
-            assertThat(notEnoughMinerals.clay).isEqualTo(9)
-        }
-
-        @Test
-        fun simulate_minute_9() {
-            // arrange
-            notEnoughMinerals.debug = true
-
-            // act
-            val totalQualityLevel = notEnoughMinerals.simulate(blueprintList, 9)
-
-            // assert
-            assertThat(totalQualityLevel).isEqualTo(0)
-//            == Minute 9 ==
-//            1 ore-collecting robot collects 1 ore; you now have 3 ore.
-            assertThat(notEnoughMinerals.countOreRobots).isEqualTo(1)
-            assertThat(notEnoughMinerals.ore).isEqualTo(3)
-//            3 clay-collecting robots collect 3 clay; you now have 12 clay.
-            assertThat(notEnoughMinerals.countClayRobots).isEqualTo(3)
-            assertThat(notEnoughMinerals.clay).isEqualTo(12)
-        }
-
-        @Test
-        fun simulate_minute_10() {
-
-            // act
-            val totalQualityLevel = notEnoughMinerals.simulate(blueprintList, 10)
-
-            // assert
-            assertThat(totalQualityLevel).isEqualTo(0)
-//            == Minute 10 ==
-//            1 ore-collecting robot collects 1 ore; you now have 4 ore.
-            assertThat(notEnoughMinerals.countOreRobots).isEqualTo(1)
-            assertThat(notEnoughMinerals.ore).isEqualTo(4)
-//            3 clay-collecting robots collect 3 clay; you now have 15 clay.
-            assertThat(notEnoughMinerals.countClayRobots).isEqualTo(3)
-            assertThat(notEnoughMinerals.clay).isEqualTo(15)
-        }
     }
 
     @Nested
@@ -242,7 +83,7 @@ class NotEnoughMineralsTest {
         @Test
         fun maxOre() {
             // act
-            val maxOre = blueprintList.maxOre
+            val maxOre = blueprintList1.maxOre
 
             // assert
             assertThat(maxOre).isEqualTo(4)
@@ -251,7 +92,7 @@ class NotEnoughMineralsTest {
         @Test
         fun maxClay() {
             // act
-            val maxOre = blueprintList.maxClay
+            val maxOre = blueprintList1.maxClay
 
             // assert
             assertThat(maxOre).isEqualTo(14)
@@ -260,7 +101,7 @@ class NotEnoughMineralsTest {
         @Test
         fun maxObsidian() {
             // act
-            val maxOre = blueprintList.maxObsidian
+            val maxOre = blueprintList1.maxObsidian
 
             // assert
             assertThat(maxOre).isEqualTo(7)
@@ -279,7 +120,7 @@ class NotEnoughMineralsTest {
             // assert
             assertThat(productionState.minute).isEqualTo(1)
 
-            assertThat(productionState.ore).isEqualTo(0)
+            assertThat(productionState.ore).isEqualTo(1)
             assertThat(productionState.clay).isEqualTo(0)
             assertThat(productionState.obsidian).isEqualTo(0)
             assertThat(productionState.geode).isEqualTo(0)
@@ -331,13 +172,36 @@ class NotEnoughMineralsTest {
 
         @Test
         fun calculateNextStates_minute_1() {
-            // arrange
 
             // act
-            val productionStates = ProductionState().calculateNextStates(blueprintList, 24)
+            val productionStates = ProductionState().calculateNextStates(blueprintList1, 24)
 
             // assert
             assertThat(productionStates).hasSize(2)
+
+            // build ORE robot in minute 5
+            assertThat(productionStates[0].minute).isEqualTo(5)
+
+            assertThat(productionStates[0].ore).isEqualTo(1)
+            assertThat(productionStates[0].clay).isEqualTo(0)
+            assertThat(productionStates[0].obsidian).isEqualTo(0)
+            assertThat(productionStates[0].geode).isEqualTo(0)
+
+            assertThat(productionStates[0].robots[Robot.ORE.ordinal]).isEqualTo(2)
+            assertThat(productionStates[0].robots[Robot.CLAY.ordinal]).isEqualTo(0)
+            assertThat(productionStates[0].robots[Robot.OBSIDIAN.ordinal]).isEqualTo(0)
+            assertThat(productionStates[0].robots[Robot.GEODE.ordinal]).isEqualTo(0)
+
+            // build CLAY robot in minute 3
+            assertThat(productionStates[1].minute).isEqualTo(3)
+            assertThat(productionStates[1].ore).isEqualTo(1)
+            assertThat(productionStates[1].clay).isEqualTo(0)
+            assertThat(productionStates[1].obsidian).isEqualTo(0)
+            assertThat(productionStates[1].geode).isEqualTo(0)
+            assertThat(productionStates[1].robots[Robot.ORE.ordinal]).isEqualTo(1)
+            assertThat(productionStates[1].robots[Robot.CLAY.ordinal]).isEqualTo(1)
+            assertThat(productionStates[1].robots[Robot.OBSIDIAN.ordinal]).isEqualTo(0)
+            assertThat(productionStates[1].robots[Robot.GEODE.ordinal]).isEqualTo(0)
         }
 
     }
@@ -353,7 +217,7 @@ class NotEnoughMineralsTest {
             )
 
             // act
-            val timeUntilBuild = blueprintList.blueprints[Robot.CLAY.ordinal].timeUntilBuild(productionState)
+            val timeUntilBuild = blueprintList1.blueprints[Robot.CLAY.ordinal].timeUntilBuild(productionState)
 
             // assert
             assertThat(timeUntilBuild).isEqualTo(1)
@@ -370,7 +234,7 @@ class NotEnoughMineralsTest {
             )
 
             // act
-            val timeUntilBuild = blueprintList.blueprints[Robot.CLAY.ordinal].timeUntilBuild(productionState)
+            val timeUntilBuild = blueprintList1.blueprints[Robot.CLAY.ordinal].timeUntilBuild(productionState)
 
             // assert
             assertThat(timeUntilBuild).isEqualTo(2)
@@ -385,7 +249,7 @@ class NotEnoughMineralsTest {
             )
 
             // act
-            val timeUntilBuild = blueprintList.blueprints[Robot.CLAY.ordinal].timeUntilBuild(productionState)
+            val timeUntilBuild = blueprintList1.blueprints[Robot.CLAY.ordinal].timeUntilBuild(productionState)
 
             // assert
             assertThat(timeUntilBuild).isEqualTo(Int.MIN_VALUE)

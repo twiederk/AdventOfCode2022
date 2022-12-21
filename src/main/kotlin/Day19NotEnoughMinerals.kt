@@ -1,28 +1,12 @@
 import java.util.*
 import kotlin.math.ceil
 
-class NotEnoughMinerals(
-    var debug: Boolean = false
-) {
+class NotEnoughMinerals {
 
     companion object {
         fun loadData(fileName: String): List<String> = Resources.resourceAsListOfString(fileName)
 
     }
-
-
-    val queue = PriorityQueue<ProductionState>()
-    var countOreRobots = 1
-    var countClayRobots = 0
-    var countObsidianRobots = 0
-    var countGeodeRobots = 0
-
-    var ore: Int = 0
-    var clay: Int = 0
-    var obsidian: Int = 0
-
-    var orderedRobot: Robot? = null
-
 
     fun parseBlueprint(rawBlueprint: String): BlueprintList {
         val id = rawBlueprint.substringAfter("Blueprint ").substringBefore(":").toInt()
@@ -46,52 +30,6 @@ class NotEnoughMinerals(
         )
 
         return BlueprintList(id, blueprints)
-    }
-
-    private fun debug(message: String) {
-        if (debug) println(message)
-    }
-
-    fun collect() {
-        if (countOreRobots > 0) {
-            ore += countOreRobots
-            debug("$countOreRobots ore-collecting robot collects $countOreRobots ore; you now have $ore ore.")
-        }
-
-        if (countClayRobots > 0) {
-            clay += countClayRobots
-            debug("$countClayRobots clay-collecting robot collects $countClayRobots clay; you now have $clay clay.")
-        }
-    }
-
-    fun deliver() {
-        when (orderedRobot) {
-            Robot.ORE -> {
-                countOreRobots++
-                orderedRobot = null
-                debug("The new ore-collecting robot is ready; you now have $countOreRobots of them.")
-            }
-
-            Robot.CLAY -> {
-                countClayRobots++
-                orderedRobot = null
-                debug("The new clay-collecting robot is ready; you now have $countClayRobots of them.")
-            }
-
-            Robot.OBSIDIAN -> {
-                countObsidianRobots++
-                orderedRobot = null
-                debug("The new obsidian-collecting robot is ready; you now have $countObsidianRobots of them.")
-            }
-
-            Robot.GEODE -> {
-                countGeodeRobots++
-                orderedRobot = null
-                debug("The new geode-collecting robot is ready; you now have $countGeodeRobots of them.")
-            }
-
-            else -> {}
-        }
     }
 
     fun simulate(blueprintList: BlueprintList, maxMinutes: Int): Int {
@@ -144,7 +82,22 @@ data class Blueprint(
     val costObsidian: Int = 0
 ) {
     fun scheduleBuild(productionState: ProductionState): ProductionState {
-        TODO("Not yet implemented")
+        val timeRequired = timeUntilBuild(productionState)
+        return productionState.copy(
+            minute = productionState.minute + timeRequired,
+
+            ore = (productionState.ore - costOre) + (timeRequired * productionState.robots[Robot.ORE.ordinal]),
+            clay = (productionState.clay - costClay) + (timeRequired * productionState.robots[Robot.CLAY.ordinal]),
+            obsidian = (productionState.obsidian - costObsidian) + (timeRequired * productionState.robots[Robot.OBSIDIAN.ordinal]),
+            geode = productionState.geode + (timeRequired * productionState.robots[Robot.GEODE.ordinal]),
+
+            robots = arrayOf(
+                productionState.robots[Robot.ORE.ordinal] + (if (robot == Robot.ORE) 1 else 0),
+                productionState.robots[Robot.CLAY.ordinal] + (if (robot == Robot.CLAY) 1 else 0),
+                productionState.robots[Robot.OBSIDIAN.ordinal] + (if (robot == Robot.OBSIDIAN) 1 else 0),
+                productionState.robots[Robot.GEODE.ordinal] + (if (robot == Robot.GEODE) 1 else 0),
+            )
+        )
     }
 
     fun timeUntilBuild(productionState: ProductionState): Int {
@@ -162,7 +115,7 @@ enum class Robot {
 
 data class ProductionState(
     val minute: Int = 1,
-    val ore: Int = 0,
+    val ore: Int = 1,
     val clay: Int = 0,
     val obsidian: Int = 0,
     val geode: Int = 0,
@@ -171,7 +124,7 @@ data class ProductionState(
 
     override fun compareTo(other: ProductionState): Int = geode.compareTo(other.geode)
 
-    fun calculateNextStates(blueprintList: BlueprintList, maxMinutes: Int): Collection<ProductionState> {
+    fun calculateNextStates(blueprintList: BlueprintList, maxMinutes: Int): List<ProductionState> {
         val nextStates = mutableListOf<ProductionState>()
         if (minute < maxMinutes) {
             if (blueprintList.maxOre > robots[Robot.ORE.ordinal] && ore > 0) {
