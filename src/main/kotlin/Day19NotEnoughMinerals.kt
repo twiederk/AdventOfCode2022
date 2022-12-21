@@ -40,7 +40,9 @@ class NotEnoughMinerals {
 
         while (queue.isNotEmpty()) {
             val productionState = queue.poll()
-            queue.addAll(productionState.calculateNextStates(blueprintList, maxMinutes))
+            if (productionState.canOutproduceBest(maxGeodes, maxMinutes)) {
+                queue.addAll(productionState.calculateNextStates(blueprintList, maxMinutes))
+            }
             maxGeodes = maxOf(maxGeodes, productionState.geode)
         }
         return blueprintList.id * maxGeodes
@@ -149,13 +151,19 @@ data class ProductionState(
         return nextStates.filter { it.minute <= maxMinutes }
     }
 
+    fun canOutproduceBest(bestSoFar: Int, minutesMax: Int): Boolean {
+        val minutesLeft = minutesMax - minute
+        val potentialProduction = (0 until minutesLeft).sumOf { it + robots[Robot.GEODE.ordinal] }
+        return geode + potentialProduction > bestSoFar
+    }
+
 }
 
 fun main() {
     val rawBlueprintLists = NotEnoughMinerals.loadData("Day19_InputData.txt")
     val blueprintLists = NotEnoughMinerals.parseAllBlueprintLists(rawBlueprintLists)
 
-    val totalQualityLevel = NotEnoughMinerals().simulateAll(blueprintLists, 24)
+    val totalQualityLevel = NotEnoughMinerals().simulateAll(blueprintLists, 32)
 
     println("totalQualityLevel = $totalQualityLevel")
 }

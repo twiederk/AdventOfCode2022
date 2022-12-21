@@ -238,6 +238,26 @@ class NotEnoughMineralsTest {
             assertThat(productionStates[1].robots[Robot.GEODE.ordinal]).isEqualTo(0)
         }
 
+        @Test
+        fun canOutproduceBest_true() {
+
+            // act
+            val canOutproduceBest = ProductionState().canOutproduceBest(0, 24)
+
+            // assert
+            assertThat(canOutproduceBest).isTrue
+        }
+
+        @Test
+        fun canOutproduceBest_false() {
+
+            // act
+            val canOutproduceBest = ProductionState(minute= 20).canOutproduceBest(10, 24)
+
+            // assert
+            assertThat(canOutproduceBest).isFalse
+        }
+
     }
 
     @Nested
@@ -291,6 +311,5 @@ class NotEnoughMineralsTest {
 
 
     }
-
 
 }
