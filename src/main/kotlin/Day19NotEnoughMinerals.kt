@@ -37,14 +37,15 @@ class NotEnoughMinerals(
 
         val geodeRobotOre = robotResources[3].substringAfter("costs ").substringBefore(" ore").toInt()
         val geodeRobotObsidian = robotResources[3].substringAfter("and ").substringBefore(" obsidian").toInt()
-        val blueprintList = BlueprintList(
-            id,
+
+        val blueprints = listOf(
+            Blueprint(Robot.ORE, costOre = oreRobotOre),
+            Blueprint(Robot.CLAY, costOre = clayRobotOre),
+            Blueprint(Robot.OBSIDIAN, costOre = obsidianRobotOre, costClay = obsidianRobotClay),
+            Blueprint(Robot.GEODE, costOre = geodeRobotOre, costObsidian = geodeRobotObsidian)
         )
-        blueprintList.blueprints.add(Blueprint(Robot.ORE, ore = oreRobotOre))
-        blueprintList.blueprints.add(Blueprint(Robot.CLAY, ore = clayRobotOre))
-        blueprintList.blueprints.add(Blueprint(Robot.OBSIDIAN, ore = obsidianRobotOre, clay = obsidianRobotClay))
-        blueprintList.blueprints.add(Blueprint(Robot.GEODE, ore = geodeRobotOre, obsidian = geodeRobotObsidian))
-        return blueprintList
+
+        return BlueprintList(id, blueprints)
     }
 
     private fun debug(message: String) {
@@ -54,12 +55,12 @@ class NotEnoughMinerals(
     fun order(blueprints: List<Blueprint>) {
         for (index in blueprints.lastIndex downTo 0) {
             val blueprint = blueprints[index]
-            if (ore >= blueprint.ore && clay >= blueprint.clay && obsidian >= blueprint.obsidian) {
+            if (ore >= blueprint.costOre && clay >= blueprint.costClay && obsidian >= blueprint.costObsidian) {
                 orderedRobot = blueprint.robot
-                ore -= blueprint.ore
-                clay -= blueprint.clay
-                obsidian -= blueprint.obsidian
-                debug("Spend ${blueprint.ore} ore, ${blueprint.clay} clay and ${blueprint.obsidian} obsidian to start building a ${blueprint.robot}-collecting robot.")
+                ore -= blueprint.costOre
+                clay -= blueprint.costClay
+                obsidian -= blueprint.costObsidian
+                debug("Spend ${blueprint.costOre} ore, ${blueprint.costClay} clay and ${blueprint.costObsidian} obsidian to start building a ${blueprint.robot}-collecting robot.")
             }
         }
     }
@@ -120,15 +121,40 @@ class NotEnoughMinerals(
 
 }
 
-data class BlueprintList(val id: Int) {
-    val blueprints = mutableListOf<Blueprint>()
+data class BlueprintList(
+    val id: Int,
+    val blueprints: List<Blueprint>
+) {
+    val maxOre: Int =
+        maxOf(
+            blueprints[Robot.ORE.ordinal].costOre,
+            blueprints[Robot.CLAY.ordinal].costOre,
+            blueprints[Robot.OBSIDIAN.ordinal].costOre,
+            blueprints[Robot.GEODE.ordinal].costOre
+        )
+
+    val maxClay: Int =
+        maxOf(
+            blueprints[Robot.ORE.ordinal].costOre,
+            blueprints[Robot.CLAY.ordinal].costClay,
+            blueprints[Robot.OBSIDIAN.ordinal].costClay,
+            blueprints[Robot.GEODE.ordinal].costClay
+        )
+
+    val maxObsidian: Int =
+        maxOf(
+            blueprints[Robot.ORE.ordinal].costOre,
+            blueprints[Robot.CLAY.ordinal].costObsidian,
+            blueprints[Robot.OBSIDIAN.ordinal].costObsidian,
+            blueprints[Robot.GEODE.ordinal].costObsidian
+        )
 }
 
 data class Blueprint(
     val robot: Robot,
-    val ore: Int = 0,
-    val clay: Int = 0,
-    val obsidian: Int = 0
+    val costOre: Int = 0,
+    val costClay: Int = 0,
+    val costObsidian: Int = 0
 )
 
 enum class Robot {
@@ -143,10 +169,27 @@ data class ProductionState(
     val geode: Int = 0,
     val robots: Array<Int> = arrayOf(1, 0, 0, 0)
 ) : Comparable<ProductionState> {
-    fun calculateNextStates(blueprintList: BlueprintList, maxMinutes: Int): Collection<ProductionState> {
-        return emptyList()
-    }
 
     override fun compareTo(other: ProductionState): Int = geode.compareTo(other.geode)
+
+    fun calculateNextStates(blueprintList: BlueprintList, maxMinutes: Int): Collection<ProductionState> {
+        val nextStates = mutableListOf<ProductionState>()
+        if (minute < maxMinutes) {
+            if (blueprintList.maxOre > robots[Robot.ORE.ordinal] && ore > 0) {
+//                nextStates += blueprint.oreRobot.scheduleBuild(this)
+            }
+            if (blueprintList.maxClay > robots[Robot.CLAY.ordinal] && ore > 0) {
+//                nextStates += blueprint.clayRobot.scheduleBuild(this)
+            }
+            if (blueprintList.maxObsidian > robots[Robot.OBSIDIAN.ordinal] && ore > 0 && clay > 0) {
+//                nextStates += blueprint.obsidianRobot.scheduleBuild(this)
+            }
+            if (ore > 0 && obsidian > 0) {
+//                nextStates += blueprint.geodeRobot.scheduleBuild(this)
+            }
+        }
+        return nextStates.filter { it.minute <= maxMinutes }
+    }
+
 
 }

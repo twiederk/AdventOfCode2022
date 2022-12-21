@@ -16,13 +16,14 @@ class NotEnoughMineralsTest {
     // solution = sum of quality levels
 
     val notEnoughMinerals = NotEnoughMinerals()
-    val blueprint1 = BlueprintList(id = 1).apply {
-        blueprints.add(Blueprint(robot = Robot.ORE, ore = 4))
-        blueprints.add(Blueprint(robot = Robot.CLAY, ore = 2))
-        blueprints.add(Blueprint(robot = Robot.OBSIDIAN, ore = 3, clay = 14))
-        blueprints.add(Blueprint(robot = Robot.GEODE, ore = 2, obsidian = 7))
-    }
-
+    val blueprintList = BlueprintList(
+        id = 1, listOf(
+            Blueprint(robot = Robot.ORE, costOre = 4),
+            Blueprint(robot = Robot.CLAY, costOre = 2),
+            Blueprint(robot = Robot.OBSIDIAN, costOre = 3, costClay = 14),
+            Blueprint(robot = Robot.GEODE, costOre = 2, costObsidian = 7),
+        )
+    )
 
     @Test
     fun loadData() {
@@ -45,21 +46,21 @@ class NotEnoughMineralsTest {
 
         // assert
         assertThat(blueprint.id).isEqualTo(1)
-        assertThat(blueprint.blueprints[Robot.ORE.ordinal].ore).isEqualTo(4)
-        assertThat(blueprint.blueprints[Robot.ORE.ordinal].clay).isEqualTo(0)
-        assertThat(blueprint.blueprints[Robot.ORE.ordinal].obsidian).isEqualTo(0)
+        assertThat(blueprint.blueprints[Robot.ORE.ordinal].costOre).isEqualTo(4)
+        assertThat(blueprint.blueprints[Robot.ORE.ordinal].costClay).isEqualTo(0)
+        assertThat(blueprint.blueprints[Robot.ORE.ordinal].costObsidian).isEqualTo(0)
 
-        assertThat(blueprint.blueprints[Robot.CLAY.ordinal].ore).isEqualTo(2)
-        assertThat(blueprint.blueprints[Robot.CLAY.ordinal].clay).isEqualTo(0)
-        assertThat(blueprint.blueprints[Robot.CLAY.ordinal].obsidian).isEqualTo(0)
+        assertThat(blueprint.blueprints[Robot.CLAY.ordinal].costOre).isEqualTo(2)
+        assertThat(blueprint.blueprints[Robot.CLAY.ordinal].costClay).isEqualTo(0)
+        assertThat(blueprint.blueprints[Robot.CLAY.ordinal].costObsidian).isEqualTo(0)
 
-        assertThat(blueprint.blueprints[Robot.OBSIDIAN.ordinal].ore).isEqualTo(3)
-        assertThat(blueprint.blueprints[Robot.OBSIDIAN.ordinal].clay).isEqualTo(14)
-        assertThat(blueprint.blueprints[Robot.OBSIDIAN.ordinal].obsidian).isEqualTo(0)
+        assertThat(blueprint.blueprints[Robot.OBSIDIAN.ordinal].costOre).isEqualTo(3)
+        assertThat(blueprint.blueprints[Robot.OBSIDIAN.ordinal].costClay).isEqualTo(14)
+        assertThat(blueprint.blueprints[Robot.OBSIDIAN.ordinal].costObsidian).isEqualTo(0)
 
-        assertThat(blueprint.blueprints[Robot.GEODE.ordinal].ore).isEqualTo(2)
-        assertThat(blueprint.blueprints[Robot.GEODE.ordinal].clay).isEqualTo(0)
-        assertThat(blueprint.blueprints[Robot.GEODE.ordinal].obsidian).isEqualTo(7)
+        assertThat(blueprint.blueprints[Robot.GEODE.ordinal].costOre).isEqualTo(2)
+        assertThat(blueprint.blueprints[Robot.GEODE.ordinal].costClay).isEqualTo(0)
+        assertThat(blueprint.blueprints[Robot.GEODE.ordinal].costObsidian).isEqualTo(7)
     }
 
     @Test
@@ -92,7 +93,7 @@ class NotEnoughMineralsTest {
         fun simulate_minute_1() {
 
             // act
-            val totalQualityLevel = notEnoughMinerals.simulate(blueprint1, 1)
+            val totalQualityLevel = notEnoughMinerals.simulate(blueprintList, 1)
 
             // assert
             assertThat(totalQualityLevel).isEqualTo(0)
@@ -103,7 +104,7 @@ class NotEnoughMineralsTest {
         fun simulate_minute_2() {
 
             // act
-            val totalQualityLevel = notEnoughMinerals.simulate(blueprint1, 2)
+            val totalQualityLevel = notEnoughMinerals.simulate(blueprintList, 2)
 
             // assert
             assertThat(totalQualityLevel).isEqualTo(0)
@@ -118,7 +119,7 @@ class NotEnoughMineralsTest {
         fun simulate_minute_3() {
 
             // act
-            val totalQualityLevel = notEnoughMinerals.simulate(blueprint1, 3)
+            val totalQualityLevel = notEnoughMinerals.simulate(blueprintList, 3)
 
             // assert
 //            == Minute 3 ==
@@ -136,7 +137,7 @@ class NotEnoughMineralsTest {
         fun simulate_minute_4() {
 
             // act
-            val totalQualityLevel = notEnoughMinerals.simulate(blueprint1, 4)
+            val totalQualityLevel = notEnoughMinerals.simulate(blueprintList, 4)
 
             // assert
             assertThat(totalQualityLevel).isEqualTo(0)
@@ -153,7 +154,7 @@ class NotEnoughMineralsTest {
         fun simulate_minute_5() {
 
             // act
-            val totalQualityLevel = notEnoughMinerals.simulate(blueprint1, 5)
+            val totalQualityLevel = notEnoughMinerals.simulate(blueprintList, 5)
 
             // assert
             assertThat(totalQualityLevel).isEqualTo(0)
@@ -172,7 +173,7 @@ class NotEnoughMineralsTest {
         fun simulate_minute_6() {
 
             // act
-            val totalQualityLevel = notEnoughMinerals.simulate(blueprint1, 6)
+            val totalQualityLevel = notEnoughMinerals.simulate(blueprintList, 6)
 
             // assert
             assertThat(totalQualityLevel).isEqualTo(0)
@@ -190,7 +191,7 @@ class NotEnoughMineralsTest {
         fun simulate_minute_7() {
 
             // act
-            val totalQualityLevel = notEnoughMinerals.simulate(blueprint1, 7)
+            val totalQualityLevel = notEnoughMinerals.simulate(blueprintList, 7)
 
             // assert
             assertThat(totalQualityLevel).isEqualTo(0)
@@ -208,7 +209,7 @@ class NotEnoughMineralsTest {
         fun simulate_minute_8() {
 
             // act
-            val totalQualityLevel = notEnoughMinerals.simulate(blueprint1, 8)
+            val totalQualityLevel = notEnoughMinerals.simulate(blueprintList, 8)
 
             // assert
             assertThat(totalQualityLevel).isEqualTo(0)
@@ -227,7 +228,7 @@ class NotEnoughMineralsTest {
             notEnoughMinerals.debug = true
 
             // act
-            val totalQualityLevel = notEnoughMinerals.simulate(blueprint1, 9)
+            val totalQualityLevel = notEnoughMinerals.simulate(blueprintList, 9)
 
             // assert
             assertThat(totalQualityLevel).isEqualTo(0)
@@ -244,7 +245,7 @@ class NotEnoughMineralsTest {
         fun simulate_minute_10() {
 
             // act
-            val totalQualityLevel = notEnoughMinerals.simulate(blueprint1, 10)
+            val totalQualityLevel = notEnoughMinerals.simulate(blueprintList, 10)
 
             // assert
             assertThat(totalQualityLevel).isEqualTo(0)
@@ -262,19 +263,14 @@ class NotEnoughMineralsTest {
     inner class BlueprintTest {
 
         @Test
-        fun order_oneClayRobot() {
-            // arrange
-            notEnoughMinerals.debug = true
-            notEnoughMinerals.ore = 2
-
+        fun maxOre() {
             // act
-            notEnoughMinerals.order(blueprint1.blueprints)
+            val maxOre = blueprintList.maxOre
 
             // assert
-            assertThat(notEnoughMinerals.orderedRobot).isEqualTo(Robot.CLAY)
-            assertThat(notEnoughMinerals.ore).isEqualTo(0)
-        }
+            assertThat(maxOre).isEqualTo(4)
 
+        }
     }
 
     @Nested
@@ -338,6 +334,18 @@ class NotEnoughMineralsTest {
             // assert
             assertThat(result).isEqualTo(0)
         }
+
+        @Test
+        fun calculateNextStates_minute_1() {
+            // arrange
+
+            // act
+            val productionStates = ProductionState().calculateNextStates(blueprintList, 24)
+
+            // assert
+            assertThat(productionStates).hasSize(2)
+        }
+
     }
 
 
