@@ -1,3 +1,5 @@
+import java.util.*
+
 class NotEnoughMinerals(
     var debug: Boolean = false
 ) {
@@ -8,6 +10,7 @@ class NotEnoughMinerals(
     }
 
 
+    val queue = PriorityQueue<ProductionState>()
     var countOreRobots = 1
     var countClayRobots = 0
     var countObsidianRobots = 0
@@ -104,17 +107,15 @@ class NotEnoughMinerals(
     }
 
     fun simulate(blueprintList: BlueprintList, maxMinutes: Int): Int {
-        for (minute in 1..maxMinutes) {
-            debug("\n== Minute $minute ==")
-            order(blueprintList.blueprints)
-            collect()
-            deliver()
-        }
-        return calculateQualityLevel(blueprintList)
-    }
+        var maxGeodes = 0
+        val queue = PriorityQueue<ProductionState>().apply { add(ProductionState()) }
 
-    fun calculateQualityLevel(blueprintList: BlueprintList): Int {
-        return blueprintList.id * countGeodeRobots
+        while (queue.isNotEmpty()) {
+            val productionState = queue.poll()
+            queue.addAll(productionState.calculateNextStates(blueprintList, maxMinutes))
+            maxGeodes = maxOf(maxGeodes, productionState.geode)
+        }
+        return maxGeodes
     }
 
 }
@@ -132,4 +133,20 @@ data class Blueprint(
 
 enum class Robot {
     ORE, CLAY, OBSIDIAN, GEODE
+}
+
+data class ProductionState(
+    val minute: Int = 1,
+    val ore: Int = 0,
+    val clay: Int = 0,
+    val obsidian: Int = 0,
+    val geode: Int = 0,
+    val robots: Array<Int> = arrayOf(1, 0, 0, 0)
+) : Comparable<ProductionState> {
+    fun calculateNextStates(blueprintList: BlueprintList, maxMinutes: Int): Collection<ProductionState> {
+        return emptyList()
+    }
+
+    override fun compareTo(other: ProductionState): Int = geode.compareTo(other.geode)
+
 }

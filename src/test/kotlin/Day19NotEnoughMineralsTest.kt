@@ -16,11 +16,11 @@ class NotEnoughMineralsTest {
     // solution = sum of quality levels
 
     val notEnoughMinerals = NotEnoughMinerals()
-    val blueprint1 = BlueprintList(id = 1).also {
-        it.blueprints.add(Blueprint(robot = Robot.ORE, ore = 4))
-        it.blueprints.add(Blueprint(robot = Robot.CLAY, ore = 2))
-        it.blueprints.add(Blueprint(robot = Robot.OBSIDIAN, ore = 3, clay = 14))
-        it.blueprints.add(Blueprint(robot = Robot.GEODE, ore = 2, obsidian = 7))
+    val blueprint1 = BlueprintList(id = 1).apply {
+        blueprints.add(Blueprint(robot = Robot.ORE, ore = 4))
+        blueprints.add(Blueprint(robot = Robot.CLAY, ore = 2))
+        blueprints.add(Blueprint(robot = Robot.OBSIDIAN, ore = 3, clay = 14))
+        blueprints.add(Blueprint(robot = Robot.GEODE, ore = 2, obsidian = 7))
     }
 
 
@@ -85,19 +85,6 @@ class NotEnoughMineralsTest {
         assertThat(notEnoughMinerals.countClayRobots).isEqualTo(1)
     }
 
-    @Test
-    fun calculateQualityLevel() {
-        // arrange
-        notEnoughMinerals.countGeodeRobots = 5
-        val blueprint = BlueprintList(2)
-
-        // act
-        val qualityLevel = notEnoughMinerals.calculateQualityLevel(blueprint)
-
-        // assert
-        assertThat(qualityLevel).isEqualTo(10)
-    }
-
     @Nested
     inner class Simulation {
 
@@ -109,10 +96,7 @@ class NotEnoughMineralsTest {
 
             // assert
             assertThat(totalQualityLevel).isEqualTo(0)
-//            == Minute 1 ==
-//            1 ore-collecting robot collects 1 ore; you now have 1 ore.
-            assertThat(notEnoughMinerals.countOreRobots).isEqualTo(1)
-            assertThat(notEnoughMinerals.ore).isEqualTo(1)
+            assertThat(notEnoughMinerals.queue).hasSize(2)
         }
 
         @Test
@@ -291,6 +275,69 @@ class NotEnoughMineralsTest {
             assertThat(notEnoughMinerals.ore).isEqualTo(0)
         }
 
+    }
+
+    @Nested
+    inner class ProductionStateTest {
+
+        @Test
+        fun init() {
+
+            // act
+            val productionState = ProductionState()
+
+            // assert
+            assertThat(productionState.minute).isEqualTo(1)
+
+            assertThat(productionState.ore).isEqualTo(0)
+            assertThat(productionState.clay).isEqualTo(0)
+            assertThat(productionState.obsidian).isEqualTo(0)
+            assertThat(productionState.geode).isEqualTo(0)
+
+            assertThat(productionState.robots[Robot.ORE.ordinal]).isEqualTo(1)
+            assertThat(productionState.robots[Robot.CLAY.ordinal]).isEqualTo(0)
+            assertThat(productionState.robots[Robot.OBSIDIAN.ordinal]).isEqualTo(0)
+            assertThat(productionState.robots[Robot.GEODE.ordinal]).isEqualTo(0)
+        }
+
+        @Test
+        fun compare_greater() {
+            // arrange
+            val productionState1 = ProductionState(geode = 1)
+            val productionState2 = ProductionState(geode = 0)
+
+            // act
+            val result = productionState1.compareTo(productionState2)
+
+            // assert
+            assertThat(result).isEqualTo(1)
+        }
+
+        @Test
+        fun compare_smaller() {
+            // arrange
+            val productionState1 = ProductionState(geode = 0)
+            val productionState2 = ProductionState(geode = 1)
+
+            // act
+            val result = productionState1.compareTo(productionState2)
+
+            // assert
+            assertThat(result).isEqualTo(-1)
+        }
+
+        @Test
+        fun compare_equal() {
+            // arrange
+            val productionState1 = ProductionState(geode = 0)
+            val productionState2 = ProductionState(geode = 0)
+
+            // act
+            val result = productionState1.compareTo(productionState2)
+
+            // assert
+            assertThat(result).isEqualTo(0)
+        }
     }
 
 
