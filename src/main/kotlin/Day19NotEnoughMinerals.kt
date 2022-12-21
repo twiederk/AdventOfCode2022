@@ -6,30 +6,32 @@ class NotEnoughMinerals {
     companion object {
         fun loadData(fileName: String): List<String> = Resources.resourceAsListOfString(fileName)
 
-    }
+        fun parseBlueprintList(rawBlueprint: String): BlueprintList {
+            val id = rawBlueprint.substringAfter("Blueprint ").substringBefore(":").toInt()
+            val robotResources = rawBlueprint.substringAfter(":").split('.')
 
-    fun parseBlueprint(rawBlueprint: String): BlueprintList {
-        val id = rawBlueprint.substringAfter("Blueprint ").substringBefore(":").toInt()
-        val robotResources = rawBlueprint.substringAfter(":").split('.')
+            val oreRobotOre = robotResources[0].substringAfter("costs ").substringBefore(" ore").toInt()
 
-        val oreRobotOre = robotResources[0].substringAfter("costs ").substringBefore(" ore").toInt()
+            val clayRobotOre = robotResources[1].substringAfter("costs ").substringBefore(" ore").toInt()
 
-        val clayRobotOre = robotResources[1].substringAfter("costs ").substringBefore(" ore").toInt()
+            val obsidianRobotOre = robotResources[2].substringAfter("costs ").substringBefore(" ore").toInt()
+            val obsidianRobotClay = robotResources[2].substringAfter("and ").substringBefore(" clay").toInt()
 
-        val obsidianRobotOre = robotResources[2].substringAfter("costs ").substringBefore(" ore").toInt()
-        val obsidianRobotClay = robotResources[2].substringAfter("and ").substringBefore(" clay").toInt()
+            val geodeRobotOre = robotResources[3].substringAfter("costs ").substringBefore(" ore").toInt()
+            val geodeRobotObsidian = robotResources[3].substringAfter("and ").substringBefore(" obsidian").toInt()
 
-        val geodeRobotOre = robotResources[3].substringAfter("costs ").substringBefore(" ore").toInt()
-        val geodeRobotObsidian = robotResources[3].substringAfter("and ").substringBefore(" obsidian").toInt()
+            val blueprints = listOf(
+                Blueprint(Robot.ORE, costOre = oreRobotOre),
+                Blueprint(Robot.CLAY, costOre = clayRobotOre),
+                Blueprint(Robot.OBSIDIAN, costOre = obsidianRobotOre, costClay = obsidianRobotClay),
+                Blueprint(Robot.GEODE, costOre = geodeRobotOre, costObsidian = geodeRobotObsidian)
+            )
 
-        val blueprints = listOf(
-            Blueprint(Robot.ORE, costOre = oreRobotOre),
-            Blueprint(Robot.CLAY, costOre = clayRobotOre),
-            Blueprint(Robot.OBSIDIAN, costOre = obsidianRobotOre, costClay = obsidianRobotClay),
-            Blueprint(Robot.GEODE, costOre = geodeRobotOre, costObsidian = geodeRobotObsidian)
-        )
+            return BlueprintList(id, blueprints)
+        }
 
-        return BlueprintList(id, blueprints)
+        fun parseAllBlueprintLists(rawBlueprintLists: List<String>): List<BlueprintList> =
+            rawBlueprintLists.map { parseBlueprintList(it) }
     }
 
     fun simulate(blueprintList: BlueprintList, maxMinutes: Int): Int {
@@ -147,4 +149,9 @@ data class ProductionState(
         return nextStates.filter { it.minute <= maxMinutes }
     }
 
+}
+
+fun main() {
+    val rawBlueprint = NotEnoughMinerals.loadData("Day19_InputData.txt")
+//    val blueprintLists = NotEnoughMinerals.
 }

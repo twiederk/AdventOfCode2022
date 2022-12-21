@@ -35,13 +35,13 @@ class NotEnoughMineralsTest {
     }
 
     @Test
-    fun parseBlueprint() {
+    fun parseBlueprintList() {
         // arrange
         val rawBlueprint =
             "Blueprint 1: Each ore robot costs 4 ore. Each clay robot costs 2 ore. Each obsidian robot costs 3 ore and 14 clay. Each geode robot costs 2 ore and 7 obsidian."
 
         // act
-        val blueprint = notEnoughMinerals.parseBlueprint(rawBlueprint)
+        val blueprint = NotEnoughMinerals.parseBlueprintList(rawBlueprint)
 
         // assert
         assertThat(blueprint.id).isEqualTo(1)
@@ -60,6 +60,21 @@ class NotEnoughMineralsTest {
         assertThat(blueprint.blueprints[Robot.GEODE.ordinal].costOre).isEqualTo(2)
         assertThat(blueprint.blueprints[Robot.GEODE.ordinal].costClay).isEqualTo(0)
         assertThat(blueprint.blueprints[Robot.GEODE.ordinal].costObsidian).isEqualTo(7)
+    }
+
+    @Test
+    fun parseAllBlueprints() {
+        // arrange
+        val rawBlueprintLists = listOf(
+            "Blueprint 1: Each ore robot costs 4 ore. Each clay robot costs 2 ore. Each obsidian robot costs 3 ore and 14 clay. Each geode robot costs 2 ore and 7 obsidian.",
+            "Blueprint 2: Each ore robot costs 2 ore. Each clay robot costs 2 ore. Each obsidian robot costs 3 ore and 8 clay. Each geode robot costs 3 ore and 12 obsidian."
+        )
+
+        // act
+        val blueprintLists = NotEnoughMinerals.parseAllBlueprintLists(rawBlueprintLists)
+
+        // assert
+        assertThat(blueprintLists).hasSize(2)
     }
 
     @Nested
