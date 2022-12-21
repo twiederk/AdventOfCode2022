@@ -5,12 +5,22 @@ import org.junit.jupiter.api.Test
 class NotEnoughMineralsTest {
 
     val notEnoughMinerals = NotEnoughMinerals()
+
     val blueprintList1 = BlueprintList(
         id = 1, listOf(
             Blueprint(robot = Robot.ORE, costOre = 4),
             Blueprint(robot = Robot.CLAY, costOre = 2),
             Blueprint(robot = Robot.OBSIDIAN, costOre = 3, costClay = 14),
             Blueprint(robot = Robot.GEODE, costOre = 2, costObsidian = 7),
+        )
+    )
+
+    val blueprintList2 = BlueprintList(
+        id = 2, listOf(
+            Blueprint(robot = Robot.ORE, costOre = 2),
+            Blueprint(robot = Robot.CLAY, costOre = 3),
+            Blueprint(robot = Robot.OBSIDIAN, costOre = 3, costClay = 8),
+            Blueprint(robot = Robot.GEODE, costOre = 3, costObsidian = 12),
         )
     )
 
@@ -69,10 +79,10 @@ class NotEnoughMineralsTest {
         fun simulate_blueprintList_2() {
 
             // act
-            val totalQualityLevel = notEnoughMinerals.simulate(blueprintList1, 24)
+            val totalQualityLevel = notEnoughMinerals.simulate(blueprintList2, 24)
 
             // assert
-            assertThat(totalQualityLevel).isEqualTo(9)
+            assertThat(totalQualityLevel).isEqualTo(24)
         }
 
     }

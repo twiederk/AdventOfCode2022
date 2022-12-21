@@ -41,7 +41,7 @@ class NotEnoughMinerals {
             queue.addAll(productionState.calculateNextStates(blueprintList, maxMinutes))
             maxGeodes = maxOf(maxGeodes, productionState.geode)
         }
-        return maxGeodes
+        return blueprintList.id * maxGeodes
     }
 
 }
