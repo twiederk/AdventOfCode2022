@@ -141,7 +141,11 @@ data class Blueprint(
     val costOre: Int = 0,
     val costClay: Int = 0,
     val costObsidian: Int = 0
-)
+) {
+    fun scheduleBuild(productionState: ProductionState): ProductionState {
+        TODO("Not yet implemented")
+    }
+}
 
 enum class Robot {
     ORE, CLAY, OBSIDIAN, GEODE
@@ -162,16 +166,16 @@ data class ProductionState(
         val nextStates = mutableListOf<ProductionState>()
         if (minute < maxMinutes) {
             if (blueprintList.maxOre > robots[Robot.ORE.ordinal] && ore > 0) {
-//                nextStates += blueprint.oreRobot.scheduleBuild(this)
+                nextStates += blueprintList.blueprints[Robot.ORE.ordinal].scheduleBuild(this)
             }
             if (blueprintList.maxClay > robots[Robot.CLAY.ordinal] && ore > 0) {
-//                nextStates += blueprint.clayRobot.scheduleBuild(this)
+                nextStates += blueprintList.blueprints[Robot.CLAY.ordinal].scheduleBuild(this)
             }
             if (blueprintList.maxObsidian > robots[Robot.OBSIDIAN.ordinal] && ore > 0 && clay > 0) {
-//                nextStates += blueprint.obsidianRobot.scheduleBuild(this)
+                nextStates += blueprintList.blueprints[Robot.OBSIDIAN.ordinal].scheduleBuild(this)
             }
             if (ore > 0 && obsidian > 0) {
-//                nextStates += blueprint.geodeRobot.scheduleBuild(this)
+                nextStates += blueprintList.blueprints[Robot.GEODE.ordinal].scheduleBuild(this)
             }
         }
         return nextStates.filter { it.minute <= maxMinutes }
