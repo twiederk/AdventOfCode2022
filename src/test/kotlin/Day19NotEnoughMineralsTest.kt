@@ -84,30 +84,40 @@ class NotEnoughMineralsTest {
         fun simulate_blueprintList_1() {
 
             // act
-            val totalQualityLevel = notEnoughMinerals.simulate(blueprintList1, 24)
+            val geodeCount = notEnoughMinerals.simulate(blueprintList1, 24)
 
             // assert
-            assertThat(totalQualityLevel).isEqualTo(9)
+            assertThat(geodeCount).isEqualTo(9)
         }
 
         @Test
         fun simulate_blueprintList_2() {
 
             // act
-            val totalQualityLevel = notEnoughMinerals.simulate(blueprintList2, 24)
+            val geodeCount = notEnoughMinerals.simulate(blueprintList2, 24)
 
             // assert
-            assertThat(totalQualityLevel).isEqualTo(24)
+            assertThat(geodeCount).isEqualTo(12)
         }
 
         @Test
-        fun simulateAll() {
+        fun simulateAllPart1() {
 
             // act
-            val totalQualityLevel = notEnoughMinerals.simulateAll(listOf(blueprintList1, blueprintList2), 24)
+            val totalQualityLevel = notEnoughMinerals.simulateAllPart1(listOf(blueprintList1, blueprintList2), 24)
 
             // assert
             assertThat(totalQualityLevel).isEqualTo(33)
+        }
+
+        @Test
+        fun simulateAllPart2() {
+
+            // act
+            val totalQualityLevel = notEnoughMinerals.simulateAllPart2(listOf(blueprintList1, blueprintList2), 32)
+
+            // assert
+            assertThat(totalQualityLevel).isEqualTo(62)
         }
     }
 
@@ -284,7 +294,7 @@ class NotEnoughMineralsTest {
             // arrange
             val productionState = ProductionState(
                 ore = 0,
-                robots = arrayOf(3, 0, 0, 0)
+                robots = listOf(3, 0, 0, 0)
             )
 
             // act
@@ -299,7 +309,7 @@ class NotEnoughMineralsTest {
             // arrange
             val productionState = ProductionState(
                 ore = 0,
-                robots = arrayOf(0, 0, 0, 0)
+                robots = listOf(0, 0, 0, 0)
             )
 
             // act
@@ -308,8 +318,6 @@ class NotEnoughMineralsTest {
             // assert
             assertThat(timeUntilBuild).isEqualTo(Int.MIN_VALUE)
         }
-
-
     }
 
 }

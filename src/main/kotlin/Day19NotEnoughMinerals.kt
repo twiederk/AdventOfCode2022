@@ -45,11 +45,15 @@ class NotEnoughMinerals {
             }
             maxGeodes = maxOf(maxGeodes, productionState.geode)
         }
-        return blueprintList.id * maxGeodes
+        return maxGeodes
     }
 
-    fun simulateAll(blueprintLists: List<BlueprintList>, maxMinute: Int): Int {
-        return blueprintLists.sumOf { simulate(it, maxMinute) }
+    fun simulateAllPart1(blueprintLists: List<BlueprintList>, maxMinute: Int): Int {
+        return blueprintLists.sumOf { it.id * simulate(it, maxMinute) }
+    }
+
+    fun simulateAllPart2(blueprintLists: List<BlueprintList>, maxMinutes: Int): Int {
+        return blueprintLists.take(3).map { simulate(it, maxMinutes) }.reduce(Int::times)
     }
 
 }
@@ -99,7 +103,7 @@ data class Blueprint(
             obsidian = (productionState.obsidian - costObsidian) + (timeRequired * productionState.robots[Robot.OBSIDIAN.ordinal]),
             geode = productionState.geode + (timeRequired * productionState.robots[Robot.GEODE.ordinal]),
 
-            robots = arrayOf(
+            robots = listOf(
                 productionState.robots[Robot.ORE.ordinal] + (if (robot == Robot.ORE) 1 else 0),
                 productionState.robots[Robot.CLAY.ordinal] + (if (robot == Robot.CLAY) 1 else 0),
                 productionState.robots[Robot.OBSIDIAN.ordinal] + (if (robot == Robot.OBSIDIAN) 1 else 0),
@@ -127,7 +131,7 @@ data class ProductionState(
     val clay: Int = 0,
     val obsidian: Int = 0,
     val geode: Int = 0,
-    val robots: Array<Int> = arrayOf(1, 0, 0, 0)
+    val robots: List<Int> = listOf(1, 0, 0, 0)
 ) : Comparable<ProductionState> {
 
     override fun compareTo(other: ProductionState): Int = geode.compareTo(other.geode)
@@ -163,7 +167,11 @@ fun main() {
     val rawBlueprintLists = NotEnoughMinerals.loadData("Day19_InputData.txt")
     val blueprintLists = NotEnoughMinerals.parseAllBlueprintLists(rawBlueprintLists)
 
-    val totalQualityLevel = NotEnoughMinerals().simulateAll(blueprintLists, 32)
-
+    val totalQualityLevel = NotEnoughMinerals().simulateAllPart1(blueprintLists, 24)
     println("totalQualityLevel = $totalQualityLevel")
+
+    val numberOfGeodes = NotEnoughMinerals().simulateAllPart2(blueprintLists, 32)
+    println("numberOfGeodes = $numberOfGeodes")
+
+
 }
