@@ -44,6 +44,10 @@ class NotEnoughMinerals {
         return blueprintList.id * maxGeodes
     }
 
+    fun simulateAll(blueprintLists: List<BlueprintList>, maxMinute: Int): Int {
+        return blueprintLists.sumOf { simulate(it, maxMinute) }
+    }
+
 }
 
 data class BlueprintList(
@@ -142,6 +146,5 @@ data class ProductionState(
         }
         return nextStates.filter { it.minute <= maxMinutes }
     }
-
 
 }

@@ -85,6 +85,15 @@ class NotEnoughMineralsTest {
             assertThat(totalQualityLevel).isEqualTo(24)
         }
 
+        @Test
+        fun simulateAll() {
+
+            // act
+            val totalQualityLevel = notEnoughMinerals.simulateAll(listOf(blueprintList1, blueprintList2), 24)
+
+            // assert
+            assertThat(totalQualityLevel).isEqualTo(33)
+        }
     }
 
     @Nested
