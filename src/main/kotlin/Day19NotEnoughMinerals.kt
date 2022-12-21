@@ -152,6 +152,10 @@ data class ProductionState(
 }
 
 fun main() {
-    val rawBlueprint = NotEnoughMinerals.loadData("Day19_InputData.txt")
-//    val blueprintLists = NotEnoughMinerals.
+    val rawBlueprintLists = NotEnoughMinerals.loadData("Day19_InputData.txt")
+    val blueprintLists = NotEnoughMinerals.parseAllBlueprintLists(rawBlueprintLists)
+
+    val totalQualityLevel = NotEnoughMinerals().simulateAll(blueprintLists, 24)
+
+    println("totalQualityLevel = $totalQualityLevel")
 }
