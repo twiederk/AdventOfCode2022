@@ -269,7 +269,24 @@ class NotEnoughMineralsTest {
 
             // assert
             assertThat(maxOre).isEqualTo(4)
+        }
 
+        @Test
+        fun maxClay() {
+            // act
+            val maxOre = blueprintList.maxClay
+
+            // assert
+            assertThat(maxOre).isEqualTo(14)
+        }
+
+        @Test
+        fun maxObsidian() {
+            // act
+            val maxOre = blueprintList.maxOre
+
+            // assert
+            assertThat(maxOre).isEqualTo(7)
         }
     }
 

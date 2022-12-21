@@ -29,7 +29,6 @@ class NotEnoughMinerals(
 
         val oreRobotOre = robotResources[0].substringAfter("costs ").substringBefore(" ore").toInt()
 
-
         val clayRobotOre = robotResources[1].substringAfter("costs ").substringBefore(" ore").toInt()
 
         val obsidianRobotOre = robotResources[2].substringAfter("costs ").substringBefore(" ore").toInt()
