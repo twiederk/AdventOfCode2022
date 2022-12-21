@@ -52,19 +52,6 @@ class NotEnoughMinerals(
         if (debug) println(message)
     }
 
-    fun order(blueprints: List<Blueprint>) {
-        for (index in blueprints.lastIndex downTo 0) {
-            val blueprint = blueprints[index]
-            if (ore >= blueprint.costOre && clay >= blueprint.costClay && obsidian >= blueprint.costObsidian) {
-                orderedRobot = blueprint.robot
-                ore -= blueprint.costOre
-                clay -= blueprint.costClay
-                obsidian -= blueprint.costObsidian
-                debug("Spend ${blueprint.costOre} ore, ${blueprint.costClay} clay and ${blueprint.costObsidian} obsidian to start building a ${blueprint.robot}-collecting robot.")
-            }
-        }
-    }
-
     fun collect() {
         if (countOreRobots > 0) {
             ore += countOreRobots
