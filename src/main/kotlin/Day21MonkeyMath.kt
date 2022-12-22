@@ -10,6 +10,17 @@ class MonkeyMath(val equations: MutableList<Equation>) {
         }
     }
 
+    fun eval(equation: Equation): NumberValue? {
+        val value = when(equation.operator) {
+            '+' -> equation.number1.value + equation.number2.value
+            '-' -> equation.number1.value - equation.number2.value
+            '*' -> equation.number1.value * equation.number2.value
+            '/' -> equation.number1.value / equation.number2.value
+            else -> throw IllegalArgumentException("unknown operator [${equation.operator}")
+        }
+        return NumberValue(equation.name, value)
+    }
+
     companion object {
         fun loadData(fileName: String): List<String> = Resources.resourceAsListOfString(fileName)
 
