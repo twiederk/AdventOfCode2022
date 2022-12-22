@@ -24,16 +24,12 @@ class MonkeyMath(val equations: MutableList<Equation>) {
         return equations.mapNotNull { eval(it) }
     }
 
-    fun solve(numberValues: List<NumberValue>, maxRuns: Int): Int {
+    fun solve(numberValues: List<NumberValue>, maxRuns: Int = Int.MAX_VALUE): Long {
         var newNumberValues = numberValues
         var count = 0
         while (count < maxRuns) {
-//            println("#############################")
-//            println("${equations.toString().replace(", Equation", "\n Equation")}")
             insertKnownNumbersInEquations(newNumberValues)
             newNumberValues = evalAll()
-//            println("----------------------")
-//            println("${newNumberValues.toString().replace(", NumberValue", "\n NumberValue")}")
             if (isRootFound(newNumberValues)) {
                 return newNumberValues.first { it.name == "root" }.value
             }
@@ -46,7 +42,7 @@ class MonkeyMath(val equations: MutableList<Equation>) {
 
     companion object {
 
-        const val UNRESOLVED_VALUE = -1
+        const val UNRESOLVED_VALUE = -1L
 
         fun loadData(fileName: String): List<String> = Resources.resourceAsListOfString(fileName)
 
@@ -58,7 +54,7 @@ class MonkeyMath(val equations: MutableList<Equation>) {
 
         fun parseNumberValue(rawData: String): NumberValue {
             val split = rawData.split(": ")
-            return NumberValue(name = split[0], value = split[1].toInt())
+            return NumberValue(name = split[0], value = split[1].toLong())
         }
 
         fun parseEquation(rawData: String): Equation {
@@ -76,7 +72,7 @@ class MonkeyMath(val equations: MutableList<Equation>) {
 
 data class NumberValue(
     val name: String,
-    var value: Int,
+    var value: Long,
 )
 
 data class Equation(
@@ -85,3 +81,13 @@ data class Equation(
     val number2: NumberValue,
     val operator: Char
 )
+
+fun main() {
+    val rawData = MonkeyMath.loadData("Day21_InputData.txt")
+    val (numberValues, equations) = MonkeyMath.parseData(rawData)
+    val monkeyMath = MonkeyMath(equations.toMutableList())
+
+    val result = monkeyMath.solve(numberValues)
+
+    println("result = $result")
+}

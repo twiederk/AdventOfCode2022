@@ -198,14 +198,13 @@ class MonkeyMathTest {
         @Test
         fun solve_1() {
 
-            // assert
+            // arrange
             val numberValues = numberValuesAndEquations.first
 
             // act
-            val result = monkeyMath.solve(numberValues, 1)
+            monkeyMath.solve(numberValues, 1)
 
             // assert
-            assertThat(result).isEqualTo(-1)
             assertThat(monkeyMath.equations).containsExactly(
                 Equation(
                     name = "root",
@@ -256,14 +255,13 @@ class MonkeyMathTest {
         @Test
         fun solve_2() {
 
-            // assert
+            // arrange
             val numberValues = numberValuesAndEquations.first
 
             // act
-            val result = monkeyMath.solve(numberValues, 2)
+            monkeyMath.solve(numberValues, 2)
 
             // assert
-            assertThat(result).isEqualTo(-1)
             assertThat(monkeyMath.equations).containsExactly(
                 Equation(
                     name = "root",
@@ -308,6 +306,21 @@ class MonkeyMathTest {
                     operator = '-'
                 ),
             )
+
+        }
+
+        @Test
+        fun solve_example() {
+            // arrange
+            val numberValues = numberValuesAndEquations.first
+
+            // act
+            val result = monkeyMath.solve(numberValues)
+
+            // act
+            assertThat(result).isEqualTo(152)
+
+
 
         }
 
