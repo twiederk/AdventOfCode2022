@@ -206,6 +206,20 @@ class GrovePositioningSystemTest {
     }
 
     @Test
+    fun mix_aocExample_step3_error() {
+        // arrange
+        val input = listOf(1, -3, 2, 3, -2, 0, 4)
+        val grovePositioningSystem = GrovePositioningSystem(input)
+
+        // act
+        grovePositioningSystem.mix(grovePositioningSystem.originalList[2])
+
+        // assert
+        println("grovePositioningSystem = ${grovePositioningSystem.mixList}")
+        assertThat(grovePositioningSystem.mixList).extracting("value").containsExactly(1, 2, 3, -2, -3, 0, 4)
+    }
+
+    @Test
     fun getNewInt_positive10() {
 
         // act
