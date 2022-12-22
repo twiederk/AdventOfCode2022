@@ -27,12 +27,27 @@ class MonkeyMathTest {
 
     @Test
     fun parseNumberValue() {
-        // arrange
-
         // act
         val numberValue = MonkeyMath.parseNumberValue("hmdt: 32")
 
         // assert
+        assertThat(numberValue.name).isEqualTo("hmdt")
+        assertThat(numberValue.value).isEqualTo(32)
+    }
+
+    @Test
+    fun parseEquation() {
+
+        // act
+        val equation = MonkeyMath.parseEquation("cczh: sllz + lgvd")
+
+        // assert
+        assertThat(equation.name).isEqualTo("cczh")
+        assertThat(equation.number1.name).isEqualTo("sllz")
+        assertThat(equation.number1.value).isEqualTo(-1)
+        assertThat(equation.number2.name).isEqualTo("lgvd")
+        assertThat(equation.number2.value).isEqualTo(-1)
+        assertThat(equation.name).isEqualTo("cczh")
 
     }
 }
