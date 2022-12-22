@@ -23,6 +23,16 @@ class MonkeyMathTest {
         // assert
         assertThat(numbersAndEquations.first).hasSize(8)
         assertThat(numbersAndEquations.second).hasSize(7)
+    }
+
+    @Test
+    fun parseNumberValue() {
+        // arrange
+
+        // act
+        val numberValue = MonkeyMath.parseNumberValue("hmdt: 32")
+
+        // assert
 
     }
 }

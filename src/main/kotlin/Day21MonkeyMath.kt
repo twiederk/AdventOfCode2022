@@ -7,6 +7,11 @@ class MonkeyMath {
             val second = rawData.filter { it[it.lastIndex].isLetter() }.map { Equation(NumberValue("a", 1), NumberValue("a", 1), OperatorSign.PLUS)  }
             return Pair(first, second)
         }
+
+        fun parseNumberValue(rawData: String): NumberValue {
+            val split = rawData.split(": ")
+            return NumberValue(split[0], split[1].toInt())
+        }
     }
 
 }
