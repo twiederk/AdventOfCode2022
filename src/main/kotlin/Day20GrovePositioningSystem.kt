@@ -6,6 +6,13 @@ class GrovePositioningSystem(input: List<Int>) {
     init {
         originalList.forEach { mixList.add(it.data) }
     }
+
+    fun mix(original: Original) {
+        val index = mixList.indexOf(original.data)
+        val toBeMoved = mixList.removeAt(index)
+        mixList.add((index + original.value) % originalList.size, toBeMoved)
+    }
+
 }
 
 class Data(val value: Int)

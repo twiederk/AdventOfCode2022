@@ -46,4 +46,51 @@ class GrovePositioningSystemTest {
         assertThat(grovePositioningSystem.originalList).extracting("value").containsExactly(1, 2, 3)
         assertThat(grovePositioningSystem.mixList).extracting("value").containsExactly(1, 2, 3)
     }
+
+    @Test
+    fun mix_step1() {
+        // arrange
+        val input = listOf(1, 2, 3)
+        val grovePositioningSystem = GrovePositioningSystem(input)
+
+        // act
+        grovePositioningSystem.mix(grovePositioningSystem.originalList[0])
+
+        // assert
+        assertThat(grovePositioningSystem.originalList).extracting("value").containsExactly(1, 2, 3)
+        assertThat(grovePositioningSystem.mixList).extracting("value").containsExactly(2, 1, 3)
+    }
+
+    @Test
+    fun mix_step2() {
+        // arrange
+        val input = listOf(1, 2, 3)
+        val grovePositioningSystem = GrovePositioningSystem(input)
+        grovePositioningSystem.mix(grovePositioningSystem.originalList[0])
+
+        // act
+        grovePositioningSystem.mix(grovePositioningSystem.originalList[1])
+
+        // assert
+        assertThat(grovePositioningSystem.originalList).extracting("value").containsExactly(1, 2, 3)
+        assertThat(grovePositioningSystem.mixList).extracting("value").containsExactly(1, 3, 2)
+    }
+
+    @Test
+    fun mix_step3() {
+        // arrange
+        val input = listOf(1, 2, 3)
+        val grovePositioningSystem = GrovePositioningSystem(input)
+        grovePositioningSystem.mix(grovePositioningSystem.originalList[0])
+        grovePositioningSystem.mix(grovePositioningSystem.originalList[1])
+
+        // act
+        grovePositioningSystem.mix(grovePositioningSystem.originalList[2])
+
+        // assert
+        assertThat(grovePositioningSystem.originalList).extracting("value").containsExactly(1, 2, 3)
+        assertThat(grovePositioningSystem.mixList).extracting("value").containsExactly(1, 3, 2)
+    }
+
+
 }
