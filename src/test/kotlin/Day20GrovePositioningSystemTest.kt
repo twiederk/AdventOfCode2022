@@ -226,7 +226,7 @@ class GrovePositioningSystemTest {
         val index = GrovePositioningSystem(emptyList()).getNewIndex(4, 10, 5)
 
         // assert
-        assertThat(index).isEqualTo(3)
+        assertThat(index).isEqualTo(4)
     }
 
     @Test
@@ -236,7 +236,7 @@ class GrovePositioningSystemTest {
         val index = GrovePositioningSystem(emptyList()).getNewIndex(0, -3, 10)
 
         // assert
-        assertThat(index).isEqualTo(6)
+        assertThat(index).isEqualTo(7)
     }
 
     @Test
@@ -246,7 +246,7 @@ class GrovePositioningSystemTest {
         val index = GrovePositioningSystem(emptyList()).getNewIndex(0, -5, 10)
 
         // assert
-        assertThat(index).isEqualTo(4)
+        assertThat(index).isEqualTo(5)
     }
 
     @Test
