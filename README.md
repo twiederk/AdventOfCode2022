@@ -2,28 +2,33 @@
 
 ## Overview of the puzzles
 
-|  Day | Title                     | Part 1 | Part 2 | Notes                                                                                                                            |
-|-----:|---------------------------|--------|--------|----------------------------------------------------------------------------------------------------------------------------------|
-|  [1] | Calorie Counting          | solved | solved | Blocks of Ints separated by new line                                                                                             |
-|  [2] | Rock Paper Scissors       | solved | solved | Should use map with all combinations instead of my current solution                                                              |
-|  [3] | Rucksack Reorganization   | solved | solved | Scan single line string                                                                                                          |
-|  [4] | Camp Cleanup              | solved | solved | Overlapping ranges                                                                                                               |
-|  [5] | Supply Stacks             | solved | solved | Reminds me of Tower of Hanoi                                                                                                     |
-|  [6] | Tuning Trouble            | solved | solved | Scan single line string                                                                                                          |
-|  [7] | No Space Left On Device   | solved | solved | Scanning a directory tree                                                                                                        |
-|  [8] | Treetop Tree House        | solved | solved | First 2D puzzle.                                                                                                                 |
-|  [9] | Rope Bridge               | solved | solved | Got problem in part 2, because I didn't realized that other knots can be two steps away now. Found solution by reading [reddit]. |
-| [10] | Cathode-Ray Tube          | solved | solved | Great puzzle! This time the solution is no number it is text displayed on a device!                                              |
-| [11] | Monkey in the Middle      | solved | solved | Part was easy. Couldn't solve part 2 with out [video][Day11-Video] of [Sebastian Aigner][sebi] and [Olaf Gottschalk][olaf].      |
-| [12] | Hill Climbing Algorithm   | solved | solved | Took a lot of time implementing my first aStart (A*) search in Advent of Code.                                                   |
-| [13] | Distress Signal           | solved | solved | Needed to tries to solve it. Hard part was to simplify the input, but the it worked.                                             |
-| [14] | Regolith Reservoir        | solved | solved | Falling snow/sand. Very nice puzzle. Solved part 2 by just expanding my grid (brute force?)                                      |
-| [15] | Beacon Exclusion Zone     | solved | solved | Part 1 was easy, but failed in part 2 because it created all points. Replaced points with ranges this worked!                    |
-| [16] | Proboscidea Volcanium     | solved | solved | No idea how to solve this. Used solution of [Christoph Kainz][Day16-CK]                                                          |
-| [17] | PyroclasticFlow           | solved | OPEN   | Tetris! Solved part 2 on my own, but ran in many easy avoidable bug. Part 2 still open.                                          |
-| [18] | Boiling Boulders          | solved | solved | First 3D puzzle (lava cube). Solved part 1 on my own. Solved part 2 based on [solution from Todd Ginsberg][Day18-TG]             |
-| [19] | Not Enough Minerals       | OPEN   | OPEN   | Problems with part 1                                                                                                             |
-| [20] | Grove Positioning System  | OPEN   | OPEN   | not started                                                                                                                      |
+|  Day | Title                    | Part 1 | Part 2 | Notes                                                                                                                            |
+|-----:|--------------------------|--------|--------|----------------------------------------------------------------------------------------------------------------------------------|
+|  [1] | Calorie Counting         | solved | solved | Blocks of Ints separated by new line                                                                                             |
+|  [2] | Rock Paper Scissors      | solved | solved | Should use map with all combinations instead of my current solution                                                              |
+|  [3] | Rucksack Reorganization  | solved | solved | Scan single line string                                                                                                          |
+|  [4] | Camp Cleanup             | solved | solved | Overlapping ranges                                                                                                               |
+|  [5] | Supply Stacks            | solved | solved | Towers of Hanoi                                                                                                                  |
+|  [6] | Tuning Trouble           | solved | solved | Scan single line string                                                                                                          |
+|  [7] | No Space Left On Device  | solved | solved | Scanning a directory tree                                                                                                        |
+|  [8] | Treetop Tree House       | solved | solved | First 2D puzzle.                                                                                                                 |
+|  [9] | Rope Bridge              | solved | solved | Got problem in part 2, because I didn't realized that other knots can be two steps away now. Found solution by reading [reddit]. |
+| [10] | Cathode-Ray Tube         | solved | solved | Great puzzle! This time the solution is no number it is text displayed on a device!                                              |
+| [11] | Monkey in the Middle     | solved | solved | Part 1 was easy. Couldn't solve part 2 with out [video][Day11-Video] of [Sebastian Aigner][sebi] and [Olaf Gottschalk][olaf].    |
+| [12] | Hill Climbing Algorithm  | solved | solved | Took a lot of time implementing my first aStart (A*) search in Advent of Code.                                                   |
+| [13] | Distress Signal          | solved | solved | Needed two tries to solve it. Hard part was to simplify the input, but after solving this it worked.                             |
+| [14] | Regolith Reservoir       | solved | solved | Falling snow/sand. Very nice puzzle. Solved part 2 by just expanding my grid (brute force?)                                      |
+| [15] | Beacon Exclusion Zone    | solved | solved | Part 1 was easy, but failed in part 2 because it created all points. Replaced points with ranges this worked!                    |
+| [16] | Proboscidea Volcanium    | solved | solved | No idea how to solve this. Used solution of [Christoph Kainz][Day16-CK]                                                          |
+| [17] | PyroclasticFlow          | solved | OPEN   | Tetris! Solved part 2 on my own, but ran in many easy avoidable bug. Part 2 still open.                                          |
+| [18] | Boiling Boulders         | solved | solved | First 3D puzzle (lava cube). Solved part 1 on my own. Solved part 2 based on [solution from Todd Ginsberg][Day18-TG]             |
+| [19] | Not Enough Minerals      | solved | OPEN   | RTS. Solved part 1 based on [solution from Todd Ginsberg][Day19-TG]                                                              |
+| [20] | Grove Positioning System | OPEN   | OPEN   | not started                                                                                                                      |
+| [21] | Monkey Math              | OPEN   | OPEN   | not started                                                                                                                      |
+| [22] |                          | OPEN   | OPEN   | not started                                                                                                                      |
+| [23] |                          | OPEN   | OPEN   | not started                                                                                                                      |
+| [24] |                          | OPEN   | OPEN   | not started                                                                                                                      |
+| [25] |                          | OPEN   | OPEN   | not started                                                                                                                      |
 
 ## Resources
 
@@ -56,11 +61,17 @@
 [18]: src/main/kotlin/Day18BoilingBoulders.kt
 [19]: src/main/kotlin/Day19NotEnoughMinerals.kt
 [20]: src/main/kotlin/Day20GrovePositioningSystem.kt
+[21]: src/main/kotlin/Day21MonkeyMath.kt
+[22]: src/main/kotlin/Day22.kt
+[23]: src/main/kotlin/Day23.kt
+[24]: src/main/kotlin/Day24.kt
+[25]: src/main/kotlin/Day25.kt
 
 
 [Day11-Video]: https://youtu.be/1eBSyPe_9j0?list=PLlFc5cFwUnmwxQlKf8uWp-la8BVSTH47J
 [Day16-CK]: https://github.com/ckainz11/AdventOfCode2022/blob/main/src/main/kotlin/days/day16/Day16.kt
 [Day18-TG]: https://todd.ginsberg.com/post/advent-of-code/2022/day18/
+[Day19-TG]: https://todd.ginsberg.com/post/advent-of-code/2022/day19/
 
 [reddit]: https://www.reddit.com/r/adventofcode/
 [sebi]: https://github.com/SebastianAigner
