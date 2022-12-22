@@ -20,7 +20,7 @@
 | [14] | Regolith Reservoir       | solved | solved | Falling snow/sand. Very nice puzzle. Solved part 2 by just expanding my grid (brute force?)                                      |
 | [15] | Beacon Exclusion Zone    | solved | solved | Part 1 was easy, but failed in part 2 because it created all points. Replaced points with ranges this worked!                    |
 | [16] | Proboscidea Volcanium    | solved | solved | No idea how to solve this. Used solution of [Christoph Kainz][Day16-CK]                                                          |
-| [17] | PyroclasticFlow          | solved | OPEN   | Tetris! Solved part 2 on my own, but ran in many easy avoidable bug. Part 2 still open.                                          |
+| [17] | PyroclasticFlow          | solved | OPEN   | Tetris! Solved part 2 on my own, but ran in many easy avoidable bugs. Part 2 still open.                                         |
 | [18] | Boiling Boulders         | solved | solved | First 3D puzzle (lava cube). Solved part 1 on my own. Solved part 2 based on [solution from Todd Ginsberg][Day18-TG]             |
 | [19] | Not Enough Minerals      | solved | OPEN   | RTS. Solved part 1 based on [solution from Todd Ginsberg][Day19-TG]                                                              |
 | [20] | Grove Positioning System | OPEN   | OPEN   | not started                                                                                                                      |
