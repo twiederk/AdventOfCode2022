@@ -1,3 +1,4 @@
+import MonkeyMath.Companion.UNRESOLVED_VALUE
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested
@@ -61,42 +62,68 @@ class MonkeyMathTest {
 //        solve equation
 
         private lateinit var monkeyMath: MonkeyMath
+        private lateinit var numberValuesAndEquations: Pair<List<NumberValue>, List<Equation>>
 
         @BeforeEach
         fun beforeEach() {
             val rawData = MonkeyMath.loadData("Day21_TestData.txt")
-            val numbersAndEquations = MonkeyMath.parseData(rawData)
-            monkeyMath = MonkeyMath(numbersAndEquations.second.toMutableList())
+            numberValuesAndEquations = MonkeyMath.parseData(rawData)
+            monkeyMath = MonkeyMath(numberValuesAndEquations.second.toMutableList())
         }
 
 
         @Test
         fun insertKnownNumbersInEquations() {
-            // arrange
-            val rawData = MonkeyMath.loadData("Day21_TestData.txt")
-            val numbersAndEquations = MonkeyMath.parseData(rawData)
-            monkeyMath = MonkeyMath(numbersAndEquations.second.toMutableList())
 
             // act
-            monkeyMath.insertKnownNumbersInEquations(numbersAndEquations.first)
+            monkeyMath.insertKnownNumbersInEquations(numberValuesAndEquations.first)
 
             // assert
-            assertThat(monkeyMath.equations).filteredOn { it.number1.value != -1 && it.number2.value != -1 }
-                .contains(
-                    Equation(
-                        name = "ptdq",
-                        number1 = NumberValue(name = "humn", value = 5),
-                        number2 = NumberValue(name = "dvpt", value = 3),
-                        operator = '-'
-                    ),
+            assertThat(monkeyMath.equations).containsExactly(
+                Equation(
+                    name = "root",
+                    number1 = NumberValue(name = "pppw", value = UNRESOLVED_VALUE),
+                    number2 = NumberValue(name = "sjmn", value = UNRESOLVED_VALUE),
+                    operator = '+'
+                ),
+                Equation(
+                    name = "cczh",
+                    number1 = NumberValue(name = "sllz", value = 4),
+                    number2 = NumberValue(name = "lgvd", value = UNRESOLVED_VALUE),
+                    operator = '+'
+                ),
+                Equation(
+                    name = "ptdq",
+                    number1 = NumberValue(name = "humn", value = 5),
+                    number2 = NumberValue(name = "dvpt", value = 3),
+                    operator = '-'
+                ),
+                Equation(
+                    name = "sjmn",
+                    number1 = NumberValue(name = "drzm", value = UNRESOLVED_VALUE),
+                    number2 = NumberValue(name = "dbpl", value = 5),
+                    operator = '*'
+                ),
+                Equation(
+                    name = "pppw",
+                    number1 = NumberValue(name = "cczh", value = UNRESOLVED_VALUE),
+                    number2 = NumberValue(name = "lfqf", value = 4),
+                    operator = '/'
+                ),
+                Equation(
+                    name = "lgvd",
+                    number1 = NumberValue(name = "ljgn", value = 2),
+                    number2 = NumberValue(name = "ptdq", value = UNRESOLVED_VALUE),
+                    operator = '*'
+                ),
+                Equation(
+                    name = "drzm",
+                    number1 = NumberValue(name = "hmdt", value = 32),
+                    number2 = NumberValue(name = "zczc", value = 2),
+                    operator = '-'
+                ),
+            )
 
-                    Equation(
-                        name = "drzm",
-                        number1 = NumberValue(name = "hmdt", value = 32),
-                        number2 = NumberValue(name = "zczc", value = 2),
-                        operator = '-'
-                    )
-                )
         }
 
         @Test
@@ -123,7 +150,9 @@ class MonkeyMathTest {
             val equation = Equation(
                 name = "ptdq",
                 number1 = NumberValue(name = "humn", value = 5),
-                number2 = NumberValue(name = "dvpt", value = -1),
+                number2 = NumberValue(
+                    name = "dvpt", value = UNRESOLVED_VALUE
+                ),
                 operator = '-'
             )
 
@@ -137,30 +166,116 @@ class MonkeyMathTest {
         @Test
         fun evalAll() {
             // arrange
-            val equations = listOf(
-                Equation(
-                    name = "ptdq",
-                    number1 = NumberValue(name = "humn", value = 5),
-                    number2 = NumberValue(name = "dvpt", value = 3),
-                    operator = '-'
-                ),
+            val monkeyMath = MonkeyMath(
+                mutableListOf(
+                    Equation(
+                        name = "ptdq",
+                        number1 = NumberValue(name = "humn", value = 5),
+                        number2 = NumberValue(name = "dvpt", value = 3),
+                        operator = '-'
+                    ),
+                    Equation(
+                        name = "drzm",
+                        number1 = NumberValue(
+                            name = "hmdt", value = UNRESOLVED_VALUE
+                        ),
+                        number2 = NumberValue(name = "zczc", value = 2),
+                        operator = '-'
+                    )
 
-                Equation(
-                    name = "drzm",
-                    number1 = NumberValue(name = "hmdt", value = -1),
-                    number2 = NumberValue(name = "zczc", value = 2),
-                    operator = '-'
                 )
-
             )
 
             // act
-            val numberValues = monkeyMath.evalAll(equations)
+            val numberValues = monkeyMath.evalAll()
 
             // assert
             assertThat(numberValues).containsExactly(
                 NumberValue("ptdq", 2)
             )
         }
+
+        @Test
+        fun solve_1() {
+
+            // assert
+            val numberValues = numberValuesAndEquations.first
+
+            // act
+            val result = monkeyMath.solve(numberValues, 1)
+
+            // assert
+            assertThat(result).isEqualTo(-1)
+            assertThat(monkeyMath.equations).containsExactly(
+                Equation(
+                    name = "root",
+                    number1 = NumberValue(name = "pppw", value = UNRESOLVED_VALUE),
+                    number2 = NumberValue(name = "sjmn", value = UNRESOLVED_VALUE),
+                    operator = '+'
+                ),
+                Equation(
+                    name = "cczh",
+                    number1 = NumberValue(name = "sllz", value = 4),
+                    number2 = NumberValue(name = "lgvd", value = UNRESOLVED_VALUE),
+                    operator = '+'
+                ),
+                Equation(
+                    name = "ptdq",
+                    number1 = NumberValue(name = "humn", value = 5),
+                    number2 = NumberValue(name = "dvpt", value = 3),
+                    operator = '-'
+                ),
+                Equation(
+                    name = "sjmn",
+                    number1 = NumberValue(name = "drzm", value = UNRESOLVED_VALUE),
+                    number2 = NumberValue(name = "dbpl", value = 5),
+                    operator = '*'
+                ),
+                Equation(
+                    name = "pppw",
+                    number1 = NumberValue(name = "cczh", value = UNRESOLVED_VALUE),
+                    number2 = NumberValue(name = "lfqf", value = 4),
+                    operator = '/'
+                ),
+                Equation(
+                    name = "lgvd",
+                    number1 = NumberValue(name = "ljgn", value = 2),
+                    number2 = NumberValue(name = "ptdq", value = UNRESOLVED_VALUE),
+                    operator = '*'
+                ),
+                Equation(
+                    name = "drzm",
+                    number1 = NumberValue(name = "hmdt", value = 32),
+                    number2 = NumberValue(name = "zczc", value = 2),
+                    operator = '-'
+                ),
+            )
+
+        }
+
+        @Test
+        fun isRootFound_false() {
+            // arrange
+            val numberValues = listOf(NumberValue("x", 1), NumberValue("y", 2))
+
+            // act
+            val rootFound = monkeyMath.isRootFound(numberValues)
+
+            // assert
+            assertThat(rootFound).isFalse
+        }
+
+        @Test
+        fun isRootFound_true() {
+            // arrange
+            val numberValues = listOf(NumberValue("x", 1), NumberValue("y", 2), NumberValue("root", 10))
+
+            // act
+            val rootFound = monkeyMath.isRootFound(numberValues)
+
+            // assert
+            assertThat(rootFound).isTrue
+        }
     }
+
 }
