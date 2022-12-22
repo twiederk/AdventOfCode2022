@@ -34,4 +34,16 @@ class GrovePositioningSystemTest {
 
     }
 
+    @Test
+    fun init() {
+        // arrange
+        val input = listOf(1, 2, 3)
+
+        // act
+        val grovePositioningSystem = GrovePositioningSystem(input)
+
+        // assert
+        assertThat(grovePositioningSystem.originalList).extracting("value").containsExactly(1, 2, 3)
+        assertThat(grovePositioningSystem.mixList).extracting("value").containsExactly(1, 2, 3)
+    }
 }
