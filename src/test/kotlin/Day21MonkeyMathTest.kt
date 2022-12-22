@@ -254,6 +254,64 @@ class MonkeyMathTest {
         }
 
         @Test
+        fun solve_2() {
+
+            // assert
+            val numberValues = numberValuesAndEquations.first
+
+            // act
+            val result = monkeyMath.solve(numberValues, 2)
+
+            // assert
+            assertThat(result).isEqualTo(-1)
+            assertThat(monkeyMath.equations).containsExactly(
+                Equation(
+                    name = "root",
+                    number1 = NumberValue(name = "pppw", value = UNRESOLVED_VALUE),
+                    number2 = NumberValue(name = "sjmn", value = UNRESOLVED_VALUE),
+                    operator = '+'
+                ),
+                Equation(
+                    name = "cczh",
+                    number1 = NumberValue(name = "sllz", value = 4),
+                    number2 = NumberValue(name = "lgvd", value = UNRESOLVED_VALUE),
+                    operator = '+'
+                ),
+                Equation(
+                    name = "ptdq",
+                    number1 = NumberValue(name = "humn", value = 5),
+                    number2 = NumberValue(name = "dvpt", value = 3),
+                    operator = '-'
+                ),
+                Equation(
+                    name = "sjmn",
+                    number1 = NumberValue(name = "drzm", value = 30),
+                    number2 = NumberValue(name = "dbpl", value = 5),
+                    operator = '*'
+                ),
+                Equation(
+                    name = "pppw",
+                    number1 = NumberValue(name = "cczh", value = UNRESOLVED_VALUE),
+                    number2 = NumberValue(name = "lfqf", value = 4),
+                    operator = '/'
+                ),
+                Equation(
+                    name = "lgvd",
+                    number1 = NumberValue(name = "ljgn", value = 2),
+                    number2 = NumberValue(name = "ptdq", value = 2),
+                    operator = '*'
+                ),
+                Equation(
+                    name = "drzm",
+                    number1 = NumberValue(name = "hmdt", value = 32),
+                    number2 = NumberValue(name = "zczc", value = 2),
+                    operator = '-'
+                ),
+            )
+
+        }
+
+        @Test
         fun isRootFound_false() {
             // arrange
             val numberValues = listOf(NumberValue("x", 1), NumberValue("y", 2))

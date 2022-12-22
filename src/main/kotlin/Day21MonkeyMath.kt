@@ -3,8 +3,8 @@ class MonkeyMath(val equations: MutableList<Equation>) {
     fun insertKnownNumbersInEquations(numberValuesList: List<NumberValue>) {
         val numberValuesMap = numberValuesList.associate { it.name to it.value }
         for (equation in equations) {
-            equation.number1.value = numberValuesMap.getOrDefault(equation.number1.name, UNRESOLVED_VALUE)
-            equation.number2.value = numberValuesMap.getOrDefault(equation.number2.name, UNRESOLVED_VALUE)
+            equation.number1.value = numberValuesMap[equation.number1.name] ?: equation.number1.value
+            equation.number2.value = numberValuesMap[equation.number2.name] ?: equation.number2.value
         }
     }
 
