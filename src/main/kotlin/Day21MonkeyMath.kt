@@ -1,4 +1,15 @@
-class MonkeyMath {
+class MonkeyMath(val equations: MutableList<Equation>) {
+
+
+
+    fun insertKnownNumbersInEquations(numberValuesList: List<NumberValue>) {
+        val numberValuesMap = numberValuesList.associate { it.name to it.value }
+        for (equation in equations) {
+            equation.number1.value = numberValuesMap.getOrDefault(equation.number1.name, -1)
+            equation.number2.value = numberValuesMap.getOrDefault(equation.number2.name, -1)
+        }
+    }
+
     companion object {
         fun loadData(fileName: String): List<String> = Resources.resourceAsListOfString(fileName)
 
@@ -14,7 +25,6 @@ class MonkeyMath {
         }
 
         fun parseEquation(rawData: String): Equation {
-//            cczh: sllz + lgvd
             val split = rawData.split(": ")
             return Equation(
                 name = split[0],
@@ -29,7 +39,7 @@ class MonkeyMath {
 
 data class NumberValue(
     val name: String,
-    val value: Int,
+    var value: Int,
 )
 
 data class Equation(

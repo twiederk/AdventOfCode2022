@@ -1,7 +1,9 @@
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 
 class MonkeyMathTest {
+
 
     @Test
     fun loadData() {
@@ -48,6 +50,29 @@ class MonkeyMathTest {
         assertThat(equation.number2.name).isEqualTo("lgvd")
         assertThat(equation.number2.value).isEqualTo(-1)
         assertThat(equation.name).isEqualTo("cczh")
+    }
+
+    @Nested
+    inner class SolutionTest {
+//        create list of new know numbers
+//        place in known numbers
+//        solve equation
+
+
+
+        @Test
+        fun insertKnownNumbersInEquations() {
+            // arrange
+            val rawData = MonkeyMath.loadData("Day21_TestData.txt")
+            val numbersAndEquations = MonkeyMath.parseData(rawData)
+            val monkeyMath = MonkeyMath(numbersAndEquations.second.toMutableList())
+
+            // act
+            monkeyMath.insertKnownNumbersInEquations(numbersAndEquations.first)
+
+            // assert
+            println(monkeyMath.equations)
+        }
 
     }
 }
