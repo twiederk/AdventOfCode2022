@@ -8,13 +8,25 @@ class GrovePositioningSystem(input: List<Int>) {
     }
 
     fun mix(original: Original) {
-        val index = mixList.indexOf(original.data)
-        val toBeMoved = mixList.removeAt(index)
-        mixList.add((index + original.value) % originalList.size, toBeMoved)
+        val oldIndex = mixList.indexOf(original.data)
+        val toBeMoved = mixList.removeAt(oldIndex)
+        val newIndex = getNewIndex(oldIndex, original.value, originalList.size)
+        mixList.add(newIndex, toBeMoved)
+    }
+
+    fun getNewIndex(index: Int, step: Int, size: Int): Int {
+        return (index + step).mod(size)
+    }
+
+    fun mixAll() {
+        originalList.forEach { mix(it) }
     }
 
 }
 
-class Data(val value: Int)
+class Data(val value: Int) {
+
+    override fun toString(): String = value.toString()
+}
 
 data class Original(val value: Int, val data: Data)
