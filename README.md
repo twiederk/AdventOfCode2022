@@ -24,7 +24,7 @@
 | [18] | Boiling Boulders         | solved | solved | First 3D puzzle (lava cube). Solved part 1 on my own. Solved part 2 based on [solution from Todd Ginsberg][Day18-TG]             |
 | [19] | Not Enough Minerals      | solved | OPEN   | RTS. Solved part 1 based on [solution from Todd Ginsberg][Day19-TG]                                                              |
 | [20] | Grove Positioning System | OPEN   | OPEN   | not started                                                                                                                      |
-| [21] | Monkey Math              | OPEN   | OPEN   | not started                                                                                                                      |
+| [21] | Monkey Math              | solved | OPEN   | Solution of part 1 is unusable for solving part 2.                                                                               |
 | [22] |                          | OPEN   | OPEN   | not started                                                                                                                      |
 | [23] |                          | OPEN   | OPEN   | not started                                                                                                                      |
 | [24] |                          | OPEN   | OPEN   | not started                                                                                                                      |
@@ -62,7 +62,7 @@
 [19]: src/main/kotlin/Day19NotEnoughMinerals.kt
 [20]: src/main/kotlin/Day20GrovePositioningSystem.kt
 [21]: src/main/kotlin/Day21MonkeyMath.kt
-[22]: src/main/kotlin/Day22.kt
+[22]: src/main/kotlin/Day22MonkeyMap.kt
 [23]: src/main/kotlin/Day23.kt
 [24]: src/main/kotlin/Day24.kt
 [25]: src/main/kotlin/Day25.kt
