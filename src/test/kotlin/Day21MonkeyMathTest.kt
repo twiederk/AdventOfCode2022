@@ -133,5 +133,34 @@ class MonkeyMathTest {
             // assert
             assertThat(numberValue).isNull()
         }
+
+        @Test
+        fun evalAll() {
+            // arrange
+            val equations = listOf(
+                Equation(
+                    name = "ptdq",
+                    number1 = NumberValue(name = "humn", value = 5),
+                    number2 = NumberValue(name = "dvpt", value = 3),
+                    operator = '-'
+                ),
+
+                Equation(
+                    name = "drzm",
+                    number1 = NumberValue(name = "hmdt", value = -1),
+                    number2 = NumberValue(name = "zczc", value = 2),
+                    operator = '-'
+                )
+
+            )
+
+            // act
+            val numberValues = monkeyMath.evalAll(equations)
+
+            // assert
+            assertThat(numberValues).containsExactly(
+                NumberValue("ptdq", 2)
+            )
+        }
     }
 }

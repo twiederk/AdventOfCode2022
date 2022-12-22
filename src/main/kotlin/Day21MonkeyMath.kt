@@ -22,6 +22,10 @@ class MonkeyMath(val equations: MutableList<Equation>) {
         return NumberValue(equation.name, value)
     }
 
+    fun evalAll(equations: List<Equation>): List<NumberValue> {
+        return equations.mapNotNull { eval(it) }
+    }
+
     companion object {
         fun loadData(fileName: String): List<String> = Resources.resourceAsListOfString(fileName)
 
