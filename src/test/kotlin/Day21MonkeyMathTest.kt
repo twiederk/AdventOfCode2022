@@ -109,13 +109,29 @@ class MonkeyMathTest {
                 operator = '-'
             )
 
-
             // act
             val numberValue = monkeyMath.eval(equation)
 
             // assert
             assertThat(numberValue?.name).isEqualTo("ptdq")
             assertThat(numberValue?.value).isEqualTo(2)
+        }
+
+        @Test
+        fun eval_missingValue() {
+            // arrange
+            val equation = Equation(
+                name = "ptdq",
+                number1 = NumberValue(name = "humn", value = 5),
+                number2 = NumberValue(name = "dvpt", value = -1),
+                operator = '-'
+            )
+
+            // act
+            val numberValue = monkeyMath.eval(equation)
+
+            // assert
+            assertThat(numberValue).isNull()
         }
     }
 }

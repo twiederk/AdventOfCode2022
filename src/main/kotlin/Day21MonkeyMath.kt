@@ -11,6 +11,7 @@ class MonkeyMath(val equations: MutableList<Equation>) {
     }
 
     fun eval(equation: Equation): NumberValue? {
+        if (equation.number1.value == -1 || equation.number2.value == -1) return null
         val value = when(equation.operator) {
             '+' -> equation.number1.value + equation.number2.value
             '-' -> equation.number1.value - equation.number2.value
