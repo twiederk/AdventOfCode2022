@@ -201,8 +201,80 @@ class GrovePositioningSystemTest {
         grovePositioningSystem.mix(grovePositioningSystem.originalList[2])
 
         // assert
-        println("grovePositioningSystem = ${grovePositioningSystem.mixList}")
         assertThat(grovePositioningSystem.mixList).extracting("value").containsExactly(1, 2, 3, -2, -3, 0, 4)
+    }
+
+    @Test
+    fun mixAll_aocExample_step4() {
+        // arrange
+        val input = listOf(1, 2, -3, 3, -2, 0, 4)
+        val grovePositioningSystem = GrovePositioningSystem(input)
+        grovePositioningSystem.mix(grovePositioningSystem.originalList[0])
+        grovePositioningSystem.mix(grovePositioningSystem.originalList[1])
+        grovePositioningSystem.mix(grovePositioningSystem.originalList[2])
+
+        // act
+        grovePositioningSystem.mix(grovePositioningSystem.originalList[3])
+
+        // assert
+        assertThat(grovePositioningSystem.mixList).extracting("value").containsExactly(1, 2, -2, -3, 0, 3, 4)
+    }
+
+    @Test
+    fun mixAll_aocExample_step5() {
+        // arrange
+        val input = listOf(1, 2, -3, 3, -2, 0, 4)
+        val grovePositioningSystem = GrovePositioningSystem(input)
+        grovePositioningSystem.mix(grovePositioningSystem.originalList[0])
+        grovePositioningSystem.mix(grovePositioningSystem.originalList[1])
+        grovePositioningSystem.mix(grovePositioningSystem.originalList[2])
+        grovePositioningSystem.mix(grovePositioningSystem.originalList[3])
+
+        // act
+        grovePositioningSystem.mix(grovePositioningSystem.originalList[4])
+
+        // assert
+        //                                                                             1, 2, -2, -3, 0, 3, 4
+        assertThat(grovePositioningSystem.mixList).extracting("value").containsExactly(1, 2, -3, 0, 3, 4, -2)
+    }
+
+    @Test
+    fun mixAll_aocExample_step6() {
+        // arrange
+        val input = listOf(1, 2, -3, 3, -2, 0, 4)
+        val grovePositioningSystem = GrovePositioningSystem(input)
+        grovePositioningSystem.mix(grovePositioningSystem.originalList[0])
+        grovePositioningSystem.mix(grovePositioningSystem.originalList[1])
+        grovePositioningSystem.mix(grovePositioningSystem.originalList[2])
+        grovePositioningSystem.mix(grovePositioningSystem.originalList[3])
+        grovePositioningSystem.mix(grovePositioningSystem.originalList[4])
+
+        // act
+        grovePositioningSystem.mix(grovePositioningSystem.originalList[5])
+
+        // assert
+        //                                                                             1, 2, -3, 0, 3, 4, -2
+        assertThat(grovePositioningSystem.mixList).extracting("value").containsExactly(1, 2, -3, 0, 3, 4, -2)
+    }
+
+    @Test
+    fun mixAll_aocExample_step7() {
+        // arrange
+        val input = listOf(1, 2, -3, 3, -2, 0, 4)
+        val grovePositioningSystem = GrovePositioningSystem(input)
+        grovePositioningSystem.mix(grovePositioningSystem.originalList[0])
+        grovePositioningSystem.mix(grovePositioningSystem.originalList[1])
+        grovePositioningSystem.mix(grovePositioningSystem.originalList[2])
+        grovePositioningSystem.mix(grovePositioningSystem.originalList[3])
+        grovePositioningSystem.mix(grovePositioningSystem.originalList[4])
+        grovePositioningSystem.mix(grovePositioningSystem.originalList[5])
+
+        // act
+        grovePositioningSystem.mix(grovePositioningSystem.originalList[6])
+
+        // assert
+        //                                                              move number 4: 1, 2, -3, 0, 3, 4, -2
+        assertThat(grovePositioningSystem.mixList).extracting("value").containsExactly(1, 2, -3, 4, 0, 3, -2)
     }
 
     @Test
@@ -215,7 +287,6 @@ class GrovePositioningSystemTest {
         grovePositioningSystem.mix(grovePositioningSystem.originalList[1])
 
         // assert
-        println("grovePositioningSystem = ${grovePositioningSystem.mixList}")
         assertThat(grovePositioningSystem.mixList).extracting("value").containsExactly(1, 2, 3, -2, -3, 0, 4)
     }
 
@@ -249,24 +320,4 @@ class GrovePositioningSystemTest {
         assertThat(index).isEqualTo(5)
     }
 
-    @Test
-    fun checkIndexOf() {
-
-        // arrange
-        val data = Data(-3)
-
-        // act
-        val index = listOf(
-            Data(1),
-            data,
-            Data(2),
-            Data(3),
-            Data(-3),
-            Data(0),
-            Data(4)
-        ).indexOf(data)
-
-        // assert
-        assertThat(index).isEqualTo(1)
-    }
 }

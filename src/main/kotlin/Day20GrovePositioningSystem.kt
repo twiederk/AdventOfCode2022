@@ -14,8 +14,19 @@ class GrovePositioningSystem(input: List<Int>) {
         mixList.add(newIndex, toBeMoved)
     }
 
-    fun getNewIndex(index: Int, step: Int, size: Int): Int {
-        return (index + step).mod(size)
+    fun getNewIndex(oldIndex: Int, step: Int, size: Int): Int {
+        val fixedStep = if (step >= 0) {
+            if (oldIndex + step < size) {
+                step
+            } else {
+                step + 1
+            }
+        } else {
+            step - 1
+        }
+
+        var newIndex = (oldIndex + fixedStep).mod(size)
+        return newIndex
     }
 
     fun mixAll() {
@@ -30,3 +41,11 @@ class Data(val value: Int) {
 }
 
 data class Original(val value: Int, val data: Data)
+
+fun main() {
+    val input = Resources.resourceAsListOfInt("Day20_InputData.txt")
+    val grovePositioningSystem = GrovePositioningSystem(input)
+
+    grovePositioningSystem.mixAll()
+
+}
