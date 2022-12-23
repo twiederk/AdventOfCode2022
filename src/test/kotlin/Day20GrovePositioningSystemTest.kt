@@ -93,48 +93,6 @@ class GrovePositioningSystemTest {
     }
 
     @Test
-    fun mix_check1() {
-        // arrange
-        val input = listOf(1, 2, -1, 4)
-        val grovePositioningSystem = GrovePositioningSystem(input)
-
-        // act
-        grovePositioningSystem.mix(grovePositioningSystem.originalList[2])
-
-        // assert
-        assertThat(grovePositioningSystem.originalList).extracting("value").containsExactly(1, 2, -1, 4)
-        assertThat(grovePositioningSystem.mixList).extracting("value").containsExactly(1, -1, 2, 4)
-    }
-
-    @Test
-    fun mix_check2() {
-        // arrange
-        val input = listOf(1, 2, -3, 4)
-        val grovePositioningSystem = GrovePositioningSystem(input)
-
-        // act
-        grovePositioningSystem.mix(grovePositioningSystem.originalList[2])
-
-        // assert
-        assertThat(grovePositioningSystem.originalList).extracting("value").containsExactly(1, 2, -3, 4)
-        assertThat(grovePositioningSystem.mixList).extracting("value").containsExactly(1, 2, 4, -3)
-    }
-
-    @Test
-    fun mix_check3() {
-        // arrange
-        val input = listOf(1, 2, -5, 4)
-        val grovePositioningSystem = GrovePositioningSystem(input)
-
-        // act
-        grovePositioningSystem.mix(grovePositioningSystem.originalList[2])
-
-        // assert
-        assertThat(grovePositioningSystem.originalList).extracting("value").containsExactly(1, 2, -5, 4)
-        assertThat(grovePositioningSystem.mixList).extracting("value").containsExactly(1, -5, 2, 4)
-    }
-
-    @Test
     fun mixAll_ownExample() {
         // arrange
         val input = listOf(1, 2, 3)
@@ -308,7 +266,7 @@ class GrovePositioningSystemTest {
         val index = GrovePositioningSystem(emptyList()).getNewIndex(0, -3, 10)
 
         // assert
-        assertThat(index).isEqualTo(7)
+        assertThat(index).isEqualTo(6)
     }
 
     @Test
@@ -318,7 +276,7 @@ class GrovePositioningSystemTest {
         val index = GrovePositioningSystem(emptyList()).getNewIndex(0, -5, 10)
 
         // assert
-        assertThat(index).isEqualTo(5)
+        assertThat(index).isEqualTo(4)
     }
 
     @Test

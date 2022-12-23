@@ -16,11 +16,7 @@ class GrovePositioningSystem(input: List<Int>) {
 
     fun getNewIndex(oldIndex: Int, step: Int, size: Int): Int {
         val fixedStep = if (step >= 0) {
-            if (oldIndex + step < size) {
-                step
-            } else {
-                step + 1
-            }
+            step
         } else {
             step - 1
         }
@@ -28,14 +24,14 @@ class GrovePositioningSystem(input: List<Int>) {
         return (oldIndex + fixedStep).mod(size)
     }
 
-    fun mixAll() : Int {
+    fun mixAll(): Int {
         originalList.forEach { mix(it) }
         return calculateGroveCoordinates()
     }
 
     fun calculateGroveCoordinates(): Int {
-            val zero = mixList.indexOfFirst { it.value == 0 }
-            return listOf(1000, 2000, 3000).sumOf { mixList[(zero + it) % mixList.size].value }
+        val zero = mixList.indexOfFirst { it.value == 0 }
+        return listOf(1000, 2000, 3000).sumOf { mixList[(zero + it) % mixList.size].value }
     }
 
 }
