@@ -212,7 +212,7 @@ class GrovePositioningSystemTest {
         val grovePositioningSystem = GrovePositioningSystem(input)
 
         // act
-        grovePositioningSystem.mix(grovePositioningSystem.originalList[2])
+        grovePositioningSystem.mix(grovePositioningSystem.originalList[1])
 
         // assert
         println("grovePositioningSystem = ${grovePositioningSystem.mixList}")
@@ -249,4 +249,24 @@ class GrovePositioningSystemTest {
         assertThat(index).isEqualTo(4)
     }
 
+    @Test
+    fun checkIndexOf() {
+
+        // arrange
+        val data = Data(-3)
+
+        // act
+        val index = listOf(
+            Data(1),
+            data,
+            Data(2),
+            Data(3),
+            Data(-3),
+            Data(0),
+            Data(4)
+        ).indexOf(data)
+
+        // assert
+        assertThat(index).isEqualTo(1)
+    }
 }
