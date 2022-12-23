@@ -25,12 +25,17 @@ class GrovePositioningSystem(input: List<Int>) {
             step - 1
         }
 
-        var newIndex = (oldIndex + fixedStep).mod(size)
-        return newIndex
+        return (oldIndex + fixedStep).mod(size)
     }
 
-    fun mixAll() {
+    fun mixAll() : Int {
         originalList.forEach { mix(it) }
+        return calculateGroveCoordinates()
+    }
+
+    fun calculateGroveCoordinates(): Int {
+            val zero = mixList.indexOfFirst { it.value == 0 }
+            return listOf(1000, 2000, 3000).sumOf { mixList[(zero + it) % mixList.size].value }
     }
 
 }
@@ -46,6 +51,7 @@ fun main() {
     val input = Resources.resourceAsListOfInt("Day20_InputData.txt")
     val grovePositioningSystem = GrovePositioningSystem(input)
 
-    grovePositioningSystem.mixAll()
+    val groveCoordinates = grovePositioningSystem.mixAll()
 
+    println("groveCoordinates = $groveCoordinates")
 }

@@ -155,9 +155,10 @@ class GrovePositioningSystemTest {
         val grovePositioningSystem = GrovePositioningSystem(input)
 
         // act
-        grovePositioningSystem.mixAll()
+        val groveCoordinates = grovePositioningSystem.mixAll()
 
         // assert
+        assertThat(groveCoordinates).isEqualTo(3)
         assertThat(grovePositioningSystem.originalList).extracting("value").containsExactly(1, 2, -3, 3, -2, 0, 4)
         assertThat(grovePositioningSystem.mixList).extracting("value").containsExactly(1, 2, -3, 4, 0, 3, -2)
     }
@@ -320,4 +321,16 @@ class GrovePositioningSystemTest {
         assertThat(index).isEqualTo(5)
     }
 
+    @Test
+    fun calculateGroveCoordinates() {
+        // arrange
+        val grovePositioningSystem = GrovePositioningSystem(emptyList())
+        grovePositioningSystem.mixList = mutableListOf(Data(1), Data(2), Data(-3), Data(4), Data(0), Data(3), Data(-2))
+
+        // act
+        val groveCoordinates = grovePositioningSystem.calculateGroveCoordinates()
+
+        // assert
+        assertThat(groveCoordinates).isEqualTo(3)
+    }
 }
