@@ -1,4 +1,5 @@
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 
@@ -111,6 +112,7 @@ class NotEnoughMineralsTest {
         }
 
         @Test
+        @Disabled("runs endless")
         fun simulateAllPart2() {
 
             // act

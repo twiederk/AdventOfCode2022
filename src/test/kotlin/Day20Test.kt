@@ -229,4 +229,12 @@ class GrovePositioningSystemTest {
         // assert
         assertThat(groveCoordinates).isEqualTo(3)
     }
+
+    // -step move to the left
+    // element removed after newIndex:  oldIndex > newIndex => use new index
+    // element removed before newIndex: oldIndex < newIndex => use new index - 1
+
+    // +step move ot the right
+    // element removed after  newIndex: oldIndex > newIndex => use new index
+    // element removed before newIndex: oldIndex > newIndex => use new index - 1
 }
