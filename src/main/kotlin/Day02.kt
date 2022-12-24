@@ -139,7 +139,7 @@ enum class HandShape {
 
 fun main() {
 
-    val path = Path("src", "main", "resources", "Day02_Part1_InputData.txt")
+    val path = Path("src", "main", "resources", "Day02_InputData.txt")
     val rockPaperScissors = RockPaperScissors()
     val strategyGuide = rockPaperScissors.loadData(path)
     val totalScorePart1 = rockPaperScissors.play(strategyGuide) { _, char -> rockPaperScissors.decryptMe(char) }

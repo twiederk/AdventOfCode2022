@@ -241,7 +241,7 @@ data class Node(
 
 fun main() {
     val hillClimbingAlgorithm = HillClimbingAlgorithm()
-    val grid = hillClimbingAlgorithm.loadData(Path("src", "main", "resources", "Day12_Part1_InputData.txt"))
+    val grid = hillClimbingAlgorithm.loadData(Path("src", "main", "resources", "Day12_InputData.txt"))
     val start = hillClimbingAlgorithm.findStartNode(grid)
 
     val result = hillClimbingAlgorithm.aStar(grid, start)

@@ -2,7 +2,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import kotlin.io.path.Path
 
-class CalorieCountingTest {
+class Day01Test {
 
     @Test
     fun loadData() {
@@ -10,7 +10,7 @@ class CalorieCountingTest {
         val path = Path("src", "test", "resources", "Day01_TestData.txt")
 
         // act
-        val items = CalorieCounting().loadData(path)
+        val items = Day01().loadData(path)
 
         // assert
         assertThat(items).hasSize(14)
@@ -20,10 +20,10 @@ class CalorieCountingTest {
     fun createElves() {
         // arrange
         val path = Path("src", "test", "resources", "Day01_TestData.txt")
-        val items = CalorieCounting().loadData(path)
+        val items = Day01().loadData(path)
 
         // act
-        val elves = CalorieCounting().createElves(items)
+        val elves = Day01().createElves(items)
 
         // assert
         assertThat(elves).hasSize(5)
@@ -33,10 +33,10 @@ class CalorieCountingTest {
     fun createElvesWithFood() {
         // arrange
         val path = Path("src", "test", "resources", "Day01_TestData.txt")
-        val items = CalorieCounting().loadData(path)
+        val items = Day01().loadData(path)
 
         // act
-        val elves = CalorieCounting().createElves(items)
+        val elves = Day01().createElves(items)
 
         // assert
         assertThat(elves[0].backpack).hasSize(3)
@@ -50,11 +50,11 @@ class CalorieCountingTest {
     fun maxCalories() {
         // arrange
         val path = Path("src", "test", "resources", "Day01_TestData.txt")
-        val items = CalorieCounting().loadData(path)
-        val elves = CalorieCounting().createElves(items)
+        val items = Day01().loadData(path)
+        val elves = Day01().createElves(items)
 
         // act
-        val maxCalories = CalorieCounting().maxCalories(elves)
+        val maxCalories = Day01().maxCalories(elves)
 
         // assert
         assertThat(maxCalories).isEqualTo(24000)
@@ -64,11 +64,11 @@ class CalorieCountingTest {
     fun top3Calories() {
         // arrange
         val path = Path("src", "test", "resources", "Day01_TestData.txt")
-        val items = CalorieCounting().loadData(path)
-        val elves = CalorieCounting().createElves(items)
+        val items = Day01().loadData(path)
+        val elves = Day01().createElves(items)
 
         // act
-        val top3Calories = CalorieCounting().top3Calories(elves)
+        val top3Calories = Day01().top3Calories(elves)
 
         // assert
         assertThat(top3Calories).isEqualTo(45000)

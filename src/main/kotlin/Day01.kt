@@ -2,7 +2,7 @@ import java.nio.file.Path
 import kotlin.io.path.Path
 import kotlin.io.path.readLines
 
-class CalorieCounting {
+class Day01 {
 
     fun loadData(path: Path): List<Int> {
         return path.readLines().map { parseData(it) }
@@ -47,20 +47,20 @@ class Elf {
 
 fun main() {
 
-    val path = Path("src", "main", "resources", "Day01_Part1_InputData.txt")
-    val items = CalorieCounting().loadData(path)
-    val elves = CalorieCounting().createElves(items)
+    val path = Path("src", "main", "resources", "Day01_InputData.txt")
+    val items = Day01().loadData(path)
+    val elves = Day01().createElves(items)
     part1(elves)
     part2(elves)
 }
 
 private fun part1(elves: List<Elf>) {
 
-    val maxCalories = CalorieCounting().maxCalories(elves)
+    val maxCalories = Day01().maxCalories(elves)
     println("part 1 maxCalories = $maxCalories")
 }
 
 private fun part2(elves: List<Elf>) {
-    val top3Calories = CalorieCounting().top3Calories(elves)
+    val top3Calories = Day01().top3Calories(elves)
     println("part 2 top3Calories = $top3Calories")
 }

@@ -125,7 +125,7 @@ class TreetopTreeHouse(private val grid: List<List<Int>> = listOf()) {
 }
 
 fun main() {
-    val rawData = TreetopTreeHouse().loadData(Path("src", "main", "resources", "Day08_Part1_InputData.txt"))
+    val rawData = TreetopTreeHouse().loadData(Path("src", "main", "resources", "Day08_InputData.txt"))
     val grid = TreetopTreeHouse().convertToInts(rawData)
 
     // act

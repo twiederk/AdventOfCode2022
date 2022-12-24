@@ -84,7 +84,7 @@ sealed class OsCommand {
 
 fun main() {
     val noSpaceLeftOnDevice = NoSpaceLeftOnDevice()
-    val terminalOutput = noSpaceLeftOnDevice.loadData(Path("src", "main", "resources", "Day07_Part1_InputData.txt"))
+    val terminalOutput = noSpaceLeftOnDevice.loadData(Path("src", "main", "resources", "Day07_InputData.txt"))
     val totalSize = noSpaceLeftOnDevice.execute(terminalOutput, 100_000)
     println("totalSize = $totalSize")
 

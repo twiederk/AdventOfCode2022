@@ -130,7 +130,7 @@ class RucksackReorganization {
 
 fun main() {
 
-    val rucksack = RucksackReorganization().loadRucksack(Path("src", "main", "resources", "Day03_Part1_InputData.txt"))
+    val rucksack = RucksackReorganization().loadRucksack(Path("src", "main", "resources", "Day03_InputData.txt"))
     val sumOfPriorities = RucksackReorganization().reorganize(rucksack)
     println("sumOfPriorities = $sumOfPriorities")
 

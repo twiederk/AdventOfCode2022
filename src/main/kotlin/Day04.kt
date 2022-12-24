@@ -62,7 +62,7 @@ class CampCleanup {
 }
 
 fun main() {
-    val rawData = CampCleanup().loadData(Path("src", "main", "resources", "Day04_Part1_InputData.txt"))
+    val rawData = CampCleanup().loadData(Path("src", "main", "resources", "Day04_InputData.txt"))
     val sectionAssignments = CampCleanup().createSectionAssignments(rawData)
     val countSectionAssignments = CampCleanup().countSectionAssignments(sectionAssignments)
     println("countSectionAssignments = $countSectionAssignments")

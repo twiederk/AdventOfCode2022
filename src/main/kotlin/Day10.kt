@@ -56,7 +56,7 @@ class CathodeRayTube {
 
 fun main() {
     val cathodeRayTube = CathodeRayTube()
-    val instructions = cathodeRayTube.loadData(Path("src", "main", "resources", "Day10_Part1_InputData.txt"))
+    val instructions = cathodeRayTube.loadData(Path("src", "main", "resources", "Day10_InputData.txt"))
     val cycles = cathodeRayTube.cycles(instructions)
     val totalSignalStrength = cathodeRayTube.totalSignalStrength(cycles)
 

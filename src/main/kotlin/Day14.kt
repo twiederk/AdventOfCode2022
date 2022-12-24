@@ -168,7 +168,7 @@ data class Line(val startX: Int, val startY: Int, val endX: Int, val endY: Int)
 
 fun main() {
     val regolithReservoir = RegolithReservoir()
-    val rawData = regolithReservoir.loadData(Path("src", "main", "resources", "Day14_Part1_InputData.txt"))
+    val rawData = regolithReservoir.loadData(Path("src", "main", "resources", "Day14_InputData.txt"))
     val lines = regolithReservoir.createLines(rawData)
     val startPosition = Position(500, 0)
 

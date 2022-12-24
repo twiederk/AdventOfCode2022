@@ -29,7 +29,7 @@ class TuningTrouble {
 
 fun main() {
     val tuningTrouble = TuningTrouble()
-    val dataStream = tuningTrouble.loadData(Path("src", "main", "resources", "Day06_Part1_InputData.txt"))
+    val dataStream = tuningTrouble.loadData(Path("src", "main", "resources", "Day06_InputData.txt"))
     val windows = tuningTrouble.createWindows(dataStream, 4)
     val position = tuningTrouble.findStartOfPacketMarker(windows, 4)
     println("position = $position")

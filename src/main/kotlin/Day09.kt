@@ -147,7 +147,7 @@ class RopeCommand(
 
 fun main() {
     val ropeBridge = RopeBridge()
-    val rawData = ropeBridge.loadData(Path("src", "main", "resources", "Day09_Part1_InputData.txt"))
+    val rawData = ropeBridge.loadData(Path("src", "main", "resources", "Day09_InputData.txt"))
     val ropeCommands = ropeBridge.parseRopeCommands(rawData)
 
     ropeBridge.executeRopeCommands(ropeCommands)

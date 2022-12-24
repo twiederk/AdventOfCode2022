@@ -260,7 +260,7 @@ class RopeBridgeTest {
     fun executeRopeCommand_moveWholeRealData() {
         // arrange
         val ropeBridge = RopeBridge()
-        val rawData = ropeBridge.loadData(Path("src", "main", "resources", "Day09_Part1_InputData.txt"))
+        val rawData = ropeBridge.loadData(Path("src", "main", "resources", "Day09_InputData.txt"))
         val ropeCommands = ropeBridge.parseRopeCommands(rawData)
 
         // act

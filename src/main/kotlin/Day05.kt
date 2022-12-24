@@ -85,7 +85,7 @@ fun main() {
 
     check(supplyStacks.topCrates() == "BPFQDDQVJ") { "Storage is wrong" }
 
-    val rawCommands = supplyStacks.loadData(Path("src", "main", "resources", "Day05_Part1_InputData.txt"), 10)
+    val rawCommands = supplyStacks.loadData(Path("src", "main", "resources", "Day05_InputData.txt"), 10)
     val commands = supplyStacks.parseCommands(rawCommands)
     supplyStacks.executeCommands(commands)
     println("CrateMover 9000.topCrates() = ${supplyStacks.topCrates()}")

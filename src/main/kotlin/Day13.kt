@@ -156,7 +156,7 @@ class SignalComparator: Comparator<String> {
 
 fun main() {
     val distressSignal = DistressSignal()
-    val packets = distressSignal.loadData(Path("src", "main", "resources", "Day13_Part1_InputData.txt"))
+    val packets = distressSignal.loadData(Path("src", "main", "resources", "Day13_InputData.txt"))
     val result = distressSignal.decodeAll(packets)
 
     println("result = $result")
