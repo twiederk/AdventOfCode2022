@@ -230,20 +230,26 @@ class Day20Test {
         assertThat(groveCoordinates).isEqualTo(3)
     }
 
-    // -step move to the left
-    // element removed after newIndex:  oldIndex > newIndex => use new index
-    // element removed before newIndex: oldIndex < newIndex => use new index - 1
-    @Test
-    fun getNewIndex_leftLower() {
-        // arrange
+    @Nested
+    inner class NewIndexCalculation {
+        // -step move to the left
+        // element removed after newIndex:  oldIndex > newIndex => use new index
+        // element removed before newIndex: oldIndex < newIndex => use new index - 1
+        @Test
+        fun getNewIndex_leftLower() {
+            // arrange
+            val day20 = Day20(emptyList())
 
-        // act
 
+            // act
+            val newIndex = day20.getNewIndex(5, -3, 7)
 
-        // assert
+            // assert
+            assertThat(newIndex).isEqualTo(2)
 
+        }
+        // +step move ot the right
+        // element removed after  newIndex: oldIndex > newIndex => use new index
+        // element removed before newIndex: oldIndex > newIndex => use new index - 1
     }
-    // +step move ot the right
-    // element removed after  newIndex: oldIndex > newIndex => use new index
-    // element removed before newIndex: oldIndex > newIndex => use new index - 1
 }

@@ -15,13 +15,7 @@ class Day20(input: List<Int>) {
     }
 
     fun getNewIndex(oldIndex: Int, step: Int, size: Int): Int {
-        val fixedStep = if (step >= 0) {
-            step
-        } else {
-            step - 1
-        }
-
-        return (oldIndex + fixedStep).mod(size)
+        return (oldIndex + step).mod(size)
     }
 
     fun mixAll(): Int {
