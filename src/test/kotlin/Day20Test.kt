@@ -77,7 +77,7 @@ class Day20Test {
     }
 
     @Test
-    fun mixAll_aocExample_step1() {
+    fun mixAll_aocExample_step1_moveNumber_1() {
         // arrange
         val input = listOf(1, 2, -3, 3, -2, 0, 4)
         val day20 = Day20(input)
@@ -90,7 +90,7 @@ class Day20Test {
     }
 
     @Test
-    fun mixAll_aocExample_step2() {
+    fun mixAll_aocExample_step2_moveNumber_2() {
         // arrange
         val input = listOf(1, 2, -3, 3, -2, 0, 4)
         val day20 = Day20(input)
@@ -104,7 +104,7 @@ class Day20Test {
     }
 
     @Test
-    fun mixAll_aocExample_step3() {
+    fun mixAll_aocExample_step3_moveNumber_minus3() {
         // arrange
         val input = listOf(1, 2, -3, 3, -2, 0, 4)
         val day20 = Day20(input)
@@ -119,7 +119,7 @@ class Day20Test {
     }
 
     @Test
-    fun mixAll_aocExample_step4() {
+    fun mixAll_aocExample_step4_moveNumber_3() {
         // arrange
         val input = listOf(1, 2, -3, 3, -2, 0, 4)
         val day20 = Day20(input)
@@ -135,7 +135,7 @@ class Day20Test {
     }
 
     @Test
-    fun mixAll_aocExample_step5() {
+    fun mixAll_aocExample_step5_moveNumber_minus2() {
         // arrange
         val input = listOf(1, 2, -3, 3, -2, 0, 4)
         val day20 = Day20(input)
@@ -148,12 +148,12 @@ class Day20Test {
         day20.mix(day20.originalList[4])
 
         // assert
-        //                                                                             1, 2, -2, -3, 0, 3, 4
-        assertThat(day20.mixList).extracting("value").containsExactly(1, 2, -3, 0, 3, 4, -2)
+        //                                                            1, 2, -2, -3, 0, 3,  4
+        assertThat(day20.mixList).extracting("value").containsExactly(1, 2, -3,  0, 3, 4, -2)
     }
 
     @Test
-    fun mixAll_aocExample_step6() {
+    fun mixAll_aocExample_step6_moveNumber_zero() {
         // arrange
         val input = listOf(1, 2, -3, 3, -2, 0, 4)
         val day20 = Day20(input)
@@ -167,12 +167,12 @@ class Day20Test {
         day20.mix(day20.originalList[5])
 
         // assert
-        //                                                                             1, 2, -3, 0, 3, 4, -2
+        //                                                            1, 2, -3, 0, 3, 4, -2
         assertThat(day20.mixList).extracting("value").containsExactly(1, 2, -3, 0, 3, 4, -2)
     }
 
     @Test
-    fun mixAll_aocExample_step7() {
+    fun mixAll_aocExample_step7_moveNumber_4() {
         // arrange
         val input = listOf(1, 2, -3, 3, -2, 0, 4)
         val day20 = Day20(input)
@@ -232,11 +232,11 @@ class Day20Test {
 
     @Nested
     inner class NewIndexCalculation {
+
         // -step move to the left
         // element removed after newIndex:  oldIndex > newIndex => use new index
-        // element removed before newIndex: oldIndex < newIndex => use new index - 1
         @Test
-        fun getNewIndex_leftLower() {
+        fun getNewIndex_leftAfter() {
             // arrange
             val day20 = Day20(emptyList())
 
@@ -248,8 +248,48 @@ class Day20Test {
             assertThat(newIndex).isEqualTo(2)
 
         }
+
+        // -step move to the left
+        // element removed before newIndex: oldIndex < newIndex => use new index - 1
+        @Test
+        fun getNewIndex_leftBefore() {
+            // arrange
+            val day20 = Day20(emptyList())
+
+            // act
+            val newIndex = day20.getNewIndex(5, -6, 7)
+
+            // assert
+            assertThat(newIndex).isEqualTo(5)
+        }
+
         // +step move ot the right
         // element removed after  newIndex: oldIndex > newIndex => use new index
-        // element removed before newIndex: oldIndex > newIndex => use new index - 1
+        @Test
+        fun getNewIndex_rightAfter() {
+            // arrange
+            val day20 = Day20(emptyList())
+
+            // act
+            val newIndex = day20.getNewIndex(5, 2, 10)
+
+            // assert
+            assertThat(newIndex).isEqualTo(7)
+        }
+
+        // +step move ot the right
+        // element removed before newIndex: oldIndex < newIndex => use new index - 1
+        @Test
+        fun getNewIndex_rightBefore() {
+            // arrange
+            val day20 = Day20(emptyList())
+
+            // act
+            val newIndex = day20.getNewIndex(5, 7, 10)
+
+            // assert
+            assertThat(newIndex).isEqualTo(1)
+        }
     }
+
 }
