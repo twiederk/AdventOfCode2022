@@ -1,4 +1,4 @@
-class GrovePositioningSystem(input: List<Int>) {
+class Day20(input: List<Int>) {
 
     val originalList: List<Original> = input.map { Original(value = it, data = Data(it)) }
     var mixList: MutableList<Data> = mutableListOf()
@@ -45,9 +45,9 @@ data class Original(val value: Int, val data: Data)
 
 fun main() {
     val input = Resources.resourceAsListOfInt("Day20_InputData.txt")
-    val grovePositioningSystem = GrovePositioningSystem(input)
+    val day20 = Day20(input)
 
-    val groveCoordinates = grovePositioningSystem.mixAll()
+    val groveCoordinates = day20.mixAll()
 
     println("groveCoordinates = $groveCoordinates")
 }
