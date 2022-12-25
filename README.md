@@ -38,8 +38,12 @@
 
 
 ## To Do
-* Day 12: solve with breadth-first search (BFS)
+* Day 12:
+  * solve with breadth-first search (BFS)
+  * Implement BFS and aStar as visible solution
+  * Check how to fulfill licence of PixelGameEngine 
 * Day 18: replace foreach with while (queue.isNotEmpty()) because it is more readable
+* Day 10, 12 and 14 have render methods => check them
 
 [1]: src/main/kotlin/Day01.kt
 [2]: src/main/kotlin/Day02.kt
