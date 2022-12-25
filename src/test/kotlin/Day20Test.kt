@@ -256,11 +256,14 @@ class Day20Test {
             // arrange
             val day20 = Day20(emptyList())
 
+            // assert
+            //                                                              1, 2, -2, -3, 0, 3,  4
+            //assertThat(day20.mixList).extracting("value").containsExactly(1, 2, -3,  0, 3, 4, -2)
             // act
-            val newIndex = day20.getNewIndex(5, -6, 7)
+            val newIndex = day20.getNewIndex(2, -2, 7)
 
             // assert
-            assertThat(newIndex).isEqualTo(5)
+            assertThat(newIndex).isEqualTo(6)
         }
 
         // +step move ot the right
