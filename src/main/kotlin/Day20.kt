@@ -18,10 +18,10 @@ class Day20(input: List<Int>) {
         val newIndex: Int
         if (step < 0) {
             newIndex = (oldIndex + step - 1).mod(size)
-            return if (oldIndex > newIndex) newIndex + 1 else newIndex
+            return if (newIndex > oldIndex) newIndex else newIndex + 1
         }
         newIndex = (oldIndex + step).mod(size)
-        return if (oldIndex > newIndex) newIndex - 1 else newIndex
+        return if (newIndex > oldIndex) newIndex else newIndex + 1
 
     }
 

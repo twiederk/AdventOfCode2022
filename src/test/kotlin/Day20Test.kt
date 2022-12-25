@@ -187,7 +187,7 @@ class Day20Test {
         day20.mix(day20.originalList[6])
 
         // assert
-        //                                                              move number 4: 1, 2, -3, 0, 3, 4, -2
+        //                                             move number 4: 1, 2, -3, 0, 3, 4, -2
         assertThat(day20.mixList).extracting("value").containsExactly(1, 2, -3, 4, 0, 3, -2)
     }
 
@@ -234,9 +234,9 @@ class Day20Test {
     inner class NewIndexCalculation {
 
         // -step move to the left
-        // element removed after newIndex:  oldIndex > newIndex => use new index
+        // insert element before old index:  newIndex < oldIndex
         @Test
-        fun getNewIndex_leftAfter() {
+        fun getNewIndex_moveLeft_insertBeforeOldIndex() {
             // arrange
             val day20 = Day20(emptyList())
 
@@ -250,15 +250,15 @@ class Day20Test {
         }
 
         // -step move to the left
-        // element removed before newIndex: oldIndex < newIndex => use new index - 1
+        // insert element after oldIndex: newIndex > oldIndex
         @Test
-        fun getNewIndex_leftBefore() {
+        fun getNewIndex_moveLeft_insertAfterOldIndex() {
             // arrange
             val day20 = Day20(emptyList())
 
             // assert
-            //                                                              1, 2, -2, -3, 0, 3,  4
-            //assertThat(day20.mixList).extracting("value").containsExactly(1, 2, -3,  0, 3, 4, -2)
+            //                                                                1, 2, -2, -3, 0, 3,  4
+            // assertThat(day20.mixList).extracting("value").containsExactly( 1, 2, -3,  0, 3, 4, -2)
             // act
             val newIndex = day20.getNewIndex(2, -2, 7)
 
@@ -267,31 +267,33 @@ class Day20Test {
         }
 
         // +step move ot the right
-        // element removed after  newIndex: oldIndex > newIndex => use new index
+        // insert element before oldIndex: newIndex < oldIndex
         @Test
-        fun getNewIndex_rightAfter() {
+        fun getNewIndex_moveRight_insertBeforeOldIndex() {
             // arrange
             val day20 = Day20(emptyList())
 
+            //                                                move number 4:  1, 2, -3, 0, 3, 4, -2
+            // assertThat(day20.mixList).extracting("value").containsExactly( 1, 2, -3, 4, 0, 3, -2)
             // act
-            val newIndex = day20.getNewIndex(5, 2, 10)
+            val newIndex = day20.getNewIndex(5, 4, 7)
 
             // assert
-            assertThat(newIndex).isEqualTo(7)
+            assertThat(newIndex).isEqualTo(3)
         }
 
         // +step move ot the right
-        // element removed before newIndex: oldIndex < newIndex => use new index - 1
+        // insert element after oldIndex: newIndex > oldIndex
         @Test
-        fun getNewIndex_rightBefore() {
+        fun getNewIndex_moveRight_insertAfterOldIndex() {
             // arrange
             val day20 = Day20(emptyList())
 
             // act
-            val newIndex = day20.getNewIndex(5, 7, 10)
+            val newIndex = day20.getNewIndex(2, 3, 10)
 
             // assert
-            assertThat(newIndex).isEqualTo(1)
+            assertThat(newIndex).isEqualTo(5)
         }
     }
 
