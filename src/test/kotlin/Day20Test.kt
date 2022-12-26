@@ -211,7 +211,7 @@ class Day20Test {
         val day20 = Day20(input)
 
         // act
-        day20.mix(day20.originalList[6])
+        day20.mix(day20.originalList[5])
 
         // assert
         assertThat(day20.mixList).extracting("value").containsExactly(1, 2, -3, 4, 0, 3, -2)
