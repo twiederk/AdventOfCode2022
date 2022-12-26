@@ -240,7 +240,6 @@ class Day20Test {
             // arrange
             val day20 = Day20(emptyList())
 
-
             // act
             val newIndex = day20.getNewIndex(5, -3, 7)
 
@@ -256,10 +255,9 @@ class Day20Test {
             // arrange
             val day20 = Day20(emptyList())
 
-            // assert
-            //                                                                1, 2, -2, -3, 0, 3,  4
-            // assertThat(day20.mixList).extracting("value").containsExactly( 1, 2, -3,  0, 3, 4, -2)
             // act
+            //               move number -2:  1, 2, -2, -3, 0, 3,  4
+            //                              ( 1, 2, -3,  0, 3, 4, -2)
             val newIndex = day20.getNewIndex(2, -2, 7)
 
             // assert
@@ -273,9 +271,9 @@ class Day20Test {
             // arrange
             val day20 = Day20(emptyList())
 
-            //                                                move number 4:  1, 2, -3, 0, 3, 4, -2
-            // assertThat(day20.mixList).extracting("value").containsExactly( 1, 2, -3, 4, 0, 3, -2)
             // act
+            //                move number 4:  1, 2, -3, 0, 3, 4, -2
+            //                              ( 1, 2, -3, 4, 0, 3, -2)
             val newIndex = day20.getNewIndex(5, 4, 7)
 
             // assert
@@ -294,6 +292,22 @@ class Day20Test {
 
             // assert
             assertThat(newIndex).isEqualTo(5)
+        }
+
+        // zero move
+        // element stays at same position: newIndex > oldIndex
+        @Test
+        fun getNewIndex_moveZero_stayAtSamePosition() {
+            // arrange
+            val day20 = Day20(emptyList())
+
+            // act
+            //                   move zero:  1, 2, -3, 0, 3, 4, -2
+            //                              (1, 2, -3, 0, 3, 4, -2)
+            val newIndex = day20.getNewIndex(3, 0, 7)
+
+            // assert
+            assertThat(newIndex).isEqualTo(3)
         }
     }
 
