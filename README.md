@@ -39,9 +39,10 @@
 
 ## To Do
 * Day 12:
-  * solve with breadth-first search (BFS)
   * Implement BFS and aStar as visible solution
-  * Check how to fulfill licence of PixelGameEngine 
+  * Check how to fulfill licence of PixelGameEngine
+  * Add visible solution form PGE Tutorial repo
+  * solve with breadth-first search (BFS)
 * Day 18: replace foreach with while (queue.isNotEmpty()) because it is more readable
 * Day 10, 12 and 14 have render methods => check them
 
