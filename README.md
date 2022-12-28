@@ -23,7 +23,7 @@
 | [17] | PyroclasticFlow          | solved | OPEN   | Tetris! Solved part 2 on my own, but ran in many easy avoidable bugs. Part 2 still open.                                         |
 | [18] | Boiling Boulders         | solved | solved | First 3D puzzle (lava cube). Solved part 1 on my own. Solved part 2 based on [solution from Todd Ginsberg][Day18-TG]             |
 | [19] | Not Enough Minerals      | solved | OPEN   | RTS. Solved part 1 based on [solution from Todd Ginsberg][Day19-TG]                                                              |
-| [20] | Grove Positioning System | OPEN   | OPEN   | not started                                                                                                                      |
+| [20] | Grove Positioning System | solved | OPEN   | Failed with day 20 part 1, but copied solution of Todd Ginsberg.                                                                 |
 | [21] | Monkey Math              | solved | OPEN   | Solution of part 1 is unusable for solving part 2.                                                                               |
 | [22] |                          | OPEN   | OPEN   | not started                                                                                                                      |
 | [23] |                          | OPEN   | OPEN   | not started                                                                                                                      |
@@ -35,6 +35,7 @@
 * [Todd Ginsberg blog][todd]
 * [Advent of code Jetbrains Playlist][jetbrains]
 * [reddit][reddit]
+* [Tobias Bahl Repo][tobi]
 
 
 ## To Do
@@ -82,4 +83,5 @@
 [sebi]: https://github.com/SebastianAigner
 [olaf]: https://github.com/Zordid
 [todd]: https://todd.ginsberg.com/post/advent-of-code/2022/
+[tobi]: https://github.com/tobias-bahls/advent-of-code
 [jetbrains]: https://www.youtube.com/playlist?list=PLlFc5cFwUnmwxQlKf8uWp-la8BVSTH47J
