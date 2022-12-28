@@ -1,4 +1,31 @@
-class Day20(input: List<Int>) {
+class Day20(private val input: List<Int>) {
+
+    private data class MappedNumber(val originalIndex: Int, val value: Long)
+
+    private fun List<MappedNumber>.groveCoordinates(): Long {
+        val zero = indexOfFirst { it.value == 0L }
+        return listOf(1000, 2000, 3000).sumOf { this[(zero + it) % size].value }
+    }
+
+    private fun parseInput(): MutableList<MappedNumber> =
+        input.mapIndexed { index, value ->
+            MappedNumber(index, value.toLong())
+        }.toMutableList()
+
+    private fun MutableList<MappedNumber>.decrypt() {
+        indices.forEach { originalIndex ->
+            val index = indexOfFirst { it.originalIndex == originalIndex }
+            val toBeMoved = removeAt(index)
+            add((index + toBeMoved.value).mod(size), toBeMoved)
+        }
+    }
+
+
+    fun solvePart1(): Long {
+        val theList = parseInput()
+        theList.decrypt()
+        return theList.groveCoordinates()
+    }
 
     val originalList: List<Original> = input.map { Original(value = it, data = Data(it)) }
     var mixList: MutableList<Data> = mutableListOf()
@@ -49,7 +76,7 @@ fun main() {
     val input = Resources.resourceAsListOfInt("Day20_InputData.txt")
     val day20 = Day20(input)
 
-    val groveCoordinates = day20.mixAll()
+    val groveCoordinates = day20.solvePart1()
 
     println("groveCoordinates = $groveCoordinates")
 }
