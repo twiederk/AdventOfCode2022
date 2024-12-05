@@ -20,15 +20,15 @@
 | [14] | [Regolith Reservoir]       | &#9733; | &#9733; | Falling snow/sand. Very nice puzzle. Solved part 2 by just expanding my grid (brute force?)                                      |
 | [15] | [Beacon Exclusion Zone]    | &#9733; | &#9733; | Part 1 was easy, but failed in part 2 because it created all points. Replaced points with ranges this worked!                    |
 | [16] | [Proboscidea Volcanium]    | &#9733; | &#9733; | No idea how to solve this. Used solution of [Christoph Kainz][Day16-CK]                                                          |
-| [17] | [PyroclasticFlow]          | &#9733; |  OPEN   | Tetris! Solved part 2 on my own, but ran in many easy avoidable bugs. Part 2 still open.                                         |
+| [17] | [PyroclasticFlow]          | &#9733; |         | Tetris! Solved part 2 on my own, but ran in many easy avoidable bugs. Part 2 still open.                                         |
 | [18] | [Boiling Boulders]         | &#9733; | &#9733; | First 3D puzzle (lava cube). Solved part 1 on my own. Solved part 2 based on [solution from Todd Ginsberg][Day18-TG]             |
-| [19] | [Not Enough Minerals]      | &#9733; |  OPEN   | RTS. Solved part 1 based on [solution from Todd Ginsberg][Day19-TG]                                                              |
-| [20] | [Grove Positioning System] | &#9733; |  OPEN   | not started                                                                                                                      |
-| [21] | [Monkey Math]              | &#9733; |  OPEN   | Solution of part 1 is unusable for solving part 2.                                                                               |
-| [22] | [Monkey Map]               |  OPEN   |  OPEN   | not started                                                                                                                      |
-| [23] | [Unstable Diffusion]       |  OPEN   |  OPEN   | not started                                                                                                                      |
-| [24] | [Blizzard Basin]           |  OPEN   |  OPEN   | not started                                                                                                                      |
-| [25] | [Full of Hot Air]          |  OPEN   |  OPEN   | not started                                                                                                                      |
+| [19] | [Not Enough Minerals]      | &#9733; |         | RTS. Solved part 1 based on [solution from Todd Ginsberg][Day19-TG]                                                              |
+| [20] | [Grove Positioning System] | &#9733; |         | not started                                                                                                                      |
+| [21] | [Monkey Math]              | &#9733; |         | Solution of part 1 is unusable for solving part 2.                                                                               |
+| [22] | [Monkey Map]               |         |         | not started                                                                                                                      |
+| [23] | [Unstable Diffusion]       |         |         | not started                                                                                                                      |
+| [24] | [Blizzard Basin]           |         |         | not started                                                                                                                      |
+| [25] | [Full of Hot Air]          |         |         | not started                                                                                                                      |
 
 ## Resources
 
